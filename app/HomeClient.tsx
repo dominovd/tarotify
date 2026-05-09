@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CARDS } from '@/lib/cards'
 
 type DrawnCard = { card: typeof CARDS[0]; flipped: boolean; reversed: boolean }
@@ -151,11 +152,19 @@ export default function HomeClient() {
             >
               <div style={{ width:'100%', height:'100%', position:'relative', transformStyle:'preserve-3d', transition:'transform .7s cubic-bezier(.4,0,.2,1)', transform: d.flipped ? 'rotateY(180deg)' : 'none' }}>
                 <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', borderRadius:12, background:'linear-gradient(145deg,#1a1a3a,#0d0d2b)', border:'2px solid rgba(201,168,76,.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'2.5rem', opacity:.3 }}>☽✦☾</div>
-                <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', transform:'rotateY(180deg)', borderRadius:12, background:'linear-gradient(145deg,#12122a,#08082a)', border:'2px solid rgba(201,168,76,.4)', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'.5rem', padding:'1rem', textAlign:'center' }}>
-                  <div style={{ fontSize:'2.5rem', transform: d.reversed ? 'rotate(180deg)' : 'none' }}>{d.card.symbol}</div>
-                  <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.8rem', color:'var(--gold)', letterSpacing:'.06em' }}>{d.card.name}</div>
-                  <div style={{ fontSize:'.65rem', color:'var(--muted)', letterSpacing:'.1em', textTransform:'uppercase' }}>{d.card.suitLabel}</div>
-                  {d.reversed && <div style={{ fontSize:'.6rem', color:'#9a6a4c', letterSpacing:'.08em', textTransform:'uppercase' }}>Reversed</div>}
+                <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', transform:'rotateY(180deg)', borderRadius:12, overflow:'hidden', border:'2px solid rgba(201,168,76,.4)' }}>
+                  <Image
+                    src={`/cards/${d.card.slug}.webp`}
+                    alt={d.card.name}
+                    fill
+                    sizes="140px"
+                    style={{ objectFit:'cover', transform: d.reversed ? 'rotate(180deg)' : 'none' }}
+                  />
+                  <div style={{ position:'absolute', bottom:0, left:0, right:0, padding:'.5rem .4rem', background:'linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 100%)', textAlign:'center' }}>
+                    <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.65rem', color:'#e8d5a0', letterSpacing:'.06em' }}>{d.card.name}</div>
+                    <div style={{ fontSize:'.55rem', color:'rgba(232,213,160,.6)', letterSpacing:'.1em', textTransform:'uppercase', marginTop:1 }}>{d.card.suitLabel}</div>
+                    {d.reversed && <div style={{ fontSize:'.5rem', color:'#c9a84c', letterSpacing:'.08em', textTransform:'uppercase', marginTop:1 }}>Reversed</div>}
+                  </div>
                 </div>
               </div>
             </div>
@@ -182,7 +191,15 @@ export default function HomeClient() {
       <div style={{ display:'flex', gap:'.75rem', justifyContent:'center', marginBottom:'2.5rem', flexWrap:'wrap' }}>
         {drawn.map((d, i) => (
           <div key={i} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.4rem', padding:'.75rem', background:'rgba(201,168,76,.06)', border:'1px solid var(--border)', borderRadius:10, minWidth:100 }}>
-            <div style={{ fontSize:'1.5rem', transform: d.reversed ? 'rotate(180deg)' : 'none' }}>{d.card.symbol}</div>
+            <div style={{ position:'relative', width:56, height:84, borderRadius:6, overflow:'hidden', border:'1px solid rgba(201,168,76,.3)', flexShrink:0 }}>
+              <Image
+                src={`/cards/${d.card.slug}.webp`}
+                alt={d.card.name}
+                fill
+                sizes="56px"
+                style={{ objectFit:'cover', transform: d.reversed ? 'rotate(180deg)' : 'none' }}
+              />
+            </div>
             <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', color:'var(--gold)', letterSpacing:'.06em', textAlign:'center' }}>{d.card.name}</div>
             <div style={{ fontSize:'.6rem', color:'var(--muted)', textTransform:'uppercase', letterSpacing:'.08em' }}>{POSITIONS[i]}</div>
           </div>
