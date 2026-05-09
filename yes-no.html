@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yes or No Tarot — Free One-Card Oracle | Tarotify</title>
+<meta name="description" content="Ask a yes or no question and draw a single tarot card for an instant oracle answer. Free yes no tarot reading powered by all 78 cards.">
+<link rel="canonical" href="https://tarotify.app/yes-no.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07071a;--bg2:#0d0d2b;--gold:#c9a84c;--gold2:#e8c96a;--text:#e8e0d0;--muted:#7a7a9a;--yes:#2d7a4f;--yes-light:#3daa6a;--no:#7a2d2d;--no-light:#aa3d3d;--maybe:#7a5e1a;--maybe-light:#c9a84c;--card-w:220px;--card-h:340px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;min-height:100vh;overflow-x:hidden}
+/* stars */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(100,80,200,.06) 0%,transparent 50%);pointer-events:none}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:1px solid rgba(201,168,76,.15);backdrop-filter:blur(8px);position:sticky;top:0;z-index:100;background:rgba(7,7,26,.85)}
+.nav-brand{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--gold);text-decoration:none;letter-spacing:.05em}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.05em;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+
+main{max-width:760px;margin:0 auto;padding:3rem 1.5rem 5rem}
+
+.hero{text-align:center;margin-bottom:3rem}
+.hero-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.8}
+h1{font-family:'Cinzel',serif;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--gold);margin-bottom:.75rem;line-height:1.3}
+.subtitle{color:var(--muted);font-size:1rem;line-height:1.6;max-width:520px;margin:0 auto}
+
+.question-box{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:2rem;margin-bottom:2rem}
+.question-label{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.12em;color:var(--gold);opacity:.7;text-transform:uppercase;margin-bottom:.75rem}
+textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.2);border-radius:10px;color:var(--text);font-family:'Lato',sans-serif;font-size:1rem;padding:1rem;resize:none;height:90px;outline:none;transition:border-color .2s;line-height:1.5}
+textarea::placeholder{color:var(--muted);font-style:italic}
+textarea:focus{border-color:rgba(201,168,76,.5)}
+
+.draw-btn{display:block;width:100%;padding:1rem;background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08));border:1px solid var(--gold);border-radius:12px;color:var(--gold);font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:all .25s;margin-top:1.25rem}
+.draw-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.15));box-shadow:0 0 20px rgba(201,168,76,.2)}
+.draw-btn:active{transform:scale(.98)}
+
+/* Card flip */
+.card-scene{perspective:1000px;width:var(--card-w);height:var(--card-h);margin:0 auto 2rem;display:none}
+.card-scene.visible{display:block}
+.card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.card-inner.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;overflow:hidden}
+.card-back{background:linear-gradient(145deg,#1a1a3a,#0d0d2b);border:2px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center}
+.card-back-pattern{font-size:4rem;opacity:.2;user-select:none}
+.card-front{transform:rotateY(180deg);background:linear-gradient(145deg,#12122a,#08082a);border:2px solid rgba(201,168,76,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:1.5rem;text-align:center}
+.card-symbol{font-size:3.5rem;line-height:1}
+.card-name-text{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold);letter-spacing:.08em}
+.card-suit-badge{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);opacity:.8}
+
+/* Result */
+.result{display:none;text-align:center;animation:fadeUp .5s ease forwards}
+.result.visible{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.verdict{display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 2rem;border-radius:100px;font-family:'Cinzel',serif;font-size:1.5rem;letter-spacing:.1em;margin-bottom:1.5rem}
+.verdict.yes{background:rgba(45,122,79,.2);border:1px solid var(--yes-light);color:var(--yes-light)}
+.verdict.no{background:rgba(122,45,45,.2);border:1px solid var(--no-light);color:var(--no-light)}
+.verdict.maybe{background:rgba(122,94,26,.2);border:1px solid var(--maybe-light);color:var(--maybe-light)}
+
+.verdict-icon{font-size:1.6rem}
+.explanation{color:var(--text);font-size:1rem;line-height:1.7;max-width:540px;margin:0 auto 1.5rem;opacity:.9}
+.card-link{display:inline-block;color:var(--gold);font-size:.85rem;text-decoration:none;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:2px;transition:border-color .2s}
+.card-link:hover{border-color:var(--gold)}
+
+.again-btn{display:inline-block;margin-top:2rem;padding:.75rem 2rem;background:transparent;border:1px solid rgba(201,168,76,.3);border-radius:10px;color:var(--muted);font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.08em;cursor:pointer;transition:all .2s}
+.again-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+.how-it-works{margin-top:4rem;border-top:1px solid rgba(201,168,76,.1);padding-top:2.5rem}
+.how-it-works h2{font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;margin-bottom:1rem;letter-spacing:.06em}
+.how-it-works p{color:var(--muted);line-height:1.75;font-size:.95rem;margin-bottom:.75rem}
+
+.history{margin-top:2.5rem}
+.history h3{font-family:'Cinzel',serif;color:var(--gold);font-size:.85rem;letter-spacing:.1em;opacity:.7;margin-bottom:1rem;text-transform:uppercase}
+.history-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.history-item{display:flex;align-items:center;gap:.75rem;padding:.6rem 1rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;font-size:.85rem}
+.history-badge{padding:.2rem .6rem;border-radius:20px;font-size:.7rem;font-family:'Cinzel',serif;letter-spacing:.06em}
+.history-badge.yes{background:rgba(45,122,79,.2);color:var(--yes-light)}
+.history-badge.no{background:rgba(122,45,45,.2);color:var(--no-light)}
+.history-badge.maybe{background:rgba(122,94,26,.2);color:var(--maybe-light)}
+.history-q{color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.history-card-name{color:var(--muted);font-size:.8rem}
+
+@media(max-width:600px){main{padding:2rem 1rem 4rem}.question-box{padding:1.25rem}:root{--card-w:180px;--card-h:280px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">✦ Tarotify</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/yes-no.html" class="active">Yes/No</a>
+    <a href="/cards/">Card Meanings</a>
+    <a href="/combination.html">Combinations</a>
+  </div>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="hero-icon">🔮</div>
+    <h1>Yes or No Tarot</h1>
+    <p class="subtitle">Focus on a clear yes/no question, draw one card, and receive an instant oracle answer from the full 78-card deck.</p>
+  </div>
+
+  <div class="question-box">
+    <div class="question-label">Your Question</div>
+    <textarea id="questionInput" placeholder="e.g. Will this relationship work out? Should I take the new job? Is now the right time?"></textarea>
+    <button class="draw-btn" id="drawBtn">✦ Draw a Card</button>
+  </div>
+
+  <div class="card-scene" id="cardScene">
+    <div class="card-inner" id="cardInner">
+      <div class="card-face card-back">
+        <div class="card-back-pattern">☽ ✦ ☾</div>
+      </div>
+      <div class="card-face card-front" id="cardFront">
+        <div class="card-symbol" id="cardSymbol"></div>
+        <div class="card-name-text" id="cardNameText"></div>
+        <div class="card-suit-badge" id="cardSuitBadge"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="verdict" id="verdict"></div>
+    <p class="explanation" id="explanation"></p>
+    <a href="#" id="cardPageLink" class="card-link">Read full meaning of this card →</a>
+    <br>
+    <button class="again-btn" id="againBtn">Ask Another Question</button>
+  </div>
+
+  <div class="history" id="historySection" style="display:none">
+    <h3>Recent Readings</h3>
+    <ul class="history-list" id="historyList"></ul>
+  </div>
+
+  <div class="how-it-works">
+    <h2>How Yes or No Tarot Works</h2>
+    <p>Each of the 78 tarot cards carries an inherent energy — some lean toward expansion and affirmation (yes), others toward caution and blockage (no), and several occupy a liminal space of "not yet" or "it depends" (maybe).</p>
+    <p>When you draw a card for a yes/no question, the card's archetype and your current energy interact to surface an answer from your subconscious. Think of it less as a definitive prediction and more as a mirror for your intuition.</p>
+    <p>For the clearest reading: hold your question clearly in mind, breathe, and draw when you feel ready. The first card is always the right one.</p>
+  </div>
+</main>
+
+<script>
+const CARDS = [
+  {id:0,name:"The Fool",slug:"the-fool",suit:"Major Arcana",symbol:"🌟",yn:"yes",yn_exp:"The Fool says yes — leap forward with trust. New beginnings await those who dare to start."},
+  {id:1,name:"The Magician",slug:"the-magician",suit:"Major Arcana",symbol:"⚗️",yn:"yes",yn_exp:"The Magician is a powerful yes — you have everything you need to make it happen right now."},
+  {id:2,name:"The High Priestess",slug:"the-high-priestess",suit:"Major Arcana",symbol:"🌙",yn:"maybe",yn_exp:"The High Priestess says maybe — not everything is revealed yet. Go inward before you decide."},
+  {id:3,name:"The Empress",slug:"the-empress",suit:"Major Arcana",symbol:"🌿",yn:"yes",yn_exp:"The Empress is a warm yes — abundance, growth and nurturing energy surround your question."},
+  {id:4,name:"The Emperor",slug:"the-emperor",suit:"Major Arcana",symbol:"🏛️",yn:"yes",yn_exp:"The Emperor is a confident yes — take charge, establish structure and lead with authority."},
+  {id:5,name:"The Hierophant",slug:"the-hierophant",suit:"Major Arcana",symbol:"🕊️",yn:"maybe",yn_exp:"The Hierophant says maybe — align with your deeper values and established wisdom before deciding."},
+  {id:6,name:"The Lovers",slug:"the-lovers",suit:"Major Arcana",symbol:"❤️",yn:"yes",yn_exp:"The Lovers say yes — especially in matters of the heart. Align your choice with your deepest values."},
+  {id:7,name:"The Chariot",slug:"the-chariot",suit:"Major Arcana",symbol:"⚡",yn:"yes",yn_exp:"The Chariot is a strong yes — victory comes through focused will, discipline and forward momentum."},
+  {id:8,name:"Strength",slug:"strength",suit:"Major Arcana",symbol:"🦁",yn:"yes",yn_exp:"Strength says yes — courage, patience and inner power will carry you through."},
+  {id:9,name:"The Hermit",slug:"the-hermit",suit:"Major Arcana",symbol:"🕯️",yn:"maybe",yn_exp:"The Hermit says not yet — withdraw, reflect deeply, and clarity will come in solitude."},
+  {id:10,name:"Wheel of Fortune",slug:"wheel-of-fortune",suit:"Major Arcana",symbol:"☸️",yn:"yes",yn_exp:"The Wheel of Fortune is a yes — cycles are turning in your favour. Ride the momentum."},
+  {id:11,name:"Justice",slug:"justice",suit:"Major Arcana",symbol:"⚖️",yn:"maybe",yn_exp:"Justice says maybe — the outcome depends on fairness, truth and the balance of actions taken."},
+  {id:12,name:"The Hanged Man",slug:"the-hanged-man",suit:"Major Arcana",symbol:"🌀",yn:"no",yn_exp:"The Hanged Man says no for now — a pause and shift in perspective is needed before moving forward."},
+  {id:13,name:"Death",slug:"death",suit:"Major Arcana",symbol:"🦋",yn:"maybe",yn_exp:"Death says maybe — something must end before what you seek can begin. Transformation is required."},
+  {id:14,name:"Temperance",slug:"temperance",suit:"Major Arcana",symbol:"🌊",yn:"yes",yn_exp:"Temperance is a gentle yes — with patience, balance and moderation, the outcome will be positive."},
+  {id:15,name:"The Devil",slug:"the-devil",suit:"Major Arcana",symbol:"🔗",yn:"no",yn_exp:"The Devil says no — fear, attachment or unhealthy patterns are blocking what you truly desire."},
+  {id:16,name:"The Tower",slug:"the-tower",suit:"Major Arcana",symbol:"⚡",yn:"no",yn_exp:"The Tower says no — unexpected disruption lies ahead. This path may not unfold as expected."},
+  {id:17,name:"The Star",slug:"the-star",suit:"Major Arcana",symbol:"⭐",yn:"yes",yn_exp:"The Star is a hopeful yes — healing, renewal and inspired possibility shine on your question."},
+  {id:18,name:"The Moon",slug:"the-moon",suit:"Major Arcana",symbol:"🌕",yn:"maybe",yn_exp:"The Moon says maybe — illusions and hidden factors make the answer unclear right now. Trust your gut."},
+  {id:19,name:"The Sun",slug:"the-sun",suit:"Major Arcana",symbol:"☀️",yn:"yes",yn_exp:"The Sun is a radiant yes — joy, clarity and success light the way forward."},
+  {id:20,name:"Judgement",slug:"judgement",suit:"Major Arcana",symbol:"🎺",yn:"yes",yn_exp:"Judgement is a clear yes — a powerful awakening or calling is affirming your path."},
+  {id:21,name:"The World",slug:"the-world",suit:"Major Arcana",symbol:"🌍",yn:"yes",yn_exp:"The World is a wholehearted yes — completion, fulfilment and total success are at hand."},
+  // Wands
+  {id:22,name:"Ace of Wands",slug:"ace-of-wands",suit:"Wands",symbol:"🔥",yn:"yes",yn_exp:"Ace of Wands is a fiery yes — a surge of creative energy and new beginnings ignites your path."},
+  {id:23,name:"Two of Wands",slug:"two-of-wands",suit:"Wands",symbol:"🌍",yn:"yes",yn_exp:"Two of Wands says yes — you are on the right track. Bold planning and vision will pay off."},
+  {id:24,name:"Three of Wands",slug:"three-of-wands",suit:"Wands",symbol:"⛵",yn:"yes",yn_exp:"Three of Wands is a yes — your efforts are expanding outward and rewards are on their way."},
+  {id:25,name:"Four of Wands",slug:"four-of-wands",suit:"Wands",symbol:"🎉",yn:"yes",yn_exp:"Four of Wands is a joyful yes — celebration, stability and harmony await."},
+  {id:26,name:"Five of Wands",slug:"five-of-wands",suit:"Wands",symbol:"⚔️",yn:"maybe",yn_exp:"Five of Wands says maybe — competition and conflict complicate the outcome. Clarity requires cooperation."},
+  {id:27,name:"Six of Wands",slug:"six-of-wands",suit:"Wands",symbol:"🏆",yn:"yes",yn_exp:"Six of Wands is a victorious yes — recognition, success and public achievement are indicated."},
+  {id:28,name:"Seven of Wands",slug:"seven-of-wands",suit:"Wands",symbol:"🛡️",yn:"yes",yn_exp:"Seven of Wands says yes — hold your ground and defend your position. You will prevail."},
+  {id:29,name:"Eight of Wands",slug:"eight-of-wands",suit:"Wands",symbol:"💨",yn:"yes",yn_exp:"Eight of Wands is a fast yes — swift movement and rapid progress are heading your way."},
+  {id:30,name:"Nine of Wands",slug:"nine-of-wands",suit:"Wands",symbol:"🔋",yn:"maybe",yn_exp:"Nine of Wands says maybe — you are close but weary. One last push is needed before the answer is clear."},
+  {id:31,name:"Ten of Wands",slug:"ten-of-wands",suit:"Wands",symbol:"😓",yn:"no",yn_exp:"Ten of Wands says no — current burdens are too heavy. Release some responsibilities before moving forward."},
+  {id:32,name:"Page of Wands",slug:"page-of-wands",suit:"Wands",symbol:"📜",yn:"yes",yn_exp:"Page of Wands is an enthusiastic yes — fresh ideas and bold exploration are energising your question."},
+  {id:33,name:"Knight of Wands",slug:"knight-of-wands",suit:"Wands",symbol:"🐎",yn:"yes",yn_exp:"Knight of Wands is a passionate yes — act boldly and with full conviction."},
+  {id:34,name:"Queen of Wands",slug:"queen-of-wands",suit:"Wands",symbol:"🌻",yn:"yes",yn_exp:"Queen of Wands is a confident yes — charisma, warmth and determination light the path."},
+  {id:35,name:"King of Wands",slug:"king-of-wands",suit:"Wands",symbol:"👑",yn:"yes",yn_exp:"King of Wands is a commanding yes — visionary leadership and bold action bring success."},
+  // Cups
+  {id:36,name:"Ace of Cups",slug:"ace-of-cups",suit:"Cups",symbol:"💧",yn:"yes",yn_exp:"Ace of Cups is an emotional yes — love, connection and new feelings are opening up."},
+  {id:37,name:"Two of Cups",slug:"two-of-cups",suit:"Cups",symbol:"🥂",yn:"yes",yn_exp:"Two of Cups is a heartfelt yes — union, partnership and mutual connection are strongly favoured."},
+  {id:38,name:"Three of Cups",slug:"three-of-cups",suit:"Cups",symbol:"🎊",yn:"yes",yn_exp:"Three of Cups is a joyful yes — celebration, friendship and shared happiness are coming."},
+  {id:39,name:"Four of Cups",slug:"four-of-cups",suit:"Cups",symbol:"😔",yn:"maybe",yn_exp:"Four of Cups says maybe — apathy or missing an opportunity right in front of you could affect the outcome."},
+  {id:40,name:"Five of Cups",slug:"five-of-cups",suit:"Cups",symbol:"😢",yn:"no",yn_exp:"Five of Cups says no — grief and focus on loss are blocking what could be possible."},
+  {id:41,name:"Six of Cups",slug:"six-of-cups",suit:"Cups",symbol:"🌸",yn:"yes",yn_exp:"Six of Cups is a gentle yes — nostalgia, kindness and reconnection bring a warm answer."},
+  {id:42,name:"Seven of Cups",slug:"seven-of-cups",suit:"Cups",symbol:"🌀",yn:"maybe",yn_exp:"Seven of Cups says maybe — too many options and illusions cloud the answer. Get grounded first."},
+  {id:43,name:"Eight of Cups",slug:"eight-of-cups",suit:"Cups",symbol:"🚶",yn:"maybe",yn_exp:"Eight of Cups says maybe — something must be left behind before a clear yes is possible."},
+  {id:44,name:"Nine of Cups",slug:"nine-of-cups",suit:"Cups",symbol:"😊",yn:"yes",yn_exp:"Nine of Cups is a wish-fulfillment yes — your heart's desire is within reach."},
+  {id:45,name:"Ten of Cups",slug:"ten-of-cups",suit:"Cups",symbol:"🌈",yn:"yes",yn_exp:"Ten of Cups is a wholehearted yes — lasting happiness, family harmony and emotional fulfilment."},
+  {id:46,name:"Page of Cups",slug:"page-of-cups",suit:"Cups",symbol:"🐟",yn:"yes",yn_exp:"Page of Cups is a soft yes — trust the intuitive message or unexpected emotional surprise."},
+  {id:47,name:"Knight of Cups",slug:"knight-of-cups",suit:"Cups",symbol:"🏇",yn:"yes",yn_exp:"Knight of Cups is a romantic yes — follow your heart and make your move."},
+  {id:48,name:"Queen of Cups",slug:"queen-of-cups",suit:"Cups",symbol:"🧜",yn:"yes",yn_exp:"Queen of Cups is an intuitive yes — trust your emotional intelligence; it is guiding you well."},
+  {id:49,name:"King of Cups",slug:"king-of-cups",suit:"Cups",symbol:"🌊",yn:"yes",yn_exp:"King of Cups is a calm yes — emotional maturity and compassionate leadership pave the way."},
+  // Swords
+  {id:50,name:"Ace of Swords",slug:"ace-of-swords",suit:"Swords",symbol:"⚔️",yn:"yes",yn_exp:"Ace of Swords is a decisive yes — clarity, truth and breakthrough cut through any confusion."},
+  {id:51,name:"Two of Swords",slug:"two-of-swords",suit:"Swords",symbol:"🙈",yn:"maybe",yn_exp:"Two of Swords says maybe — you are avoiding a difficult choice. The answer lies in facing the truth."},
+  {id:52,name:"Three of Swords",slug:"three-of-swords",suit:"Swords",symbol:"💔",yn:"no",yn_exp:"Three of Swords says no — pain, heartbreak or conflict stand in the way of the outcome you hope for."},
+  {id:53,name:"Four of Swords",slug:"four-of-swords",suit:"Swords",symbol:"😴",yn:"maybe",yn_exp:"Four of Swords says maybe — rest and recuperation are needed before the path forward becomes clear."},
+  {id:54,name:"Five of Swords",slug:"five-of-swords",suit:"Swords",symbol:"🗡️",yn:"no",yn_exp:"Five of Swords says no — conflict, defeat or unfair play is likely to undermine the outcome."},
+  {id:55,name:"Six of Swords",slug:"six-of-swords",suit:"Swords",symbol:"⛵",yn:"yes",yn_exp:"Six of Swords is a slow yes — you are moving away from difficulty toward calmer waters."},
+  {id:56,name:"Seven of Swords",slug:"seven-of-swords",suit:"Swords",symbol:"🦊",yn:"no",yn_exp:"Seven of Swords says no — deception, avoidance or hidden agendas make this path untrustworthy."},
+  {id:57,name:"Eight of Swords",slug:"eight-of-swords",suit:"Swords",symbol:"🔒",yn:"no",yn_exp:"Eight of Swords says no — self-imposed limitations and fear are keeping you trapped."},
+  {id:58,name:"Nine of Swords",slug:"nine-of-swords",suit:"Swords",symbol:"😰",yn:"no",yn_exp:"Nine of Swords says no — anxiety and worst-case thinking are not serving you. This fear is not the reality."},
+  {id:59,name:"Ten of Swords",slug:"ten-of-swords",suit:"Swords",symbol:"💀",yn:"no",yn_exp:"Ten of Swords says no — a painful ending or defeat is indicated, but it clears the way for new beginnings."},
+  {id:60,name:"Page of Swords",slug:"page-of-swords",suit:"Swords",symbol:"🔍",yn:"maybe",yn_exp:"Page of Swords says maybe — gather more information and think carefully before committing."},
+  {id:61,name:"Knight of Swords",slug:"knight-of-swords",suit:"Swords",symbol:"💨",yn:"yes",yn_exp:"Knight of Swords is an impulsive yes — act fast and decisively, but watch for recklessness."},
+  {id:62,name:"Queen of Swords",slug:"queen-of-swords",suit:"Swords",symbol:"🗡️",yn:"maybe",yn_exp:"Queen of Swords says maybe — clear thinking and honest assessment will determine the outcome."},
+  {id:63,name:"King of Swords",slug:"king-of-swords",suit:"Swords",symbol:"👁️",yn:"yes",yn_exp:"King of Swords is a rational yes — logic, clarity and informed decision-making lead to success."},
+  // Pentacles
+  {id:64,name:"Ace of Pentacles",slug:"ace-of-pentacles",suit:"Pentacles",symbol:"🪙",yn:"yes",yn_exp:"Ace of Pentacles is a material yes — new financial or practical opportunity is arriving."},
+  {id:65,name:"Two of Pentacles",slug:"two-of-pentacles",suit:"Pentacles",symbol:"⚖️",yn:"maybe",yn_exp:"Two of Pentacles says maybe — balance and adaptability are required. Too many plates are spinning."},
+  {id:66,name:"Three of Pentacles",slug:"three-of-pentacles",suit:"Pentacles",symbol:"🔨",yn:"yes",yn_exp:"Three of Pentacles is a collaborative yes — teamwork and skilled effort will achieve the goal."},
+  {id:67,name:"Four of Pentacles",slug:"four-of-pentacles",suit:"Pentacles",symbol:"💰",yn:"maybe",yn_exp:"Four of Pentacles says maybe — fear of loss or over-control is limiting what is possible."},
+  {id:68,name:"Five of Pentacles",slug:"five-of-pentacles",suit:"Pentacles",symbol:"❄️",yn:"no",yn_exp:"Five of Pentacles says no — financial hardship or feeling left out in the cold is blocking progress."},
+  {id:69,name:"Six of Pentacles",slug:"six-of-pentacles",suit:"Pentacles",symbol:"🤲",yn:"yes",yn_exp:"Six of Pentacles is a generous yes — giving and receiving are in healthy balance; support is available."},
+  {id:70,name:"Seven of Pentacles",slug:"seven-of-pentacles",suit:"Pentacles",symbol:"🌱",yn:"maybe",yn_exp:"Seven of Pentacles says maybe — your investment needs more time to bear fruit. Patience is required."},
+  {id:71,name:"Eight of Pentacles",slug:"eight-of-pentacles",suit:"Pentacles",symbol:"🔧",yn:"yes",yn_exp:"Eight of Pentacles is a yes through effort — dedicated work and skill development will get you there."},
+  {id:72,name:"Nine of Pentacles",slug:"nine-of-pentacles",suit:"Pentacles",symbol:"🦅",yn:"yes",yn_exp:"Nine of Pentacles is an abundant yes — self-sufficiency, luxury and well-earned success await."},
+  {id:73,name:"Ten of Pentacles",slug:"ten-of-pentacles",suit:"Pentacles",symbol:"🏡",yn:"yes",yn_exp:"Ten of Pentacles is a lasting yes — long-term security, legacy and family prosperity are indicated."},
+  {id:74,name:"Page of Pentacles",slug:"page-of-pentacles",suit:"Pentacles",symbol:"📚",yn:"yes",yn_exp:"Page of Pentacles is a practical yes — study, planning and a grounded new start will succeed."},
+  {id:75,name:"Knight of Pentacles",slug:"knight-of-pentacles",suit:"Pentacles",symbol:"🐂",yn:"yes",yn_exp:"Knight of Pentacles is a steady yes — slow, methodical and reliable progress leads to success."},
+  {id:76,name:"Queen of Pentacles",slug:"queen-of-pentacles",suit:"Pentacles",symbol:"🌾",yn:"yes",yn_exp:"Queen of Pentacles is a nurturing yes — practical wisdom, abundance and warm security are yours."},
+  {id:77,name:"King of Pentacles",slug:"king-of-pentacles",suit:"Pentacles",symbol:"🏦",yn:"yes",yn_exp:"King of Pentacles is a prosperous yes — financial mastery and material success are firmly in reach."}
+];
+
+const HISTORY_KEY = 'tarotify_yn_history';
+let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+
+function saveHistory(q, card, yn) {
+  history.unshift({q: q || '(no question)', card: card.name, slug: card.slug, yn});
+  if (history.length > 5) history = history.slice(0, 5);
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  renderHistory();
+}
+
+function renderHistory() {
+  if (!history.length) return;
+  const sec = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  sec.style.display = 'block';
+  list.innerHTML = history.map(h => `
+    <li class="history-item">
+      <span class="history-badge ${h.yn}">${h.yn.toUpperCase()}</span>
+      <span class="history-q">${h.q}</span>
+      <span class="history-card-name">${h.card}</span>
+    </li>`).join('');
+}
+
+renderHistory();
+
+let drawing = false;
+document.getElementById('drawBtn').addEventListener('click', () => {
+  if (drawing) return;
+  drawing = true;
+  const question = document.getElementById('questionInput').value.trim();
+  const card = CARDS[Math.floor(Math.random() * CARDS.length)];
+
+  // Update card front
+  document.getElementById('cardSymbol').textContent = card.symbol;
+  document.getElementById('cardNameText').textContent = card.name;
+  document.getElementById('cardSuitBadge').textContent = card.suit;
+
+  // Show card scene, reset flip
+  const scene = document.getElementById('cardScene');
+  const inner = document.getElementById('cardInner');
+  const result = document.getElementById('result');
+  result.classList.remove('visible');
+  result.style.display = 'none';
+  inner.classList.remove('flipped');
+  scene.classList.add('visible');
+
+  // Flip after delay
+  setTimeout(() => {
+    inner.classList.add('flipped');
+    setTimeout(() => {
+      // Show result
+      const verdict = document.getElementById('verdict');
+      const verdictIcons = {yes:'✓', no:'✗', maybe:'?'};
+      const verdictLabels = {yes:'Yes', no:'No', maybe:'Maybe'};
+      verdict.className = `verdict ${card.yn}`;
+      verdict.innerHTML = `<span class="verdict-icon">${verdictIcons[card.yn]}</span>${verdictLabels[card.yn]}`;
+      document.getElementById('explanation').textContent = card.yn_exp;
+      const link = document.getElementById('cardPageLink');
+      link.textContent = `Read full meaning of ${card.name} →`;
+      link.href = `/cards/${card.slug}.html`;
+      result.style.display = 'block';
+      setTimeout(() => result.classList.add('visible'), 10);
+      saveHistory(question, card, card.yn);
+      drawing = false;
+    }, 400);
+  }, 600);
+});
+
+document.getElementById('againBtn').addEventListener('click', () => {
+  const inner = document.getElementById('cardInner');
+  const result = document.getElementById('result');
+  const scene = document.getElementById('cardScene');
+  result.classList.remove('visible');
+  setTimeout(() => {
+    result.style.display = 'none';
+    inner.classList.remove('flipped');
+    scene.classList.remove('visible');
+    document.getElementById('questionInput').value = '';
+    document.getElementById('questionInput').focus();
+  }, 300);
+});
+</script>
+</body>
+</html>

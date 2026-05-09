@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarot Card Combination Calculator — What Two Cards Mean Together | Tarotify</title>
+<meta name="description" content="Discover what any two tarot cards mean together. Enter your combination and get an AI-powered interpretation of how the two cards interact in love, career and life.">
+<link rel="canonical" href="https://tarotify.app/combination.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07071a;--bg2:#0d0d2b;--gold:#c9a84c;--gold2:#e8c96a;--text:#e8e0d0;--muted:#7a7a9a;--border:rgba(201,168,76,.18)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(100,80,200,.06) 0%,transparent 50%);pointer-events:none}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:1px solid var(--border);backdrop-filter:blur(8px);position:sticky;top:0;z-index:100;background:rgba(7,7,26,.85)}
+.nav-brand{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--gold);text-decoration:none;letter-spacing:.05em}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.05em;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+
+main{max-width:820px;margin:0 auto;padding:3rem 1.5rem 5rem}
+
+.hero{text-align:center;margin-bottom:3rem}
+.hero-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.8}
+h1{font-family:'Cinzel',serif;font-size:clamp(1.5rem,4vw,2.1rem);color:var(--gold);margin-bottom:.75rem;line-height:1.3}
+.subtitle{color:var(--muted);font-size:1rem;line-height:1.6;max-width:560px;margin:0 auto}
+
+/* Selector panel */
+.selector-panel{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:start;margin-bottom:2rem}
+@media(max-width:640px){.selector-panel{grid-template-columns:1fr;}.plus-sign{display:none}}
+.plus-sign{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold);opacity:.4;text-align:center;padding-top:2.5rem;user-select:none}
+
+.card-selector{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:1.25rem;transition:border-color .2s}
+.card-selector:focus-within{border-color:rgba(201,168,76,.4)}
+.selector-label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;color:var(--gold);opacity:.7;text-transform:uppercase;margin-bottom:.7rem}
+.search-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);border-radius:8px;color:var(--text);font-family:'Lato',sans-serif;font-size:.9rem;padding:.6rem .8rem;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:rgba(201,168,76,.4)}
+.search-input::placeholder{color:var(--muted);font-style:italic}
+.dropdown{display:none;max-height:220px;overflow-y:auto;margin-top:.4rem;background:#0e0e28;border:1px solid var(--border);border-radius:8px}
+.dropdown.open{display:block}
+.dropdown-item{padding:.55rem .9rem;font-size:.85rem;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:.6rem;color:var(--text)}
+.dropdown-item:hover,.dropdown-item.selected{background:rgba(201,168,76,.1);color:var(--gold)}
+.dropdown-item .item-symbol{font-size:1rem;width:1.4rem;text-align:center}
+.dropdown-item .item-suit{color:var(--muted);font-size:.75rem;margin-left:auto}
+.selected-card{display:none;align-items:center;gap:.75rem;padding:.75rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:8px;margin-top:.5rem}
+.selected-card.visible{display:flex}
+.selected-symbol{font-size:1.8rem}
+.selected-info{flex:1}
+.selected-name{font-family:'Cinzel',serif;color:var(--gold);font-size:.9rem}
+.selected-suit{color:var(--muted);font-size:.75rem}
+.clear-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:.2rem;transition:color .2s;line-height:1}
+.clear-btn:hover{color:var(--text)}
+
+.interpret-btn{display:block;width:100%;padding:1rem;background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08));border:1px solid var(--gold);border-radius:12px;color:var(--gold);font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:all .25s;margin-bottom:2rem}
+.interpret-btn:hover:not(:disabled){background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.15));box-shadow:0 0 20px rgba(201,168,76,.2)}
+.interpret-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* Result */
+.result{display:none;animation:fadeUp .5s ease forwards}
+.result.visible{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.combo-header{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.75rem;flex-wrap:wrap}
+.combo-card-chip{display:flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.08);border:1px solid var(--border);border-radius:100px;padding:.4rem 1rem;font-family:'Cinzel',serif;font-size:.85rem;color:var(--gold)}
+.combo-symbol{font-size:1.2rem}
+.combo-plus{color:var(--muted);font-size:1.2rem;opacity:.5}
+
+.interp-section{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem}
+.interp-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.14em;color:var(--gold);opacity:.65;text-transform:uppercase;margin-bottom:.75rem}
+.interp-text{color:var(--text);line-height:1.75;font-size:.97rem}
+
+.aspect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1rem}
+@media(max-width:560px){.aspect-grid{grid-template-columns:1fr}}
+.aspect-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:1rem}
+.aspect-icon{font-size:1.3rem;margin-bottom:.4rem}
+.aspect-label{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.12em;color:var(--gold);opacity:.65;text-transform:uppercase;margin-bottom:.5rem}
+.aspect-text{color:var(--muted);font-size:.85rem;line-height:1.6}
+
+.cta-row{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem}
+.cta-link{display:inline-block;padding:.55rem 1.2rem;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:.82rem;text-decoration:none;transition:all .2s;font-family:'Cinzel',serif;letter-spacing:.06em}
+.cta-link:hover{border-color:var(--gold);color:var(--gold)}
+
+.new-combo-btn{display:block;width:100%;padding:.75rem;background:transparent;border:1px solid rgba(201,168,76,.2);border-radius:10px;color:var(--muted);font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.08em;cursor:pointer;transition:all .2s;margin-top:1.5rem}
+.new-combo-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+.about{margin-top:4rem;border-top:1px solid rgba(201,168,76,.1);padding-top:2.5rem}
+.about h2{font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;margin-bottom:1rem;letter-spacing:.06em}
+.about p{color:var(--muted);line-height:1.75;font-size:.95rem;margin-bottom:.75rem}
+
+/* Scrollbar */
+.dropdown::-webkit-scrollbar{width:4px}.dropdown::-webkit-scrollbar-track{background:transparent}.dropdown::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">✦ Tarotify</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/yes-no.html">Yes/No</a>
+    <a href="/cards/">Card Meanings</a>
+    <a href="/combination.html" class="active">Combinations</a>
+  </div>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="hero-icon">✦</div>
+    <h1>Tarot Combination Calculator</h1>
+    <p class="subtitle">Select any two cards and discover how their energies interact — in love, career and personal growth.</p>
+  </div>
+
+  <div class="selector-panel">
+    <div class="card-selector" id="selector1">
+      <div class="selector-label">First Card</div>
+      <input type="text" class="search-input" id="search1" placeholder="Search card name…" autocomplete="off">
+      <div class="dropdown" id="dropdown1"></div>
+      <div class="selected-card" id="selected1">
+        <span class="selected-symbol" id="sym1"></span>
+        <div class="selected-info"><div class="selected-name" id="name1"></div><div class="selected-suit" id="suit1"></div></div>
+        <button class="clear-btn" id="clear1" title="Clear">✕</button>
+      </div>
+    </div>
+    <div class="plus-sign">+</div>
+    <div class="card-selector" id="selector2">
+      <div class="selector-label">Second Card</div>
+      <input type="text" class="search-input" id="search2" placeholder="Search card name…" autocomplete="off">
+      <div class="dropdown" id="dropdown2"></div>
+      <div class="selected-card" id="selected2">
+        <span class="selected-symbol" id="sym2"></span>
+        <div class="selected-info"><div class="selected-name" id="name2"></div><div class="selected-suit" id="suit2"></div></div>
+        <button class="clear-btn" id="clear2" title="Clear">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="interpret-btn" id="interpretBtn" disabled>✦ Interpret This Combination</button>
+
+  <div class="result" id="result">
+    <div class="combo-header" id="comboHeader"></div>
+    <div class="interp-section">
+      <div class="interp-title">Combined Energy</div>
+      <div class="interp-text" id="interpMain"></div>
+    </div>
+    <div class="aspect-grid">
+      <div class="aspect-card">
+        <div class="aspect-icon">❤️</div>
+        <div class="aspect-label">Love & Relationships</div>
+        <div class="aspect-text" id="interpLove"></div>
+      </div>
+      <div class="aspect-card">
+        <div class="aspect-icon">💼</div>
+        <div class="aspect-label">Career & Money</div>
+        <div class="aspect-text" id="interpCareer"></div>
+      </div>
+      <div class="aspect-card">
+        <div class="aspect-icon">🌿</div>
+        <div class="aspect-label">Personal Growth</div>
+        <div class="aspect-text" id="interpSpirit"></div>
+      </div>
+    </div>
+    <div class="cta-row" id="ctaRow"></div>
+    <button class="new-combo-btn" id="newComboBtn">Try Another Combination</button>
+  </div>
+
+  <div class="about">
+    <h2>How Tarot Combinations Work</h2>
+    <p>In a tarot reading, cards rarely speak alone. Their true message emerges in conversation with their neighbours — two cards together create a dialogue that neither could have on its own.</p>
+    <p>The Tarot Combination Calculator analyses the core archetypes of your two selected cards: their elemental energies (Fire, Water, Air, Earth), their numerological resonance, and their thematic relationship — harmony, tension or transformation.</p>
+    <p>Use this tool to explore specific pairings from a reading you received, to deepen your study of the deck, or simply to satisfy your curiosity about how any two cards speak to each other.</p>
+  </div>
+</main>
+
+<script>
+const CARDS = [
+  {id:0,name:"The Fool",slug:"the-fool",suit:"Major Arcana",symbol:"🌟",element:"Air",energy:"beginnings, potential, spontaneity",kw:["new beginnings","leap of faith","innocence","potential","adventure"]},
+  {id:1,name:"The Magician",slug:"the-magician",suit:"Major Arcana",symbol:"⚗️",element:"Air/Fire",energy:"willpower, manifestation, skill",kw:["manifestation","willpower","skill","action","resourcefulness"]},
+  {id:2,name:"The High Priestess",slug:"the-high-priestess",suit:"Major Arcana",symbol:"🌙",element:"Water",energy:"intuition, mystery, inner knowing",kw:["intuition","mystery","inner knowing","patience","subconscious"]},
+  {id:3,name:"The Empress",slug:"the-empress",suit:"Major Arcana",symbol:"🌿",element:"Earth",energy:"abundance, nurture, creativity",kw:["abundance","nurture","creativity","fertility","beauty"]},
+  {id:4,name:"The Emperor",slug:"the-emperor",suit:"Major Arcana",symbol:"🏛️",element:"Fire",energy:"structure, authority, discipline",kw:["authority","structure","stability","leadership","discipline"]},
+  {id:5,name:"The Hierophant",slug:"the-hierophant",suit:"Major Arcana",symbol:"🕊️",element:"Earth",energy:"tradition, guidance, belief",kw:["tradition","guidance","belief","convention","mentorship"]},
+  {id:6,name:"The Lovers",slug:"the-lovers",suit:"Major Arcana",symbol:"❤️",element:"Air",energy:"love, alignment, choice",kw:["love","alignment","choice","connection","values"]},
+  {id:7,name:"The Chariot",slug:"the-chariot",suit:"Major Arcana",symbol:"⚡",element:"Water",energy:"determination, victory, control",kw:["determination","victory","control","willpower","momentum"]},
+  {id:8,name:"Strength",slug:"strength",suit:"Major Arcana",symbol:"🦁",element:"Fire",energy:"courage, patience, inner power",kw:["courage","patience","inner power","compassion","influence"]},
+  {id:9,name:"The Hermit",slug:"the-hermit",suit:"Major Arcana",symbol:"🕯️",element:"Earth",energy:"solitude, reflection, wisdom",kw:["solitude","reflection","wisdom","guidance","introspection"]},
+  {id:10,name:"Wheel of Fortune",slug:"wheel-of-fortune",suit:"Major Arcana",symbol:"☸️",element:"Fire",energy:"cycles, change, destiny",kw:["cycles","change","fate","luck","turning point"]},
+  {id:11,name:"Justice",slug:"justice",suit:"Major Arcana",symbol:"⚖️",element:"Air",energy:"fairness, truth, balance",kw:["fairness","truth","cause and effect","balance","clarity"]},
+  {id:12,name:"The Hanged Man",slug:"the-hanged-man",suit:"Major Arcana",symbol:"🌀",element:"Water",energy:"surrender, pause, new perspective",kw:["surrender","pause","new perspective","waiting","sacrifice"]},
+  {id:13,name:"Death",slug:"death",suit:"Major Arcana",symbol:"🦋",element:"Water",energy:"endings, transformation, transition",kw:["endings","transformation","transition","letting go","rebirth"]},
+  {id:14,name:"Temperance",slug:"temperance",suit:"Major Arcana",symbol:"🌊",element:"Fire",energy:"balance, patience, moderation",kw:["balance","patience","moderation","alchemy","healing"]},
+  {id:15,name:"The Devil",slug:"the-devil",suit:"Major Arcana",symbol:"🔗",element:"Earth",energy:"attachment, shadow, bondage",kw:["attachment","shadow self","bondage","addiction","materialism"]},
+  {id:16,name:"The Tower",slug:"the-tower",suit:"Major Arcana",symbol:"💥",element:"Fire",energy:"disruption, revelation, upheaval",kw:["sudden change","upheaval","revelation","chaos","awakening"]},
+  {id:17,name:"The Star",slug:"the-star",suit:"Major Arcana",symbol:"⭐",element:"Air",energy:"hope, renewal, inspiration",kw:["hope","renewal","inspiration","healing","serenity"]},
+  {id:18,name:"The Moon",slug:"the-moon",suit:"Major Arcana",symbol:"🌕",element:"Water",energy:"illusion, fear, the unconscious",kw:["illusion","fear","subconscious","intuition","confusion"]},
+  {id:19,name:"The Sun",slug:"the-sun",suit:"Major Arcana",symbol:"☀️",element:"Fire",energy:"joy, clarity, success",kw:["joy","clarity","success","vitality","confidence"]},
+  {id:20,name:"Judgement",slug:"judgement",suit:"Major Arcana",symbol:"🎺",element:"Fire",energy:"awakening, calling, absolution",kw:["awakening","calling","reflection","absolution","renewal"]},
+  {id:21,name:"The World",slug:"the-world",suit:"Major Arcana",symbol:"🌍",element:"Earth",energy:"completion, integration, fulfilment",kw:["completion","integration","fulfilment","wholeness","achievement"]},
+  {id:22,name:"Ace of Wands",slug:"ace-of-wands",suit:"Wands",symbol:"🔥",element:"Fire",energy:"spark, inspiration, new passion",kw:["inspiration","new beginnings","passion","potential","spark"]},
+  {id:23,name:"Two of Wands",slug:"two-of-wands",suit:"Wands",symbol:"🌍",element:"Fire",energy:"planning, vision, expansion",kw:["planning","bold vision","discovery","decision","expansion"]},
+  {id:24,name:"Three of Wands",slug:"three-of-wands",suit:"Wands",symbol:"⛵",element:"Fire",energy:"progress, foresight, enterprise",kw:["progress","foresight","enterprise","expansion","results"]},
+  {id:25,name:"Four of Wands",slug:"four-of-wands",suit:"Wands",symbol:"🎉",element:"Fire",energy:"celebration, homecoming, harmony",kw:["celebration","stability","community","joy","milestone"]},
+  {id:26,name:"Five of Wands",slug:"five-of-wands",suit:"Wands",symbol:"⚔️",element:"Fire",energy:"conflict, competition, struggle",kw:["conflict","competition","disagreement","tension","chaos"]},
+  {id:27,name:"Six of Wands",slug:"six-of-wands",suit:"Wands",symbol:"🏆",element:"Fire",energy:"victory, recognition, success",kw:["victory","recognition","success","pride","achievement"]},
+  {id:28,name:"Seven of Wands",slug:"seven-of-wands",suit:"Wands",symbol:"🛡️",element:"Fire",energy:"perseverance, defence, conviction",kw:["perseverance","defence","conviction","challenge","resilience"]},
+  {id:29,name:"Eight of Wands",slug:"eight-of-wands",suit:"Wands",symbol:"💨",element:"Fire",energy:"speed, momentum, swift change",kw:["speed","momentum","swift action","travel","news"]},
+  {id:30,name:"Nine of Wands",slug:"nine-of-wands",suit:"Wands",symbol:"🔋",element:"Fire",energy:"resilience, persistence, last stand",kw:["resilience","persistence","boundaries","fatigue","last push"]},
+  {id:31,name:"Ten of Wands",slug:"ten-of-wands",suit:"Wands",symbol:"😓",element:"Fire",energy:"burden, overcommitment, responsibility",kw:["burden","overcommitment","responsibility","hard work","struggle"]},
+  {id:32,name:"Page of Wands",slug:"page-of-wands",suit:"Wands",symbol:"📜",element:"Fire",energy:"enthusiasm, exploration, free spirit",kw:["enthusiasm","exploration","discovery","free spirit","news"]},
+  {id:33,name:"Knight of Wands",slug:"knight-of-wands",suit:"Wands",symbol:"🐎",element:"Fire",energy:"passion, adventure, impulsiveness",kw:["passion","adventure","energy","courage","impulsiveness"]},
+  {id:34,name:"Queen of Wands",slug:"queen-of-wands",suit:"Wands",symbol:"🌻",element:"Fire",energy:"confidence, charisma, determination",kw:["confidence","charisma","determination","warmth","boldness"]},
+  {id:35,name:"King of Wands",slug:"king-of-wands",suit:"Wands",symbol:"👑",element:"Fire",energy:"vision, leadership, honour",kw:["vision","leadership","honour","entrepreneurship","mastery"]},
+  {id:36,name:"Ace of Cups",slug:"ace-of-cups",suit:"Cups",symbol:"💧",element:"Water",energy:"new love, compassion, emotional opening",kw:["new love","compassion","creativity","intuition","emotional opening"]},
+  {id:37,name:"Two of Cups",slug:"two-of-cups",suit:"Cups",symbol:"🥂",element:"Water",energy:"union, partnership, mutual attraction",kw:["union","partnership","attraction","connection","harmony"]},
+  {id:38,name:"Three of Cups",slug:"three-of-cups",suit:"Cups",symbol:"🎊",element:"Water",energy:"friendship, celebration, community",kw:["friendship","celebration","community","collaboration","joy"]},
+  {id:39,name:"Four of Cups",slug:"four-of-cups",suit:"Cups",symbol:"😔",element:"Water",energy:"apathy, contemplation, discontent",kw:["apathy","contemplation","discontent","reevaluation","withdrawal"]},
+  {id:40,name:"Five of Cups",slug:"five-of-cups",suit:"Cups",symbol:"😢",element:"Water",energy:"grief, loss, disappointment",kw:["grief","loss","disappointment","regret","sadness"]},
+  {id:41,name:"Six of Cups",slug:"six-of-cups",suit:"Cups",symbol:"🌸",element:"Water",energy:"nostalgia, innocence, reunion",kw:["nostalgia","innocence","kindness","reunion","childhood"]},
+  {id:42,name:"Seven of Cups",slug:"seven-of-cups",suit:"Cups",symbol:"🌀",element:"Water",energy:"fantasy, illusion, choices",kw:["fantasy","illusion","wishful thinking","choices","imagination"]},
+  {id:43,name:"Eight of Cups",slug:"eight-of-cups",suit:"Cups",symbol:"🚶",element:"Water",energy:"withdrawal, moving on, disillusionment",kw:["withdrawal","moving on","disillusionment","search for truth","transition"]},
+  {id:44,name:"Nine of Cups",slug:"nine-of-cups",suit:"Cups",symbol:"😊",element:"Water",energy:"wishes, contentment, emotional fulfilment",kw:["wishes","contentment","satisfaction","emotional fulfilment","happiness"]},
+  {id:45,name:"Ten of Cups",slug:"ten-of-cups",suit:"Cups",symbol:"🌈",element:"Water",energy:"family harmony, bliss, lasting love",kw:["harmony","bliss","family","lasting love","fulfilment"]},
+  {id:46,name:"Page of Cups",slug:"page-of-cups",suit:"Cups",symbol:"🐟",element:"Water",energy:"intuitive messages, creativity, sensitivity",kw:["intuition","creativity","sensitivity","messages","curiosity"]},
+  {id:47,name:"Knight of Cups",slug:"knight-of-cups",suit:"Cups",symbol:"🏇",element:"Water",energy:"romance, charm, following the heart",kw:["romance","charm","idealism","imagination","following the heart"]},
+  {id:48,name:"Queen of Cups",slug:"queen-of-cups",suit:"Cups",symbol:"🧜",element:"Water",energy:"empathy, emotional depth, nurturing",kw:["empathy","emotional intelligence","nurturing","compassion","psychic ability"]},
+  {id:49,name:"King of Cups",slug:"king-of-cups",suit:"Cups",symbol:"🌊",element:"Water",energy:"emotional balance, wisdom, diplomacy",kw:["emotional balance","wisdom","diplomacy","compassion","control"]},
+  {id:50,name:"Ace of Swords",slug:"ace-of-swords",suit:"Swords",symbol:"⚔️",element:"Air",energy:"clarity, breakthrough, truth",kw:["clarity","breakthrough","truth","intellect","new thinking"]},
+  {id:51,name:"Two of Swords",slug:"two-of-swords",suit:"Swords",symbol:"🙈",element:"Air",energy:"stalemate, difficult choice, blocked emotions",kw:["indecision","stalemate","avoidance","truce","blocked emotions"]},
+  {id:52,name:"Three of Swords",slug:"three-of-swords",suit:"Swords",symbol:"💔",element:"Air",energy:"heartbreak, grief, sorrow",kw:["heartbreak","grief","pain","sorrow","loss"]},
+  {id:53,name:"Four of Swords",slug:"four-of-swords",suit:"Swords",symbol:"😴",element:"Air",energy:"rest, recovery, meditation",kw:["rest","recovery","meditation","contemplation","retreat"]},
+  {id:54,name:"Five of Swords",slug:"five-of-swords",suit:"Swords",symbol:"🗡️",element:"Air",energy:"conflict, defeat, hollow victory",kw:["conflict","defeat","tension","betrayal","hollow victory"]},
+  {id:55,name:"Six of Swords",slug:"six-of-swords",suit:"Swords",symbol:"⛵",element:"Air",energy:"transition, moving on, calmer waters",kw:["transition","moving on","travel","calmer waters","healing"]},
+  {id:56,name:"Seven of Swords",slug:"seven-of-swords",suit:"Swords",symbol:"🦊",element:"Air",energy:"deception, strategy, avoidance",kw:["deception","strategy","stealth","avoidance","cunning"]},
+  {id:57,name:"Eight of Swords",slug:"eight-of-swords",suit:"Swords",symbol:"🔒",element:"Air",energy:"restriction, self-imprisonment, victim mentality",kw:["restriction","imprisonment","powerlessness","fear","self-imposed limits"]},
+  {id:58,name:"Nine of Swords",slug:"nine-of-swords",suit:"Swords",symbol:"😰",element:"Air",energy:"anxiety, worry, nightmares",kw:["anxiety","worry","fear","nightmares","despair"]},
+  {id:59,name:"Ten of Swords",slug:"ten-of-swords",suit:"Swords",symbol:"💀",element:"Air",energy:"painful ending, betrayal, rock bottom",kw:["ending","betrayal","collapse","loss","new dawn"]},
+  {id:60,name:"Page of Swords",slug:"page-of-swords",suit:"Swords",symbol:"🔍",element:"Air",energy:"curiosity, vigilance, new ideas",kw:["curiosity","vigilance","communication","new ideas","haste"]},
+  {id:61,name:"Knight of Swords",slug:"knight-of-swords",suit:"Swords",symbol:"💨",element:"Air",energy:"action, ambition, speed",kw:["action","ambition","speed","directness","impatience"]},
+  {id:62,name:"Queen of Swords",slug:"queen-of-swords",suit:"Swords",symbol:"🗡️",element:"Air",energy:"clarity, independence, direct communication",kw:["clarity","independence","truth","direct communication","perception"]},
+  {id:63,name:"King of Swords",slug:"king-of-swords",suit:"Swords",symbol:"👁️",element:"Air",energy:"authority, intellect, clear judgment",kw:["authority","intellect","clear judgment","ethics","analytical thinking"]},
+  {id:64,name:"Ace of Pentacles",slug:"ace-of-pentacles",suit:"Pentacles",symbol:"🪙",element:"Earth",energy:"new opportunity, prosperity, manifestation",kw:["new opportunity","prosperity","abundance","manifestation","security"]},
+  {id:65,name:"Two of Pentacles",slug:"two-of-pentacles",suit:"Pentacles",symbol:"⚖️",element:"Earth",energy:"balance, adaptation, juggling priorities",kw:["balance","adaptation","time management","flexibility","priorities"]},
+  {id:66,name:"Three of Pentacles",slug:"three-of-pentacles",suit:"Pentacles",symbol:"🔨",element:"Earth",energy:"teamwork, skill, craftsmanship",kw:["teamwork","skill","craftsmanship","collaboration","learning"]},
+  {id:67,name:"Four of Pentacles",slug:"four-of-pentacles",suit:"Pentacles",symbol:"💰",element:"Earth",energy:"security, control, holding on",kw:["security","control","conservation","possessiveness","stability"]},
+  {id:68,name:"Five of Pentacles",slug:"five-of-pentacles",suit:"Pentacles",symbol:"❄️",element:"Earth",energy:"hardship, poverty, isolation",kw:["hardship","poverty","loss","isolation","financial struggle"]},
+  {id:69,name:"Six of Pentacles",slug:"six-of-pentacles",suit:"Pentacles",symbol:"🤲",element:"Earth",energy:"generosity, charity, giving and receiving",kw:["generosity","charity","giving","receiving","balance of resources"]},
+  {id:70,name:"Seven of Pentacles",slug:"seven-of-pentacles",suit:"Pentacles",symbol:"🌱",element:"Earth",energy:"patience, investment, long-term vision",kw:["patience","investment","evaluation","long-term vision","pause"]},
+  {id:71,name:"Eight of Pentacles",slug:"eight-of-pentacles",suit:"Pentacles",symbol:"🔧",element:"Earth",energy:"diligence, mastery, dedication",kw:["diligence","mastery","skill development","dedication","craft"]},
+  {id:72,name:"Nine of Pentacles",slug:"nine-of-pentacles",suit:"Pentacles",symbol:"🦅",element:"Earth",energy:"luxury, independence, self-sufficiency",kw:["luxury","independence","self-sufficiency","abundance","refinement"]},
+  {id:73,name:"Ten of Pentacles",slug:"ten-of-pentacles",suit:"Pentacles",symbol:"🏡",element:"Earth",energy:"legacy, family wealth, permanence",kw:["legacy","family wealth","permanence","security","tradition"]},
+  {id:74,name:"Page of Pentacles",slug:"page-of-pentacles",suit:"Pentacles",symbol:"📚",element:"Earth",energy:"study, opportunity, groundedness",kw:["study","opportunity","planning","groundedness","new skills"]},
+  {id:75,name:"Knight of Pentacles",slug:"knight-of-pentacles",suit:"Pentacles",symbol:"🐂",element:"Earth",energy:"reliability, patience, hard work",kw:["reliability","patience","hard work","methodical","commitment"]},
+  {id:76,name:"Queen of Pentacles",slug:"queen-of-pentacles",suit:"Pentacles",symbol:"🌾",element:"Earth",energy:"nurturing, practicality, abundance",kw:["nurturing","practicality","abundance","security","resourcefulness"]},
+  {id:77,name:"King of Pentacles",slug:"king-of-pentacles",suit:"Pentacles",symbol:"🏦",element:"Earth",energy:"prosperity, reliability, mastery",kw:["prosperity","reliability","mastery","financial security","discipline"]}
+];
+
+// ── Interpretation engine ──────────────────────────────────────────────────
+function getElementRelationship(e1, e2) {
+  const fire = s => s.includes('Fire');
+  const water = s => s.includes('Water');
+  const air = s => s.includes('Air');
+  const earth = s => s.includes('Earth');
+  if ((fire(e1)&&air(e2))||(air(e1)&&fire(e2))) return {type:'amplifying',desc:'Fire and Air feed each other — this combination surges with energy, inspiration and rapid forward movement.'};
+  if ((earth(e1)&&water(e2))||(water(e1)&&earth(e2))) return {type:'nurturing',desc:'Earth and Water create fertile ground — this is a combination of growth, nourishment and patient manifestation.'};
+  if ((fire(e1)&&water(e2))||(water(e1)&&fire(e2))) return {type:'tension',desc:'Fire and Water create steam and tension — this combination holds both passion and emotional complexity in dynamic opposition.'};
+  if ((air(e1)&&earth(e2))||(earth(e1)&&air(e2))) return {type:'grounding',desc:'Air and Earth balance thought with action — this combination asks you to ground your ideas into practical reality.'};
+  if (e1===e2||e1.includes(e2)||e2.includes(e1)) return {type:'resonant',desc:'Sharing the same element, these cards speak the same language — their energies amplify and deepen each other powerfully.'};
+  return {type:'complex',desc:'These two cards carry distinct elemental energies that create a layered, multifaceted combination requiring careful reflection.'};
+}
+
+function interpretCombination(c1, c2) {
+  const rel = getElementRelationship(c1.element, c2.element);
+  const kw1 = c1.kw.slice(0,3).join(', ');
+  const kw2 = c2.kw.slice(0,3).join(', ');
+
+  // Main interpretation
+  const tones = {
+    amplifying: `The pairing of ${c1.name} and ${c2.name} creates a powerfully amplified current of energy. ${c1.name} brings ${c1.energy}, while ${c2.name} adds ${c2.energy}. Together they ignite momentum — ideas and actions move fast. ${rel.desc} The core themes running through this combination are ${kw1} meeting ${kw2}. When these two cards appear together, something is accelerating: you are being called to act with both awareness and drive.`,
+    nurturing: `${c1.name} and ${c2.name} create a deeply supportive pairing. ${c1.name} carries the energy of ${c1.energy}, and ${c2.name} holds the quality of ${c2.energy}. ${rel.desc} Together they ask you to be patient, tend to what is growing, and trust the process. The themes of ${kw1} are enriched by ${kw2} — a combination that rewards steadiness, care and long-term thinking over quick wins.`,
+    tension: `${c1.name} and ${c2.name} create a dynamic, charged tension. ${c1.name} expresses ${c1.energy}, while ${c2.name} brings ${c2.energy} — these are not opposing forces so much as complementary polarities that must be balanced. ${rel.desc} The pull between ${kw1} and ${kw2} is the heart of this combination's message: something needs to be integrated, not chosen between. Both energies are valid; the work is in holding them together.`,
+    grounding: `${c1.name} and ${c2.name} form a combination that bridges vision with reality. ${c1.name} brings ${c1.energy}, while ${c2.name} provides ${c2.energy}. ${rel.desc} The challenge and gift of this pairing is translating the themes of ${kw1} into the practical domain of ${kw2}. This combination rewards those who can think clearly and then follow through methodically.`,
+    resonant: `When ${c1.name} meets ${c2.name}, their shared elemental nature creates a deep resonance. ${c1.name} embodies ${c1.energy}, and ${c2.name} extends that into the realm of ${c2.energy}. ${rel.desc} The keywords ${kw1} and ${kw2} weave together into a unified message — this is a combination of reinforcement and depth. What each card suggests alone becomes more certain, more pronounced and more important together.`,
+    complex: `${c1.name} and ${c2.name} bring together two distinct archetypal currents: ${c1.energy} from ${c1.name}, and ${c2.energy} from ${c2.name}. ${rel.desc} The themes of ${kw1} exist in dialogue with ${kw2}. Reading this combination requires holding both energies without collapsing one into the other — each brings its own wisdom, and the message emerges in the space between them.`
+  };
+
+  // Love
+  const loveTemplates = [
+    `In love, ${c1.name} and ${c2.name} suggest a relationship shaped by ${c1.kw[0]} and ${c2.kw[0]}. This combination points to a partnership where both emotional truth and personal growth are central themes.`,
+    `Romantically, the meeting of ${c1.name}'s ${c1.kw[0]} with ${c2.name}'s ${c2.kw[0]} describes a connection with real depth — one that asks both people to show up authentically and grow together.`,
+    `In matters of the heart, this pairing weaves ${c1.kw[0]} with ${c2.kw[1]}. Expect a relationship dynamic that is ${rel.type === 'tension' ? 'passionate and complex' : rel.type === 'nurturing' ? 'warm and deeply supportive' : 'evolving and meaningful'}.`
+  ];
+
+  // Career
+  const careerTemplates = [
+    `In work and finances, ${c1.name} and ${c2.name} together indicate that ${c1.kw[1]} and ${c2.kw[1]} are the key forces at play. Success comes from combining these energies rather than choosing between them.`,
+    `Professionally, this combination of ${c1.kw[0]} and ${c2.kw[0]} suggests a period where ${rel.type === 'amplifying' ? 'bold moves and fast decisions lead to breakthroughs' : rel.type === 'grounding' ? 'careful planning and steady effort produce the best results' : 'collaboration and honest assessment are your greatest assets'}.`,
+    `In career matters, the energies of ${c1.name} and ${c2.name} point to ${c1.kw[2]} meeting ${c2.kw[2]} — a combination that rewards those who can stay grounded while pursuing ambitious goals.`
+  ];
+
+  // Spirit/growth
+  const spiritTemplates = [
+    `For personal growth, these two cards invite you to explore the relationship between ${c1.kw[0]} and ${c2.kw[0]}. The lesson is about integration — how can both of these qualities coexist and strengthen each other within you?`,
+    `${c1.name} and ${c2.name} together on a personal level ask: where in your life do ${c1.energy} and ${c2.energy} need to come into balance? The answer to that question is your growth edge right now.`,
+    `Spiritually, this combination speaks to the theme of ${rel.type === 'tension' ? 'integration and inner reconciliation' : rel.type === 'resonant' ? 'deepening and commitment to a path already begun' : 'expanding beyond your current boundaries'}. ${c1.name} has prepared you; ${c2.name} shows you where to go next.`
+  ];
+
+  const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+
+  return {
+    main: tones[rel.type],
+    love: pick(loveTemplates),
+    career: pick(careerTemplates),
+    spirit: pick(spiritTemplates)
+  };
+}
+
+// ── UI ────────────────────────────────────────────────────────────────────
+let chosen = [null, null];
+
+function buildDropdown(id, query) {
+  const dd = document.getElementById('dropdown' + id);
+  const q = query.toLowerCase().trim();
+  const matches = q ? CARDS.filter(c => c.name.toLowerCase().includes(q) || c.suit.toLowerCase().includes(q)) : CARDS;
+  if (!matches.length) { dd.innerHTML='<div class="dropdown-item" style="opacity:.5;cursor:default">No cards found</div>'; dd.classList.add('open'); return; }
+  dd.innerHTML = matches.slice(0,20).map(c =>
+    `<div class="dropdown-item" data-id="${c.id}"><span class="item-symbol">${c.symbol}</span>${c.name}<span class="item-suit">${c.suit}</span></div>`
+  ).join('');
+  dd.classList.add('open');
+  dd.querySelectorAll('.dropdown-item').forEach(el => {
+    el.addEventListener('mousedown', e => {
+      e.preventDefault();
+      selectCard(id, parseInt(el.dataset.id));
+    });
+  });
+}
+
+function selectCard(idx, cardId) {
+  const card = CARDS.find(c => c.id === cardId);
+  chosen[idx-1] = card;
+  document.getElementById('sym'+idx).textContent = card.symbol;
+  document.getElementById('name'+idx).textContent = card.name;
+  document.getElementById('suit'+idx).textContent = card.suit + ' · ' + card.element;
+  document.getElementById('selected'+idx).classList.add('visible');
+  document.getElementById('search'+idx).value = '';
+  document.getElementById('dropdown'+idx).classList.remove('open');
+  updateBtn();
+}
+
+function clearCard(idx) {
+  chosen[idx-1] = null;
+  document.getElementById('selected'+idx).classList.remove('visible');
+  updateBtn();
+}
+
+function updateBtn() {
+  document.getElementById('interpretBtn').disabled = !(chosen[0] && chosen[1]);
+}
+
+[1,2].forEach(i => {
+  document.getElementById('search'+i).addEventListener('input', e => buildDropdown(i, e.target.value));
+  document.getElementById('search'+i).addEventListener('focus', e => buildDropdown(i, e.target.value));
+  document.getElementById('search'+i).addEventListener('blur', () => setTimeout(()=>document.getElementById('dropdown'+i).classList.remove('open'),150));
+  document.getElementById('clear'+i).addEventListener('click', () => clearCard(i));
+});
+
+document.getElementById('interpretBtn').addEventListener('click', () => {
+  const c1 = chosen[0], c2 = chosen[1];
+  if (!c1||!c2) return;
+  const interp = interpretCombination(c1, c2);
+
+  // Header chips
+  document.getElementById('comboHeader').innerHTML =
+    `<div class="combo-card-chip"><span class="combo-symbol">${c1.symbol}</span>${c1.name}</div>
+     <span class="combo-plus">✦</span>
+     <div class="combo-card-chip"><span class="combo-symbol">${c2.symbol}</span>${c2.name}</div>`;
+
+  document.getElementById('interpMain').textContent = interp.main;
+  document.getElementById('interpLove').textContent = interp.love;
+  document.getElementById('interpCareer').textContent = interp.career;
+  document.getElementById('interpSpirit').textContent = interp.spirit;
+
+  // CTA links
+  document.getElementById('ctaRow').innerHTML =
+    `<a href="/cards/${c1.slug}.html" class="cta-link">Read ${c1.name} →</a>
+     <a href="/cards/${c2.slug}.html" class="cta-link">Read ${c2.name} →</a>`;
+
+  const result = document.getElementById('result');
+  result.style.display = 'block';
+  setTimeout(() => result.classList.add('visible'), 10);
+  result.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+document.getElementById('newComboBtn').addEventListener('click', () => {
+  chosen = [null, null];
+  [1,2].forEach(i => {
+    document.getElementById('selected'+i).classList.remove('visible');
+    document.getElementById('search'+i).value = '';
+  });
+  updateBtn();
+  const result = document.getElementById('result');
+  result.classList.remove('visible');
+  setTimeout(() => { result.style.display = 'none'; }, 300);
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+</script>
+</body>
+</html>
