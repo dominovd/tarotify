@@ -7,6 +7,7 @@ const links = [
   { href: '/', label: 'Reading' },
   { href: '/yes-no', label: 'Yes / No' },
   { href: '/cards', label: 'Card Meanings' },
+  { href: '/spreads', label: 'Spreads' },
   { href: '/combination', label: 'Combinations' },
 ]
 
