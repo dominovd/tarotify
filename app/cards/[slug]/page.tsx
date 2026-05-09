@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
 
@@ -16,6 +17,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${card.name} Tarot Card Meaning — Upright & Reversed | Tarotify`,
     description: `${card.name} tarot card meaning: ${card.kw_up.join(', ')}. Upright, reversed, love, career and spiritual guidance.`,
     alternates: { canonical: `https://tarotify.app/cards/${card.slug}` },
+    openGraph: {
+      images: [`/cards/${card.slug}.webp`],
+    },
   }
 }
 
@@ -48,7 +52,16 @@ export default function CardPage({ params }: Props) {
 
       {/* Hero */}
       <div style={{ textAlign:'center', marginBottom:'2.5rem' }}>
-        <div style={{ fontSize:'4rem', marginBottom:'1rem' }}>{card.symbol}</div>
+        <div style={{ position:'relative', width:200, height:300, margin:'0 auto 1.5rem', borderRadius:12, overflow:'hidden', boxShadow:'0 8px 32px rgba(0,0,0,.4)' }}>
+          <Image
+            src={`/cards/${card.slug}.webp`}
+            alt={`${card.name} tarot card`}
+            fill
+            priority
+            sizes="200px"
+            style={{ objectFit:'cover' }}
+          />
+        </div>
         <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:'clamp(1.5rem,4vw,2rem)', color:'var(--gold)', marginBottom:'.5rem' }}>{card.name}</h1>
         <div style={{ display:'flex', gap:'.75rem', justifyContent:'center', alignItems:'center', flexWrap:'wrap' }}>
           <span style={{ padding:'.25rem .85rem', border:'1px solid var(--border)', borderRadius:20, fontSize:'.72rem', color:'var(--muted)', fontFamily:"'Cinzel',serif", letterSpacing:'.08em' }}>
@@ -113,12 +126,12 @@ export default function CardPage({ params }: Props) {
       <div style={{ display:'flex', justifyContent:'space-between', gap:'1rem', flexWrap:'wrap' }}>
         {prev ? (
           <Link href={`/cards/${prev.slug}`} style={{ padding:'.65rem 1rem', border:'1px solid var(--border)', borderRadius:8, color:'var(--muted)', fontSize:'.82rem', display:'flex', alignItems:'center', gap:'.5rem' }}>
-            ← {prev.symbol} {prev.name}
+            ← {prev.name}
           </Link>
         ) : <span />}
         {next && (
           <Link href={`/cards/${next.slug}`} style={{ padding:'.65rem 1rem', border:'1px solid var(--border)', borderRadius:8, color:'var(--muted)', fontSize:'.82rem', display:'flex', alignItems:'center', gap:'.5rem' }}>
-            {next.symbol} {next.name} →
+            {next.name} →
           </Link>
         )}
       </div>

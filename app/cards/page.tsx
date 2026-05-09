@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CARDS, SUITS } from '@/lib/cards'
 
 export const metadata: Metadata = {
@@ -18,7 +19,6 @@ export default function CardsIndex() {
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <div style={{ fontSize: '2rem', marginBottom: '.75rem' }}>📚</div>
         <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:'clamp(1.5rem,4vw,2.1rem)', color:'var(--gold)', marginBottom:'.75rem' }}>
           Tarot Card Meanings
         </h1>
@@ -39,8 +39,19 @@ export default function CardsIndex() {
                 const yn = YN_STYLE[card.yn]
                 return (
                   <Link key={card.slug} href={`/cards/${card.slug}`} style={{ display:'flex', flexDirection:'column', gap:'.4rem', padding:'1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, transition:'border-color .2s, background .2s' }}>
-                    <div style={{ fontSize:'1.6rem', textAlign:'center' }}>{card.symbol}</div>
-                    <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.78rem', color:'var(--gold)', letterSpacing:'.05em', textAlign:'center', lineHeight:1.3 }}>{card.name}</div>
+                    <div style={{ position:'relative', width:'100%', aspectRatio:'2/3', borderRadius:8, overflow:'hidden', marginBottom:'.4rem' }}>
+                      <Image
+                        src={`/cards/${card.slug}.webp`}
+                        alt={`${card.name} tarot card`}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 150px"
+                        style={{ objectFit:'cover' }}
+                      />
+                      {/* Card name overlay */}
+                      <div style={{ position:'absolute', bottom:0, left:0, right:0, padding:'.35rem .4rem', background:'linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%)', textAlign:'center' }}>
+                        <span style={{ fontFamily:"'Cinzel',serif", fontSize:'.6rem', color:'#e8d5a0', letterSpacing:'.06em', lineHeight:1.2, display:'block' }}>{card.name}</span>
+                      </div>
+                    </div>
                     <div style={{ display:'flex', justifyContent:'center', marginTop:'auto' }}>
                       <span style={{ padding:'.15rem .5rem', borderRadius:20, fontSize:'.62rem', fontFamily:"'Cinzel',serif", letterSpacing:'.06em', background: yn.bg, color: yn.color }}>
                         {card.yn.toUpperCase()}
