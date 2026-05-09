@@ -127,9 +127,15 @@ export default function HomeClient() {
         ✦ Draw Three Cards
       </button>
       <div style={{ display:'flex', justifyContent:'center', gap:'2rem', marginTop:'3rem', flexWrap:'wrap' }}>
-        {[['🔮','Yes / No Oracle','/yes-no'],['📚','Card Meanings','/cards'],['✦','Combinations','/combination']].map(([icon,label,href])=>(
-          <Link key={href as string} href={href as string} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.5rem', color:'var(--muted)', padding:'1rem 1.25rem', border:'1px solid var(--border)', borderRadius:12, fontSize:'.85rem', transition:'color .2s, border-color .2s', minWidth:120 }}>
-            <span style={{ fontSize:'1.5rem' }}>{icon}</span>
+        {([['🔮','Yes / No Oracle','/yes-no'],['card','Card Meanings','/cards'],['✦','Combinations','/combination']] as [string,string,string][]).map(([icon,label,href])=>(
+          <Link key={href} href={href} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.5rem', color:'var(--muted)', padding:'1rem 1.25rem', border:'1px solid var(--border)', borderRadius:12, fontSize:'.85rem', transition:'color .2s, border-color .2s', minWidth:120 }}>
+            {icon === 'card' ? (
+              <div style={{ position:'relative', width:32, height:48, borderRadius:4, overflow:'hidden', border:'1px solid rgba(201,168,76,.35)' }}>
+                <Image src="/cards/the-high-priestess.webp" alt="Card Meanings" fill sizes="32px" style={{ objectFit:'cover' }} />
+              </div>
+            ) : (
+              <span style={{ fontSize:'1.5rem' }}>{icon}</span>
+            )}
             <span style={{ fontFamily:"'Cinzel',serif", fontSize:'.75rem', letterSpacing:'.06em' }}>{label}</span>
           </Link>
         ))}
