@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CARDS } from '@/lib/cards'
 
 type HistoryItem = { q: string; card: string; slug: string; yn: string }
@@ -68,16 +69,26 @@ export default function YesNoClient() {
         )}
       </div>
 
-      {/* Card */}
+      {/* Card flip */}
       {drawn && (
         <div style={{ display:'flex', flexDirection:'column', alignItems:'center', marginBottom:'2rem' }}>
           <div style={{ width:180, height:280, perspective:1000 }}>
             <div style={{ width:'100%', height:'100%', position:'relative', transformStyle:'preserve-3d', transition:'transform .7s cubic-bezier(.4,0,.2,1)', transform: flipped ? 'rotateY(180deg)' : 'none' }}>
+              {/* Back */}
               <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', borderRadius:12, background:'linear-gradient(145deg,#1a1a3a,#0d0d2b)', border:'2px solid rgba(201,168,76,.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'2rem', opacity:.25 }}>☽✦☾</div>
-              <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', transform:'rotateY(180deg)', borderRadius:12, background:'linear-gradient(145deg,#12122a,#08082a)', border:'2px solid rgba(201,168,76,.4)', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'.75rem', padding:'1.5rem', textAlign:'center' }}>
-                <div style={{ fontSize:'3rem' }}>{drawn.symbol}</div>
-                <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.9rem', color:'var(--gold)' }}>{drawn.name}</div>
-                <div style={{ fontSize:'.65rem', color:'var(--muted)', letterSpacing:'.1em', textTransform:'uppercase' }}>{drawn.suitLabel}</div>
+              {/* Front — real card image */}
+              <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', transform:'rotateY(180deg)', borderRadius:12, overflow:'hidden', border:'2px solid rgba(201,168,76,.4)' }}>
+                <Image
+                  src={`/cards/${drawn.slug}.webp`}
+                  alt={drawn.name}
+                  fill
+                  sizes="180px"
+                  style={{ objectFit:'cover' }}
+                />
+                <div style={{ position:'absolute', bottom:0, left:0, right:0, padding:'.5rem', background:'linear-gradient(to top, rgba(0,0,0,.88) 0%, transparent 100%)', textAlign:'center' }}>
+                  <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', color:'#e8d5a0', letterSpacing:'.06em' }}>{drawn.name}</div>
+                  <div style={{ fontSize:'.55rem', color:'rgba(232,213,160,.6)', letterSpacing:'.1em', textTransform:'uppercase', marginTop:2 }}>{drawn.suitLabel}</div>
+                </div>
               </div>
             </div>
           </div>

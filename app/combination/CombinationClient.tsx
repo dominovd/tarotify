@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CARDS, type Card } from '@/lib/cards'
 
 function getElementRel(e1: string, e2: string) {
@@ -92,7 +93,9 @@ export default function CombinationClient() {
             <div style={{ position:'absolute', top:'100%', left:0, right:0, marginTop:4, maxHeight:220, overflowY:'auto', background:'#0e0e28', border:'1px solid var(--border)', borderRadius:8, zIndex:10 }}>
               {filtered(q, idx === 1 ? c2 : c1).map(card => (
                 <div key={card.slug} onMouseDown={() => selectCard(idx, card)} style={{ padding:'.5rem .9rem', fontSize:'.82rem', cursor:'pointer', display:'flex', alignItems:'center', gap:'.6rem', color:'var(--text)' }}>
-                  <span style={{ width:'1.4rem', textAlign:'center' }}>{card.symbol}</span>
+                  <div style={{ position:'relative', width:20, height:30, flexShrink:0, borderRadius:3, overflow:'hidden' }}>
+                    <Image src={`/cards/${card.slug}.webp`} alt={card.name} fill sizes="20px" style={{ objectFit:'cover' }} />
+                  </div>
                   {card.name}
                   <span style={{ marginLeft:'auto', color:'var(--muted)', fontSize:'.72rem' }}>{card.suitLabel}</span>
                 </div>
@@ -102,7 +105,9 @@ export default function CombinationClient() {
         </div>
       ) : (
         <div style={{ display:'flex', alignItems:'center', gap:'.75rem', padding:'.75rem', background:'rgba(201,168,76,.06)', border:'1px solid rgba(201,168,76,.2)', borderRadius:8 }}>
-          <span style={{ fontSize:'1.8rem' }}>{card.symbol}</span>
+          <div style={{ position:'relative', width:40, height:60, flexShrink:0, borderRadius:6, overflow:'hidden', border:'1px solid rgba(201,168,76,.3)' }}>
+            <Image src={`/cards/${card.slug}.webp`} alt={card.name} fill sizes="40px" style={{ objectFit:'cover' }} />
+          </div>
           <div style={{ flex:1 }}>
             <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.88rem' }}>{card.name}</div>
             <div style={{ color:'var(--muted)', fontSize:'.72rem' }}>{card.suitLabel} · {card.element}</div>
@@ -138,7 +143,10 @@ export default function CombinationClient() {
           <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:'1rem', marginBottom:'2rem', flexWrap:'wrap' }}>
             {[c1,c2].map((c,i) => (
               <span key={i} style={i===0?{display:'flex',alignItems:'center',gap:'.5rem',background:'rgba(201,168,76,.08)',border:'1px solid var(--border)',borderRadius:100,padding:'.4rem 1rem',fontFamily:"'Cinzel',serif",fontSize:'.82rem',color:'var(--gold)'}:{display:'flex',alignItems:'center',gap:'.5rem',background:'rgba(201,168,76,.08)',border:'1px solid var(--border)',borderRadius:100,padding:'.4rem 1rem',fontFamily:"'Cinzel',serif",fontSize:'.82rem',color:'var(--gold)'}}>
-                <span>{c.symbol}</span>{c.name}
+                <div style={{ position:'relative', width:18, height:27, flexShrink:0, borderRadius:3, overflow:'hidden' }}>
+                  <Image src={`/cards/${c.slug}.webp`} alt={c.name} fill sizes="18px" style={{ objectFit:'cover' }} />
+                </div>
+                {c.name}
               </span>
             )).reduce((acc, el, i) => i === 0 ? [el] : [...acc, <span key="plus" style={{color:'var(--muted)',opacity:.5}}>✦</span>, el], [] as React.ReactNode[])}
           </div>
