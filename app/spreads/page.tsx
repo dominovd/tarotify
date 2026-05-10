@@ -56,6 +56,30 @@ const SPREADS = [
     desc: 'A classic 7-card arc covering past, present, hidden influences, obstacles, external forces, advice and outcome.',
     tags: ['Classic layout', 'Any question', 'Detailed'],
   },
+  {
+    slug: 'soulmate',
+    name: 'Soulmate Spread',
+    cards: 5,
+    level: 'Beginner',
+    desc: 'Are they the one? Five cards reveal your energy, what you truly seek, what you need, the path forward, and the nature of your connection.',
+    tags: ['Love & Relationships', 'Soulmate', 'Singles'],
+  },
+  {
+    slug: 'career',
+    name: 'Career Spread',
+    cards: 5,
+    level: 'Beginner',
+    desc: 'Three focused layouts for work, purpose and decisions — from a 5-card career direction reading to a 3-card purpose & calling spread.',
+    tags: ['Career', 'Purpose', 'Work & Money'],
+  },
+  {
+    slug: 'weekly',
+    name: 'Weekly Spread',
+    cards: 7,
+    level: 'Beginner',
+    desc: 'One card for every day of the week — a complete energetic forecast to set intentions on Sunday and navigate each day with clarity.',
+    tags: ['Weekly ritual', 'Daily guidance', 'Planning'],
+  },
 ]
 
 const COMING_SOON = [
