@@ -4,6 +4,16 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
 import { CARD_EXTENDED } from '@/lib/card-extended'
+import { makeComboSlug, MAJOR_SLUGS } from '@/lib/combinations'
+
+// Top Major Arcana by combo search volume (from SEMrush data)
+const COMBO_PRIORITY = [
+  'death', 'justice', 'the-sun', 'the-world', 'judgement',
+  'the-star', 'strength', 'the-devil', 'the-moon', 'temperance',
+  'the-lovers', 'wheel-of-fortune', 'the-tower', 'the-empress',
+  'the-fool', 'the-magician', 'the-emperor', 'the-hermit',
+  'the-chariot', 'the-hanged-man', 'the-hierophant', 'the-high-priestess',
+]
 
 interface Props { params: { slug: string } }
 
@@ -185,6 +195,38 @@ export default function CardPage({ params }: Props) {
           </div>
         </div>
       )}
+
+      {/* Popular Combinations */}
+      {(() => {
+        const comboCards = COMBO_PRIORITY
+          .filter(s => s !== card.slug && CARDS_BY_SLUG[s])
+          .slice(0, 8)
+        if (comboCards.length === 0) return null
+        return (
+          <div style={{ marginBottom:'2.5rem' }}>
+            <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', marginBottom:'.5rem', letterSpacing:'.06em' }}>
+              Popular Combinations with {card.name}
+            </h2>
+            <p style={{ color:'var(--muted)', fontSize:'.82rem', marginBottom:'1rem', lineHeight:1.6 }}>
+              See how {card.name} interacts with other major arcana cards in a reading.
+            </p>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'.55rem' }}>
+              {comboCards.map(otherSlug => {
+                const other = CARDS_BY_SLUG[otherSlug]
+                const comboSlug = makeComboSlug(card.slug, otherSlug)
+                return (
+                  <Link key={otherSlug} href={`/combination/${comboSlug}`} style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.6rem .85rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:10, fontSize:'.82rem', color:'var(--muted)' }}>
+                    <div style={{ position:'relative', width:22, height:33, borderRadius:3, overflow:'hidden', flexShrink:0 }}>
+                      <Image src={`/cards/${otherSlug}.webp`} alt={other.name} fill sizes="22px" style={{ objectFit:'cover' }} />
+                    </div>
+                    <span>{card.name} + {other.name}</span>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )
+      })()}
 
       {/* Prev / Next */}
       <div style={{ display:'flex', justifyContent:'space-between', gap:'1rem', flexWrap:'wrap' }}>

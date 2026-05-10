@@ -4,6 +4,34 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { CARDS, type Card } from '@/lib/cards'
 
+// Top combinations by search volume (from SEMrush analysis)
+const POPULAR_COMBOS = [
+  { slug: 'the-high-priestess-and-page-of-swords', label: 'The High Priestess & Page of Swords' },
+  { slug: 'the-world-and-the-star',                label: 'The World & The Star' },
+  { slug: 'the-sun-and-the-moon',                  label: 'The Sun & The Moon' },
+  { slug: 'justice-and-judgement',                 label: 'Justice & Judgement' },
+  { slug: 'death-and-judgement',                   label: 'Death & Judgement' },
+  { slug: 'death-and-justice',                     label: 'Death & Justice' },
+  { slug: 'the-moon-and-the-tower',                label: 'The Moon & The Tower' },
+  { slug: 'death-and-the-tower',                   label: 'Death & The Tower' },
+  { slug: 'the-lovers-and-the-devil',              label: 'The Lovers & The Devil' },
+  { slug: 'the-hierophant-and-the-lovers',         label: 'The Hierophant & The Lovers' },
+  { slug: 'death-and-strength',                    label: 'Death & Strength' },
+  { slug: 'death-and-the-devil',                   label: 'Death & The Devil' },
+  { slug: 'the-magician-and-temperance',           label: 'The Magician & Temperance' },
+  { slug: 'judgement-and-temperance',              label: 'Judgement & Temperance' },
+  { slug: 'the-empress-and-the-lovers',            label: 'The Empress & The Lovers' },
+  { slug: 'the-chariot-and-strength',              label: 'The Chariot & Strength' },
+  { slug: 'the-hermit-and-the-high-priestess',     label: 'The Hermit & The High Priestess' },
+  { slug: 'death-and-the-hermit',                  label: 'Death & The Hermit' },
+  { slug: 'the-star-and-the-moon',                 label: 'The Star & The Moon' },
+  { slug: 'the-devil-and-the-world',               label: 'The Devil & The World' },
+  { slug: 'the-emperor-and-strength',              label: 'The Emperor & Strength' },
+  { slug: 'the-hanged-man-and-death',              label: 'The Hanged Man & Death' },
+  { slug: 'the-fool-and-the-magician',             label: 'The Fool & The Magician' },
+  { slug: 'the-chariot-and-death',                 label: 'The Chariot & Death' },
+]
+
 function getElementRel(e1: string, e2: string) {
   const has = (e: string, s: string) => e.includes(s)
   if ((has(e1,'Fire')&&has(e2,'Air'))||(has(e1,'Air')&&has(e2,'Fire'))) return {type:'amplifying', desc:'Fire and Air feed each other — this combination surges with inspiration and rapid forward movement.'}
@@ -184,6 +212,22 @@ export default function CombinationClient() {
         <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1.1rem', marginBottom:'1rem', letterSpacing:'.06em' }}>How Tarot Combinations Work</h2>
         <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem', marginBottom:'.75rem' }}>In a tarot reading, cards rarely speak alone. Their true message emerges in conversation with their neighbours. The Combination Calculator analyses the core archetypes of your two cards: their elemental energies (Fire, Water, Air, Earth), their numerological resonance, and their thematic relationship — harmony, tension or transformation.</p>
         <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem' }}>Use this tool to explore pairings from a reading you received, to deepen your study of the deck, or to understand how any two cards speak to each other.</p>
+      </div>
+
+      {/* Popular Combinations */}
+      <div style={{ marginTop:'3rem', borderTop:'1px solid rgba(201,168,76,.1)', paddingTop:'2.5rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1.1rem', marginBottom:'.5rem', letterSpacing:'.06em' }}>Popular Tarot Combinations</h2>
+        <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, marginBottom:'1.5rem' }}>
+          Explore the most searched tarot card pairings — each with a full interpretation for love, career and personal growth.
+        </p>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))', gap:'.6rem' }}>
+          {POPULAR_COMBOS.map(({ slug, label }) => (
+            <Link key={slug} href={`/combination/${slug}`} style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.65rem .9rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:10, color:'var(--muted)', fontSize:'.82rem', fontFamily:"'Lato',sans-serif" }}>
+              <span style={{ color:'var(--gold)', opacity:.5, fontSize:'.7rem' }}>✦</span>
+              {label}
+            </Link>
+          ))}
+        </div>
       </div>
       <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
     </div>
