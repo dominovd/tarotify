@@ -208,14 +208,8 @@ export default function CombinationClient() {
         </div>
       )}
 
-      <div style={{ marginTop:'4rem', borderTop:'1px solid rgba(201,168,76,.1)', paddingTop:'2.5rem' }}>
-        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1.1rem', marginBottom:'1rem', letterSpacing:'.06em' }}>How Tarot Combinations Work</h2>
-        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem', marginBottom:'.75rem' }}>In a tarot reading, cards rarely speak alone. Their true message emerges in conversation with their neighbours. The Combination Calculator analyses the core archetypes of your two cards: their elemental energies (Fire, Water, Air, Earth), their numerological resonance, and their thematic relationship — harmony, tension or transformation.</p>
-        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem' }}>Use this tool to explore pairings from a reading you received, to deepen your study of the deck, or to understand how any two cards speak to each other.</p>
-      </div>
-
       {/* Popular Combinations */}
-      <div style={{ marginTop:'3rem', borderTop:'1px solid rgba(201,168,76,.1)', paddingTop:'2.5rem' }}>
+      <div style={{ marginTop:'4rem', borderTop:'1px solid rgba(201,168,76,.1)', paddingTop:'2.5rem' }}>
         <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1.1rem', marginBottom:'.5rem', letterSpacing:'.06em' }}>Popular Tarot Combinations</h2>
         <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, marginBottom:'1.5rem' }}>
           Explore the most searched tarot card pairings — each with a full interpretation for love, career and personal growth.
@@ -228,6 +222,20 @@ export default function CombinationClient() {
             </Link>
           ))}
         </div>
+      </div>
+
+      <div style={{ marginTop:'3rem', borderTop:'1px solid rgba(201,168,76,.1)', paddingTop:'2.5rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1.1rem', marginBottom:'1rem', letterSpacing:'.06em' }}>How Tarot Combinations Work</h2>
+        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem', marginBottom:'.75rem' }}>In a tarot reading, cards rarely speak alone. Every card carries its own archetypal energy — but the real message emerges when two cards enter into dialogue. Their elemental natures interact: Fire and Air amplify each other into swift, inspired action; Earth and Water create patient, nourishing growth; Fire and Water generate charged, passionate tension; Air and Earth bridge vision with practical reality. These elemental relationships form the foundation of how any pairing should be read.</p>
+        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem', marginBottom:'.75rem' }}>The Tarot Combination Calculator analyses each pairing across three layers. First, it identifies the elemental relationship between the two cards and describes the energetic dynamic that creates. Second, it draws on the core upright keywords and archetypal themes of each card — not just their surface meanings but the deeper currents they represent. Third, it translates that combined energy into three specific contexts: love and relationships, career and finances, and personal growth. The result is a reading that honours the complexity of the pairing rather than reducing it to a single line.</p>
+        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem' }}>Use this tool in three ways: to analyse a pairing that appeared together in a reading you received; to study the deck more deeply by exploring how cards you find challenging relate to cards you understand well; or to investigate a specific combination you are curious about before it appears in a spread. The more you explore how cards speak to each other, the richer your readings will become.</p>
+      </div>
+
+      <div style={{ marginTop:'3rem', borderTop:'1px solid rgba(201,168,76,.1)', paddingTop:'2.5rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1.1rem', marginBottom:'1rem', letterSpacing:'.06em' }}>Reading Three Tarot Card Combinations</h2>
+        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem', marginBottom:'.75rem' }}>When three cards land together in a spread, the most reliable approach is to read them in pairs first: cards 1 and 2, then cards 2 and 3, then cards 1 and 3. Each pair tells part of the story. Once you have read all three pairings, step back and ask what all three cards are saying as a unified group — a triadic message that is often greater than the sum of its parts.</p>
+        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem', marginBottom:'.75rem' }}>Pay close attention to repeating suits: two or three cards from the same suit signal that the energy of that element — Cups for emotions, Wands for passion and drive, Swords for thought and conflict, Pentacles for material life — is the dominant current of the reading. Repeating numbers carry numerological weight: three cards all bearing the number 7, for instance, point to a period of inner reflection and reassessment regardless of their individual meanings.</p>
+        <p style={{ color:'var(--muted)', lineHeight:1.75, fontSize:'.95rem' }}>For a full guide to reading three cards together — including the most useful position variations and how to find the narrative thread — visit the <Link href="/spreads/three-card" style={{ color:'var(--gold)', opacity:.8 }}>Three Card Tarot Spread</Link> page.</p>
       </div>
       <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
     </div>

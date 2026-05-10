@@ -40,12 +40,27 @@ const SPREADS = [
     desc: 'One card per month plus an overarching theme — a complete energetic map of the year ahead. The most powerful annual ritual in tarot.',
     tags: ['2026', 'Annual reading', 'New year'],
   },
+  {
+    slug: 'full-moon',
+    name: 'Full Moon Spread',
+    cards: 6,
+    level: 'Beginner',
+    desc: 'Release what no longer serves you and celebrate what has come to fruition. A ritual spread for the peak of the lunar cycle.',
+    tags: ['Lunar ritual', 'Release', 'Gratitude'],
+  },
+  {
+    slug: 'horseshoe',
+    name: 'Horseshoe Spread',
+    cards: 7,
+    level: 'Intermediate',
+    desc: 'A classic 7-card arc covering past, present, hidden influences, obstacles, external forces, advice and outcome.',
+    tags: ['Classic layout', 'Any question', 'Detailed'],
+  },
 ]
 
 const COMING_SOON = [
   { name: 'One-Card Daily', cards: 1, desc: 'Draw a single card each morning for a daily theme and intention.' },
-  { name: 'Full Moon Spread', cards: 4, desc: 'Release, receive and set intentions with the lunar cycle.' },
-  { name: 'Horseshoe Spread', cards: 7, desc: 'A classic 7-card arc covering past, present, future and hidden influences.' },
+  { name: 'New Moon Spread', cards: 5, desc: 'Set intentions and plant seeds for the cycle ahead under the dark moon.' },
 ]
 
 export default function SpreadsPage() {
