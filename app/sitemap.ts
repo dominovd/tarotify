@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/spreads/career`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/spreads/weekly`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/free-reading`,           lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/daily`,                  lastModified: new Date(), changeFrequency: 'daily',   priority: 0.9 },
   ]
 
   const cardPages: MetadataRoute.Sitemap = CARDS.map(card => ({

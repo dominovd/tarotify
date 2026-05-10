@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 
 const links = [
   { href: '/free-reading', label: 'Free Reading' },
+  { href: '/daily', label: 'Card of the Day' },
   { href: '/yes-no', label: 'Yes / No' },
   { href: '/cards', label: 'Card Meanings' },
   { href: '/spreads', label: 'Spreads' },
