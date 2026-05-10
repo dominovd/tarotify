@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/spreads/soulmate`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/spreads/career`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/spreads/weekly`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/reading`,                lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/free-reading`,           lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
   ]
 
   const cardPages: MetadataRoute.Sitemap = CARDS.map(card => ({
