@@ -31,7 +31,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? `${card.name} tarot card meaning: ${card.kw_up.join(', ')}. ${ext.faq[0].a.slice(0, 120)}…`
       : `${card.name} tarot card meaning: ${card.kw_up.join(', ')}. Upright, reversed, love, career and spiritual guidance.`,
     alternates: { canonical: `https://tarotify.app/cards/${card.slug}` },
-    openGraph: { images: [`/cards/${card.slug}.webp`] },
+    openGraph: {
+      title: `${card.name} Tarot Card Meaning | Tarotify`,
+      description: `${card.name}: ${card.kw_up.join(', ')}. Upright, reversed, love and career meanings.`,
+      images: [{
+        url: `https://tarotify.app/og?slug=${card.slug}`,
+        width: 1200,
+        height: 630,
+        alt: `${card.name} tarot card`,
+      }],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${card.name} Tarot Card Meaning | Tarotify`,
+      images: [`https://tarotify.app/og?slug=${card.slug}`],
+    },
   }
 }
 

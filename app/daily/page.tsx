@@ -32,6 +32,22 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `Tarot Card of the Day — ${card.name} | Tarotify`,
     description: `Today's tarot card is ${card.name}: ${card.kw_up.slice(0,4).join(', ')}. Free daily tarot reading for ${date}. Come back tomorrow for a new card.`,
     alternates: { canonical: 'https://tarotify.app/daily' },
+    openGraph: {
+      title: `Tarot Card of the Day — ${card.name} | Tarotify`,
+      description: `Today's tarot card: ${card.name}. ${card.kw_up.slice(0, 4).join(', ')}. Free daily reading for ${date}.`,
+      images: [{
+        url: `https://tarotify.app/og?slug=${card.slug}&type=daily`,
+        width: 1200,
+        height: 630,
+        alt: `${card.name} — Tarot Card of the Day`,
+      }],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Today's Tarot Card — ${card.name} | Tarotify`,
+      images: [`https://tarotify.app/og?slug=${card.slug}&type=daily`],
+    },
   }
 }
 
