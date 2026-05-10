@@ -126,17 +126,24 @@ export default function HomeClient() {
         style={{ display:'block', width:'100%', padding:'1rem', background:'linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08))', border:'1px solid var(--gold)', borderRadius:12, color:'var(--gold)', fontFamily:"'Cinzel',serif", fontSize:'1rem', letterSpacing:'.1em', cursor:'pointer' }}>
         ✦ Draw Three Cards
       </button>
-      <div style={{ display:'flex', justifyContent:'center', gap:'2rem', marginTop:'3rem', flexWrap:'wrap' }}>
-        {([['🔮','Yes / No Oracle','/yes-no'],['card','Card Meanings','/cards'],['✦','Combinations','/combination']] as [string,string,string][]).map(([icon,label,href])=>(
-          <Link key={href} href={href} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.5rem', color:'var(--muted)', padding:'1rem 1.25rem', border:'1px solid var(--border)', borderRadius:12, fontSize:'.85rem', transition:'color .2s, border-color .2s', minWidth:120 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(130px,1fr))', gap:'.65rem', marginTop:'3rem' }}>
+        {([
+          ['🔮', 'Yes / No',      '/yes-no'],
+          ['card','Card Meanings', '/cards'],
+          ['✦',  'Spreads',        '/spreads'],
+          ['☽',  'Card of the Day','/daily'],
+          ['◈',  'Combinations',   '/combination'],
+          ['📖', 'How to Read',    '/how-to-read-tarot'],
+        ] as [string,string,string][]).map(([icon,label,href])=>(
+          <Link key={href} href={href} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.5rem', color:'var(--muted)', padding:'.9rem .75rem', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none', transition:'border-color .2s' }}>
             {icon === 'card' ? (
-              <div style={{ position:'relative', width:32, height:48, borderRadius:4, overflow:'hidden', border:'1px solid rgba(201,168,76,.35)' }}>
-                <Image src="/cards/the-high-priestess.webp" alt="Card Meanings" fill sizes="32px" style={{ objectFit:'cover' }} />
+              <div style={{ position:'relative', width:28, height:42, borderRadius:4, overflow:'hidden', border:'1px solid rgba(201,168,76,.35)' }}>
+                <Image src="/cards/the-high-priestess.webp" alt="Card Meanings" fill sizes="28px" style={{ objectFit:'cover' }} />
               </div>
             ) : (
-              <span style={{ fontSize:'1.5rem' }}>{icon}</span>
+              <span style={{ fontSize:'1.35rem' }}>{icon}</span>
             )}
-            <span style={{ fontFamily:"'Cinzel',serif", fontSize:'.75rem', letterSpacing:'.06em' }}>{label}</span>
+            <span style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', letterSpacing:'.05em', textAlign:'center', lineHeight:1.3 }}>{label}</span>
           </Link>
         ))}
       </div>
@@ -184,7 +191,7 @@ export default function HomeClient() {
       )}
       {allFlipped && (
         <button onClick={getReading} style={{ display:'block', width:'100%', maxWidth:400, margin:'0 auto', padding:'1rem', background:'linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08))', border:'1px solid var(--gold)', borderRadius:12, color:'var(--gold)', fontFamily:"'Cinzel',serif", fontSize:'1rem', letterSpacing:'.1em', cursor:'pointer' }}>
-          ✦ Get AI Reading
+          ✦ Get Your Reading
         </button>
       )}
     </div>

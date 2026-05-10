@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import HomeClient from './HomeClient'
 
 export const metadata: Metadata = {
-  title: 'Tarotify — Free AI Tarot Readings Online',
-  description: 'Free AI-powered tarot readings for self-reflection. Draw three cards, explore all 78 card meanings, and get clarity with the Yes/No oracle.',
+  title: 'Tarotify — Free Tarot Readings & Card Meanings Online',
+  description: 'Free tarot readings for self-reflection. Draw three cards, explore all 78 card meanings, get your daily card, and find clarity with the Yes/No oracle.',
   alternates: {
     canonical: 'https://tarotify.app',
   },
@@ -17,16 +17,16 @@ const jsonLd = {
       '@id': 'https://tarotify.app/#website',
       url: 'https://tarotify.app',
       name: 'Tarotify',
-      description: 'Free AI-powered tarot readings for self-reflection.',
+      description: 'Free Free tarot readings for self-reflection.',
       inLanguage: 'en',
     },
     {
       '@type': 'WebApplication',
       '@id': 'https://tarotify.app/#webapp',
-      name: 'Tarotify — AI Tarot Readings',
+      name: 'Tarotify — Free Tarot Readings',
       url: 'https://tarotify.app',
       description:
-        'Free AI-powered tarot readings. Draw three cards, get a personalised reading, explore 78 card meanings, and use the Yes/No oracle.',
+        'Free Free tarot readings. Draw three cards, get a personalised reading, explore 78 card meanings, and use the Yes/No oracle.',
       applicationCategory: 'EntertainmentApplication',
       operatingSystem: 'Any',
       inLanguage: 'en',
