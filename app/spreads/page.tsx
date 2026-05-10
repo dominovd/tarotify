@@ -9,6 +9,14 @@ export const metadata: Metadata = {
 
 const SPREADS = [
   {
+    slug: 'three-card',
+    name: 'Three Card Spread',
+    cards: 3,
+    level: 'Beginner',
+    desc: 'The most versatile spread in tarot. Past · Present · Future — or any of five other variations. The perfect daily practice and the ideal starting point for every reader.',
+    tags: ['Daily use', 'Beginners', 'Quick guidance'],
+  },
+  {
     slug: 'celtic-cross',
     name: 'Celtic Cross',
     cards: 10,
@@ -16,13 +24,28 @@ const SPREADS = [
     desc: 'The most comprehensive tarot spread in the world. Ten cards reveal the full picture of any situation — past, present, future, hidden influences and outcome.',
     tags: ['Deep readings', 'Any question', 'Complex situations'],
   },
+  {
+    slug: 'love',
+    name: 'Love Spread',
+    cards: 5,
+    level: 'Beginner',
+    desc: 'Four dedicated layouts for love and relationships — from a new connection check-in to a stay-or-go crossroads reading. Honest guidance on the heart.',
+    tags: ['Relationships', 'Singles', 'Romance'],
+  },
+  {
+    slug: 'year-ahead',
+    name: 'Year Ahead',
+    cards: 13,
+    level: 'Intermediate',
+    desc: 'One card per month plus an overarching theme — a complete energetic map of the year ahead. The most powerful annual ritual in tarot.',
+    tags: ['2026', 'Annual reading', 'New year'],
+  },
 ]
 
 const COMING_SOON = [
-  { name: 'Three-Card Spread', cards: 3, desc: 'Past · Present · Future — the perfect starting point for any reading.' },
-  { name: 'Love Spread', cards: 5, desc: 'Explore relationship dynamics, what each person brings and the path forward.' },
   { name: 'One-Card Daily', cards: 1, desc: 'Draw a single card each morning for a daily theme and intention.' },
-  { name: 'Year Ahead', cards: 12, desc: 'One card per month — a roadmap for the year in front of you.' },
+  { name: 'Full Moon Spread', cards: 4, desc: 'Release, receive and set intentions with the lunar cycle.' },
+  { name: 'Horseshoe Spread', cards: 7, desc: 'A classic 7-card arc covering past, present, future and hidden influences.' },
 ]
 
 export default function SpreadsPage() {

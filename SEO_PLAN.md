@@ -96,7 +96,17 @@
 7. The Hanged Man (12,100)
 8. Ten of Pentacles (12,100)
 
-#### 1.3 Оптимизировать страницу Combinations
+#### 1.3 Статические страницы комбинаций ✅ РЕАЛИЗОВАНО
+- **Что**: 231 SSG-страница `/combination/[slug]` для всех Major × Major пар + priority Minor пары
+- **Данные**: анализ SEMrush (78 карт × broad match "and") — 7,570 vol по 402 card+card запросам
+- **Топ карты по комбо-трафику**: Death (1,090 vol), Justice (770), The Sun (600), The World (560), Judgement (520)
+- **Реализация**: `lib/combinations.ts` (shared логика), `app/combination/[slug]/page.tsx` (SSG)
+- **Canonical URL**: нижний ID карты всегда первый, обратный порядок → redirect 301
+- **Schema**: FAQPage с 3 вопросами (общее + love + career)
+- **Sitemap**: все 232 combo URL добавлены с priority 0.5
+- **Priority combos**: `the-high-priestess-and-page-of-swords` (590 vol, KD:2) — первая в очереди
+
+#### 1.4 Оптимизировать страницу Combinations
 - Таргет: "tarot combination calculator" (1,600 vol) — конкурент на #47!
 - Добавить H1: "Tarot Combination Calculator"
 - Добавить вводный текст 200+ слов
