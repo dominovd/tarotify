@@ -220,6 +220,25 @@ export default function HowToReadTarotPage() {
         </div>
       </section>
 
+      {/* Related guides */}
+      <section style={{ marginBottom: '2.5rem' }}>
+        <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
+          Related Guides
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '.6rem' }}>
+          {[
+            { name: 'How to Shuffle Tarot Cards', href: '/how-to-shuffle-tarot', use: '5 techniques — riffle, overhand, pile, spread and counting' },
+            { name: 'How to Cleanse Tarot Cards', href: '/how-to-cleanse-tarot-cards', use: 'Moonlight, sage, crystals, breath and more' },
+            { name: 'Your Tarot Birth Card', href: '/birth-card', use: 'Calculate the Major Arcana card linked to your birth date' },
+          ].map(({ name, href, use }) => (
+            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem' }}>{name}</span>
+              <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>{use}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* CTA */}
       <div style={{ display: 'flex', gap: '.75rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '3rem' }}>
         <Link href="/free-reading" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>

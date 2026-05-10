@@ -128,18 +128,24 @@ export default function HomeClient() {
       </button>
       <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(130px,1fr))', gap:'.65rem', marginTop:'3rem' }}>
         {([
-          ['🔮', 'Yes / No',      '/yes-no'],
-          ['card','Card Meanings', '/cards'],
-          ['✦',  'Spreads',        '/spreads'],
-          ['☽',  'Card of the Day','/daily'],
-          ['◈',  'Combinations',   '/combination'],
-          ['📖', 'How to Read',    '/how-to-read-tarot'],
-        ] as [string,string,string][]).map(([icon,label,href])=>(
+          { icon: '🔮', label: 'Yes / No',       href: '/yes-no' },
+          { icon: 'card',label: 'Card Meanings',  href: '/cards' },
+          { icon: '✦',  label: 'Spreads',         href: '/spreads' },
+          { icon: '☽',  label: 'Card of the Day', href: '/daily' },
+          { icon: '◈',  label: 'Combinations',    href: '/combination' },
+          { icon: '📖', label: 'How to Read',     href: '/how-to-read-tarot' },
+        ]).map(({ icon, label, href }) => (
           <Link key={href} href={href} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.5rem', color:'var(--muted)', padding:'.9rem .75rem', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none', transition:'border-color .2s' }}>
             {icon === 'card' ? (
-              <div style={{ position:'relative', width:28, height:42, borderRadius:4, overflow:'hidden', border:'1px solid rgba(201,168,76,.35)' }}>
-                <Image src="/cards/the-high-priestess.webp" alt="Card Meanings" fill sizes="28px" style={{ objectFit:'cover' }} />
-              </div>
+              <svg width="28" height="42" viewBox="0 0 28 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="26" height="40" rx="3.5" stroke="rgba(201,168,76,.55)" strokeWidth="1"/>
+                <rect x="4" y="4" width="20" height="34" rx="2" stroke="rgba(201,168,76,.25)" strokeWidth=".6"/>
+                <circle cx="14" cy="21" r="5" stroke="rgba(201,168,76,.45)" strokeWidth=".8"/>
+                <line x1="14" y1="9" x2="14" y2="13" stroke="rgba(201,168,76,.3)" strokeWidth=".7"/>
+                <line x1="14" y1="29" x2="14" y2="33" stroke="rgba(201,168,76,.3)" strokeWidth=".7"/>
+                <line x1="8"  y1="21" x2="20" y2="21" stroke="rgba(201,168,76,.3)" strokeWidth=".7" />
+                <circle cx="14" cy="21" r="1.8" fill="rgba(201,168,76,.5)"/>
+              </svg>
             ) : (
               <span style={{ fontSize:'1.35rem' }}>{icon}</span>
             )}
