@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /og
 
 Sitemap: https://tarotify.app/sitemap.xml

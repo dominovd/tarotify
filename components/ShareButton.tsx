@@ -2,30 +2,13 @@
 import { useState } from 'react'
 
 interface Props {
-  slug: string
-  reversed?: boolean
   type?: 'daily' | 'birth'
   cardName: string
-  suitLabel?: string
-  element?: string
-  keywords?: string[]
-  text?: string
 }
 
-export default function ShareButton({ slug, reversed = false, type, cardName, suitLabel = '', element = '', keywords = [], text = '' }: Props) {
+export default function ShareButton({ type, cardName }: Props) {
   const [state, setState] = useState<'idle' | 'copied'>('idle')
 
-  const params = new URLSearchParams({
-    slug,
-    n: cardName,
-    s: suitLabel,
-    e: element,
-    k: keywords.slice(0, 4).join(','),
-    t: text.slice(0, 130),
-    ...(reversed ? { rev: '1' } : {}),
-    ...(type === 'daily' ? { type: 'daily' } : {}),
-  })
-  const ogUrl   = `https://tarotify.app/og?${params.toString()}`
   const pageUrl = type === 'daily' ? 'https://tarotify.app/daily' : 'https://tarotify.app/birth-card'
   const shareText = type === 'daily'
     ? `My tarot card of the day is ${cardName}. tarotify.app`
@@ -47,38 +30,22 @@ export default function ShareButton({ slug, reversed = false, type, cardName, su
     } catch {}
   }
 
-  function handleViewImage() {
-    window.open(ogUrl, '_blank', 'noopener')
-  }
-
-  const btnBase: React.CSSProperties = {
+  const btnStyle: React.CSSProperties = {
     fontFamily: "'Cinzel',serif",
     fontSize: '.78rem',
     letterSpacing: '.06em',
     background: 'transparent',
-    border: '1px solid var(--border)',
+    border: `1px solid ${state === 'copied' ? 'var(--border)' : 'rgba(201,168,76,.4)'}`,
     borderRadius: 8,
     padding: '.4rem 1rem',
     cursor: 'pointer',
+    color: state === 'copied' ? 'var(--muted)' : 'var(--gold)',
     transition: 'border-color .2s, color .2s',
   }
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '.6rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <span style={{ color: 'var(--muted)', fontSize: '.82rem' }}>Share</span>
-      <button
-        onClick={handleShare}
-        style={{ ...btnBase, color: state === 'copied' ? 'var(--muted)' : 'var(--gold)', borderColor: state === 'copied' ? 'var(--border)' : 'rgba(201,168,76,.4)' }}
-      >
-        {state === 'copied' ? '✓ Copied!' : '✦ Share card'}
-      </button>
-      <button
-        onClick={handleViewImage}
-        style={{ ...btnBase, color: 'var(--muted)' }}
-        title="Open shareable image (right-click to save)"
-      >
-        ↗ View image
-      </button>
-    </div>
+    <button onClick={handleShare} style={btnStyle}>
+      {state === 'copied' ? '✓ Copied!' : '✦ Share card'}
+    </button>
   )
 }
