@@ -31,7 +31,7 @@ export async function GET(request: Request) {
           padding: '50px 65px',
         }}
       >
-        {/* Card image */}
+        {/* Card image placeholder — image loading from same domain fails in Edge */}
         <div
           style={{
             display: 'flex',
@@ -39,13 +39,15 @@ export async function GET(request: Request) {
             width: 258,
             height: 387,
             borderRadius: 16,
-            overflow: 'hidden',
             border: '1.5px solid rgba(201,168,76,0.45)',
+            background: 'rgba(201,168,76,0.06)',
             marginRight: 58,
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 64,
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imgUrl} alt={name} width={258} height={387} style={{ objectFit: 'cover' }} />
+          ✦
         </div>
 
         {/* Text column */}
