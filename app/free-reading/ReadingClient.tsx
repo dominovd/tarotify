@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
+import CardImage from '@/components/CardImage'
 
 // ─── Spreads ────────────────────────────────────────────────────────────────
 
@@ -270,12 +271,7 @@ export default function ReadingClient() {
 
                       {/* Back face — card image */}
                       <div className="tc-image" style={{ background: '#09061a' }}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={`/cards/${dc.card.slug}.webp`}
-                          alt={dc.card.name}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transform: dc.reversed ? 'rotate(180deg)' : 'none' }}
-                        />
+                        <CardImage slug={dc.card.slug} alt={dc.card.name} reversed={dc.reversed} />
                       </div>
 
                     </div>

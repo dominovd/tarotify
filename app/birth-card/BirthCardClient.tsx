@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
 import ShareButton from '@/components/ShareButton'
+import CardImage from '@/components/CardImage'
 
 const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -198,21 +199,9 @@ export default function BirthCardClient() {
           textAlign: 'center',
         }}>
           {/* Card image */}
-          <img
-            src={'/cards/' + result.slug + '.webp'}
-            alt={result.name}
-            width={150}
-            height={225}
-            style={{
-              width: 150,
-              height: 225,
-              objectFit: 'cover',
-              borderRadius: 12,
-              border: '2px solid var(--gold)',
-              display: 'block',
-              margin: '0 auto 1.25rem',
-            }}
-          />
+          <div style={{ width: 150, height: 225, borderRadius: 12, overflow: 'hidden', border: '2px solid var(--gold)', margin: '0 auto 1.25rem' }}>
+            <CardImage slug={result.slug} alt={result.name} />
+          </div>
 
           {/* "Your Birth Card" label */}
           <p style={{

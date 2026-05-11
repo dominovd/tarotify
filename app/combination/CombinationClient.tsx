@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import CardImage from '@/components/CardImage'
 import { CARDS, type Card } from '@/lib/cards'
 
 // Top combinations by search volume (from SEMrush analysis)
@@ -133,8 +134,8 @@ export default function CombinationClient() {
         </div>
       ) : (
         <div style={{ display:'flex', alignItems:'center', gap:'.75rem', padding:'.75rem', background:'rgba(201,168,76,.06)', border:'1px solid rgba(201,168,76,.2)', borderRadius:8 }}>
-          <div style={{ position:'relative', width:40, height:60, flexShrink:0, borderRadius:6, overflow:'hidden', border:'1px solid rgba(201,168,76,.3)' }}>
-            <Image src={`/cards/${card.slug}.webp`} alt={card.name} fill sizes="40px" style={{ objectFit:'cover' }} />
+          <div style={{ width:40, height:60, flexShrink:0, borderRadius:6, overflow:'hidden', border:'1px solid rgba(201,168,76,.3)' }}>
+            <CardImage slug={card.slug} alt={card.name} />
           </div>
           <div style={{ flex:1 }}>
             <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.88rem' }}>{card.name}</div>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import CardImage from '@/components/CardImage'
 import { notFound, redirect } from 'next/navigation'
 import { CARDS_BY_SLUG } from '@/lib/cards'
 import {
@@ -117,8 +118,8 @@ export default function ComboPage({ params }: Props) {
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ position: 'relative', width: 130, height: 200, borderRadius: 10, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,.4)', margin: '0 auto .6rem' }}>
-              <Image src={`/cards/${c1.slug}.webp`} alt={`${c1.name} tarot card`} fill priority sizes="130px" style={{ objectFit: 'cover' }} />
+            <div style={{ width: 130, height: 200, borderRadius: 10, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,.4)', margin: '0 auto .6rem' }}>
+              <CardImage slug={c1.slug} alt={`${c1.name} tarot card`} />
             </div>
             <Link href={`/cards/${c1.slug}`} style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', color: 'var(--gold)', letterSpacing: '.05em' }}>{c1.name}</Link>
           </div>
@@ -126,8 +127,8 @@ export default function ComboPage({ params }: Props) {
           <div style={{ fontFamily: "'Cinzel',serif", fontSize: '1.8rem', color: 'var(--gold)', opacity: .4 }}>✦</div>
 
           <div style={{ textAlign: 'center' }}>
-            <div style={{ position: 'relative', width: 130, height: 200, borderRadius: 10, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,.4)', margin: '0 auto .6rem' }}>
-              <Image src={`/cards/${c2.slug}.webp`} alt={`${c2.name} tarot card`} fill priority sizes="130px" style={{ objectFit: 'cover' }} />
+            <div style={{ width: 130, height: 200, borderRadius: 10, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,.4)', margin: '0 auto .6rem' }}>
+              <CardImage slug={c2.slug} alt={`${c2.name} tarot card`} />
             </div>
             <Link href={`/cards/${c2.slug}`} style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', color: 'var(--gold)', letterSpacing: '.05em' }}>{c2.name}</Link>
           </div>

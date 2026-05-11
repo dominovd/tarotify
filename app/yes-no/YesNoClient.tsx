@@ -1,8 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { CARDS } from '@/lib/cards'
+import CardImage from '@/components/CardImage'
 
 type HistoryItem = { q: string; card: string; slug: string; yn: string }
 
@@ -78,13 +78,7 @@ export default function YesNoClient() {
               <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', borderRadius:12, background:'linear-gradient(145deg,#1a1a3a,#0d0d2b)', border:'2px solid rgba(201,168,76,.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'2rem', opacity:.25 }}>☽✦☾</div>
               {/* Front — real card image */}
               <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', transform:'rotateY(180deg)', borderRadius:12, overflow:'hidden', border:'2px solid rgba(201,168,76,.4)' }}>
-                <Image
-                  src={`/cards/${drawn.slug}.webp`}
-                  alt={drawn.name}
-                  fill
-                  sizes="180px"
-                  style={{ objectFit:'cover' }}
-                />
+                <CardImage slug={drawn.slug} alt={drawn.name} />
                 <div style={{ position:'absolute', bottom:0, left:0, right:0, padding:'.5rem', background:'linear-gradient(to top, rgba(0,0,0,.88) 0%, transparent 100%)', textAlign:'center' }}>
                   <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', color:'#e8d5a0', letterSpacing:'.06em' }}>{drawn.name}</div>
                   <div style={{ fontSize:'.55rem', color:'rgba(232,213,160,.6)', letterSpacing:'.1em', textTransform:'uppercase', marginTop:2 }}>{drawn.suitLabel}</div>

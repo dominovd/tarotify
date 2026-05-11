@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
+import CardImage from '@/components/CardImage'
 
 interface Props { params: { slug: string } }
 
@@ -114,13 +115,8 @@ export default function YesNoSlugPage({ params }: Props) {
         {/* Hero */}
         <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', marginBottom: '2.5rem' }}>
           {/* Card image */}
-          <div style={{ flexShrink: 0 }}>
-            {/* eslint-disable-next-line */}
-            <img
-              src={`/cards/${card.slug}.webp`}
-              alt={`${card.name} tarot card`}
-              style={{ width: 130, height: 205, objectFit: 'cover', borderRadius: 10, border: '2px solid rgba(201,168,76,.35)', display: 'block' }}
-            />
+          <div style={{ flexShrink: 0, width: 130, height: 205, borderRadius: 10, overflow: 'hidden', border: '2px solid rgba(201,168,76,.35)' }}>
+            <CardImage slug={card.slug} alt={`${card.name} tarot card`} />
           </div>
 
           {/* Text */}

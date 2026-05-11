@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
 import { CARD_EXTENDED } from '@/lib/card-extended'
 import { makeComboSlug, MAJOR_SLUGS } from '@/lib/combinations'
+import CardImage from '@/components/CardImage'
 
 // Top Major Arcana by combo search volume (from SEMrush data)
 const COMBO_PRIORITY = [
@@ -97,15 +98,8 @@ export default function CardPage({ params }: Props) {
 
       {/* Hero */}
       <div style={{ textAlign:'center', marginBottom:'2.5rem' }}>
-        <div style={{ position:'relative', width:200, height:300, margin:'0 auto 1.5rem', borderRadius:12, overflow:'hidden', boxShadow:'0 8px 32px rgba(0,0,0,.4)' }}>
-          <Image
-            src={`/cards/${card.slug}.webp`}
-            alt={`${card.name} tarot card`}
-            fill
-            priority
-            sizes="200px"
-            style={{ objectFit:'cover' }}
-          />
+        <div style={{ width:200, height:300, margin:'0 auto 1.5rem', borderRadius:12, overflow:'hidden', boxShadow:'0 8px 32px rgba(0,0,0,.4)' }}>
+          <CardImage slug={card.slug} alt={`${card.name} tarot card`} />
         </div>
         <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:'clamp(1.5rem,4vw,2rem)', color:'var(--gold)', marginBottom:'.5rem' }}>{card.name}</h1>
         <div style={{ display:'flex', gap:'.75rem', justifyContent:'center', alignItems:'center', flexWrap:'wrap' }}>

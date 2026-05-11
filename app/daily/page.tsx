@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { CARDS } from '@/lib/cards'
 import { CARD_EXTENDED } from '@/lib/card-extended'
 import ShareButton from '@/components/ShareButton'
+import CardImage from '@/components/CardImage'
 
 // Re-render on every request so the card matches today's date
 export const dynamic = 'force-dynamic'
@@ -127,13 +128,8 @@ export default function DailyPage() {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2.5rem', gap: '1.25rem' }}>
 
         {/* Image */}
-        <div style={{ position: 'relative', width: 200, height: 300, borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(201,168,76,.45)', boxShadow: '0 8px 40px rgba(0,0,0,.5)', transform: reversed ? 'rotate(180deg)' : 'none' }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`/cards/${card.slug}.webp`}
-            alt={`${card.name}${reversed ? ' Reversed' : ''}`}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          />
+        <div style={{ width: 200, height: 300, borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(201,168,76,.45)', boxShadow: '0 8px 40px rgba(0,0,0,.5)' }}>
+          <CardImage slug={card.slug} alt={`${card.name}${reversed ? ' Reversed' : ''}`} reversed={reversed} />
         </div>
 
         {/* Name + badge */}

@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import DeckSwitcher from '@/components/DeckSwitcher'
 
 const links = [
   { href: '/free-reading', label: 'Free Reading' },
@@ -49,6 +50,11 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
+        </div>
+
+        {/* Deck switcher */}
+        <div className="nav-deck">
+          <DeckSwitcher />
         </div>
 
         {/* Hamburger button (mobile only) */}
@@ -104,9 +110,12 @@ export default function Nav() {
       )}
 
       <style>{`
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-burger { display: flex !important; }
+        }
+        @media (max-width: 480px) {
+          .nav-deck { display: none !important; }
         }
       `}</style>
     </>
