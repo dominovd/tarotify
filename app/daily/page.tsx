@@ -162,6 +162,9 @@ export default function DailyPage() {
             </span>
           ))}
         </div>
+
+        {/* Share */}
+        <ShareButton slug={card.slug} reversed={reversed} type="daily" cardName={card.name} />
       </div>
 
       {/* Interpretation */}
@@ -195,11 +198,6 @@ export default function DailyPage() {
         <p style={{ color: 'var(--muted)', fontSize: '.8rem', lineHeight: 1.7, margin: 0, opacity: .75 }}>
           A new card appears at midnight. Come back tomorrow to see what the deck has for you next.
         </p>
-      </div>
-
-      {/* Share */}
-      <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
-        <ShareButton slug={card.slug} reversed={reversed} type="daily" cardName={card.name} />
       </div>
 
       {/* CTA links */}
