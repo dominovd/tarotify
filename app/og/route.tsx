@@ -15,7 +15,23 @@ export async function GET(request: Request) {
     const daily   = searchParams.get('type')  === 'daily'
 
     const label = [daily ? 'Card of the Day' : '', suit, element].filter(Boolean).join('  ·  ')
-    const imgUrl = `https://tarotify.app/cards/${slug}.webp`
+
+    // Pre-fetch image as base64 — satori cannot load images from the same domain via URL
+    let imgSrc = ''
+    try {
+      const res = await fetch(`https://tarotify.app/cards/${slug}.webp`)
+      if (res.ok) {
+        const buf = await res.arrayBuffer()
+        const bytes = new Uint8Array(buf)
+        let str = ''
+        for (let i = 0; i < bytes.length; i += 1024) {
+          str += String.fromCharCode(...Array.from(bytes.subarray(i, i + 1024)))
+        }
+        imgSrc = `data:image/webp;base64,${btoa(str)}`
+      }
+    } catch {
+      // image stays empty — container still shows with border
+    }
 
     return new ImageResponse(
       (
@@ -47,8 +63,10 @@ export async function GET(request: Request) {
               marginRight: 60,
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imgUrl} alt={name} width={230} height={345} style={{ display: 'flex', objectFit: 'cover' }} />
+            {imgSrc && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={imgSrc} alt={name} width={230} height={345} style={{ display: 'flex', objectFit: 'cover' }} />
+            )}
           </div>
 
           {/* Text column */}
