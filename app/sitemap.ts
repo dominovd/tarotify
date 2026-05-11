@@ -43,6 +43,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }))
 
+  const spreadSubPages: MetadataRoute.Sitemap = [
+    '/spreads/love/reconciliation',
+    '/spreads/love/self-love',
+    '/spreads/love/new-relationship',
+    '/spreads/career/job-offer',
+    '/spreads/three-card/past-present-future',
+  ].map(path => ({ url: `${base}${path}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 }))
+
   const yesNoPages: MetadataRoute.Sitemap = CARDS.map(card => ({
     url: `${base}/yes-no/${card.slug}`,
     lastModified: new Date(),
@@ -50,5 +58,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }))
 
-  return [...staticPages, ...cardPages, ...comboPages, ...yesNoPages]
+  return [...staticPages, ...spreadSubPages, ...cardPages, ...comboPages, ...yesNoPages]
 }

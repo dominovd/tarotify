@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CARDS } from '@/lib/cards'
 import { CARD_EXTENDED } from '@/lib/card-extended'
+import ShareButton from '@/components/ShareButton'
 
 // Re-render on every request so the card matches today's date
 export const dynamic = 'force-dynamic'
@@ -194,6 +195,11 @@ export default function DailyPage() {
         <p style={{ color: 'var(--muted)', fontSize: '.8rem', lineHeight: 1.7, margin: 0, opacity: .75 }}>
           A new card appears at midnight. Come back tomorrow to see what the deck has for you next.
         </p>
+      </div>
+
+      {/* Share */}
+      <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+        <ShareButton slug={card.slug} reversed={reversed} type="daily" cardName={card.name} />
       </div>
 
       {/* CTA links */}

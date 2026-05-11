@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
+import ShareButton from '@/components/ShareButton'
 
 const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -298,33 +299,8 @@ export default function BirthCardClient() {
           </Link>
 
           {/* Share */}
-          <div style={{
-            borderTop: '1px solid var(--border)',
-            paddingTop: '1.25rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.75rem',
-            flexWrap: 'wrap',
-          }}>
-            <span style={{ color: 'var(--muted)', fontSize: '0.85rem' }}>Share your birth card</span>
-            <button
-              onClick={handleCopy}
-              style={{
-                fontFamily: "'Cinzel',serif",
-                fontSize: '0.78rem',
-                color: copied ? 'var(--muted)' : 'var(--gold)',
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                borderRadius: 6,
-                padding: '0.35rem 0.9rem',
-                cursor: 'pointer',
-                letterSpacing: '0.05em',
-                transition: 'color 0.2s',
-              }}
-            >
-              {copied ? 'Copied!' : 'Copy link'}
-            </button>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1.25rem' }}>
+            <ShareButton slug={result.slug} type="birth" cardName={result.name} />
           </div>
         </section>
       )}
