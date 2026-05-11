@@ -6,30 +6,40 @@ interface Props {
   reversed?: boolean
   type?: 'daily' | 'birth'
   cardName: string
+  suitLabel?: string
+  element?: string
+  keywords?: string[]
+  text?: string
 }
 
-export default function ShareButton({ slug, reversed = false, type, cardName }: Props) {
+export default function ShareButton({ slug, reversed = false, type, cardName, suitLabel = '', element = '', keywords = [], text = '' }: Props) {
   const [state, setState] = useState<'idle' | 'copied'>('idle')
 
-  const ogUrl = `https://tarotify.app/og?slug=${slug}${reversed ? '&rev=1' : ''}${type === 'daily' ? '&type=daily' : ''}`
-  const pageUrl = type === 'daily'
-    ? 'https://tarotify.app/daily'
-    : 'https://tarotify.app/birth-card'
+  const params = new URLSearchParams({
+    slug,
+    n: cardName,
+    s: suitLabel,
+    e: element,
+    k: keywords.slice(0, 4).join(','),
+    t: text.slice(0, 130),
+    ...(reversed ? { rev: '1' } : {}),
+    ...(type === 'daily' ? { type: 'daily' } : {}),
+  })
+  const ogUrl   = `https://tarotify.app/og?${params.toString()}`
+  const pageUrl = type === 'daily' ? 'https://tarotify.app/daily' : 'https://tarotify.app/birth-card'
   const shareText = type === 'daily'
-    ? `My tarot card of the day is ${cardName}. ✦ tarotify.app`
-    : `My tarot birth card is ${cardName}. ✦ tarotify.app`
+    ? `My tarot card of the day is ${cardName}. tarotify.app`
+    : `My tarot birth card is ${cardName}. tarotify.app`
 
   async function handleShare() {
-    // Web Share API — works great on mobile
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
         await navigator.share({ title: cardName, text: shareText, url: pageUrl })
         return
       } catch {
-        // User cancelled or API unsupported — fall through
+        // User cancelled or API unsupported
       }
     }
-    // Fallback: copy link
     try {
       await navigator.clipboard.writeText(pageUrl)
       setState('copied')

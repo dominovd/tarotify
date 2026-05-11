@@ -300,7 +300,15 @@ export default function BirthCardClient() {
 
           {/* Share */}
           <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1.25rem' }}>
-            <ShareButton slug={result.slug} type="birth" cardName={result.name} />
+            <ShareButton
+              slug={result.slug}
+              type="birth"
+              cardName={result.name}
+              suitLabel={result.suitLabel}
+              element={result.element}
+              keywords={result.kw_up}
+              text={result.up}
+            />
           </div>
         </section>
       )}

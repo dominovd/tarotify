@@ -164,7 +164,16 @@ export default function DailyPage() {
         </div>
 
         {/* Share */}
-        <ShareButton slug={card.slug} reversed={reversed} type="daily" cardName={card.name} />
+        <ShareButton
+          slug={card.slug}
+          reversed={reversed}
+          type="daily"
+          cardName={card.name}
+          suitLabel={card.suitLabel}
+          element={card.element}
+          keywords={keywords}
+          text={reversed ? card.rev : card.up}
+        />
       </div>
 
       {/* Interpretation */}
