@@ -4,7 +4,6 @@ export const runtime = 'edge'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const slug    = searchParams.get('slug') ?? 'the-fool'
   const name    = searchParams.get('n')    ?? 'Tarot'
   const suit    = searchParams.get('s')    ?? ''
   const element = searchParams.get('e')    ?? ''
@@ -12,8 +11,6 @@ export async function GET(request: Request) {
   const text    = searchParams.get('t')    ?? ''
   const reversed = searchParams.get('rev') === '1'
   const daily   = searchParams.get('type') === 'daily'
-
-  const imgUrl = `https://tarotify.app/cards/${slug}.webp`
 
   return new ImageResponse(
     (
@@ -30,7 +27,7 @@ export async function GET(request: Request) {
           paddingLeft: 65,
         }}
       >
-        {/* Card image */}
+        {/* Card placeholder */}
         <div
           style={{
             display: 'flex',
@@ -38,22 +35,13 @@ export async function GET(request: Request) {
             width: 258,
             height: 387,
             borderRadius: 16,
-            overflow: 'hidden',
             borderWidth: 1,
             borderStyle: 'solid',
             borderColor: 'rgba(201,168,76,0.45)',
+            background: 'rgba(201,168,76,0.06)',
             marginRight: 58,
           }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imgUrl}
-            alt={name}
-            width={258}
-            height={387}
-            style={{ objectFit: 'cover', display: 'flex' }}
-          />
-        </div>
+        />
 
         {/* Text column */}
         <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
