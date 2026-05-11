@@ -243,6 +243,52 @@ export default function CardPage({ params }: Props) {
         )
       })()}
 
+      {/* Minor Arcana Combinations — Major cards only */}
+      {card.suit === 'major' && (() => {
+        const aces   = ['ace-of-wands','ace-of-cups','ace-of-swords','ace-of-pentacles']
+        const courts = ['queen-of-cups','queen-of-wands','king-of-pentacles','king-of-swords',
+                        'knight-of-wands','knight-of-cups','page-of-cups','page-of-swords']
+        const pips   = ['two-of-cups','three-of-swords','ten-of-cups','nine-of-cups',
+                        'three-of-pentacles','eight-of-wands','five-of-cups','ten-of-pentacles']
+        const groups = [
+          { label: 'With Aces',        slugs: aces },
+          { label: 'With Court Cards', slugs: courts },
+          { label: 'With Key Pips',    slugs: pips },
+        ]
+        return (
+          <div style={{ marginBottom:'2.5rem' }}>
+            <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', marginBottom:'.5rem', letterSpacing:'.06em' }}>
+              {card.name} with Minor Arcana
+            </h2>
+            <p style={{ color:'var(--muted)', fontSize:'.82rem', marginBottom:'1.2rem', lineHeight:1.6 }}>
+              How {card.name} interacts with Aces, court cards and key pip cards in a reading.
+            </p>
+            <div style={{ display:'flex', flexDirection:'column', gap:'.9rem' }}>
+              {groups.map(({ label, slugs }) => (
+                <div key={label}>
+                  <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.65rem', letterSpacing:'.14em', color:'var(--gold)', opacity:.55, textTransform:'uppercase', marginBottom:'.5rem' }}>{label}</div>
+                  <div style={{ display:'flex', flexWrap:'wrap', gap:'.4rem' }}>
+                    {slugs.map(minorSlug => {
+                      const minor = CARDS_BY_SLUG[minorSlug]
+                      if (!minor) return null
+                      const comboSlug = makeComboSlug(card.slug, minorSlug)
+                      return (
+                        <Link key={minorSlug} href={`/combination/${comboSlug}`} style={{ display:'flex', alignItems:'center', gap:'.4rem', padding:'.3rem .75rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:100, color:'var(--muted)', fontSize:'.78rem', textDecoration:'none', whiteSpace:'nowrap' }}>
+                          <div style={{ position:'relative', width:14, height:22, borderRadius:2, overflow:'hidden', flexShrink:0 }}>
+                            <Image src={`/cards/${minorSlug}.webp`} alt={minor.name} fill sizes="14px" style={{ objectFit:'cover' }} />
+                          </div>
+                          {card.name} + {minor.name}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
+
       {/* Prev / Next */}
       <div style={{ display:'flex', justifyContent:'space-between', gap:'1rem', flexWrap:'wrap' }}>
         {prev ? (
