@@ -3,6 +3,16 @@ import { CARDS_BY_SLUG, CARDS } from '@/lib/cards'
 
 export const runtime = 'edge'
 
+/** Convert ArrayBuffer → base64 in Edge runtime (no Buffer available) */
+function toBase64(buf: ArrayBuffer): string {
+  const bytes = new Uint8Array(buf)
+  let str = ''
+  for (let i = 0; i < bytes.length; i += 1024) {
+    str += String.fromCharCode(...bytes.subarray(i, i + 1024))
+  }
+  return btoa(str)
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const slug     = searchParams.get('slug') ?? 'the-fool'
@@ -13,6 +23,18 @@ export async function GET(request: Request) {
   const base = 'https://tarotify.app'
   const kws  = (reversed ? card.kw_rev : card.kw_up).slice(0, 4)
   const text = (reversed ? card.rev : card.up).slice(0, 130) + '…'
+
+  // Pre-fetch card image as data URL to avoid self-referential edge fetch issues
+  let imgSrc = `${base}/cards/${card.slug}.webp`
+  try {
+    const res = await fetch(imgSrc)
+    if (res.ok) {
+      const buf = await res.arrayBuffer()
+      imgSrc = `data:image/webp;base64,${toBase64(buf)}`
+    }
+  } catch {
+    // fall back to URL if fetch fails
+  }
 
   return new ImageResponse(
     (
@@ -39,18 +61,14 @@ export async function GET(request: Request) {
             overflow: 'hidden',
             border: '1.5px solid rgba(201,168,76,0.45)',
             boxShadow: '0 0 70px rgba(0,0,0,0.7), 0 0 30px rgba(201,168,76,0.08)',
+            transform: reversed ? 'rotate(180deg)' : undefined,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`${base}/cards/${card.slug}.webp`}
+            src={imgSrc}
             alt={card.name}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              transform: reversed ? 'rotate(180deg)' : 'none',
-            }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
 
@@ -121,14 +139,14 @@ export async function GET(request: Request) {
           {/* Branding */}
           <div
             style={{
-              marginTop: 'auto',
+              marginTop: 28,
               paddingTop: 24,
               color: 'rgba(201,168,76,0.32)',
               fontSize: 17,
               letterSpacing: '0.14em',
             }}
           >
-            ✦  tarotify.app
+            tarotify.app
           </div>
         </div>
       </div>
