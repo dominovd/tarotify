@@ -8,7 +8,7 @@ function toBase64(buf: ArrayBuffer): string {
   const bytes = new Uint8Array(buf)
   let str = ''
   for (let i = 0; i < bytes.length; i += 1024) {
-    str += String.fromCharCode(...bytes.subarray(i, i + 1024))
+    str += String.fromCharCode(...Array.from(bytes.subarray(i, i + 1024)))
   }
   return btoa(str)
 }
