@@ -43,5 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }))
 
-  return [...staticPages, ...cardPages, ...comboPages]
+  const yesNoPages: MetadataRoute.Sitemap = CARDS.map(card => ({
+    url: `${base}/yes-no/${card.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }))
+
+  return [...staticPages, ...cardPages, ...comboPages, ...yesNoPages]
 }
