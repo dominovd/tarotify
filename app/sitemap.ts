@@ -56,6 +56,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/tarot-journal`,                  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/tarot-for-beginners`,            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/oracle-vs-tarot`,                lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/about`,                          lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.4 },
+    { url: `${base}/privacy`,                        lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${base}/terms`,                          lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3 },
   ]
 
   const ZODIAC_SIGNS = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
