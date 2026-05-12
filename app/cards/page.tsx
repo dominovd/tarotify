@@ -54,7 +54,7 @@ export default function CardsIndex() {
                 const yn = YN_STYLE[card.yn]
                 return (
                   <Link key={card.slug} href={`/cards/${card.slug}`} style={{ display:'flex', flexDirection:'column', gap:'.4rem', padding:'1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, transition:'border-color .2s, background .2s' }}>
-                    <div style={{ width:'100%', aspectRatio:'2/3', borderRadius:8, overflow:'hidden', marginBottom:'.4rem' }}>
+                    <div style={{ position:'relative', width:'100%', aspectRatio:'2/3', borderRadius:8, overflow:'hidden', marginBottom:'.4rem' }}>
                       <CardImage slug={card.slug} alt={`${card.name} tarot card`} />
                       {/* Card name overlay */}
                       <div style={{ position:'absolute', bottom:0, left:0, right:0, padding:'.35rem .4rem', background:'linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%)', textAlign:'center' }}>
