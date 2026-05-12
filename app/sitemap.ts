@@ -40,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/how-to-shuffle-tarot`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/how-to-cleanse-tarot-cards`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/daily`,                  lastModified: new Date(), changeFrequency: 'daily',   priority: 0.9 },
+    { url: `${base}/manifestation`,                  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/manifestation/money`,            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/manifestation/love`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/manifestation/success`,          lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/manifestation/health`,           lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/manifestation/sexual-energy`,    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ]
 
   const cardPages: MetadataRoute.Sitemap = CARDS.map(card => ({
