@@ -18,13 +18,28 @@ const YN_STYLE: Record<string, { bg: string; color: string }> = {
 export default function CardsIndex() {
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
-      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
         <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:'clamp(1.5rem,4vw,2.1rem)', color:'var(--gold)', marginBottom:'.75rem' }}>
           Tarot Card Meanings
         </h1>
         <p style={{ color:'var(--muted)', maxWidth:520, margin:'0 auto', lineHeight:1.7 }}>
           All 78 cards — upright and reversed meanings, yes/no guidance, and insights for love, career and personal growth.
         </p>
+      </div>
+
+      {/* Related hubs */}
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:'.6rem', marginBottom:'3rem' }}>
+        {[
+          { href: '/tarot-suits',         title: 'The Four Suits',     desc: 'Cups, Pentacles, Swords, Wands' },
+          { href: '/zodiac',              title: 'Zodiac Tarot',       desc: 'Each sign’s ruling card' },
+          { href: '/tarot-decks',         title: 'Tarot Decks',        desc: 'Rider-Waite, Marseille & more' },
+          { href: '/tarot-for-beginners', title: 'For Beginners',      desc: 'Your first month with the cards' },
+        ].map(item => (
+          <Link key={item.href} href={item.href} style={{ display:'block', padding:'.85rem 1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none' }}>
+            <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.82rem', letterSpacing:'.04em', marginBottom:'.25rem' }}>{item.title} →</div>
+            <div style={{ color:'var(--muted)', fontSize:'.75rem', lineHeight:1.5 }}>{item.desc}</div>
+          </Link>
+        ))}
       </div>
 
       {SUITS.map(suit => {
