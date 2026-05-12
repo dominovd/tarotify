@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* TODO: получить новый Google Search Console verification token для tarotaxis.com и добавить здесь */}
+        <meta name="google-site-verification" content="BgFTjjxBX-Qr_Qkmy1V5lL2Qz07CKEjN90Ld6nCSUho" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
       <body>
