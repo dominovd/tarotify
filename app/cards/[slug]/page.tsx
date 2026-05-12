@@ -144,7 +144,10 @@ export default function CardPage({ params }: Props) {
 
       {/* Reversed Meaning */}
       <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem', marginBottom:'1.5rem' }}>
-        <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:'.75rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', marginBottom:'.75rem' }}>Reversed Meaning</h2>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline', gap:'1rem', flexWrap:'wrap', marginBottom:'.75rem' }}>
+          <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:'.75rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', margin:0 }}>Reversed Meaning</h2>
+          <Link href={`/cards/${card.slug}/reversed`} style={{ fontSize:'.72rem', color:'var(--gold)', opacity:.7, fontFamily:"'Cinzel',serif", letterSpacing:'.06em' }}>Full Reversed Page →</Link>
+        </div>
         <p style={{ color:'var(--text)', lineHeight:1.75, marginBottom: ext?.rev2 ? '1rem' : 0 }}>{card.rev}</p>
         {ext?.rev2 && <p style={{ color:'var(--text)', lineHeight:1.75 }}>{ext.rev2}</p>}
       </div>

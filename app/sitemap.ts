@@ -46,13 +46,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/manifestation/success`,          lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${base}/manifestation/health`,           lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${base}/manifestation/sexual-energy`,    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/tarot-suits`,                    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/tarot-suits/cups`,               lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/tarot-suits/pentacles`,          lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/tarot-suits/swords`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/tarot-suits/wands`,              lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/tarot-decks`,                    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/zodiac`,                         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
   ]
+
+  const ZODIAC_SIGNS = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
+  const zodiacPages: MetadataRoute.Sitemap = ZODIAC_SIGNS.map(sign => ({
+    url: `${base}/zodiac/${sign}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
 
   const cardPages: MetadataRoute.Sitemap = CARDS.map(card => ({
     url: `${base}/cards/${card.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.6,
+  }))
+
+  const cardReversedPages: MetadataRoute.Sitemap = CARDS.map(card => ({
+    url: `${base}/cards/${card.slug}/reversed`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.55,
   }))
 
   const comboPages: MetadataRoute.Sitemap = [...MAJOR_COMBOS, ...PRIORITY_MINOR_COMBOS].map(slug => ({
@@ -77,5 +99,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }))
 
-  return [...staticPages, ...spreadSubPages, ...cardPages, ...comboPages, ...yesNoPages]
+  return [...staticPages, ...zodiacPages, ...spreadSubPages, ...cardPages, ...cardReversedPages, ...comboPages, ...yesNoPages]
 }
