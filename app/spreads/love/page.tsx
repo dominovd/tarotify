@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Love Tarot Spread — Relationship Reading Guide | Tarotify',
+  title: 'Love Tarot Spread — Relationship Reading Guide | TarotAxis',
   description: 'Explore the best love tarot spreads for relationships, romance and soulmate questions. Step-by-step guides for 3-card, 5-card and relationship spreads with position meanings.',
-  alternates: { canonical: 'https://tarotify.app/spreads/love' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/love' },
   openGraph: {
     title: 'Love Tarot Spread — Relationship Reading Guide',
     description: 'Find clarity on love, relationships and romance with dedicated tarot spreads. Position-by-position guides for singles and couples.',

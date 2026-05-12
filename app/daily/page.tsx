@@ -31,14 +31,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const { card } = getDailyCard()
   const date     = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
   return {
-    title: `Tarot Card of the Day — ${card.name} | Tarotify`,
+    title: `Tarot Card of the Day — ${card.name} | TarotAxis`,
     description: `Today's tarot card is ${card.name}: ${card.kw_up.slice(0,4).join(', ')}. Free daily tarot reading for ${date}. Come back tomorrow for a new card.`,
-    alternates: { canonical: 'https://tarotify.app/daily' },
+    alternates: { canonical: 'https://tarotaxis.com/daily' },
     openGraph: {
-      title: `Tarot Card of the Day — ${card.name} | Tarotify`,
+      title: `Tarot Card of the Day — ${card.name} | TarotAxis`,
       description: `Today's tarot card: ${card.name}. ${card.kw_up.slice(0, 4).join(', ')}. Free daily reading for ${date}.`,
       images: [{
-        url: `https://tarotify.app/og?slug=${card.slug}&type=daily`,
+        url: `https://tarotaxis.com/og?slug=${card.slug}&type=daily`,
         width: 1200,
         height: 630,
         alt: `${card.name} — Tarot Card of the Day`,
@@ -47,8 +47,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `Today's Tarot Card — ${card.name} | Tarotify`,
-      images: [`https://tarotify.app/og?slug=${card.slug}&type=daily`],
+      title: `Today's Tarot Card — ${card.name} | TarotAxis`,
+      images: [`https://tarotaxis.com/og?slug=${card.slug}&type=daily`],
     },
   }
 }
@@ -91,7 +91,7 @@ export default function DailyPage() {
         name: 'Does everyone get the same card of the day?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'On Tarotify, yes — the daily card is the same for everyone on any given day, determined by the date. This is intentional: it creates a shared daily reflection and makes it easy to discuss the card with others. The meaning of the card will still resonate differently for each person depending on their own situation.',
+          text: 'On TarotAxis, yes — the daily card is the same for everyone on any given day, determined by the date. This is intentional: it creates a shared daily reflection and makes it easy to discuss the card with others. The meaning of the card will still resonate differently for each person depending on their own situation.',
         },
       },
       {

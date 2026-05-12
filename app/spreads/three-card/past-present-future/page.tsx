@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Past Present Future Tarot Spread — 3 Card Reading Guide | Tarotify',
+  title: 'Past Present Future Tarot Spread — 3 Card Reading Guide | TarotAxis',
   description: 'Learn how to read a past present future tarot spread. Full guide to the classic 3-card layout with position meanings, examples, and tips for accurate readings.',
-  alternates: { canonical: 'https://tarotify.app/spreads/three-card/past-present-future' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/three-card/past-present-future' },
   openGraph: {
     title: 'Past Present Future Tarot Spread — Complete Guide',
     description: 'The definitive guide to the past-present-future tarot spread — the most popular 3-card layout for understanding any situation.',

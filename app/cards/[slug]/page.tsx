@@ -27,16 +27,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!card) return {}
   const ext = CARD_EXTENDED[params.slug]
   return {
-    title: `${card.name} Tarot Card Meaning — Upright & Reversed | Tarotify`,
+    title: `${card.name} Tarot Card Meaning — Upright & Reversed | TarotAxis`,
     description: ext
       ? `${card.name} tarot card meaning: ${card.kw_up.join(', ')}. ${ext.faq[0].a.slice(0, 120)}…`
       : `${card.name} tarot card meaning: ${card.kw_up.join(', ')}. Upright, reversed, love, career and spiritual guidance.`,
-    alternates: { canonical: `https://tarotify.app/cards/${card.slug}` },
+    alternates: { canonical: `https://tarotaxis.com/cards/${card.slug}` },
     openGraph: {
-      title: `${card.name} Tarot Card Meaning | Tarotify`,
+      title: `${card.name} Tarot Card Meaning | TarotAxis`,
       description: `${card.name}: ${card.kw_up.join(', ')}. Upright, reversed, love and career meanings.`,
       images: [{
-        url: `https://tarotify.app/og?slug=${card.slug}`,
+        url: `https://tarotaxis.com/og?slug=${card.slug}`,
         width: 1200,
         height: 630,
         alt: `${card.name} tarot card`,
@@ -45,8 +45,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${card.name} Tarot Card Meaning | Tarotify`,
-      images: [`https://tarotify.app/og?slug=${card.slug}`],
+      title: `${card.name} Tarot Card Meaning | TarotAxis`,
+      images: [`https://tarotaxis.com/og?slug=${card.slug}`],
     },
   }
 }

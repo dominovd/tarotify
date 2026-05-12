@@ -19,7 +19,7 @@ export async function GET(request: Request) {
     // Pre-fetch image as base64 — satori cannot load images from the same domain via URL
     let imgSrc = ''
     try {
-      const res = await fetch(`https://tarotify.app/cards/${slug}.webp`)
+      const res = await fetch(`https://tarotaxis.com/cards/${slug}.webp`)
       if (res.ok) {
         const buf = await res.arrayBuffer()
         const bytes = new Uint8Array(buf)
@@ -110,7 +110,7 @@ export async function GET(request: Request) {
             </div>
 
             <div style={{ display: 'flex', color: 'rgba(201,168,76,0.3)', fontSize: 16, marginTop: 24 }}>
-              tarotify.app
+              tarotaxis.com
             </div>
 
           </div>

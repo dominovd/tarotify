@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'New Moon Tarot Spread — Intention Setting Guide | Tarotify',
+  title: 'New Moon Tarot Spread — Intention Setting Guide | TarotAxis',
   description: 'Set powerful intentions with a new moon tarot spread. 3 and 5 card layouts for new beginnings, manifestation and monthly focus. Position meanings and ritual guide.',
-  alternates: { canonical: 'https://tarotify.app/spreads/new-moon' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/new-moon' },
   openGraph: {
     title: 'New Moon Tarot Spread — Intention Setting Guide',
     description: 'Set powerful intentions with a new moon tarot spread. 3 and 5 card layouts for new beginnings, manifestation and monthly focus.',

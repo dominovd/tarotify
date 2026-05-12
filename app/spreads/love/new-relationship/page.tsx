@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'New Relationship Tarot Spread — Early Stages Reading | Tarotify',
+  title: 'New Relationship Tarot Spread — Early Stages Reading | TarotAxis',
   description: 'A new relationship tarot spread for early-stage connections. 3-card and 5-card layouts to understand potential, compatibility, and what to watch for when dating someone new.',
-  alternates: { canonical: 'https://tarotify.app/spreads/love/new-relationship' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/love/new-relationship' },
   openGraph: {
     title: 'New Relationship Tarot Spread — Early Stages',
     description: 'Tarot spreads designed for new connections — understand the energy, potential, and dynamics of a relationship just beginning.',

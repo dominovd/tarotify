@@ -29,11 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!card) return {}
   const m = YN_META[card.yn]
   return {
-    title: `${card.name} Yes or No — Tarot Answer | Tarotify`,
+    title: `${card.name} Yes or No — Tarot Answer | TarotAxis`,
     description: `Is ${card.name} a yes or no card? ${card.yn_exp} Full answer for love, career and general questions.`,
-    alternates: { canonical: `https://tarotify.app/yes-no/${card.slug}` },
+    alternates: { canonical: `https://tarotaxis.com/yes-no/${card.slug}` },
     openGraph: {
-      title: `${card.name} Yes or No | Tarotify`,
+      title: `${card.name} Yes or No | TarotAxis`,
       description: `${card.name} is ${m.summary}. ${card.yn_exp}`,
       type: 'website',
     },

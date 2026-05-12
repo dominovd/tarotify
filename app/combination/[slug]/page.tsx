@@ -32,9 +32,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const kw2 = c2.kw_up[0]
 
   return {
-    title: `${c1.name} and ${c2.name} Tarot Combination Meaning | Tarotify`,
+    title: `${c1.name} and ${c2.name} Tarot Combination Meaning | TarotAxis`,
     description: `What does ${c1.name} and ${c2.name} mean together in tarot? ${result.main.slice(0, 140)}…`,
-    alternates: { canonical: `https://tarotify.app/combination/${canonical}` },
+    alternates: { canonical: `https://tarotaxis.com/combination/${canonical}` },
     openGraph: {
       title: `${c1.name} + ${c2.name} Tarot Combination`,
       description: `${kw1} meets ${kw2}. Discover what these two cards mean together in love, career and personal growth.`,

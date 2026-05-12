@@ -36,7 +36,7 @@ export default function Nav() {
           fontFamily:"'Cinzel',serif", fontSize:'1.15rem',
           color:'var(--gold)', letterSpacing:'.05em', flexShrink:0
         }}>
-          ✦ Tarotify
+          ✦ TarotAxis
         </Link>
 
         {/* Desktop links */}

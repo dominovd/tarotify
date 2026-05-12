@@ -3,7 +3,7 @@ import { CARDS } from '@/lib/cards'
 import { MAJOR_COMBOS, PRIORITY_MINOR_COMBOS } from '@/lib/combinations'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://tarotify.app'
+  const base = 'https://tarotaxis.com'
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: base,                           lastModified: new Date(), changeFrequency: 'weekly',  priority: 1.0 },

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Celtic Cross Tarot Spread — 10-Card Layout Guide | Tarotify',
+  title: 'Celtic Cross Tarot Spread — 10-Card Layout Guide | TarotAxis',
   description: 'Learn how to read the Celtic Cross tarot spread — the most powerful 10-card layout in tarot. Discover what each position means and how to interpret every card in context.',
-  alternates: { canonical: 'https://tarotify.app/spreads/celtic-cross' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/celtic-cross' },
   openGraph: {
     title: 'Celtic Cross Tarot Spread — Complete Guide',
     description: 'Master the Celtic Cross: the classic 10-card tarot spread used for deep, comprehensive readings on any question.',

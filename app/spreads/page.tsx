@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Tarot Spreads — Layouts for Every Reading | Tarotify',
+  title: 'Tarot Spreads — Layouts for Every Reading | TarotAxis',
   description: 'Discover the best tarot card spreads — from the classic Celtic Cross to simple three-card layouts. Learn how to use each spread for love, career and personal growth.',
-  alternates: { canonical: 'https://tarotify.app/spreads' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads' },
 }
 
 const SPREADS = [

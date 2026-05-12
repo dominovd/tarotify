@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'How to Read Tarot Cards — A Beginner\'s Guide | Tarotify',
+  title: 'How to Read Tarot Cards — A Beginner\'s Guide | TarotAxis',
   description: 'Learn how to read tarot cards from scratch. Understand the 78-card deck, Major and Minor Arcana, the four suits, reversals, and how to do your first reading step by step.',
-  alternates: { canonical: 'https://tarotify.app/how-to-read-tarot' },
+  alternates: { canonical: 'https://tarotaxis.com/how-to-read-tarot' },
 }
 
 const faqSchema = {

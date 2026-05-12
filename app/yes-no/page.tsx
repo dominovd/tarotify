@@ -4,9 +4,9 @@ import YesNoClient from './YesNoClient'
 import { CARDS } from '@/lib/cards'
 
 export const metadata: Metadata = {
-  title: 'Yes or No Tarot — Free One-Card Oracle | Tarotify',
+  title: 'Yes or No Tarot — Free One-Card Oracle | TarotAxis',
   description: 'Ask a yes or no question and draw a single tarot card for an instant oracle answer. Free yes no tarot reading with all 78 cards.',
-  alternates: { canonical: 'https://tarotify.app/yes-no' },
+  alternates: { canonical: 'https://tarotaxis.com/yes-no' },
 }
 
 const SUITS = [

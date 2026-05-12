@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Horseshoe Tarot Spread — 7-Card Reading Guide | Tarotify',
+  title: 'Horseshoe Tarot Spread — 7-Card Reading Guide | TarotAxis',
   description: 'Learn the horseshoe tarot spread — a classic 7-card layout covering past, present, future, hidden influences and outcome. Complete position guide with tips.',
-  alternates: { canonical: 'https://tarotify.app/spreads/horseshoe' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/horseshoe' },
   openGraph: {
     title: 'Horseshoe Tarot Spread — 7-Card Reading Guide',
     description: 'Learn the horseshoe tarot spread — a classic 7-card layout covering past, present, future, hidden influences and outcome.',

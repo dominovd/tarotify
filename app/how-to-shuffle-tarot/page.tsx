@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'How to Shuffle Tarot Cards — 5 Methods Explained | Tarotify',
+  title: 'How to Shuffle Tarot Cards — 5 Methods Explained | TarotAxis',
   description: 'Learn five ways to shuffle tarot cards — from overhand to pile shuffle — plus how to set your intention, handle dropped cards, and decide whether to use reversals.',
-  alternates: { canonical: 'https://tarotify.app/how-to-shuffle-tarot' },
+  alternates: { canonical: 'https://tarotaxis.com/how-to-shuffle-tarot' },
 }
 
 const faqSchema = {

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Career Tarot Spread — Work, Path & Purpose Readings | Tarotify',
+  title: 'Career Tarot Spread — Work, Path & Purpose Readings | TarotAxis',
   description: 'Explore career tarot spreads for work decisions, job changes and finding your purpose. Step-by-step guides with position meanings for 3, 4 and 5-card layouts.',
-  alternates: { canonical: 'https://tarotify.app/spreads/career' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/career' },
   openGraph: {
     title: 'Career Tarot Spread — Work, Path & Purpose Readings',
     description: 'Find clarity on your career direction, job decisions and life purpose with dedicated tarot spreads. Position-by-position guides for every work situation.',

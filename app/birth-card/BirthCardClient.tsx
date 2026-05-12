@@ -69,7 +69,7 @@ export default function BirthCardClient() {
   }
 
   function handleCopy() {
-    navigator.clipboard.writeText('https://tarotify.app/birth-card').then(() => {
+    navigator.clipboard.writeText('https://tarotaxis.com/birth-card').then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     })

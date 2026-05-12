@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Soulmate Tarot Spread — Find Your Soul Connection | Tarotify',
+  title: 'Soulmate Tarot Spread — Find Your Soul Connection | TarotAxis',
   description: 'Use the soulmate tarot spread to explore what you bring to love, what you truly need, and how you might recognise a deep soul connection when it arrives.',
-  alternates: { canonical: 'https://tarotify.app/spreads/soulmate' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/soulmate' },
   openGraph: {
     title: 'Soulmate Tarot Spread — Find Your Soul Connection',
     description: 'A 5-card tarot spread exploring your energy in love, what you seek and need, and the nature of your soulmate connection.',

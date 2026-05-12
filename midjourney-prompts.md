@@ -1,4 +1,4 @@
-# Tarotify — Midjourney Prompts (new pastel style, no text)
+# TarotAxis — Midjourney Prompts (new pastel style, no text)
 
 **Style base:** minimalist geometric, flat shapes, pastel gradient (lavender/pink/peach/mint), gold foil accents, subtle grain, gold border frame, no realism, instagram-friendly. NO text on cards.
 

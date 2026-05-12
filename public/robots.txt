@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tarotify.app/sitemap.xml
+Sitemap: https://tarotaxis.com/sitemap.xml

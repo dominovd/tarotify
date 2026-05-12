@@ -5,9 +5,9 @@ import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
 import { makeComboSlug } from '@/lib/combinations'
 
 export const metadata: Metadata = {
-  title: 'Tarot Card Combination Calculator — What Two Cards Mean Together | Tarotify',
+  title: 'Tarot Card Combination Calculator — What Two Cards Mean Together | TarotAxis',
   description: 'Discover what any two tarot cards mean together. Select any combination and get an instant interpretation across love, career and personal growth.',
-  alternates: { canonical: 'https://tarotify.app/combination' },
+  alternates: { canonical: 'https://tarotaxis.com/combination' },
 }
 
 const TOP_MAJOR = [

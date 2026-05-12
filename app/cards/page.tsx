@@ -4,9 +4,9 @@ import { CARDS, SUITS } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
 
 export const metadata: Metadata = {
-  title: 'Tarot Card Meanings — All 78 Cards | Tarotify',
+  title: 'Tarot Card Meanings — All 78 Cards | TarotAxis',
   description: 'Complete guide to all 78 tarot card meanings — upright and reversed, plus love, career and spiritual insights for every card.',
-  alternates: { canonical: 'https://tarotify.app/cards' },
+  alternates: { canonical: 'https://tarotaxis.com/cards' },
 }
 
 const YN_STYLE: Record<string, { bg: string; color: string }> = {

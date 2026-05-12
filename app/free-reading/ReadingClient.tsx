@@ -265,7 +265,7 @@ export default function ReadingClient() {
                           <polygon points="30,5 52,17.5 52,42.5 30,55 8,42.5 8,17.5" stroke="rgba(201,168,76,.17)" strokeWidth=".6" fill="none"/>
                         </svg>
                         <div style={{ fontSize: '.4rem', fontFamily: "'Cinzel',serif", letterSpacing: '.14em', color: 'rgba(201,168,76,.38)', textTransform: 'uppercase' }}>
-                          Tarotify
+                          TarotAxis
                         </div>
                       </div>
 

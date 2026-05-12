@@ -9,10 +9,10 @@ interface Props {
 export default function ShareButton({ type, cardName }: Props) {
   const [state, setState] = useState<'idle' | 'copied'>('idle')
 
-  const pageUrl = type === 'daily' ? 'https://tarotify.app/daily' : 'https://tarotify.app/birth-card'
+  const pageUrl = type === 'daily' ? 'https://tarotaxis.com/daily' : 'https://tarotaxis.com/birth-card'
   const shareText = type === 'daily'
-    ? `My tarot card of the day is ${cardName}. tarotify.app`
-    : `My tarot birth card is ${cardName}. tarotify.app`
+    ? `My tarot card of the day is ${cardName}. tarotaxis.com`
+    : `My tarot birth card is ${cardName}. tarotaxis.com`
 
   async function handleShare() {
     if (typeof navigator !== 'undefined' && navigator.share) {

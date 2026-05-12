@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Reconciliation Tarot Spread — Ex Back & Reunion Reading | Tarotify',
+  title: 'Reconciliation Tarot Spread — Ex Back & Reunion Reading | TarotAxis',
   description: 'Use a reconciliation tarot spread to explore whether reconnecting with an ex is wise. 5-card and 7-card layouts with full position meanings for reunion readings.',
-  alternates: { canonical: 'https://tarotify.app/spreads/love/reconciliation' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/love/reconciliation' },
   openGraph: {
     title: 'Reconciliation Tarot Spread — Should You Reconnect?',
     description: 'A dedicated tarot spread for reconciliation and ex-back questions. Honest guidance on whether reunion is in your highest good.',

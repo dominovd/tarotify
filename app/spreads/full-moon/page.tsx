@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Full Moon Tarot Spread — Release & Ritual Guide | Tarotify',
+  title: 'Full Moon Tarot Spread — Release & Ritual Guide | TarotAxis',
   description: 'Discover the best full moon tarot spread — 4 and 6 card layouts for release, gratitude and intention. Complete guide with position meanings and moon ritual tips.',
-  alternates: { canonical: 'https://tarotify.app/spreads/full-moon' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/full-moon' },
   openGraph: {
     title: 'Full Moon Tarot Spread — Release & Ritual Guide',
     description: 'Discover the best full moon tarot spread — 4 and 6 card layouts for release, gratitude and intention.',

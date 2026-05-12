@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 import HomeClient from './HomeClient'
 
 export const metadata: Metadata = {
-  title: 'Tarotify — Free Tarot Readings & Card Meanings Online',
+  title: 'TarotAxis — Free Tarot Readings & Card Meanings Online',
   description: 'Free tarot readings for self-reflection. Draw three cards, explore all 78 card meanings, get your daily card, and find clarity with the Yes/No oracle.',
   alternates: {
-    canonical: 'https://tarotify.app',
+    canonical: 'https://tarotaxis.com',
   },
 }
 
@@ -14,17 +14,17 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://tarotify.app/#website',
-      url: 'https://tarotify.app',
-      name: 'Tarotify',
+      '@id': 'https://tarotaxis.com/#website',
+      url: 'https://tarotaxis.com',
+      name: 'TarotAxis',
       description: 'Free Free tarot readings for self-reflection.',
       inLanguage: 'en',
     },
     {
       '@type': 'WebApplication',
-      '@id': 'https://tarotify.app/#webapp',
-      name: 'Tarotify — Free Tarot Readings',
-      url: 'https://tarotify.app',
+      '@id': 'https://tarotaxis.com/#webapp',
+      name: 'TarotAxis — Free Tarot Readings',
+      url: 'https://tarotaxis.com',
       description:
         'Free Free tarot readings. Draw three cards, get a personalised reading, explore 78 card meanings, and use the Yes/No oracle.',
       applicationCategory: 'EntertainmentApplication',

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Year Ahead Tarot Spread — 2026 Annual Reading Guide | Tarotify',
+  title: 'Year Ahead Tarot Spread — 2026 Annual Reading Guide | TarotAxis',
   description: 'Do a year ahead tarot spread for 2026 — one card per month plus an overarching theme card. Step-by-step guide with position meanings, tips and FAQ.',
-  alternates: { canonical: 'https://tarotify.app/spreads/year-ahead' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/year-ahead' },
   openGraph: {
     title: 'Year Ahead Tarot Spread — 2026 Annual Reading',
     description: 'Map your year with tarot. A 13-card annual spread — one card for each month plus an overarching theme for the year.',

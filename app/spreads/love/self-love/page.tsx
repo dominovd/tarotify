@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Self Love Tarot Spread — Healing & Inner Work Reading | Tarotify',
+  title: 'Self Love Tarot Spread — Healing & Inner Work Reading | TarotAxis',
   description: 'A self love tarot spread to deepen your relationship with yourself. 4-card and 6-card layouts for healing, self-worth and personal growth readings.',
-  alternates: { canonical: 'https://tarotify.app/spreads/love/self-love' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/love/self-love' },
   openGraph: {
     title: 'Self Love Tarot Spread — Healing & Inner Work',
     description: 'Turn the cards inward. These self-love spreads help you understand your patterns, reconnect with your worth, and identify what you most need right now.',

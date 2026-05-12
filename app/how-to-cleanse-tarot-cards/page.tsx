@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'How to Cleanse Tarot Cards — 7 Methods That Work | Tarotify',
+  title: 'How to Cleanse Tarot Cards — 7 Methods That Work | TarotAxis',
   description: 'Clear old energy and reset your tarot deck with seven practical cleansing methods — from moonlight and breath to salt and sound. Learn when and how to cleanse your cards.',
-  alternates: { canonical: 'https://tarotify.app/how-to-cleanse-tarot-cards' },
+  alternates: { canonical: 'https://tarotaxis.com/how-to-cleanse-tarot-cards' },
 }
 
 const faqSchema = {

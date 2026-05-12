@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Job Offer Tarot Spread — Should I Take the Job? | Tarotify',
+  title: 'Job Offer Tarot Spread — Should I Take the Job? | TarotAxis',
   description: 'A job offer tarot spread to help you decide whether to accept a new position. 4-card and 6-card layouts for career decisions, new roles, and workplace changes.',
-  alternates: { canonical: 'https://tarotify.app/spreads/career/job-offer' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/career/job-offer' },
   openGraph: {
     title: 'Job Offer Tarot Spread — Should I Take the Job?',
     description: 'Facing a job offer or career decision? These tarot spreads illuminate what the opportunity truly holds and what it means for your path.',

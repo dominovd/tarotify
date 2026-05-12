@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Weekly Tarot Spread — 7-Card Reading for the Week Ahead | Tarotify',
+  title: 'Weekly Tarot Spread — 7-Card Reading for the Week Ahead | TarotAxis',
   description: 'Do a weekly tarot spread with one card per day — a 7-card Monday-to-Sunday reading that maps the energy, challenges and opportunities of your week ahead.',
-  alternates: { canonical: 'https://tarotify.app/spreads/weekly' },
+  alternates: { canonical: 'https://tarotaxis.com/spreads/weekly' },
   openGraph: {
     title: 'Weekly Tarot Spread — 7-Card Reading for the Week Ahead',
     description: 'One card for each day of the week. A practical, grounding tarot ritual that helps you navigate the week with intention and clarity.',
