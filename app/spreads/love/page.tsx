@@ -182,6 +182,36 @@ export default function LoveSpreadPage() {
         </div>
       </div>
 
+      {/* Specialised Love Spreads */}
+      <div style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '.5rem', letterSpacing: '.06em' }}>
+          Specialised Love Tarot Spreads
+        </h2>
+        <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+          Each layout below answers a specific question — the precise spread to use for a precise moment.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '.75rem' }}>
+          {[
+            { href: '/spreads/how-they-feel-about-me', title: 'How Do They Feel About Me', cards: 3, desc: 'Their feelings, thoughts and likely action.' },
+            { href: '/spreads/will-my-ex-come-back', title: 'Will My Ex Come Back', cards: 4, desc: 'Honest reading on a possible reunion.' },
+            { href: '/spreads/should-i-stay-or-should-i-go', title: 'Should I Stay or Should I Go', cards: 6, desc: 'Compare both paths from the crossroads.' },
+            { href: '/spreads/third-party', title: 'Third Party / Triangle', cards: 4, desc: 'For relationships affected by outside influence.' },
+            { href: '/spreads/healing-after-heartbreak', title: 'Healing After Heartbreak', cards: 5, desc: 'Process the loss and find the next step.' },
+            { href: '/spreads/what-blocks-my-love', title: 'What Blocks My Love', cards: 3, desc: 'Identify the inner block keeping love away.' },
+            { href: '/spreads/what-do-i-need-to-heal', title: 'What Do I Need to Heal', cards: 3, desc: 'Name the wound asking for attention now.' },
+            { href: '/spreads/true-love-spread', title: 'True Love Deep Dive', cards: 7, desc: 'Full energy of an established connection.' },
+          ].map(s => (
+            <Link key={s.href} href={s.href} style={{ display: 'block', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem 1.1rem', textDecoration: 'none' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '.5rem', marginBottom: '.4rem' }}>
+                <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem', letterSpacing: '.03em' }}>{s.title}</div>
+                <span style={{ flexShrink: 0, padding: '.15rem .55rem', borderRadius: 20, fontSize: '.62rem', background: 'rgba(201,168,76,.1)', color: 'var(--gold)', fontFamily: "'Cinzel',serif", letterSpacing: '.06em' }}>{s.cards}c</span>
+              </div>
+              <p style={{ color: 'var(--muted)', fontSize: '.8rem', lineHeight: 1.55, margin: 0 }}>{s.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* How to read love spreads */}
       <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>

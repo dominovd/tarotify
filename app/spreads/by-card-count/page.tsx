@@ -51,6 +51,19 @@ const GROUPS: Group[] = [
     items: [
       { href: '/spreads/three-card', title: 'Three Card Spread (6 layouts)', desc: 'Six variations on the classic three-card layout — past/present/future, situation/action/outcome, mind/body/spirit and more. The most useful spread you will ever learn.', tag: 'Beginner essentials' },
       { href: '/spreads/three-card/past-present-future', title: 'Past · Present · Future Spread', desc: 'The single most recognised tarot layout in the world. Three cards trace the trajectory of a situation across time.', tag: 'Classic' },
+      { href: '/spreads/how-they-feel-about-me', title: 'How Do They Feel About Me', desc: 'Three cards revealing their feelings, the story they tell themselves, and what their current state is likely to lead to.', tag: 'Love & feelings' },
+      { href: '/spreads/what-blocks-my-love', title: 'What Blocks My Love', desc: 'Three cards naming the inner block, the support already with you, and the next concrete step toward openness.', tag: 'Inner work' },
+      { href: '/spreads/what-do-i-need-to-heal', title: 'What Do I Need to Heal', desc: 'Three cards for naming the wound asking for attention, where it began, and the path of integration.', tag: 'Healing' },
+    ],
+  },
+  {
+    count: 4,
+    heading: 'Four Card Readings',
+    intro: 'Four cards add an action or outcome layer to the classic three-card arc. Often used when a third party, an external influence, or a concrete decision needs to be considered alongside the situation itself.',
+    items: [
+      { href: '/spreads/waning-moon', title: 'Waning Moon Spread', desc: 'Four cards for the descending phase of the lunar cycle — reflection, integration and creating space before the next new moon.', tag: 'Lunar ritual' },
+      { href: '/spreads/will-my-ex-come-back', title: 'Will My Ex Come Back', desc: 'Four cards for genuine clarity on a possible reunion — how each of you feels now, what blocks reconciliation and where this is heading.', tag: 'Reconciliation' },
+      { href: '/spreads/third-party', title: 'Third Party / Triangle Spread', desc: 'Four cards for relationships affected by outside influence — your position, theirs, the third party&apos;s, and the genuine path through.', tag: 'Hidden dynamics' },
     ],
   },
   {
@@ -59,6 +72,8 @@ const GROUPS: Group[] = [
     intro: 'Five cards strike the balance between depth and clarity. Enough cards to map a full situation — current state, influences, advice, outcome — without overwhelming the reader. The workhorse of intermediate tarot.',
     items: [
       { href: '/spreads/love', title: 'Love Spread', desc: 'Four dedicated layouts for love and relationships, including a 5-card relationship deep-dive. Honest guidance on the heart.', tag: 'Relationships' },
+      { href: '/spreads/healing-after-heartbreak', title: 'Healing After Heartbreak', desc: 'Five cards for processing a breakup — what you are still carrying, what it taught you, what is yours to keep, what to release and the next step.', tag: 'Recovery' },
+      { href: '/spreads/eclipse', title: 'Eclipse Spread', desc: 'Five cards for navigating solar and lunar eclipses — what is surfacing, what is ending, the truth wanting out, the reaction to avoid and the path forward.', tag: 'Eclipse season' },
       { href: '/spreads/love/new-relationship', title: 'New Relationship Spread', desc: 'A focused 5-card layout for the early stages of love — compatibility, your energy, their energy, the connection and the outlook.', tag: 'New love' },
       { href: '/spreads/love/reconciliation', title: 'Reconciliation Spread', desc: 'Five cards for considering whether to mend a relationship — what broke, what remains, what would need to change and the realistic path forward.', tag: 'Second chances' },
       { href: '/spreads/love/self-love', title: 'Self-Love Spread', desc: 'Five cards turned inward — what you carry, what you give yourself, what you withhold, what you need and the next step in your own self-worth.', tag: 'Inner work' },
@@ -74,6 +89,7 @@ const GROUPS: Group[] = [
     intro: 'Six cards add a layer of nuance that five cannot quite carry — typically a deeper exploration of energies, integration of opposites or guidance across multiple life areas.',
     items: [
       { href: '/spreads/full-moon', title: 'Full Moon Spread (4 or 6 cards)', desc: 'Two layouts — a simple 4-card ritual and a deeper 6-card clarity reading covering completion, release, gratitude and guidance for the next cycle.', tag: 'Lunar ritual' },
+      { href: '/spreads/should-i-stay-or-should-i-go', title: 'Should I Stay or Should I Go', desc: 'Six cards for relationship crossroads — the truth, the stay-path, the go-path, the answer your heart already carries, what must change either way, and guidance.', tag: 'Crossroads' },
     ],
   },
   {
@@ -83,6 +99,7 @@ const GROUPS: Group[] = [
     items: [
       { href: '/spreads/horseshoe', title: 'Horseshoe Spread', desc: 'A classic 7-card arc covering past, present, hidden influences, obstacles, external forces, advice and the likely outcome. Works for any question.', tag: 'Classic layout' },
       { href: '/spreads/weekly', title: 'Weekly Spread', desc: 'One card for every day of the week — a complete energetic forecast. Set intentions on Sunday and navigate each day with clarity.', tag: 'Weekly ritual' },
+      { href: '/spreads/true-love-spread', title: 'True Love Deep Dive', desc: 'Seven cards for an established relationship — your feelings, theirs, the heart of the connection, what each brings, where friction lives, and the path forward.', tag: 'Established love' },
     ],
   },
   {
