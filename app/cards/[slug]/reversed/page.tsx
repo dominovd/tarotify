@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
 import { CARD_EXTENDED } from '@/lib/card-extended'
+import { CARD_REVERSED_EXTENDED } from '@/lib/card-reversed-extended'
 import CardImage from '@/components/CardImage'
 
 interface Props { params: { slug: string } }
@@ -15,12 +16,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const card = CARDS_BY_SLUG[params.slug]
   if (!card) return {}
   return {
-    title: `${card.name} Reversed — Tarot Card Meaning & Keywords | TarotAxis`,
-    description: `${card.name} reversed tarot card meaning: ${card.kw_rev.slice(0, 5).join(', ')}. Reversed meanings for love, career and spirituality, plus the inner shadow this card asks you to look at.`,
+    title: `${card.name} Reversed — Tarot Meaning, Love, Career & Keywords | TarotAxis`,
+    description: `${card.name} reversed tarot card meaning — in love, career and spirituality. Reversed keywords: ${card.kw_rev.slice(0, 4).join(', ')}. The shadow this card asks you to look at.`,
     alternates: { canonical: `https://tarotaxis.com/cards/${card.slug}/reversed` },
     openGraph: {
       title: `${card.name} Reversed — Tarot Card Meaning | TarotAxis`,
-      description: `${card.name} reversed: ${card.kw_rev.slice(0, 5).join(', ')}. Honest, nuanced guidance on what this card means when it appears upside-down.`,
+      description: `${card.name} reversed in love, career and spirit. Honest, nuanced guidance on what this card means when it appears upside-down.`,
       images: [{
         url: `https://tarotaxis.com/og?slug=${card.slug}&rev=1`,
         width: 1200,
@@ -42,13 +43,15 @@ export default function CardReversedPage({ params }: Props) {
   if (!card) notFound()
 
   const ext = CARD_EXTENDED[params.slug] ?? null
+  const revExt = CARD_REVERSED_EXTENDED[params.slug] ?? null
+
   const allCards = CARDS
   const idx = allCards.findIndex(c => c.slug === card.slug)
   const prev = allCards[idx - 1]
   const next = allCards[idx + 1]
 
-  // Reversed-focused FAQ — built from generic patterns plus the card's own data
-  const reversedFaqs: Array<{ q: string; a: string }> = [
+  // FAQs — prefer the rich reversed-extended set if present
+  const reversedFaqs: Array<{ q: string; a: string }> = revExt?.reversedFaqs ?? [
     {
       q: `What does ${card.name} reversed mean in tarot?`,
       a: `${card.name} reversed signifies: ${card.kw_rev.join(', ')}. ${card.rev} The reversed orientation typically asks you to look at the shadow side of the upright meaning — what is blocked, distorted, withheld or turned inward — rather than treating the card as a simple negative.`,
@@ -63,7 +66,7 @@ export default function CardReversedPage({ params }: Props) {
     },
     {
       q: `How do I work with a reversed card in a reading?`,
-      a: `Read it twice. First as the upright meaning being blocked or unavailable — what would you need if the card were the right way up? Second as the upright meaning expressed in shadow form — over-doing, under-doing, or doing it for the wrong reason. Most reversed cards live somewhere between these two readings. Do not flatten them into a simple negative; the reversal is information, not a verdict.`,
+      a: `Read it twice. First as the upright meaning being blocked or unavailable. Second as the upright meaning expressed in shadow form — over-doing, under-doing, or doing it for the wrong reason. Most reversed cards live somewhere between these two readings. Do not flatten them into a simple negative; the reversal is information, not a verdict.`,
     },
   ]
 
@@ -76,6 +79,10 @@ export default function CardReversedPage({ params }: Props) {
       acceptedAnswer: { '@type': 'Answer', text: a },
     })),
   }
+
+  // Split paragraphs for rendering
+  const splitParas = (text: string) =>
+    text.split(/\n\n+/).map(p => p.trim()).filter(Boolean)
 
   return (
     <div style={{ maxWidth: 760, margin: '0 auto', padding: '2rem 1.5rem 5rem' }}>
@@ -113,6 +120,23 @@ export default function CardReversedPage({ params }: Props) {
         </div>
       </div>
 
+      {/* Section nav (anchor links) */}
+      {revExt && (
+        <div style={{ display: 'flex', gap: '.5rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
+          {[
+            { href: '#meaning', label: 'Meaning' },
+            { href: '#love', label: 'Love' },
+            { href: '#career', label: 'Career' },
+            { href: '#spirit', label: 'Spirit' },
+            { href: '#faq', label: 'FAQ' },
+          ].map(item => (
+            <a key={item.href} href={item.href} style={{ padding: '.3rem .8rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--muted)', fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.06em', textDecoration: 'none' }}>
+              {item.label}
+            </a>
+          ))}
+        </div>
+      )}
+
       {/* Intro */}
       <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.7rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
@@ -136,7 +160,7 @@ export default function CardReversedPage({ params }: Props) {
       </div>
 
       {/* Main Reversed Meaning */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+      <div id="meaning" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.75rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           {card.name} Reversed — Meaning
         </h2>
@@ -144,22 +168,51 @@ export default function CardReversedPage({ params }: Props) {
         {ext?.rev2 && <p style={{ color: 'var(--text)', lineHeight: 1.75, margin: 0 }}>{ext.rev2}</p>}
       </div>
 
-      {/* Love / Career / Spirit (Reversed) */}
-      {ext && (
+      {/* Long-form Love / Career / Spirit (Reversed) — primary content for long-tail SEO */}
+      {revExt ? (
+        <>
+          <section id="love" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+              <span style={{ fontSize: '1.1rem' }}>❤️</span> {card.name} Reversed in Love
+            </h2>
+            {splitParas(revExt.loveLong).map((p, i) => (
+              <p key={i} style={{ color: 'var(--text)', lineHeight: 1.8, marginBottom: '1rem', fontSize: '.93rem' }}>{p}</p>
+            ))}
+          </section>
+
+          <section id="career" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+              <span style={{ fontSize: '1.1rem' }}>💼</span> {card.name} Reversed in Career
+            </h2>
+            {splitParas(revExt.careerLong).map((p, i) => (
+              <p key={i} style={{ color: 'var(--text)', lineHeight: 1.8, marginBottom: '1rem', fontSize: '.93rem' }}>{p}</p>
+            ))}
+          </section>
+
+          <section id="spirit" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+              <span style={{ fontSize: '1.1rem' }}>🌿</span> {card.name} Reversed Spiritually
+            </h2>
+            {splitParas(revExt.spiritLong).map((p, i) => (
+              <p key={i} style={{ color: 'var(--text)', lineHeight: 1.8, marginBottom: '1rem', fontSize: '.93rem' }}>{p}</p>
+            ))}
+          </section>
+        </>
+      ) : ext ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '.75rem', marginBottom: '2rem' }}>
           {[
-            ['❤️', `${card.name} Reversed in Love`, ext.love2],
-            ['💼', `${card.name} Reversed in Career`, ext.career2],
-            ['🌿', `${card.name} Reversed — Spirit`, ext.spirit2],
-          ].map(([icon, label, text]) => (
-            <div key={label as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+            ['❤️', `${card.name} Reversed in Love`, ext.love2, 'love'],
+            ['💼', `${card.name} Reversed in Career`, ext.career2, 'career'],
+            ['🌿', `${card.name} Reversed — Spirit`, ext.spirit2, 'spirit'],
+          ].map(([icon, label, text, id]) => (
+            <div key={label as string} id={id as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', scrollMarginTop: '2rem' }}>
               <div style={{ fontSize: '1.2rem', marginBottom: '.4rem' }}>{icon}</div>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.1em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.5rem' }}>{label}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.6, margin: 0 }}>{text as string}</p>
             </div>
           ))}
         </div>
-      )}
+      ) : null}
 
       {/* Upright vs Reversed CTA */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.75rem', marginBottom: '2.5rem' }}>
@@ -174,7 +227,7 @@ export default function CardReversedPage({ params }: Props) {
       </div>
 
       {/* FAQ */}
-      <div style={{ marginBottom: '2.5rem' }}>
+      <div id="faq" style={{ marginBottom: '2.5rem', scrollMarginTop: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Frequently Asked Questions
         </h2>
