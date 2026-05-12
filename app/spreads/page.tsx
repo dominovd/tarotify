@@ -80,11 +80,38 @@ const SPREADS = [
     desc: 'One card for every day of the week — a complete energetic forecast to set intentions on Sunday and navigate each day with clarity.',
     tags: ['Weekly ritual', 'Daily guidance', 'Planning'],
   },
-]
-
-const COMING_SOON = [
-  { name: 'One-Card Daily', cards: 1, desc: 'Draw a single card each morning for a daily theme and intention.' },
-  { name: 'New Moon Spread', cards: 5, desc: 'Set intentions and plant seeds for the cycle ahead under the dark moon.' },
+  {
+    slug: 'new-moon',
+    name: 'New Moon Spread',
+    cards: 5,
+    level: 'Beginner',
+    desc: 'A ritual layout for the start of the lunar cycle — what to plant, what to nurture, what to release, and the seed of intention for the month ahead.',
+    tags: ['Lunar ritual', 'Intentions', 'New beginnings'],
+  },
+  {
+    slug: 'waning-moon',
+    name: 'Waning Moon Spread',
+    cards: 4,
+    level: 'Beginner',
+    desc: 'For the descending phase of the lunar cycle — reflection, integration and creating space before the next new moon arrives.',
+    tags: ['Lunar ritual', 'Reflection', 'Integration'],
+  },
+  {
+    slug: 'dark-moon',
+    name: 'Dark Moon Spread',
+    cards: 3,
+    level: 'Intermediate',
+    desc: 'A three-card spread for the deepest, most private point of the lunar cycle — shadow work, hidden truth and the parts of you that only speak in stillness.',
+    tags: ['Shadow work', 'Inner truth', 'Lunar ritual'],
+  },
+  {
+    slug: 'eclipse',
+    name: 'Eclipse Spread',
+    cards: 5,
+    level: 'Intermediate',
+    desc: 'For solar and lunar eclipses — the most charged moments of the astrological year. Five cards for navigating sudden shifts, surfacing truths and accelerated change.',
+    tags: ['Eclipse season', 'Sudden shifts', 'Astrology'],
+  },
 ]
 
 export default function SpreadsPage() {
@@ -98,6 +125,25 @@ export default function SpreadsPage() {
           A tarot spread is the map for your reading — the number of cards drawn and the meaning of each position. Choose the spread that matches your question.
         </p>
       </div>
+
+      {/* Browse by card count CTA */}
+      <Link href="/spreads/by-card-count" style={{ display:'block', background:'linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02))', border:'1px solid rgba(201,168,76,.35)', borderRadius:14, padding:'1.25rem 1.5rem', marginBottom:'2rem', textDecoration:'none' }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', gap:'1rem', flexWrap:'wrap' }}>
+          <div>
+            <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.95rem', letterSpacing:'.04em', marginBottom:'.3rem' }}>
+              Browse by Card Count →
+            </div>
+            <p style={{ color:'var(--muted)', fontSize:'.83rem', lineHeight:1.6, margin:0 }}>
+              All spreads grouped by number of cards — from 1-card daily pulls to the 10-card Celtic Cross.
+            </p>
+          </div>
+          <div style={{ display:'flex', gap:'.3rem', flexWrap:'wrap' }}>
+            {[1, 3, 5, 7, 10].map(n => (
+              <span key={n} style={{ width:28, height:28, borderRadius:'50%', background:'rgba(201,168,76,.08)', border:'1px solid rgba(201,168,76,.25)', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'Cinzel',serif", fontSize:'.72rem', color:'var(--gold)' }}>{n}</span>
+            ))}
+          </div>
+        </div>
+      </Link>
 
       <div style={{ display:'flex', flexDirection:'column', gap:'1rem', marginBottom:'3rem' }}>
         {SPREADS.map(s => (
@@ -117,21 +163,6 @@ export default function SpreadsPage() {
             </div>
           </Link>
         ))}
-      </div>
-
-      <div>
-        <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.72rem', letterSpacing:'.14em', color:'var(--gold)', opacity:.5, textTransform:'uppercase', marginBottom:'1rem' }}>Coming Soon</div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'.75rem' }}>
-          {COMING_SOON.map(s => (
-            <div key={s.name} style={{ background:'rgba(255,255,255,.02)', border:'1px solid var(--border)', borderRadius:12, padding:'1rem', opacity:.55 }}>
-              <div style={{ display:'flex', justifyContent:'space-between', marginBottom:'.4rem' }}>
-                <span style={{ fontFamily:"'Cinzel',serif", fontSize:'.82rem', color:'var(--gold)' }}>{s.name}</span>
-                <span style={{ fontSize:'.65rem', color:'var(--muted)' }}>{s.cards}c</span>
-              </div>
-              <p style={{ color:'var(--muted)', fontSize:'.78rem', lineHeight:1.5, margin:0 }}>{s.desc}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   )
