@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
@@ -173,12 +173,49 @@ function analyse(selections: Selection[], cardMap: Map<string, Card>): Analysis 
 export default function ReadingAnalysisClient() {
   const [selections, setSelections] = useState<Selection[]>([])
   const [analysed, setAnalysed] = useState(false)
+  const [feedback, setFeedback] = useState<'saved' | 'copied' | null>(null)
+  const hydratedRef = useRef(false)
 
   const cardMap = useMemo(() => {
     const m = new Map<string, Card>()
     CARDS.forEach(c => m.set(c.slug, c))
     return m
   }, [])
+
+  // Decode URL hash on mount (#r=slug,slug.r,...)
+  useEffect(() => {
+    const hash = window.location.hash.replace(/^#/, '')
+    if (hash.startsWith('r=')) {
+      const items = hash.slice(2).split(',').filter(Boolean)
+      const valid: Selection[] = []
+      const seen = new Set<string>()
+      items.forEach(item => {
+        const reversed = item.endsWith('.r')
+        const slug = reversed ? item.slice(0, -2) : item
+        if (!seen.has(slug) && cardMap.has(slug) && valid.length < MAX_SELECTIONS) {
+          valid.push({ slug, reversed })
+          seen.add(slug)
+        }
+      })
+      if (valid.length > 0) {
+        setSelections(valid)
+        setAnalysed(true)
+      }
+    }
+    hydratedRef.current = true
+  }, [cardMap])
+
+  // Sync selections back to URL hash
+  useEffect(() => {
+    if (!hydratedRef.current) return
+    const base = window.location.pathname + window.location.search
+    if (selections.length === 0) {
+      history.replaceState(null, '', base)
+      return
+    }
+    const encoded = selections.map(s => s.reversed ? `${s.slug}.r` : s.slug).join(',')
+    history.replaceState(null, '', `${base}#r=${encoded}`)
+  }, [selections])
 
   const stateMap = useMemo(() => {
     const m = new Map<string, SelectionState>()
@@ -215,6 +252,54 @@ export default function ReadingAnalysisClient() {
       const el = document.getElementById('analysis-result')
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     })
+  }
+
+  async function shareAnalysis() {
+    if (selections.length === 0) return
+    const url = window.location.href
+    const title = 'My Tarot Reading — TarotAxis'
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, url })
+        return
+      }
+    } catch { /* user cancelled — fall through to clipboard */ }
+    try {
+      await navigator.clipboard.writeText(url)
+      setFeedback('copied')
+      setTimeout(() => setFeedback(null), 2200)
+    } catch {
+      /* no clipboard access — silently fail */
+    }
+  }
+
+  function saveToJournal() {
+    if (selections.length === 0 || !analysed) return
+    try {
+      const cardsForJournal = selections.map(s => {
+        const c = cardMap.get(s.slug)
+        return c ? c.name + (s.reversed ? ' (Reversed)' : '') : s.slug
+      })
+      const readingText =
+        analysis.headline +
+        (analysis.themes.length
+          ? '\n\n' + analysis.themes.map(t => `${t.title}\n${t.body}`).join('\n\n')
+          : '')
+      const raw = localStorage.getItem('tarotify_journal') || '[]'
+      const entries: unknown = JSON.parse(raw)
+      const arr = Array.isArray(entries) ? entries : []
+      arr.unshift({
+        date: new Date().toLocaleDateString(),
+        question: 'Home reading analysis',
+        cards: cardsForJournal,
+        reading: readingText,
+      })
+      localStorage.setItem('tarotify_journal', JSON.stringify(arr.slice(0, 20)))
+      setFeedback('saved')
+      setTimeout(() => setFeedback(null), 2200)
+    } catch {
+      /* localStorage unavailable — silently fail */
+    }
   }
 
   const analysis = useMemo(() => analyse(selections, cardMap), [selections, cardMap])
@@ -646,45 +731,96 @@ export default function ReadingAnalysisClient() {
 
           {/* CTA */}
           <div style={{
-            display: 'flex',
-            gap: '0.75rem',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
             marginTop: '2.5rem',
             paddingTop: '2rem',
             borderTop: '1px solid var(--border)',
           }}>
-            <button
-              onClick={clearAll}
-              style={{
-                fontFamily: "'Cinzel',serif",
-                fontSize: '0.85rem',
-                color: 'var(--muted)',
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                borderRadius: 8,
-                padding: '0.7rem 1.4rem',
-                cursor: 'pointer',
-                letterSpacing: '0.05em',
-              }}
-            >
-              Start over
-            </button>
-            <Link
-              href="/free-reading"
-              style={{
-                fontFamily: "'Cinzel',serif",
-                fontSize: '0.85rem',
-                color: 'var(--gold)',
-                border: '1px solid var(--gold)',
-                borderRadius: 8,
-                padding: '0.7rem 1.4rem',
-                textDecoration: 'none',
-                letterSpacing: '0.05em',
-              }}
-            >
-              Try a digital reading →
-            </Link>
+            <div style={{
+              display: 'flex',
+              gap: '0.6rem',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+            }}>
+              <button
+                onClick={saveToJournal}
+                style={{
+                  fontFamily: "'Cinzel',serif",
+                  fontSize: '0.85rem',
+                  color: 'var(--gold)',
+                  background: 'transparent',
+                  border: '1px solid var(--gold)',
+                  borderRadius: 8,
+                  padding: '0.7rem 1.3rem',
+                  cursor: 'pointer',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                Save to journal
+              </button>
+              <button
+                onClick={shareAnalysis}
+                style={{
+                  fontFamily: "'Cinzel',serif",
+                  fontSize: '0.85rem',
+                  color: 'var(--gold)',
+                  background: 'transparent',
+                  border: '1px solid var(--gold)',
+                  borderRadius: 8,
+                  padding: '0.7rem 1.3rem',
+                  cursor: 'pointer',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                Share
+              </button>
+              <button
+                onClick={clearAll}
+                style={{
+                  fontFamily: "'Cinzel',serif",
+                  fontSize: '0.85rem',
+                  color: 'var(--muted)',
+                  background: 'transparent',
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  padding: '0.7rem 1.3rem',
+                  cursor: 'pointer',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                Start over
+              </button>
+              <Link
+                href="/free-reading"
+                style={{
+                  fontFamily: "'Cinzel',serif",
+                  fontSize: '0.85rem',
+                  color: 'var(--muted)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 8,
+                  padding: '0.7rem 1.3rem',
+                  textDecoration: 'none',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                Digital reading →
+              </Link>
+            </div>
+
+            {/* Feedback line */}
+            <div style={{
+              height: 24,
+              marginTop: '0.85rem',
+              textAlign: 'center',
+              fontFamily: "'Cinzel',serif",
+              fontSize: '0.78rem',
+              letterSpacing: '0.08em',
+              color: '#5fc18a',
+              transition: 'opacity .2s',
+              opacity: feedback ? 1 : 0,
+            }}>
+              {feedback === 'saved' && '✓ Saved to your journal'}
+              {feedback === 'copied' && '✓ Link copied to clipboard'}
+            </div>
           </div>
         </section>
       )}
