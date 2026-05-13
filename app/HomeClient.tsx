@@ -98,7 +98,7 @@ export default function HomeClient() {
       reading: interpretation
     })
     localStorage.setItem('tarotify_journal', JSON.stringify(entries.slice(0, 20)))
-    alert('Saved to journal ✓')
+    alert('Saved to journal ✓\nView all saved readings at /journal')
   }
 
   if (screen === 'home') return (
@@ -138,6 +138,7 @@ export default function HomeClient() {
           { icon: '✺',  label: 'Manifestation',   href: '/manifestation' },
           { icon: '🎴', label: 'Tarot Quiz',      href: '/quiz' },
           { icon: '🜄', label: 'Reading Analyser', href: '/reading-analysis' },
+          { icon: '📓', label: 'Your Journal',     href: '/journal' },
         ]).map(({ icon, label, href }) => (
           <Link key={href} href={href} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.5rem', color:'var(--muted)', padding:'.9rem .75rem', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none', transition:'border-color .2s' }}>
             {icon === 'card' ? (

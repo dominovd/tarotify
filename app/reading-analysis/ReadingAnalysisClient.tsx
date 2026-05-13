@@ -808,7 +808,7 @@ export default function ReadingAnalysisClient() {
 
             {/* Feedback line */}
             <div style={{
-              height: 24,
+              minHeight: 24,
               marginTop: '0.85rem',
               textAlign: 'center',
               fontFamily: "'Cinzel',serif",
@@ -818,7 +818,14 @@ export default function ReadingAnalysisClient() {
               transition: 'opacity .2s',
               opacity: feedback ? 1 : 0,
             }}>
-              {feedback === 'saved' && '✓ Saved to your journal'}
+              {feedback === 'saved' && (
+                <>
+                  ✓ Saved —{' '}
+                  <Link href="/journal" style={{ color: '#5fc18a', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                    open your journal →
+                  </Link>
+                </>
+              )}
               {feedback === 'copied' && '✓ Link copied to clipboard'}
             </div>
           </div>
