@@ -114,7 +114,7 @@ export default function CardFeelingsPage({ params }: Props) {
             {card.suitLabel} · {card.number}
           </span>
           <span style={{ padding: '.25rem .85rem', borderRadius: 20, fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.08em', background: 'rgba(201,168,76,.12)', color: 'var(--gold)', border: '1px solid rgba(201,168,76,.3)' }}>
-            ❤️ FEELINGS
+            ❦ FEELINGS
           </span>
         </div>
       </div>
@@ -162,7 +162,7 @@ export default function CardFeelingsPage({ params }: Props) {
         <>
           <section id="upright" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
-              <span style={{ fontSize: '1.1rem' }}>❤️</span> {card.name} as Feelings — Upright
+              <span style={{ fontSize: '1.1rem', color: 'var(--gold)' }}>❦</span> {card.name} as Feelings — Upright
             </h2>
             {splitParas(feel.uprightLong).map((p, i) => (
               <p key={i} style={{ color: 'var(--text)', lineHeight: 1.8, marginBottom: '1rem', fontSize: '.93rem' }}>{p}</p>

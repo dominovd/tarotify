@@ -181,7 +181,7 @@ export default function CardPage({ params }: Props) {
         }}
       >
         <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.65rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', marginBottom:'.3rem' }}>
-          ❤️ In a Feelings Reading
+          ❦ In a Feelings Reading
         </div>
         <div style={{ color:'var(--text)', fontSize:'.88rem' }}>
           {card.name} as feelings — what it reveals about how they feel about you →
