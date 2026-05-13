@@ -34,6 +34,7 @@ export default function CardsIndex() {
           { href: '/zodiac',              title: 'Zodiac Tarot',       desc: 'Each sign’s ruling card' },
           { href: '/tarot-decks',         title: 'Tarot Decks',        desc: 'Rider-Waite, Marseille & more' },
           { href: '/tarot-for-beginners', title: 'For Beginners',      desc: 'Your first month with the cards' },
+          { href: '/quiz',                title: 'Tarot Quiz',         desc: 'Practise the 22 Major Arcana' },
         ].map(item => (
           <Link key={item.href} href={item.href} style={{ display:'block', padding:'.85rem 1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none' }}>
             <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.82rem', letterSpacing:'.04em', marginBottom:'.25rem' }}>{item.title} →</div>

@@ -10,6 +10,7 @@ const links = [
   { href: '/yes-no', label: 'Yes / No' },
   { href: '/cards', label: 'Card Meanings' },
   { href: '/spreads', label: 'Spreads' },
+  { href: '/quiz', label: 'Quiz' },
   { href: '/combination', label: 'Combinations' },
 ]
 

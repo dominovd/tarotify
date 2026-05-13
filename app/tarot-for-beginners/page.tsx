@@ -136,6 +136,7 @@ const resources = [
   { href: '/how-to-ask-tarot-questions', name: 'How to Ask Tarot Questions', body: 'The single skill that improves every reading you will ever do.' },
   { href: '/tarot-decks', name: 'Choosing a Tarot Deck', body: 'Rider-Waite-Smith, Thoth, Marseille and the modern alternatives.' },
   { href: '/tarot-journal', name: 'Keeping a Tarot Journal', body: 'What to record, how to structure entries, and why it matters.' },
+  { href: '/quiz', name: 'Practise with the Tarot Quiz', body: 'Active recall for the 22 Major Arcana — image, keywords or element. Ten questions per round.' },
 ]
 
 export default function TarotForBeginnersPage() {
