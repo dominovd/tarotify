@@ -446,6 +446,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does The Sun mean in love?',
         a: `In love, The Sun is one of the most joyful cards you can receive — it suggests warmth, genuine happiness, playfulness, and the kind of easy, luminous connection that doesn't require effort to sustain its light. It can indicate a relationship in which both people genuinely bring out the best in each other, or the beginning of a connection that feels immediately bright and uncomplicated. It can also signal a return of warmth and vitality to a relationship that had gone through a difficult phase. For those seeking love, it's a strongly affirmative card suggesting that what you're hoping for is genuinely on its way.`,
       },
+      {
+        q: 'What does The Sun represent in tarot?',
+        a: `The Sun represents authentic vitality and undefended joy — the light of a self that has stopped managing or performing its own warmth. Symbolically the card draws on solar imagery used across cultures: the sun as the source of life, clarity, growth and visibility. In the Rider-Waite image, the naked child on a white horse rides under a giant sun with rays alternating between straight and wavy lines — the straight rays represent rational clarity, the wavy rays represent felt warmth, and the child embodies the state in which both are available at once without contradiction. The four sunflowers behind the wall point to the earthly fruits that ripen when this kind of light is allowed to land. As a symbol, The Sun represents what becomes possible when the masks come down: confidence without armour, success that is felt as well as observed, and a quality of presence that warms whatever it touches. It is the deck's clearest image of integration — the point at which inner truth and outer expression have stopped diverging.`,
+      },
     ],
   },
 

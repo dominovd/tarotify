@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'How to Ask the Right Questions in Tarot — A Practical Guide | TarotAxis',
-  description: 'Learn how to ask better tarot questions. Why yes/no questions fall short, how to reframe vague queries with What/How/Why, and 12 examples of poor questions rewritten as powerful ones.',
+  title: 'Questions to Ask the Tarot — 50 Examples & A Practical Guide | TarotAxis',
+  description: '50 questions to ask the tarot, organised by theme (self, love, career, decisions, daily practice). Plus why yes/no questions fall short and how to reframe vague queries with What/How/Why.',
   alternates: { canonical: 'https://tarotaxis.com/how-to-ask-tarot-questions' },
   openGraph: {
     title: 'How to Ask the Right Questions in Tarot — A Practical Guide',
@@ -224,6 +224,112 @@ export default function HowToAskTarotQuestionsPage() {
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             The trouble starts when yes/no framing is applied to a situation that is not really binary — relationships, careers, life direction, identity. For those, the principles above will serve you far better. If a yes/no question is genuinely what you need, use our <Link href="/yes-no" style={{ color: 'var(--gold)' }}>Yes/No Oracle</Link>. For anything deeper, reframe before you shuffle.
           </p>
+        </div>
+      </section>
+
+      {/* 50 Questions by Theme — targets "questions to ask tarot cards" 1.6k vol */}
+      <section style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '.5rem', letterSpacing: '.04em' }}>
+          50 Questions to Ask the Tarot — by Theme
+        </h2>
+        <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.75, marginBottom: '1.5rem' }}>
+          Use these as starting points. The strongest tarot questions are open-ended, take responsibility for your part in the situation, and ask about pattern or guidance rather than fixed outcome. Adapt the wording to your actual life — the cards respond to questions you genuinely mean.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: '1rem' }}>
+          {([
+            {
+              theme: 'Self & Personal Growth',
+              icon: '✦',
+              questions: [
+                'What pattern in my life is asking to be seen right now?',
+                'What part of myself have I been avoiding?',
+                'What strength am I currently underestimating in myself?',
+                'How can I be more honest with myself this week?',
+                'What lesson is the current chapter of my life teaching me?',
+                'What am I clinging to that needs to be released?',
+                'What is my soul asking for that my mind keeps overruling?',
+                'What story about myself am I ready to update?',
+                'How do I honour my own pace right now?',
+                'What would self-respect look like in my situation today?',
+              ],
+            },
+            {
+              theme: 'Love & Relationships',
+              icon: '❦',
+              questions: [
+                'What is the energy I am bringing into my love life right now?',
+                'What does my heart actually want, beneath the noise?',
+                'What pattern keeps repeating in my relationships, and why?',
+                'How can I love better in my current relationship?',
+                'What would healing look like after my last connection?',
+                'What does this relationship most need from me right now?',
+                'What am I afraid to say to my partner?',
+                'How can I tell the difference between a connection and a distraction?',
+                'What is the role this person is playing in my growth?',
+                'What would I do differently if I trusted I am worthy of love?',
+              ],
+            },
+            {
+              theme: 'Career & Work',
+              icon: '◈',
+              questions: [
+                'What is the next honest step in my career?',
+                'What strength of mine is currently underused at work?',
+                'What is making my current job feel heavy?',
+                'What would alignment with my real values look like professionally?',
+                'How can I show up more fully at work this week?',
+                'What am I avoiding doing that would change my situation?',
+                'What is this work chapter preparing me for?',
+                'How can I lead from substance rather than performance?',
+                'What does success actually look like for me, not for the version of me others expect?',
+                'What boundary at work needs renegotiating?',
+              ],
+            },
+            {
+              theme: 'Decisions & Choices',
+              icon: '★',
+              questions: [
+                'What do I need to understand before making this decision?',
+                'What is the cost of saying yes? What is the cost of saying no?',
+                'What is the question underneath the question I am asking?',
+                'What information am I still missing?',
+                'What would I choose if I were not afraid?',
+                'How can I tell whether this is fear or intuition?',
+                'What does my body know about this choice that my mind has not admitted?',
+                'What is this decision really about?',
+                'Which option leaves me more like myself a year from now?',
+                'What does honest discernment look like here?',
+              ],
+            },
+            {
+              theme: 'Daily Practice & Shadow',
+              icon: '☽',
+              questions: [
+                'What energy is most alive in me today?',
+                'What do I most need to hear this morning?',
+                'How can I work with the day in front of me?',
+                'What is asking for my attention right now?',
+                'What is the gift hidden in the difficulty I am facing?',
+                'What old wound is being touched by the present situation?',
+                'What part of myself am I projecting onto someone else?',
+                'What would integration of this shadow look like?',
+                'What would my future self thank me for doing today?',
+                'What can I let be unfinished tonight?',
+              ],
+            },
+          ] as const).map(({ theme, icon, questions }) => (
+            <div key={theme} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem', marginBottom: '.85rem', paddingBottom: '.6rem', borderBottom: '1px solid rgba(201,168,76,.15)' }}>
+                <span style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>{icon}</span>
+                <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', letterSpacing: '.1em', color: 'var(--gold)', textTransform: 'uppercase' }}>{theme}</span>
+              </div>
+              <ol style={{ margin: 0, paddingLeft: '1.15rem', color: 'var(--text)', fontSize: '.86rem', lineHeight: 1.7 }}>
+                {questions.map((q, i) => (
+                  <li key={i} style={{ marginBottom: '.4rem' }}>{q}</li>
+                ))}
+              </ol>
+            </div>
+          ))}
         </div>
       </section>
 

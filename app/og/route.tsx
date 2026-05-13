@@ -12,9 +12,11 @@ export async function GET(request: Request) {
     const kws     = (searchParams.get('k') ?? '').split(',').filter(Boolean).slice(0, 4)
     const text    = searchParams.get('t')     ?? ''
     const reversed = searchParams.get('rev')  === '1'
-    const daily   = searchParams.get('type')  === 'daily'
+    const type    = searchParams.get('type')  ?? ''
+    const daily   = type === 'daily'
+    const feelings = type === 'feelings'
 
-    const label = [daily ? 'Card of the Day' : '', suit, element].filter(Boolean).join('  ·  ')
+    const label = [daily ? 'Card of the Day' : feelings ? 'In a Feelings Reading' : '', suit, element].filter(Boolean).join('  ·  ')
 
     // Pre-fetch image as base64 — satori cannot load images from the same domain via URL
     let imgSrc = ''
@@ -77,7 +79,7 @@ export async function GET(request: Request) {
             </div>
 
             <div style={{ display: 'flex', color: '#c9a84c', fontSize: 60, fontWeight: 700, marginBottom: 20 }}>
-              {name}{reversed ? ' (Reversed)' : ''}
+              {name}{reversed ? ' (Reversed)' : feelings ? ' as Feelings' : ''}
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: 24 }}>
