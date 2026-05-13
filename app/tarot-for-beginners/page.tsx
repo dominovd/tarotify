@@ -137,6 +137,7 @@ const resources = [
   { href: '/tarot-decks', name: 'Choosing a Tarot Deck', body: 'Rider-Waite-Smith, Thoth, Marseille and the modern alternatives.' },
   { href: '/tarot-journal', name: 'Keeping a Tarot Journal', body: 'What to record, how to structure entries, and why it matters.' },
   { href: '/quiz', name: 'Practise with the Tarot Quiz', body: 'Active recall for the 22 Major Arcana — image, keywords or element. Ten questions per round.' },
+  { href: '/reading-analysis', name: 'Tarot Reading Analyser', body: 'Already drew cards at home? Mark them and receive a structured interpretation across suit, balance and reversed signals.' },
 ]
 
 export default function TarotForBeginnersPage() {

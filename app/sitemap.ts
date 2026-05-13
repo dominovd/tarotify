@@ -39,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/birth-card`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/quiz`,                   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/quiz/major`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/reading-analysis`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/how-to-shuffle-tarot`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/how-to-cleanse-tarot-cards`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/daily`,                  lastModified: new Date(), changeFrequency: 'daily',   priority: 0.9 },

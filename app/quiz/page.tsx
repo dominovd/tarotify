@@ -276,6 +276,21 @@ export default function QuizHubPage() {
         flexWrap: 'wrap',
       }}>
         <Link
+          href="/reading-analysis"
+          style={{
+            fontFamily: "'Cinzel',serif",
+            fontSize: '0.85rem',
+            color: 'var(--muted)',
+            border: '1px solid var(--border)',
+            borderRadius: 8,
+            padding: '0.6rem 1.25rem',
+            textDecoration: 'none',
+            letterSpacing: '0.05em',
+          }}
+        >
+          Reading Analyser
+        </Link>
+        <Link
           href="/tarot-for-beginners"
           style={{
             fontFamily: "'Cinzel',serif",

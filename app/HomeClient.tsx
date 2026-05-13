@@ -137,6 +137,7 @@ export default function HomeClient() {
           { icon: '★',  label: 'Birth Card',      href: '/birth-card' },
           { icon: '✺',  label: 'Manifestation',   href: '/manifestation' },
           { icon: '🎴', label: 'Tarot Quiz',      href: '/quiz' },
+          { icon: '🜄', label: 'Reading Analyser', href: '/reading-analysis' },
         ]).map(({ icon, label, href }) => (
           <Link key={href} href={href} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.5rem', color:'var(--muted)', padding:'.9rem .75rem', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none', transition:'border-color .2s' }}>
             {icon === 'card' ? (
