@@ -394,6 +394,26 @@ export default function ReadingAnalysisClient() {
                     }}
                   >
                     <CardImage slug={card.slug} alt={card.name} reversed={isRev} />
+
+                    {/* Card name overlay */}
+                    <span style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      padding: '0.5rem 0.25rem 0.3rem',
+                      background: 'linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.5) 60%, transparent 100%)',
+                      fontFamily: "'Cinzel',serif",
+                      fontSize: '.58rem',
+                      color: '#e8d5a0',
+                      letterSpacing: '.04em',
+                      lineHeight: 1.2,
+                      textAlign: 'center',
+                      pointerEvents: 'none',
+                    }}>
+                      {card.name}
+                    </span>
+
                     {isRev && (
                       <span style={{
                         position: 'absolute',
