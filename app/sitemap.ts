@@ -115,6 +115,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.55,
   }))
 
+  const cardFeelingsPages: MetadataRoute.Sitemap = CARDS.map(card => ({
+    url: `${base}/cards/${card.slug}/feelings`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }))
+
   const comboPages: MetadataRoute.Sitemap = [...MAJOR_COMBOS, ...PRIORITY_MINOR_COMBOS].map(slug => ({
     url: `${base}/combination/${slug}`,
     lastModified: new Date(),
@@ -137,5 +144,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }))
 
-  return [...staticPages, ...zodiacPages, ...spreadSubPages, ...cardPages, ...cardReversedPages, ...comboPages, ...yesNoPages]
+  return [...staticPages, ...zodiacPages, ...spreadSubPages, ...cardPages, ...cardReversedPages, ...cardFeelingsPages, ...comboPages, ...yesNoPages]
 }

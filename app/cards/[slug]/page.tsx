@@ -167,6 +167,27 @@ export default function CardPage({ params }: Props) {
         ))}
       </div>
 
+      {/* Feelings sub-page CTA */}
+      <Link
+        href={`/cards/${card.slug}/feelings`}
+        style={{
+          display: 'block',
+          padding: '1rem 1.1rem',
+          background: 'linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04))',
+          border: '1px solid rgba(201,168,76,.3)',
+          borderRadius: 12,
+          textDecoration: 'none',
+          marginBottom: ext ? '1rem' : '2rem',
+        }}
+      >
+        <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.65rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', marginBottom:'.3rem' }}>
+          ❤️ In a Feelings Reading
+        </div>
+        <div style={{ color:'var(--text)', fontSize:'.88rem' }}>
+          {card.name} as feelings — what it reveals about how they feel about you →
+        </div>
+      </Link>
+
       {/* Extended Love / Career / Spirit */}
       {ext && (
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:'.75rem', marginBottom:'2rem' }}>
