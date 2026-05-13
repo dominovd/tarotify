@@ -15,7 +15,19 @@ const YN_STYLE: Record<string, { bg: string; color: string }> = {
   maybe: { bg: 'rgba(122,94,26,.2)',   color: '#c9a84c' },
 }
 
-export default function CardsIndex() {
+type View = 'meaning' | 'reversed' | 'feelings'
+
+interface Props {
+  searchParams?: { view?: string }
+}
+
+export default function CardsIndex({ searchParams }: Props) {
+  const rawView = (searchParams?.view ?? 'meaning').toLowerCase()
+  const view: View = rawView === 'reversed' ? 'reversed' : rawView === 'feelings' ? 'feelings' : 'meaning'
+  const slugSuffix = view === 'reversed' ? '/reversed' : view === 'feelings' ? '/feelings' : ''
+
+  const viewLabel = view === 'reversed' ? 'reversed' : view === 'feelings' ? 'as feelings' : 'upright'
+
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
@@ -25,6 +37,39 @@ export default function CardsIndex() {
         <p style={{ color:'var(--muted)', maxWidth:520, margin:'0 auto', lineHeight:1.7 }}>
           All 78 cards — upright and reversed meanings, yes/no guidance, and insights for love, career and personal growth.
         </p>
+      </div>
+
+      {/* View toggle: Meaning · Reversed · Feelings */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+        <span style={{ alignSelf: 'center', fontFamily:"'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.12em', color: 'var(--muted)', textTransform: 'uppercase', marginRight: '.5rem' }}>
+          View cards as
+        </span>
+        {([
+          { key: 'meaning',  href: '/cards',           label: 'Meaning' },
+          { key: 'reversed', href: '/cards?view=reversed', label: 'Reversed' },
+          { key: 'feelings', href: '/cards?view=feelings', label: 'As Feelings' },
+        ] as const).map(item => {
+          const active = view === item.key
+          return (
+            <Link
+              key={item.key}
+              href={item.href}
+              style={{
+                padding: '.4rem .95rem',
+                background: active ? 'rgba(201,168,76,.15)' : 'rgba(255,255,255,.03)',
+                border: active ? '1px solid var(--gold)' : '1px solid var(--border)',
+                borderRadius: 20,
+                color: active ? 'var(--gold)' : 'var(--muted)',
+                fontSize: '.74rem',
+                fontFamily:"'Cinzel',serif",
+                letterSpacing: '.06em',
+                textDecoration: 'none',
+              }}
+            >
+              {item.label}
+            </Link>
+          )
+        })}
       </div>
 
       {/* Related hubs */}
@@ -55,9 +100,9 @@ export default function CardsIndex() {
               {suitCards.map(card => {
                 const yn = YN_STYLE[card.yn]
                 return (
-                  <Link key={card.slug} href={`/cards/${card.slug}`} style={{ display:'flex', flexDirection:'column', gap:'.4rem', padding:'1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, transition:'border-color .2s, background .2s' }}>
-                    <div style={{ position:'relative', width:'100%', aspectRatio:'2/3', borderRadius:8, overflow:'hidden', marginBottom:'.4rem' }}>
-                      <CardImage slug={card.slug} alt={`${card.name} tarot card`} />
+                  <Link key={card.slug} href={`/cards/${card.slug}${slugSuffix}`} style={{ display:'flex', flexDirection:'column', gap:'.4rem', padding:'1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, transition:'border-color .2s, background .2s' }}>
+                    <div style={{ position:'relative', width:'100%', aspectRatio:'2/3', borderRadius:8, overflow:'hidden', marginBottom:'.4rem', transform: view === 'reversed' ? 'rotate(180deg)' : undefined }}>
+                      <CardImage slug={card.slug} alt={`${card.name} tarot card ${viewLabel}`} />
                       {/* Card name overlay */}
                       <div style={{ position:'absolute', bottom:0, left:0, right:0, padding:'.35rem .4rem', background:'linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%)', textAlign:'center' }}>
                         <span style={{ fontFamily:"'Cinzel',serif", fontSize:'.6rem', color:'#e8d5a0', letterSpacing:'.06em', lineHeight:1.2, display:'block' }}>{card.name}</span>

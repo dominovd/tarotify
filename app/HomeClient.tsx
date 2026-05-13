@@ -131,6 +131,7 @@ export default function HomeClient() {
         {([
           { icon: '🔮', label: 'Yes / No',       href: '/yes-no' },
           { icon: 'card',label: 'Card Meanings',  href: '/cards' },
+          { icon: '❤️', label: 'As Feelings',     href: '/cards?view=feelings' },
           { icon: '✦',  label: 'Spreads',         href: '/spreads' },
           { icon: '☽',  label: 'Card of the Day', href: '/daily' },
           { icon: '◈',  label: 'Combinations',    href: '/combination' },

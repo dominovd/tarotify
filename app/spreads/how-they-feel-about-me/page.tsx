@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CARDS } from '@/lib/cards'
+import CardImage from '@/components/CardImage'
 
 export const metadata: Metadata = {
   title: 'How Do They Feel About Me Tarot Spread — 3 Card Reading | TarotAxis',
@@ -156,6 +158,41 @@ export default function HowTheyFeelAboutMePage() {
                 <p style={{ color: 'var(--text)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{pos.desc}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Per-card feelings interpretation grid */}
+      <div style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '.5rem', letterSpacing: '.06em' }}>
+          What Each Card Means in a Feelings Reading
+        </h2>
+        <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+          Once you have drawn your cards, click any card below for an in-depth interpretation of what that card reveals about how someone feels about you — both upright and reversed.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(110px,1fr))', gap: '.5rem' }}>
+          {CARDS.map(card => (
+            <Link
+              key={card.slug}
+              href={`/cards/${card.slug}/feelings`}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.3rem',
+                padding: '.5rem',
+                background: 'rgba(255,255,255,.03)',
+                border: '1px solid var(--border)',
+                borderRadius: 8,
+                textDecoration: 'none',
+              }}
+            >
+              <div style={{ position: 'relative', width: '100%', aspectRatio: '2/3', borderRadius: 6, overflow: 'hidden' }}>
+                <CardImage slug={card.slug} alt={`${card.name} tarot card as feelings`} />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '.25rem .3rem', background: 'linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%)', textAlign: 'center' }}>
+                  <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.55rem', color: '#e8d5a0', letterSpacing: '.04em', lineHeight: 1.2, display: 'block' }}>{card.name}</span>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

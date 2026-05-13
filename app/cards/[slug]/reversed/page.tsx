@@ -214,11 +214,15 @@ export default function CardReversedPage({ params }: Props) {
         </div>
       ) : null}
 
-      {/* Upright vs Reversed CTA */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.75rem', marginBottom: '2.5rem' }}>
+      {/* Upright vs Reversed vs Feelings CTA */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: '.75rem', marginBottom: '2.5rem' }}>
         <Link href={`/cards/${card.slug}`} style={{ display: 'block', padding: '1rem 1.1rem', background: 'rgba(201,168,76,.06)', border: '1px solid rgba(201,168,76,.25)', borderRadius: 12, textDecoration: 'none' }}>
           <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.65rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.3rem' }}>See Also</div>
-          <div style={{ color: 'var(--text)', fontSize: '.88rem' }}>{card.name} Upright Meaning →</div>
+          <div style={{ color: 'var(--text)', fontSize: '.88rem' }}>{card.name} Upright →</div>
+        </Link>
+        <Link href={`/cards/${card.slug}/feelings`} style={{ display: 'block', padding: '1rem 1.1rem', background: 'rgba(201,168,76,.06)', border: '1px solid rgba(201,168,76,.25)', borderRadius: 12, textDecoration: 'none' }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.65rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.3rem' }}>In a Feelings Reading</div>
+          <div style={{ color: 'var(--text)', fontSize: '.88rem' }}>❤️ {card.name} as Feelings →</div>
         </Link>
         <Link href="/free-reading" style={{ display: 'block', padding: '1rem 1.1rem', background: 'linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08))', border: '1px solid var(--gold)', borderRadius: 12, textDecoration: 'none' }}>
           <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.65rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.3rem' }}>Draw Now</div>
