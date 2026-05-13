@@ -1,29 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CARDS } from '@/lib/cards'
 import { CARD_EXTENDED } from '@/lib/card-extended'
+import { getDailyCard, longDate } from '@/lib/daily-card'
 import ShareButton from '@/components/ShareButton'
 import CardImage from '@/components/CardImage'
 
 // Re-render on every request so the card matches today's date
 export const dynamic = 'force-dynamic'
-
-// ─── Date-seeded card ────────────────────────────────────────────────────────
-
-function getDailyCard() {
-  const d   = new Date()
-  const seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate()
-  const idx  = seed % 78
-  // ~22 % reversed — lower than a full reading, feels right for a daily draw
-  const reversed = (seed * 17 + 3) % 9 === 0
-  return { card: CARDS[idx], reversed }
-}
-
-function longDate() {
-  return new Date().toLocaleDateString('en-GB', {
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-  })
-}
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
