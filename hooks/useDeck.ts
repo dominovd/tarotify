@@ -1,7 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 
-export type Deck = 'classic' | 'pastel'
+// Deck ids are stored in localStorage — do NOT rename existing values
+// without a migration. UI labels can change freely (see DeckSwitcher).
+// - 'classic' = our Art Nouveau (Midjourney) set in /cards/      → labelled "Nouveau" in UI
+// - 'pastel'  = the Pastel set in /cards-pastel/                 → labelled "Pastel"
+// - 'rws'     = public-domain Rider-Waite-Smith in /cards-rws/   → labelled "Classic"
+export type Deck = 'classic' | 'pastel' | 'rws'
 
 const KEY = 'tarotify-deck'
 
@@ -10,7 +15,7 @@ export function useDeck() {
 
   useEffect(() => {
     const stored = localStorage.getItem(KEY)
-    if (stored === 'pastel') setDeckState('pastel')
+    if (stored === 'pastel' || stored === 'rws') setDeckState(stored)
   }, [])
 
   function setDeck(d: Deck) {
@@ -19,7 +24,9 @@ export function useDeck() {
   }
 
   function cardSrc(slug: string) {
-    return deck === 'pastel' ? `/cards-pastel/${slug}.webp` : `/cards/${slug}.webp`
+    if (deck === 'pastel') return `/cards-pastel/${slug}.webp`
+    if (deck === 'rws')    return `/cards-rws/${slug}.webp`
+    return `/cards/${slug}.webp`
   }
 
   return { deck, setDeck, cardSrc }

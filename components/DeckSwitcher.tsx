@@ -5,8 +5,9 @@ export default function DeckSwitcher() {
   const { deck, setDeck } = useDeck()
 
   const options: { id: Deck; label: string }[] = [
-    { id: 'classic', label: 'Classic' },
+    { id: 'classic', label: 'Nouveau' },
     { id: 'pastel',  label: 'Pastel'  },
+    { id: 'rws',     label: 'Classic' },
   ]
 
   return (
