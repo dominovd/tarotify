@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { createContext, createElement, useContext, useEffect, useState, type ReactNode } from 'react'
 
 // Deck ids are stored in localStorage — do NOT rename existing values
 // without a migration. UI labels can change freely (see DeckSwitcher).
@@ -10,12 +10,32 @@ export type Deck = 'classic' | 'pastel' | 'rws'
 
 const KEY = 'tarotify-deck'
 
-export function useDeck() {
+interface DeckContextValue {
+  deck: Deck
+  setDeck: (d: Deck) => void
+  cardSrc: (slug: string) => string
+}
+
+const DeckContext = createContext<DeckContextValue | null>(null)
+
+export function DeckProvider({ children }: { children: ReactNode }) {
   const [deck, setDeckState] = useState<Deck>('classic')
 
+  // Hydrate from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem(KEY)
     if (stored === 'pastel' || stored === 'rws') setDeckState(stored)
+  }, [])
+
+  // Listen for cross-tab changes (storage event fires in OTHER tabs only)
+  useEffect(() => {
+    function onStorage(e: StorageEvent) {
+      if (e.key !== KEY) return
+      const v = e.newValue
+      if (v === 'classic' || v === 'pastel' || v === 'rws') setDeckState(v)
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
   }, [])
 
   function setDeck(d: Deck) {
@@ -29,5 +49,18 @@ export function useDeck() {
     return `/cards/${slug}.webp`
   }
 
-  return { deck, setDeck, cardSrc }
+  return createElement(DeckContext.Provider, { value: { deck, setDeck, cardSrc } }, children)
+}
+
+export function useDeck(): DeckContextValue {
+  const ctx = useContext(DeckContext)
+  if (ctx) return ctx
+  // Fallback for components rendered outside the provider (shouldn't happen
+  // with the root layout wrapper, but kept safe — falls back to the default
+  // Art Nouveau deck and a no-op setter).
+  return {
+    deck: 'classic',
+    setDeck: () => {},
+    cardSrc: (slug: string) => `/cards/${slug}.webp`,
+  }
 }

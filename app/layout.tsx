@@ -3,6 +3,7 @@ import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { DeckProvider } from '@/hooks/useDeck'
 
 export const metadata: Metadata = {
   title: 'TarotAxis — AI Tarot Readings',
@@ -18,11 +19,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
       <body>
-        <Nav />
-        <main style={{ position: 'relative', zIndex: 1 }}>
-          {children}
-        </main>
-        <Footer />
+        <DeckProvider>
+          <Nav />
+          <main style={{ position: 'relative', zIndex: 1 }}>
+            {children}
+          </main>
+          <Footer />
+        </DeckProvider>
         <Analytics />
       </body>
     </html>
