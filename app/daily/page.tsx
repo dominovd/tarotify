@@ -179,6 +179,26 @@ export default function DailyPage() {
         </p>
       </div>
 
+      {/* Daily practice variants */}
+      <div style={{ marginBottom: '2.5rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.85rem', letterSpacing:'.12em', textTransform:'uppercase', marginBottom:'.85rem', opacity:.85 }}>
+          Other Daily Practices
+        </h2>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:'.65rem' }}>
+          {[
+            { href:'/daily/shadow-and-light',          name:'Shadow & Light',           desc:'Two cards — what wants attention, what supports you.' },
+            { href:'/daily/gratitude-and-growth',      name:'Gratitude & Growth',       desc:'Two cards — what to honour, where to expand.' },
+            { href:'/daily/morning-afternoon-evening', name:'Morning · Afternoon · Evening', desc:'A three-card temporal map for the day ahead.' },
+            { href:'/daily/balance',                   name:'Daily Balance',            desc:'One card with prompts — where am I out of balance today?' },
+          ].map(v => (
+            <Link key={v.href} href={v.href} style={{ display:'block', background:'rgba(255,255,255,.025)', border:'1px solid var(--border)', borderRadius:12, padding:'.9rem 1rem', textDecoration:'none' }}>
+              <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.82rem', marginBottom:'.3rem', letterSpacing:'.04em' }}>{v.name} →</div>
+              <p style={{ color:'var(--muted)', fontSize:'.77rem', lineHeight:1.55, margin:0 }}>{v.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* CTA links */}
       <div style={{ display: 'flex', gap: '.75rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '3rem' }}>
         <Link href="/free-reading" style={{ padding: '.75rem 1.5rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>

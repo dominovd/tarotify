@@ -46,6 +46,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/quiz/wands`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.68 },
     { url: `${base}/quiz/all`,               lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/reading-analysis`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
+
+    // Major-only spreads (2026-05-13)
+    { url: `${base}/spreads/major`,                  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/spreads/major/celtic-cross`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/spreads/major/year-ahead`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/spreads/major/decision`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/spreads/major/shadow-work`,      lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/spreads/major/elemental`,        lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+
+    // Daily Tarot variants (2026-05-13)
+    { url: `${base}/daily/shadow-and-light`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/daily/gratitude-and-growth`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/daily/morning-afternoon-evening`,    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/daily/balance`,                      lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+
+    // Partner & relationship spreads (2026-05-13)
+    { url: `${base}/spreads/partner`,                       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/spreads/partner/dating-connection`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.78 },
+    { url: `${base}/spreads/partner/relationship-growth`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.78 },
+    { url: `${base}/spreads/partner/soulmate-discovery`,    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/spreads/partner/partner-alignment`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${base}/spreads/partner/love-attraction`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/spreads/partner/dating-guidance`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${base}/how-to-shuffle-tarot`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/how-to-cleanse-tarot-cards`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/daily`,                  lastModified: new Date(), changeFrequency: 'daily',   priority: 0.9 },

@@ -114,6 +114,21 @@ const SPREADS = [
   },
 ]
 
+const HUBS = [
+  {
+    slug: 'major',
+    name: 'Major Arcana Spreads',
+    desc: 'Five spreads using only the 22 Major Arcana — Celtic Cross, Year Ahead, Decision, Shadow Work and Elemental. For pivotal moments when you want the archetypal layer foregrounded.',
+    tag: '22 cards',
+  },
+  {
+    slug: 'partner',
+    name: 'Partner & Relationship Spreads',
+    desc: 'Six dedicated spreads for connection — dating, deepening, soulmate questions, compatibility, love attraction and dating guidance. Grounded, kind and honest.',
+    tag: 'Love & connection',
+  },
+]
+
 export default function SpreadsPage() {
   return (
     <div style={{ maxWidth: 760, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
@@ -144,6 +159,24 @@ export default function SpreadsPage() {
           </div>
         </div>
       </Link>
+
+      {/* Themed hubs */}
+      <div style={{ marginBottom: '2.5rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.95rem', letterSpacing:'.1em', textTransform:'uppercase', marginBottom:'1rem' }}>
+          Themed Collections
+        </h2>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:'1rem' }}>
+          {HUBS.map(h => (
+            <Link key={h.slug} href={`/spreads/${h.slug}`} style={{ display:'block', background:'linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02))', border:'1px solid rgba(201,168,76,.35)', borderRadius:14, padding:'1.25rem 1.4rem', textDecoration:'none' }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', gap:'.75rem', marginBottom:'.5rem' }}>
+                <span style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.95rem', letterSpacing:'.04em' }}>{h.name} →</span>
+                <span style={{ padding:'.18rem .55rem', borderRadius:20, fontSize:'.62rem', background:'rgba(201,168,76,.12)', color:'var(--gold)', fontFamily:"'Cinzel',serif", letterSpacing:'.06em' }}>{h.tag}</span>
+              </div>
+              <p style={{ color:'var(--muted)', fontSize:'.85rem', lineHeight:1.65, margin:0 }}>{h.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
 
       <div style={{ display:'flex', flexDirection:'column', gap:'1rem', marginBottom:'3rem' }}>
         {SPREADS.map(s => (
