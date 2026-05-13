@@ -72,6 +72,14 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does The High Priestess mean in love?',
         a: `In love, The High Priestess upright is a card of depth, mystery, and the slow unfolding of genuine connection. She suggests that what's most important about a relationship isn't yet visible — there are layers to explore, feelings not yet spoken, potential not yet realised. She can also signal that you need to listen to your own intuition about someone rather than rationalising away what you're sensing. Reversed in love, she points to emotional guardedness, over-analysis, or a refusal to let someone close enough to actually know you.`,
       },
+      {
+        q: 'What does The High Priestess mean as a person?',
+        a: `The High Priestess as a person is quietly perceptive, deeply intuitive, and noticeably self-contained. They tend to observe more than they speak, and when they do speak, what comes out has usually been turned over in private for some time. There is often a quality of mystery around them — not because they are deliberately withholding, but because they reveal themselves slowly and only to those who have earned that access. They are drawn to symbolic, contemplative, or healing work, and they tend to pick up on emotional currents in a room before anyone else has named them. In relationships, they need genuine space for solitude and inner life, and they can recognise dishonesty almost instantly. The shadow is a tendency to retreat behind the veil when intimacy becomes demanding, using mystery as a form of self-protection rather than genuine discretion. At their best, they are wise, attuned, and a steady source of insight for those allowed close.`,
+      },
+      {
+        q: 'What does The High Priestess mean as a personality?',
+        a: `As a personality, The High Priestess describes someone whose inner life is far richer and more complex than their outer presentation tends to suggest. On the surface they may appear calm, reserved, even cool — but underneath there is a continual current of feeling, image, intuition, and quiet knowing that they have learned to keep mostly to themselves. This is not introversion in the ordinary sense; it is a temperament organised around the perception of subtle information. High Priestess personalities are often dreamers, readers, artists, researchers, or therapists — people whose work or hobbies require sustained attention to the unseen. They tend to dislike small talk, find crowds depleting, and recharge through solitude rather than stimulation. Their shadow shows up as analysis paralysis or a habit of staying in observation rather than choosing engagement. What they need most is a life with room for their inner world to breathe — and a few trusted people who do not mistake their quietness for distance.`,
+      },
     ],
   },
 
@@ -94,6 +102,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does The Empress mean in love?',
         a: `In love, The Empress is one of the most auspicious cards — she brings warmth, sensuality, genuine nurturing, and the kind of easy, embodied intimacy that doesn't need to be forced. She can indicate a deeply nourishing relationship, a phase of increased closeness and physical affection, or the beginning of a family chapter. She's particularly positive for questions about conception or pregnancy. Reversed in love, she may point to codependency, smothering dynamics, or a relationship that has lost its warmth and vitality — asking what needs to be tended to restore genuine connection.`,
       },
+      {
+        q: 'What does The Empress mean as a person?',
+        a: `The Empress as a person is warm, generous, sensual, and naturally nurturing — someone who tends to make others feel cared for almost without trying. They have a strong connection to the body and the physical world: they cook well, decorate beautifully, gravitate toward gardens and good food, and notice when a friend needs feeding rather than advising. There is an abundance about them that goes beyond money — an emotional generosity, a willingness to share what they have, an ability to create a sense of plenty even with modest resources. In relationships, they love through provision and presence: a warm meal, a gentle touch, a remembered detail. They tend to be drawn to creative or caring work — making, growing, mothering in the broadest sense. The shadow is a tendency to over-give to the point of depletion, or to confuse love with the act of taking care of someone. At their best, they are an embodied source of comfort and creativity that genuinely sustains those around them.`,
+      },
     ],
   },
 
@@ -115,6 +127,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does The Emperor mean in love?',
         a: `In love, The Emperor upright can indicate a relationship with strong foundations and genuine stability — a partnership built on mutual respect, clear values, and real commitment. He can also represent a partner who is protective, reliable, and takes relationship seriously. In some readings, he asks whether you're willing to commit to the structure and responsibility that lasting love requires. Reversed in love, he may signal controlling dynamics, emotional rigidity, a domineering partner, or conversely — a person who won't take relational responsibility or make genuine commitments.`,
+      },
+      {
+        q: 'What does The Emperor mean as a person?',
+        a: `The Emperor as a person is structured, decisive, protective, and grounded in a clear sense of what they stand for. They tend to be people who built something — a business, a family, a reputation, an institution — and who take genuine pride in providing stability for those who depend on them. There is usually a strong moral compass and an instinct for leadership, even in informal settings: at a dinner party they are the one who notices a problem and quietly fixes it. In relationships they show love through reliability rather than emotional flourish: they show up, they keep their word, they handle what needs handling. They can be slow to share feelings and may rationalise where they should empathise. The shadow side is rigidity, control, or a tendency to mistake their way for the only way — using authority to dominate rather than to serve. At their best, they offer a steady, principled presence that makes those around them feel genuinely safe and supported.`,
       },
     ],
   },
@@ -515,6 +531,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the Ace of Wands mean in love?',
         a: 'In love readings, the Ace of Wands often heralds a relationship full of passion, chemistry, and spontaneous energy. For those who are single, it can signal an exciting new connection on the horizon — someone who genuinely ignites your interest rather than merely ticking boxes. For those already in a relationship, it encourages rekindling the adventurous, playful dimension of the partnership. The card reminds us that long-term love benefits from regularly treating each other with the same curiosity and enthusiasm you brought at the very beginning.',
       },
+      {
+        q: 'What does the Ace of Wands mean as a person?',
+        a: 'The Ace of Wands as a person describes someone in the early stage of expressing the fire suit\'s energy — newly alive with passion, eager, charismatic, but not yet seasoned. They are often the person who has just discovered a calling, started a new venture, or fallen in love with a fresh idea, and they radiate the kind of contagious enthusiasm that makes others want to be near them. There is genuine creative spark here, the raw will to begin, and a willingness to take risks that more experienced people might over-think. They can also represent a newcomer arriving in your life with bright, restless energy — a spark looking for somewhere to land. In relationships they are exciting, spontaneous, and warming, though they may struggle with follow-through; the same fire that lights everything up can flicker before it has built any lasting heat. The shadow is impulsiveness, scattered focus, and burning out as quickly as they ignited. At their best, they are an emerging force — undeveloped but unmistakably alive.',
+      },
     ],
   },
 
@@ -735,6 +755,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the Page of Wands mean in love?',
         a: 'In love, the Page of Wands often represents the exciting early phase of attraction — the rush of new connection, genuine curiosity about another person, and the willingness to take playful risks in pursuit of romantic possibility. As a person in a reading, they are likely charming, spontaneous, and enthusiastic, though possibly not yet ready for the deeper demands of sustained partnership. The card can encourage you to approach love with this same quality of open, playful curiosity rather than the heavily managed caution that sometimes develops after previous disappointments.',
       },
+      {
+        q: 'What does the Page of Wands mean as a person?',
+        a: 'The Page of Wands as a person is youthful, expressive, and visibly excited about something — a new idea, a new skill, a new direction. They tend to be the friend who has just discovered a band, a workout, a creative practice, or a cause and cannot stop talking about it. Their fire is genuine but undeveloped: enthusiasm runs ahead of competence, and they sometimes promise more than they have the experience to deliver. There is a warmth and a sparkle about them that makes them excellent company, and a natural curiosity that pulls them toward new people and experiences. They communicate openly, take social risks, and rarely hide what they are feeling. In relationships they are playful, demonstrative, and a little restless — they need novelty and stimulation, and they can lose interest quickly when something becomes routine. The shadow side is flightiness, dramatic gestures without follow-through, and a tendency to start projects they never finish. At their best, they bring contagious aliveness and the courage to begin.',
+      },
     ],
   },
 
@@ -756,6 +780,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Knight of Wands mean in love?',
         a: 'In love, the Knight of Wands is often associated with intense chemistry, passionate pursuit, and relationships that feel exciting and alive. As a person, he is likely charismatic, adventurous, and capable of grand romantic gestures — the kind of partner who makes you feel genuinely seen and desired in the early stages. The question the card raises is one of consistency: the fire is real and the attraction is genuine, but the longer arc of relationship — commitment, emotional depth, sustained presence through ordinary days — asks more of this energy than its most natural expression provides.',
+      },
+      {
+        q: 'What does the Knight of Wands mean as a person?',
+        a: 'The Knight of Wands as a person is bold, magnetic, and constantly in motion — someone who pursues what they want with full conviction and an almost reckless willingness to act on impulse. They are adventurers, travellers, founders, performers, athletes — people who run hot and live loud. They tend to be charismatic in a way that makes them the centre of any room they walk into, and they have a real talent for inspiring others to take risks alongside them. In relationships they are passionate, generous with attention, and capable of grand romantic gestures, but they need freedom and motion to feel like themselves; anything that smells of cage or routine sends them looking for the next horizon. The shadow side is impulsiveness, broken promises, hot-tempered outbursts, and a pattern of leaving things half-built when the initial excitement fades. They can also be self-centred in the way that fire signs sometimes are — not unkind, just primarily focused on their own quest. At their best, they are courageous, vital, and willing to live with both feet in.',
       },
     ],
   },
@@ -779,6 +807,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the Queen of Wands mean in love?',
         a: 'In love, the Queen of Wands is a wonderfully positive presence — someone who brings genuine warmth, passion, and creative energy to their relationships. They tend to be loyal, expressive, and capable of making a partner feel genuinely desired and seen. As an aspect of yourself, the card encourages you to bring your full, unapologetic self into romantic situations rather than dimming your light for the comfort of others. The Queen of Wands reminds us that confidence and authenticity are deeply attractive qualities, and that the right relationship will be drawn to your fire rather than threatened by it.',
       },
+      {
+        q: 'What does the Queen of Wands mean as a person?',
+        a: 'The Queen of Wands as a person is warm, magnetic, confident, and entirely at ease in her own skin. She is the friend everyone gravitates toward at a party — not because she performs but because her aliveness is genuinely contagious. She tends to be socially fluent, creatively driven, and unafraid of taking up space; she has opinions, ambitions, and a clear sense of what she likes. Fire-suit energy at its mature peak shows up here as steady passion rather than volatile heat — she leads, mentors, hosts, and creates with consistent generosity. In relationships she is loyal, expressive, and protective of those she loves, but she expects her partner to keep pace with her and to bring their own fire rather than orbiting hers. The shadow side is jealousy, an occasionally fiery temper, and difficulty being vulnerable when her independence has become a defence rather than a strength. At her best, she is one of the most genuinely empowering people you can have in your life.',
+      },
     ],
   },
 
@@ -801,6 +833,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the King of Wands mean in love?',
         a: 'In love, the King of Wands represents a partner who brings genuine passion, loyal commitment, and the kind of confident, protective presence that can feel deeply reassuring. He tends to love with full engagement — there is little ambiguity about where you stand with this person. As an aspect of yourself, the card encourages you to bring this same quality into your relationships: to be clear about what you feel and want, to invest with genuine wholeness rather than managing the risk of being hurt through emotional distance, and to lead in love with the same courage and vision you would bring to your most significant work.',
       },
+      {
+        q: 'What does the King of Wands mean as a person?',
+        a: 'The King of Wands as a person is a visionary, an entrepreneur, a natural leader whose fire has been seasoned by experience into something steady and strategic. They tend to be the founder, the director, the person others instinctively turn to in a crisis because their conviction is grounded in a real track record. There is a charisma to them that does not depend on showmanship — it comes from the way they actually live, the things they have built, and the clarity of what they stand for. In relationships they are loyal, generous, and protective; they tend to love decisively, commit clearly, and expect the same back. They are not the most emotionally fluent of the kings — they show love through provision, vision, and shared adventure rather than through soft talk — but their devotion is unmistakable once given. The shadow is dominance, an inability to be challenged, and a temper that flares when their authority is questioned. At their best, they are inspiring, principled, and the kind of person who makes things happen.',
+      },
     ],
   },
   'ace-of-cups': {
@@ -821,6 +857,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Ace of Cups mean in love?',
         a: 'In a love reading, the Ace of Cups is one of the most auspicious cards that can appear. It suggests the beginning of a genuine emotional connection — either the start of a new relationship or a significant deepening of an existing one. Crucially, it is not about infatuation or surface attraction but about authentic feeling: the kind of connection that opens you rather than just exciting you. For those who have been single, it often signals that the emotional conditions are finally right for real partnership. For those in relationships, it can mark a renewal of genuine tenderness.',
+      },
+      {
+        q: 'What does the Ace of Cups mean as a person?',
+        a: 'The Ace of Cups as a person describes someone newly opening emotionally — the spark of new emotional life arriving, whether in themselves or through a person entering the picture. They are tender, sensitive, and unusually receptive; the water-suit energy is present in its purest, undeveloped form, which means they feel a great deal but have not yet built the structures to hold and channel all that feeling. Often they have recently come through a period of numbness, loss, or self-protection, and the heart is just beginning to thaw. There is a sweetness about them, a quality of being moved by small things — music, kindness, a particular quality of light — and a genuine capacity for compassion and love that has not yet been complicated by experience. In relationships they show up openly, sometimes too openly; they tend to fall hard and fast, and they need a partner who can meet their tenderness without weaponising it. The shadow is naivety, idealisation, and being easily wounded. At their best, they are an emerging source of genuine emotional warmth, just learning to share it.',
       },
     ],
   },
@@ -1042,6 +1082,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the Page of Cups mean in love?',
         a: 'In love readings, the Page of Cups often signals the arrival of romantic news or the beginning of a tender, emotionally open connection. It describes love in its less armoured form — the quality of genuine emotional availability, of being willing to be affected and surprised by another person. This card may represent someone entering your life with an open and sensitive quality, or it may describe your own readiness to approach love with freshness rather than defensiveness. For existing relationships, it can signal a return to playfulness, creativity, and the kind of openness that characterises the early stages of genuine connection.',
       },
+      {
+        q: 'What does the Page of Cups mean as a person?',
+        a: 'The Page of Cups as a person is sensitive, dreamy, imaginative, and emotionally open in a way that can feel almost startling to less expressive people. They tend to be artists, poets, gentle souls, the friend who texts you the song that made them cry on the train. Water-suit energy in its undeveloped form shows up as genuine tenderness and a vivid inner life that has not yet built defences. They feel things quickly, fall in love easily, and are unusually attuned to atmosphere — they can walk into a room and know the emotional weather instantly. In relationships they are romantic, demonstrative, and a little fragile; small slights can land hard, and they need a partner who handles their tenderness with care. The shadow side is moodiness, oversensitivity, escapism through fantasy or substances, and a habit of falling for the idea of someone rather than the actual person in front of them. At their best, they bring poetry, kindness, and a quality of being genuinely moved by life that more guarded people quietly envy.',
+      },
     ],
   },
 
@@ -1063,6 +1107,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Knight of Cups mean in love?',
         a: 'In love, the Knight of Cups is one of the most romantically evocative cards in the deck. It often signals the arrival of a romantic figure or the beginning of a relationship characterised by genuine passion, emotional depth, and a quality of courtship — being actively pursued, or pursuing, with genuine intention and feeling. This card celebrates love as an adventure of the heart. The caution is simply to assess whether the intensity is matched by substance: the Knight\'s feeling is real, but the test of genuine romantic love is whether it deepens over time or whether it was primarily intensity mistaken for depth.',
+      },
+      {
+        q: 'What does the Knight of Cups mean as a person?',
+        a: 'The Knight of Cups as a person is the romantic, the artist, the dreamer — someone who moves through life guided by feeling, beauty, and inspired longing rather than calculation. They are often charming in a soft, attentive way: they remember the small thing you mentioned a month ago, they write rather than text, they bring flowers for no reason. Water-suit energy at the knight stage is moving outward into the world as pursuit and gesture; they court, they create, they fall in love with people and ideas with equal fervour. In relationships they are tender, expressive, and capable of grand romantic moments that can feel cinematic. The shadow is real, though: their idealism can outpace their commitment, their feeling can be intensity rather than depth, and they sometimes fall for the fantasy of a person and quietly drift when reality intrudes. They can also be moody, prone to escapism, and difficult to pin down on practical matters. At their best, they bring genuine beauty and emotional aliveness into the lives of those they love.',
       },
     ],
   },
@@ -1086,6 +1134,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the Queen of Cups mean in love?',
         a: 'In love readings, the Queen of Cups describes a relationship characterised by deep emotional attunement — the experience of being genuinely known, held, and understood by another person. She may represent a partner with exceptional empathic gifts, or she may describe what you yourself are bringing to love: a quality of genuine presence and emotional depth that makes real intimacy possible. For those seeking love, this card often signals that you are ready for — and capable of — a connection that operates at genuine emotional depth rather than remaining at a more guarded surface level.',
       },
+      {
+        q: 'What does the Queen of Cups mean as a person?',
+        a: 'The Queen of Cups as a person is deeply empathic, intuitively gifted, and genuinely caring in a way that goes beyond pleasantness — she actually feels what others are feeling and responds from that knowing. She tends to be the friend you call in a crisis, the partner who notices you are off before you do, the therapist or carer or artist whose work involves holding other people\'s inner worlds with care. There is a softness about her but it is not weak; it is the softness of someone who has done the inner work to remain open without being shattered by what she takes in. In relationships she is tender, attuned, profoundly loyal, and capable of an intimacy that goes very deep. The shadow side is co-dependency, absorbing others\' emotions as her own, losing her boundaries in service of those she loves, and a vulnerability to moods or addictions when she stops tending to herself. At her best, she is one of the most emotionally generous and trustworthy people you will ever meet.',
+      },
     ],
   },
 
@@ -1108,6 +1160,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the King of Cups mean in love?',
         a: 'In love readings, the King of Cups describes a partner or potential partner who brings genuine emotional maturity to a relationship: someone who can be present with difficulty without deflecting, who understands their own emotional life well enough to navigate yours with care, and who leads with wisdom rather than reactivity. This is a rare and genuinely valuable quality in a partner. The card may also describe what you are ready to bring to love: a combination of emotional depth, self-knowledge, and the stability that allows genuine intimacy to develop and deepen over time without becoming destabilised by the inevitable difficulties of close relationship.',
       },
+      {
+        q: 'What does the King of Cups mean as a person?',
+        a: 'The King of Cups as a person is emotionally wise, diplomatically gifted, and quietly authoritative — the kind of person who can sit calmly in the middle of a storm because he has navigated his own depths and made peace with what he found there. He tends to work in fields that require emotional intelligence applied with discretion: therapy, counselling, diplomacy, leadership, the arts. There is a containing quality about him; people instinctively bring him their difficult feelings because they sense he can hold them without flinching or fixing. In relationships he is loyal, deeply present, and unusually good at holding space for a partner\'s inner life while remaining grounded in his own. He is not the most demonstrative of partners, but his steadiness is its own form of devotion. The shadow is emotional manipulation dressed as wisdom, using understanding of others\' vulnerabilities to control rather than serve, or a calm exterior that conceals suppressed feeling building toward an eruption. At his best, he is the rare person who is both deeply feeling and genuinely stable.',
+      },
     ],
   },
   'ace-of-swords': {
@@ -1128,6 +1184,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Ace of Swords mean in love?',
         a: 'In a love reading, the Ace of Swords signals that clarity and honest communication are at the heart of the matter. It can indicate a relationship beginning with genuine intellectual connection and straightforward intentions, or a moment where an important truth needs to be spoken — perhaps a direct declaration of feelings, or an honest conversation about where things stand. It may also appear when someone needs to clear the air after a period of confusion or ambiguity. The Ace of Swords in love is not particularly romantic in a soft sense, but it promises that honesty, even when difficult, creates more durable connection than pretence.',
+      },
+      {
+        q: 'What does the Ace of Swords mean as a person?',
+        a: 'The Ace of Swords as a person describes someone in the early stage of expressing the air suit\'s energy — newly awake to an idea, a truth, or a level of clarity they had not had access to before. They have the directness, the intellectual hunger, and the courage to name things, but their thinking is still raw and undeveloped; the sword is sharp but not yet wielded with full discrimination. Often they have just had a breakthrough — a realisation about themselves, a decision finally made, a long-avoided conversation finally had — and the energy radiating off them is the bright, clean energy of someone seeing clearly for the first time in a while. In relationships they tend to be honest, sometimes startlingly so, and they value people who can match that honesty rather than meet it with evasion. They are not yet the diplomat or the strategist; they are the fresh truth-teller. The shadow is bluntness that wounds, harsh words spoken before wisdom has caught up, or certainty held too tightly. At their best, they are a clarifying presence — the person whose honesty cuts through accumulated fog.',
       },
     ],
   },
@@ -1283,6 +1343,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the Page of Swords mean for communication?',
         a: 'The Page of Swords is strongly connected to communication — particularly the kind that is direct, curious, and information-seeking. Upright, it can signal news arriving, a conversation worth having, or an invitation to speak up and ask the questions that need to be asked. The Page does not shy away from difficult truths and encourages you to voice what you have observed or understood, even when others would prefer comfortable silence. However, it also carries a gentle caution: sharpness of expression is most effective when guided by consideration of timing and impact. Truth-telling and tact are not opposites — the most effective communication tends to involve both.',
       },
+      {
+        q: 'What does the Page of Swords mean as a person?',
+        a: 'The Page of Swords as a person is bright, curious, quick-witted, and a little restless — the friend who asks the questions everyone else has politely stopped asking, the student who challenges the teacher, the colleague who notices the inconsistency in the brief. They tend to be alert, observant, and unusually verbal; air-suit energy in its undeveloped form moves outward as constant questioning, debate, and information-gathering. They love ideas, gossip, news, and the feeling of working something out by talking it through. In relationships they are stimulating and direct; they want a partner they can argue with in the good sense, someone who can match their mental quickness rather than be intimidated by it. The shadow is sharpness without wisdom — gossip, cutting remarks, a tendency to use intelligence as a weapon, or scattered focus that hops from one fascination to the next without depth. They can also be defensive when their cleverness is challenged. At their best, they are curious, lively, and brave enough to keep asking until something true is found.',
+      },
     ],
   },
 
@@ -1305,6 +1369,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What kind of person does the Knight of Swords represent?',
         a: 'The Knight of Swords as a person tends to be intellectually sharp, fast-moving, and driven — someone who sees what they want and goes for it without much hand-wringing. They are often witty, direct to the point of bluntness, and capable of extraordinary focus when engaged. They tend to be stimulating company and formidable allies, but difficult opponents and sometimes challenging partners, because they operate at a speed and intensity that not everyone can match or that does not always leave room for other people\'s pacing. At their best, they are advocates, pioneers, and truth-tellers. At their worst, they are impatient, combative, and heedless of the people in their wake.',
       },
+      {
+        q: 'What does the Knight of Swords mean as a person?',
+        a: 'The Knight of Swords as a person is intense, fast-moving, and intellectually formidable — the friend who texts you a fully researched argument at 1 a.m., the colleague who walks into the meeting and reorganises the agenda before anyone has sat down. They tend to be ambitious, direct, brilliantly articulate, and almost incapable of pretending things are fine when they are not. Air-suit energy at the knight stage charges outward as conviction, debate, and decisive action; they are not the patient listener but the person who makes things happen. In relationships they are stimulating and devoted, but they can be exhausting: they argue to win as easily as they argue to understand, and their sense of pace rarely matches anyone else\'s. The shadow is aggression, ruthlessness, burning bridges in moments of certainty they later regret, and a tendency to value being right over being kind. At their best, they cut through inertia and stand up for truth when others stay silent — formidable allies and equally formidable opponents.',
+      },
     ],
   },
 
@@ -1326,6 +1394,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Queen of Swords mean in a love reading?',
         a: 'In a love reading, the Queen of Swords often represents someone who brings clear thinking and high standards to relationships — someone who is looking for genuine connection rather than romantic fantasy, and who will not sustain a relationship built on convenient fictions. If she represents you, the card may be affirming your discernment and your willingness to hold out for something real. If she represents a potential or current partner, they are likely independent, perceptive, and emotionally self-sufficient — not someone who needs to be needed, but someone who chooses to be present. The Queen asks that honesty be the foundation of any relationship she is part of.',
+      },
+      {
+        q: 'What does the Queen of Swords mean as a person?',
+        a: 'The Queen of Swords as a person is perceptive, independent, direct, and unmistakably formidable — someone who has been through enough to have no illusions about people but who has refused to let that experience turn her bitter. She tends to be witty, articulate, and refreshingly honest, the friend who tells you the truth your softer friends will not say. Air-suit energy at its mature feminine expression shows up here as clarity married to compassion: she sees people clearly and largely accepts them anyway. She is often professionally accomplished, fiercely loyal to those she has chosen to let in, and entirely capable of being alone if the alternative is poor company. In relationships she values honesty above flattery and presence above sentiment; she will not be wooed by performance, but she is devoted to those who meet her at her level. The shadow side is coldness, defensive sarcasm, holding people at the length of analysis rather than risking vulnerability, or letting old hurts calcify into cynicism. At her best, she is one of the wisest and most trustworthy people you will encounter.',
       },
     ],
   },
@@ -1369,6 +1441,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Ace of Pentacles mean in love?',
         a: 'In a love reading, the Ace of Pentacles is a quietly optimistic card. It suggests a relationship with genuine long-term potential — one that feels stable, real, and grounded rather than purely emotional or idealistic. It can signal a new relationship that will prove durable, or an existing one entering a more committed, practical phase: moving in together, making financial decisions as a unit, building shared life. It is not the most passionate card in the deck, but it speaks of the kind of love that actually sustains — thoughtful, steady, and genuinely invested in shared wellbeing.',
+      },
+      {
+        q: 'What does the Ace of Pentacles mean as a person?',
+        a: 'The Ace of Pentacles as a person describes someone in the early stage of expressing the earth suit\'s energy — newly grounded, newly committed to building something tangible, or arriving in your life as the seed of a more stable chapter. They tend to be earnest, practical, and unusually steady for someone so early in their development; there is a sense that they have just begun to take their life seriously and are putting down roots they intend to keep. They might be someone who has recently started a real career, bought their first home, decided to take their health seriously, or finally committed to something they have been circling for years. The energy radiating off them is the calm energy of genuine new beginnings on solid ground. In relationships they show up reliably, invest practically, and value stability over drama. The shadow is over-caution, attachment to security at the expense of growth, or being so focused on the long game that they forget the present is also alive. At their best, they are an emerging foundation — the spark of something durable taking root.',
       },
     ],
   },
@@ -1590,6 +1666,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the Page of Pentacles mean for money?',
         a: 'For financial questions, the Page of Pentacles is a promising card that points to new beginnings in how you approach money — a willingness to learn, the beginning of better financial habits, or a new practical opportunity that could prove valuable with sustained effort. It is not the card of immediate windfall but of the diligent foundational work that leads to lasting financial health. It often appears when someone is beginning to take their finances more seriously — setting a budget for the first time, starting a savings practice, or learning about investing. The card affirms that this earnest engagement is exactly the right approach, and that the discipline you are developing now will compound over time.',
       },
+      {
+        q: 'What does the Page of Pentacles mean as a person?',
+        a: 'The Page of Pentacles as a person is studious, reliable, earnest, and quietly ambitious in a practical way. They are the student who actually reads the syllabus, the junior colleague who arrives early and takes careful notes, the friend who is patiently learning a craft or saving toward a real goal rather than chasing the latest excitement. Earth-suit energy in its undeveloped form shows up as genuine willingness to put in foundational work — they understand, even without being told, that real things are built slowly. There is a grounded, unflashy quality about them that can be deeply attractive once you recognise it. In relationships they are dependable, considerate, and committed in a steady rather than dramatic way; they show love through small consistent acts and practical investment in shared life. The shadow side is over-caution, being so focused on the long game that they forget to enjoy the present, or a tendency to be too self-critical about progress that is in fact perfectly on track. At their best, they are an emerging steady force — exactly the kind of person you want in your corner.',
+      },
     ],
   },
 
@@ -1611,6 +1691,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Queen of Pentacles mean in a love reading?',
         a: 'In love, the Queen of Pentacles represents a deeply nourishing and grounded form of partnership. She suggests a relationship built on genuine practical compatibility, shared values around security and comfort, and a warmth that expresses itself through tangible acts of care rather than purely romantic gestures. If she represents you, she may be affirming your capacity to create a genuinely sustaining relationship. If she represents a partner or potential partner, she speaks to someone who is deeply reliable, practically capable, and whose love is expressed through real, consistent investment in shared wellbeing. She is the person who makes a house into a home.',
+      },
+      {
+        q: 'What does the Queen of Pentacles mean as a person?',
+        a: 'The Queen of Pentacles as a person is warm, grounded, practically gifted, and unusually capable of making any space feel like home. She is the friend whose house you actually want to spend time in, the partner who remembers your favourite tea, the colleague who quietly holds the team together with her competence and her care. Earth-suit energy at its mature feminine expression integrates abundance, sensuality, and practical intelligence: she knows how to manage money, cook a good meal, run a household or a business, and notice when someone in her orbit is struggling. There is a sensuous, embodied quality about her — she enjoys the physical world rather than just enduring it. In relationships she is loyal, generous, deeply nurturing, and steady through difficulty. The shadow side is over-functioning, taking on the practical and emotional labour for everyone around her until she is depleted, or letting her care tip into subtle control. She can also resist receiving as fluently as she gives. At her best, she is the person whose presence makes others genuinely thrive.',
       },
     ],
   },
@@ -1634,6 +1718,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
         q: 'What does the King of Pentacles mean in love?',
         a: 'In love, the King of Pentacles represents a stable, generous and committed partner — someone who provides security and builds a life with care. He may not be the most emotionally expressive, but his reliability and devotion are deep. For singles, he suggests attracting or becoming a grounded, trustworthy partner.',
       },
+      {
+        q: 'What does the King of Pentacles mean as a person?',
+        a: 'The King of Pentacles as a person is grounded, prosperous, generous, and the kind of authority who has actually built something rather than inherited it. He tends to be the business owner, the property developer, the head of the family, the trusted advisor whose track record is the source of his credibility. Earth-suit energy at its mature masculine peak shows up here as steady wealth, practical wisdom, and a fundamentally generous orientation: he has worked for what he has and he enjoys sharing it. There is something deeply reassuring about being in his orbit; he handles things, he honours his commitments, and he is unlikely to be rattled by ordinary turbulence. In relationships he is loyal, devoted, and provides for those he loves through tangible action rather than emotional speeches. He may not be the most demonstrative or romantic, but his commitment is unmistakable and durable. The shadow side is stubbornness, attachment to material status, a tendency to equate worth with productivity, or rigidity when his way of doing things is challenged. At his best, he is a steady, sheltering presence under whom others can genuinely build their own lives.',
+      },
     ],
   },
 
@@ -1655,6 +1743,10 @@ export const CARD_EXTENDED: Record<string, ExtendedContent> = {
       {
         q: 'What does the Knight of Pentacles mean in love?',
         a: 'In love, the Knight of Pentacles represents a devoted, loyal and dependable partner who is in it for the long haul. He shows love through actions rather than words — through showing up, being reliable and building a secure life together. He may not be the most romantic, but his consistency and commitment are deeply reassuring.',
+      },
+      {
+        q: 'What does the Knight of Pentacles mean as a person?',
+        a: 'The Knight of Pentacles as a person is methodical, dependable, hard-working, and quietly committed — the kind of person who shows up on time, does what they said they would do, and keeps going long after more excitable people have lost interest. Earth-suit energy at the knight stage moves outward as sustained effort: this is the entrepreneur grinding through the unglamorous middle of building something, the partner saving steadily for a home, the colleague whose work is unflashy but reliably excellent. They are not the most exciting person at the party, and they know it; they prefer a small circle of trusted people and a life they have built carefully rather than scenes or spectacle. In relationships they are devoted in a very practical way: they remember anniversaries, they handle the boring logistics, they are still here in year fifteen when others have wandered off. The shadow side is rigidity, perfectionism that prevents completion, stubborn attachment to routines that have outlived their purpose, or a quiet stagnation dressed up as discipline. At their best, they are the partner or friend whose steadiness becomes the foundation everyone else builds on.',
       },
     ],
   },
