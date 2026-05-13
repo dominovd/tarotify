@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
+import EmailCapture from '@/components/EmailCapture'
 
 const JOURNAL_KEY = 'tarotify_journal'
 const REVERSED_SUFFIX = ' (Reversed)'
@@ -522,6 +523,16 @@ export default function JournalClient() {
           Every entry is stored only in this browser, on this device — TarotAxis has no account system and no server-side copy. That means your readings are private, but it also means clearing your site data, switching browsers or changing devices will not bring them with you. Use the Export button to keep a JSON backup if you want to move them, and consider keeping a paper journal alongside this one.
         </p>
       </section>
+
+      <div style={{ marginTop: '1.5rem' }}>
+        <EmailCapture
+          source="journal"
+          compact
+          headline="Add a daily card to your practice"
+          copy="One short reflection in your inbox each morning — a regular prompt for new journal entries."
+          cta="Subscribe"
+        />
+      </div>
     </main>
   )
 }

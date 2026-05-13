@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import EmailCapture from '@/components/EmailCapture'
 
 export const metadata: Metadata = {
   title: 'Tarot for Beginners — Your First Steps with the Cards | TarotAxis',
@@ -284,6 +285,16 @@ export default function TarotForBeginnersPage() {
           ))}
         </div>
       </section>
+
+      {/* Email capture */}
+      <div style={{ marginBottom: '2.5rem' }}>
+        <EmailCapture
+          source="beginners"
+          headline="Learn one card a day, the easy way"
+          copy="Get a Major Arcana card in your inbox each morning, with a short reflection. Two weeks in and the deck starts to feel like an old friend."
+          cta="Start learning"
+        />
+      </div>
 
       {/* CTA */}
       <div style={{ textAlign: 'center' }}>

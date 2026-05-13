@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ReadingAnalysisClient from './ReadingAnalysisClient'
+import EmailCapture from '@/components/EmailCapture'
 
 export const metadata: Metadata = {
   title: 'Tarot Reading Analyser — Get Insight Into Your Home Reading | TarotAxis',
@@ -95,6 +96,15 @@ export default function ReadingAnalysisPage() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div style={{ marginTop: '1.5rem' }}>
+          <EmailCapture
+            source="reading-analysis"
+            headline="Read for yourself? Get a card a day"
+            copy="A fresh tarot card in your inbox every morning — a small daily anchor for your own practice. Free, no spam."
+            cta="Subscribe"
+          />
         </div>
       </section>
     </>

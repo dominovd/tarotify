@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import MajorQuizClient from './MajorQuizClient'
+import QuizClient from '@/components/QuizClient'
 
 export const metadata: Metadata = {
   title: 'Major Arcana Quiz — 22 Cards, 3 Question Modes | TarotAxis',
@@ -16,5 +16,5 @@ export const metadata: Metadata = {
 }
 
 export default function MajorQuizPage() {
-  return <MajorQuizClient />
+  return <QuizClient pool="major" />
 }

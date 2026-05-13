@@ -3,6 +3,7 @@ import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { CARDS } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
+import EmailCapture from '@/components/EmailCapture'
 
 type DrawnCard = { card: typeof CARDS[0]; flipped: boolean; reversed: boolean }
 
@@ -157,6 +158,15 @@ export default function HomeClient() {
             <span style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', letterSpacing:'.05em', textAlign:'center', lineHeight:1.3 }}>{label}</span>
           </Link>
         ))}
+      </div>
+
+      <div style={{ marginTop: '3rem' }}>
+        <EmailCapture
+          source="home"
+          headline="A tarot card in your inbox every morning"
+          copy="One short reflection a day from the 78-card deck. Free, no spam, unsubscribe in one tap."
+          cta="Subscribe"
+        />
       </div>
     </div>
   )

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import EmailCapture from '@/components/EmailCapture'
 
 export const metadata: Metadata = {
   title: 'Tarot Quiz — Test Your Knowledge of the Major Arcana | TarotAxis',
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: 'Is this tarot quiz suitable for beginners?',
-    a: 'Yes. The quiz draws from the 22 Major Arcana — the cards every reader learns first. Each question gives you four options, and after every answer you get a short explanation plus a link to the full card meaning, so you learn while you play.',
+    a: 'Yes. Start with the Major Arcana quiz — the 22 cards every reader learns first. When you are comfortable, move to a single suit, then to the full Minor Arcana, and finally to the All-78 round. Each question gives you four options, and after every answer you get a short explanation plus a link to the full card meaning, so you learn while you play.',
   },
   {
     q: 'How does the quiz work?',
@@ -30,7 +31,11 @@ const faq = [
   },
   {
     q: 'Are reversed meanings included?',
-    a: 'Not yet. The current quiz focuses on upright Major Arcana so you can master the core 22 archetypes first. A reversed and minor-arcana extension is on the roadmap.',
+    a: 'Not yet — the quizzes use upright meanings so you build a stable base before adding the reversed layer. Reversed-mode rounds are on the roadmap and will be added across all pools at once.',
+  },
+  {
+    q: 'Which quiz should I start with?',
+    a: 'Major Arcana for absolute beginners. Once you can score 8/10 there consistently, try one single suit (Cups is a friendly starting point), then the full Minor round, then finish with the All-78 hard mode. Treat each pool as a separate goal — best score and streak are tracked per pool.',
   },
   {
     q: 'How is this different from a tarot reading?',
@@ -48,24 +53,48 @@ const faqSchema = {
   })),
 }
 
-const modes: { title: string; tag: string; desc: string; href: string }[] = [
+const pools: { title: string; tag: string; desc: string; href: string }[] = [
   {
-    title: 'Identify by Image',
-    tag: 'Visual',
-    desc: 'Card art on screen — pick the correct name from four options. Trains visual recognition.',
-    href: '/quiz/major?mode=image',
+    title: 'Major Arcana',
+    tag: '22 cards',
+    desc: 'The 22 archetypes — the cards every reader learns first. Three question types.',
+    href: '/quiz/major',
   },
   {
-    title: 'Identify by Keywords',
-    tag: 'Vocabulary',
-    desc: 'Three core keywords are shown — pick the card they describe. Trains the language of tarot.',
-    href: '/quiz/major?mode=keywords',
+    title: 'Minor Arcana',
+    tag: '56 cards',
+    desc: 'All four suits in one round. Image, keyword and element questions across the full Minor deck.',
+    href: '/quiz/minor',
   },
   {
-    title: 'Match the Element',
-    tag: 'Correspondences',
-    desc: 'See a Major Arcana card and identify its elemental correspondence — Fire, Water, Air or Earth.',
-    href: '/quiz/major?mode=element',
+    title: 'Cups',
+    tag: '14 cards',
+    desc: 'The suit of feeling, intuition and relationships. Image and keyword questions.',
+    href: '/quiz/cups',
+  },
+  {
+    title: 'Pentacles',
+    tag: '14 cards',
+    desc: 'The suit of work, money and material reality. Image and keyword questions.',
+    href: '/quiz/pentacles',
+  },
+  {
+    title: 'Swords',
+    tag: '14 cards',
+    desc: 'The suit of thought, decision and conflict. Image and keyword questions.',
+    href: '/quiz/swords',
+  },
+  {
+    title: 'Wands',
+    tag: '14 cards',
+    desc: 'The suit of inspiration, will and creative momentum. Image and keyword questions.',
+    href: '/quiz/wands',
+  },
+  {
+    title: 'All 78 — Hard Mode',
+    tag: 'Master level',
+    desc: 'Any of the 78 cards can appear, with all three question types in the mix.',
+    href: '/quiz/all',
   },
 ]
 
@@ -147,7 +176,7 @@ export default function QuizHubPage() {
         </Link>
       </section>
 
-      {/* Three modes */}
+      {/* Quizzes by deck */}
       <section style={{ marginBottom: '2.5rem' }}>
         <h2 style={{
           fontFamily: "'Cinzel',serif",
@@ -157,7 +186,7 @@ export default function QuizHubPage() {
           marginBottom: '1.25rem',
           textAlign: 'center',
         }}>
-          Or focus on one mode
+          Or focus on one part of the deck
         </h2>
 
         <div style={{
@@ -165,7 +194,7 @@ export default function QuizHubPage() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '1rem',
         }}>
-          {modes.map(m => (
+          {pools.map(m => (
             <Link
               key={m.href}
               href={m.href}
@@ -267,6 +296,16 @@ export default function QuizHubPage() {
           </div>
         ))}
       </section>
+
+      {/* Email capture */}
+      <div style={{ marginBottom: '2.5rem' }}>
+        <EmailCapture
+          source="quiz"
+          headline="A card a day keeps the deck familiar"
+          copy="One Major Arcana card in your inbox each morning. The quickest way to master the 22 without setting aside study time."
+          cta="Subscribe"
+        />
+      </div>
 
       {/* Cross-links */}
       <div style={{
