@@ -88,18 +88,18 @@ function buildRound(pool: Card[], mode: QMode, allowedTypes: QType[]): Question[
   })
 }
 
-function statsKey(poolKey: PoolKey): string {
-  return `tarotify_quiz_stats_${poolKey}`
+function statsKey(poolKey: PoolKey, reversed: boolean): string {
+  return `tarotify_quiz_stats_${poolKey}${reversed ? '_rev' : ''}`
 }
 
 const LEGACY_GLOBAL_KEY = 'tarotify_quiz_stats'
 
-function readStats(poolKey: PoolKey): Stats {
+function readStats(poolKey: PoolKey, reversed: boolean): Stats {
   if (typeof window === 'undefined') return { bestScore: 0, bestStreak: 0, games: 0 }
   try {
-    let raw = localStorage.getItem(statsKey(poolKey))
-    // Backwards-compat: old single-key data was used for /quiz/major
-    if (!raw && poolKey === 'major') raw = localStorage.getItem(LEGACY_GLOBAL_KEY)
+    let raw = localStorage.getItem(statsKey(poolKey, reversed))
+    // Backwards-compat: old single-key data was used for /quiz/major upright
+    if (!raw && poolKey === 'major' && !reversed) raw = localStorage.getItem(LEGACY_GLOBAL_KEY)
     if (!raw) return { bestScore: 0, bestStreak: 0, games: 0 }
     const p = JSON.parse(raw) as Partial<Stats>
     return {
@@ -112,16 +112,20 @@ function readStats(poolKey: PoolKey): Stats {
   }
 }
 
-function writeStats(poolKey: PoolKey, s: Stats) {
+function writeStats(poolKey: PoolKey, reversed: boolean, s: Stats) {
   if (typeof window === 'undefined') return
-  try { localStorage.setItem(statsKey(poolKey), JSON.stringify(s)) } catch {}
+  try { localStorage.setItem(statsKey(poolKey, reversed), JSON.stringify(s)) } catch {}
 }
 
 interface Props {
   pool: PoolKey
+  /** When true: card art rotates 180°, keyword questions use kw_rev,
+   *  explanations use card.rev. Stats are tracked under a separate
+   *  localStorage key so reversed and upright scores don't mix. */
+  reversed?: boolean
 }
 
-export default function QuizClient({ pool }: Props) {
+export default function QuizClient({ pool, reversed = false }: Props) {
   const config = POOLS[pool]
   const cardPool = CARDS.filter(config.filter)
   const validModes: QMode[] = ['mixed', ...config.enabledTypes]
@@ -142,11 +146,11 @@ export default function QuizClient({ pool }: Props) {
     const raw = params.get('mode')
     const initMode: QMode = validModes.includes(raw as QMode) ? (raw as QMode) : 'mixed'
     setMode(initMode)
-    setStats(readStats(pool))
+    setStats(readStats(pool, reversed))
     setRound(buildRound(cardPool, initMode, config.enabledTypes))
     setHydrated(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pool])
+  }, [pool, reversed])
 
   function restart(newMode?: QMode) {
     const m = newMode && validModes.includes(newMode) ? newMode : mode
@@ -200,7 +204,7 @@ export default function QuizClient({ pool }: Props) {
         games: stats.games + 1,
       }
       setStats(newStats)
-      writeStats(pool, newStats)
+      writeStats(pool, reversed, newStats)
     }
     setIdx(nextIdx)
   }
@@ -227,7 +231,7 @@ export default function QuizClient({ pool }: Props) {
             Round complete
           </h1>
           <p style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>
-            {config.label} · {MODE_LABEL[mode]} · {round.length} questions
+            {config.label}{reversed ? ' · Reversed' : ''} · {MODE_LABEL[mode]} · {round.length} questions
           </p>
         </header>
 
@@ -486,7 +490,7 @@ export default function QuizClient({ pool }: Props) {
           textTransform: 'uppercase',
           color: 'var(--muted)',
         }}>
-          {config.label} · {MODE_LABEL[mode]}
+          {config.label}{reversed ? ' · Reversed' : ''} · {MODE_LABEL[mode]}
         </span>
         <span style={{
           fontFamily: "'Cinzel',serif",
@@ -528,8 +532,8 @@ export default function QuizClient({ pool }: Props) {
           marginBottom: '1.25rem',
           textAlign: 'center',
         }}>
-          {q.type === 'image' && `Which ${config.label} card is this?`}
-          {q.type === 'keywords' && 'Which card matches these keywords?'}
+          {q.type === 'image' && `Which ${config.label} card is this${reversed ? ', reversed' : ''}?`}
+          {q.type === 'keywords' && `Which card matches these${reversed ? ' reversed' : ''} keywords?`}
           {q.type === 'element' && "What is this card's element?"}
         </h1>
 
@@ -541,6 +545,7 @@ export default function QuizClient({ pool }: Props) {
             borderRadius: 10,
             overflow: 'hidden',
             border: '1px solid var(--border)',
+            transform: reversed ? 'rotate(180deg)' : 'none',
           }}>
             <CardImage slug={q.card.slug} alt={answered ? q.card.name : 'A tarot card'} />
           </div>
@@ -554,7 +559,7 @@ export default function QuizClient({ pool }: Props) {
             flexWrap: 'wrap',
             marginBottom: '0.5rem',
           }}>
-            {q.card.kw_up.slice(0, 3).map(kw => (
+            {(reversed ? q.card.kw_rev : q.card.kw_up).slice(0, 3).map(kw => (
               <span key={kw} style={{
                 fontFamily: "'Cinzel',serif",
                 fontSize: '0.85rem',
@@ -616,12 +621,12 @@ export default function QuizClient({ pool }: Props) {
           }}>
             {q.type === 'image' && (
               <>
-                This is <strong style={{ color: 'var(--gold)' }}>{q.card.name}</strong>. Key themes: {q.card.kw_up.slice(0, 3).join(', ')}.
+                This is <strong style={{ color: 'var(--gold)' }}>{q.card.name}{reversed ? ' (Reversed)' : ''}</strong>. Key themes: {(reversed ? q.card.kw_rev : q.card.kw_up).slice(0, 3).join(', ')}.
               </>
             )}
             {q.type === 'keywords' && (
               <>
-                Those keywords belong to <strong style={{ color: 'var(--gold)' }}>{q.card.name}</strong>. {q.card.up.split('.')[0]}.
+                Those keywords belong to <strong style={{ color: 'var(--gold)' }}>{q.card.name}{reversed ? ' (Reversed)' : ''}</strong>. {(reversed ? q.card.rev : q.card.up).split('.')[0]}.
               </>
             )}
             {q.type === 'element' && (

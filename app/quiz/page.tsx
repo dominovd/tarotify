@@ -31,7 +31,7 @@ const faq = [
   },
   {
     q: 'Are reversed meanings included?',
-    a: 'Not yet — the quizzes use upright meanings so you build a stable base before adding the reversed layer. Reversed-mode rounds are on the roadmap and will be added across all pools at once.',
+    a: 'Yes — the dedicated Reversed round (Major Arcana) shows every card inverted and uses reversed keywords for the keyword question type. Best score and streak are tracked separately from the upright pools, so your reversed practice does not overwrite your upright stats. Other pools may follow once the Reversed Major round has had enough use.',
   },
   {
     q: 'Which quiz should I start with?',
@@ -95,6 +95,12 @@ const pools: { title: string; tag: string; desc: string; href: string }[] = [
     tag: 'Master level',
     desc: 'Any of the 78 cards can appear, with all three question types in the mix.',
     href: '/quiz/all',
+  },
+  {
+    title: 'Reversed — Major Arcana',
+    tag: 'Inverted',
+    desc: 'The 22 Major Arcana shown upside-down. Identify them by inverted artwork, by reversed keywords, or by element.',
+    href: '/quiz/reversed',
   },
 ]
 

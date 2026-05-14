@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
@@ -42,6 +42,48 @@ const SPREADS = [
   },
 ]
 
+// ─── Personalisation ─────────────────────────────────────────────────────────
+
+type Theme = 'general' | 'love' | 'career' | 'family' | 'money' | 'spirit' | 'health'
+type Frequency = 'single' | 'daily' | 'weekly' | 'monthly' | 'yearly'
+type ZodiacSign = '' | 'aries' | 'taurus' | 'gemini' | 'cancer' | 'leo' | 'virgo' | 'libra' | 'scorpio' | 'sagittarius' | 'capricorn' | 'aquarius' | 'pisces'
+
+const THEMES: { id: Theme; label: string }[] = [
+  { id: 'general', label: 'General' },
+  { id: 'love',    label: 'Love' },
+  { id: 'career',  label: 'Career' },
+  { id: 'family',  label: 'Family' },
+  { id: 'money',   label: 'Money' },
+  { id: 'spirit',  label: 'Spirit' },
+  { id: 'health',  label: 'Health' },
+]
+
+const FREQUENCIES: { id: Frequency; label: string; lead: string }[] = [
+  { id: 'single',  label: 'One-off',  lead: 'Right now,' },
+  { id: 'daily',   label: 'Daily',    lead: 'Over the next day,' },
+  { id: 'weekly',  label: 'Weekly',   lead: 'In the coming week,' },
+  { id: 'monthly', label: 'Monthly',  lead: 'Through this month,' },
+  { id: 'yearly',  label: 'Yearly',   lead: 'Across the year ahead,' },
+]
+
+const ZODIAC: { id: ZodiacSign; label: string; ruling: string }[] = [
+  { id: '',            label: 'None',         ruling: '' },
+  { id: 'aries',       label: 'Aries',        ruling: 'The Emperor' },
+  { id: 'taurus',      label: 'Taurus',       ruling: 'The Hierophant' },
+  { id: 'gemini',      label: 'Gemini',       ruling: 'The Lovers' },
+  { id: 'cancer',      label: 'Cancer',       ruling: 'The Chariot' },
+  { id: 'leo',         label: 'Leo',          ruling: 'Strength' },
+  { id: 'virgo',       label: 'Virgo',        ruling: 'The Hermit' },
+  { id: 'libra',       label: 'Libra',        ruling: 'Justice' },
+  { id: 'scorpio',     label: 'Scorpio',      ruling: 'Death' },
+  { id: 'sagittarius', label: 'Sagittarius',  ruling: 'Temperance' },
+  { id: 'capricorn',   label: 'Capricorn',    ruling: 'The Devil' },
+  { id: 'aquarius',    label: 'Aquarius',     ruling: 'The Star' },
+  { id: 'pisces',      label: 'Pisces',       ruling: 'The Moon' },
+]
+
+const PREFS_KEY = 'tarotify_freereading_prefs'
+
 // ─── CSS for 3D flip ────────────────────────────────────────────────────────
 
 const FLIP_CSS = `
@@ -75,9 +117,59 @@ function shuffle(arr: Card[]): Card[] {
 
 interface DrawnCard { card: Card; reversed: boolean }
 
-function interpret(dc: DrawnCard, mode: 'general' | 'love'): string {
-  if (mode === 'love') return dc.card.love
-  return dc.reversed ? dc.card.rev : dc.card.up
+// Base meaning text for a card — picks the right field given the theme and
+// whether the card is reversed. Themes that don't have a dedicated card field
+// (family / money / health) fall back to general meaning and are framed by
+// the wrapper text instead.
+function themeBase(dc: DrawnCard, theme: Theme): string {
+  const { card, reversed } = dc
+  if (theme === 'love')   return card.love
+  if (theme === 'career') return card.career
+  if (theme === 'spirit') return card.spirit
+  // general, family, money, health
+  return reversed ? card.rev : card.up
+}
+
+// Wrapper sentence prefix per theme — gives the reading a contextual frame
+// even when the underlying field is the general meaning. Empty for the
+// catch-all 'general' theme.
+function themeFrame(theme: Theme, position: string): string {
+  if (theme === 'general') return ''
+  if (theme === 'love')    return `In your love life — ${position.toLowerCase()} —`
+  if (theme === 'career')  return `In your career — ${position.toLowerCase()} —`
+  if (theme === 'family')  return `Within family dynamics — ${position.toLowerCase()} —`
+  if (theme === 'money')   return `Around money and resources — ${position.toLowerCase()} —`
+  if (theme === 'spirit')  return `In your spiritual life — ${position.toLowerCase()} —`
+  if (theme === 'health')  return `For your wellbeing — ${position.toLowerCase()} —`
+  return ''
+}
+
+function zodiacFooter(dc: DrawnCard, zodiac: ZodiacSign): string {
+  if (!zodiac) return ''
+  const row = ZODIAC.find(z => z.id === zodiac)
+  if (!row || !row.ruling) return ''
+  if (dc.card.name === row.ruling) {
+    return ` Your ruling card has arrived — pay close attention; this is your own archetype speaking.`
+  }
+  return ` As a ${row.label.toLowerCase()}, filter this through ${row.ruling}: your ruling archetype shapes how the message lands.`
+}
+
+function interpret(
+  dc: DrawnCard,
+  spreadMode: 'general' | 'love',
+  theme: Theme,
+  frequency: Frequency,
+  zodiac: ZodiacSign,
+  position: string,
+): string {
+  // The Love spread keeps its native love framing unless the user has chosen
+  // a different theme explicitly (i.e. anything other than 'general').
+  const effectiveTheme: Theme = theme !== 'general' ? theme : (spreadMode === 'love' ? 'love' : 'general')
+  const frame = themeFrame(effectiveTheme, position)
+  const base  = themeBase(dc, effectiveTheme)
+  const lead  = FREQUENCIES.find(f => f.id === frequency)?.lead ?? ''
+  const tail  = zodiacFooter(dc, zodiac)
+  return [lead, frame, base + tail].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim()
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -88,6 +180,30 @@ export default function ReadingClient() {
   const [drawn, setDrawn]         = useState<DrawnCard[]>([])
   const [revealed, setRevealed]   = useState<boolean[]>([])
   const [phase, setPhase]         = useState<'select' | 'draw'>('select')
+
+  // Personalisation — persisted in localStorage between visits.
+  const [theme, setTheme]         = useState<Theme>('general')
+  const [frequency, setFrequency] = useState<Frequency>('single')
+  const [zodiac, setZodiac]       = useState<ZodiacSign>('')
+
+  // Hydrate from localStorage on mount.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try {
+      const raw = localStorage.getItem(PREFS_KEY)
+      if (!raw) return
+      const p = JSON.parse(raw) as { theme?: Theme; frequency?: Frequency; zodiac?: ZodiacSign }
+      if (p.theme && THEMES.some(t => t.id === p.theme))             setTheme(p.theme)
+      if (p.frequency && FREQUENCIES.some(f => f.id === p.frequency)) setFrequency(p.frequency)
+      if (p.zodiac !== undefined && ZODIAC.some(z => z.id === p.zodiac)) setZodiac(p.zodiac)
+    } catch {}
+  }, [])
+
+  // Persist on change.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try { localStorage.setItem(PREFS_KEY, JSON.stringify({ theme, frequency, zodiac })) } catch {}
+  }, [theme, frequency, zodiac])
 
   const spread      = SPREADS.find(s => s.id === spreadId) ?? null
   const allRevealed = revealed.length > 0 && revealed.every(Boolean)
@@ -163,6 +279,70 @@ export default function ReadingClient() {
                   <div style={{ fontSize: '.75rem', color: m, lineHeight: 1.55 }}>{s.desc}</div>
                 </button>
               ))}
+            </div>
+
+            {/* Personalisation */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '.66rem', letterSpacing: '.16em', color: m, fontFamily: "'Cinzel',serif", textTransform: 'uppercase', marginBottom: '.55rem', opacity: .65 }}>
+                Personalise <span style={{ fontFamily: 'sans-serif', opacity: .5 }}>(optional)</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: '.6rem' }}>
+                {/* Theme */}
+                <label style={{ display: 'flex', flexDirection: 'column', gap: '.3rem' }}>
+                  <span style={{ fontSize: '.6rem', color: m, opacity: .55, letterSpacing: '.08em', textTransform: 'uppercase', fontFamily: "'Cinzel',serif" }}>Theme</span>
+                  <select
+                    value={theme}
+                    onChange={e => setTheme(e.target.value as Theme)}
+                    style={{
+                      background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 10,
+                      padding: '.55rem .75rem', color: 'var(--text)', fontSize: '.85rem',
+                      outline: 'none', fontFamily: 'inherit',
+                    }}
+                  >
+                    {THEMES.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+                  </select>
+                </label>
+
+                {/* Frequency */}
+                <label style={{ display: 'flex', flexDirection: 'column', gap: '.3rem' }}>
+                  <span style={{ fontSize: '.6rem', color: m, opacity: .55, letterSpacing: '.08em', textTransform: 'uppercase', fontFamily: "'Cinzel',serif" }}>Frequency</span>
+                  <select
+                    value={frequency}
+                    onChange={e => setFrequency(e.target.value as Frequency)}
+                    style={{
+                      background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 10,
+                      padding: '.55rem .75rem', color: 'var(--text)', fontSize: '.85rem',
+                      outline: 'none', fontFamily: 'inherit',
+                    }}
+                  >
+                    {FREQUENCIES.map(f => <option key={f.id} value={f.id}>{f.label}</option>)}
+                  </select>
+                </label>
+
+                {/* Zodiac */}
+                <label style={{ display: 'flex', flexDirection: 'column', gap: '.3rem' }}>
+                  <span style={{ fontSize: '.6rem', color: m, opacity: .55, letterSpacing: '.08em', textTransform: 'uppercase', fontFamily: "'Cinzel',serif" }}>Zodiac sign</span>
+                  <select
+                    value={zodiac}
+                    onChange={e => setZodiac(e.target.value as ZodiacSign)}
+                    style={{
+                      background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 10,
+                      padding: '.55rem .75rem', color: 'var(--text)', fontSize: '.85rem',
+                      outline: 'none', fontFamily: 'inherit',
+                    }}
+                  >
+                    {ZODIAC.map(z => <option key={z.id} value={z.id}>{z.label}</option>)}
+                  </select>
+                </label>
+              </div>
+              {(theme !== 'general' || frequency !== 'single' || zodiac !== '') && (
+                <div style={{ marginTop: '.6rem', fontSize: '.72rem', color: m, opacity: .65, lineHeight: 1.6 }}>
+                  Each card&rsquo;s interpretation will be framed for
+                  {theme !== 'general' ? ` your ${THEMES.find(t => t.id === theme)?.label.toLowerCase()} focus` : ' a general focus'}
+                  {frequency !== 'single' ? `, set in a ${FREQUENCIES.find(f => f.id === frequency)?.label.toLowerCase()} time window` : ''}
+                  {zodiac ? `, and filtered through your ${ZODIAC.find(z => z.id === zodiac)?.label} ruling archetype` : ''}.
+                </div>
+              )}
             </div>
 
             {/* Question */}
@@ -297,7 +477,7 @@ export default function ReadingClient() {
               <>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   {drawn.map((dc, idx) => {
-                    const text = interpret(dc, spread.mode)
+                    const text = interpret(dc, spread.mode, theme, frequency, zodiac, spread.positions[idx])
                     const kws  = (dc.reversed ? dc.card.kw_rev : dc.card.kw_up).slice(0, 3)
 
                     return (

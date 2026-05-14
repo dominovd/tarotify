@@ -45,6 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/quiz/swords`,            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.68 },
     { url: `${base}/quiz/wands`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.68 },
     { url: `${base}/quiz/all`,               lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/quiz/reversed`,          lastModified: new Date(), changeFrequency: 'monthly', priority: 0.72 },
     { url: `${base}/reading-analysis`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
 
     // Major-only spreads (2026-05-13)

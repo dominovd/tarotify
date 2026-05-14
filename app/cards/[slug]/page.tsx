@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
 import { CARD_EXTENDED } from '@/lib/card-extended'
+import { CARD_LOVE_EXTENDED } from '@/lib/card-love-extended'
 import { makeComboSlug, MAJOR_SLUGS } from '@/lib/combinations'
 import CardImage from '@/components/CardImage'
 
@@ -62,16 +63,23 @@ export default function CardPage({ params }: Props) {
   if (!card) notFound()
 
   const ext = CARD_EXTENDED[params.slug] ?? null
+  const loveExt = CARD_LOVE_EXTENDED[params.slug] ?? null
   const yn = YN_STYLE[card.yn]
   const allCards = CARDS
   const idx = allCards.findIndex(c => c.slug === card.slug)
   const prev = allCards[idx - 1]
   const next = allCards[idx + 1]
 
-  const faqSchema = ext ? {
+  // Merge FAQ schema entries across general + love-context FAQs so
+  // Google sees a single FAQPage with the full set of questions.
+  const allFaqs = [
+    ...(ext?.faq ?? []),
+    ...(loveExt?.loveFaqs ?? []),
+  ]
+  const faqSchema = allFaqs.length > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: ext.faq.map(({ q, a }) => ({
+    mainEntity: allFaqs.map(({ q, a }) => ({
       '@type': 'Question',
       name: q,
       acceptedAnswer: { '@type': 'Answer', text: a },
@@ -153,7 +161,7 @@ export default function CardPage({ params }: Props) {
       </div>
 
       {/* Love / Career / Spirit */}
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:'.75rem', marginBottom: ext ? '1rem' : '2rem' }}>
+      <div id="love" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:'.75rem', marginBottom: (loveExt || ext) ? '1rem' : '2rem', scrollMarginTop: 80 }}>
         {[
           ['❤️', 'Love', card.love],
           ['💼', 'Career', card.career],
@@ -166,6 +174,20 @@ export default function CardPage({ params }: Props) {
           </div>
         ))}
       </div>
+
+      {/* Extended upright-love section */}
+      {loveExt && (
+        <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem 1.4rem', marginBottom:'1.5rem' }}>
+          <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:'.95rem', color:'var(--gold)', letterSpacing:'.06em', marginTop: 0, marginBottom:'.85rem' }}>
+            {card.name} in Love — Full Meaning
+          </h2>
+          {loveExt.loveLong.split(/\n\n+/).map((para, i) => (
+            <p key={i} style={{ color:'var(--text)', lineHeight:1.75, marginTop: i === 0 ? 0 : '.9rem', marginBottom: 0 }}>
+              {para.trim()}
+            </p>
+          ))}
+        </div>
+      )}
 
       {/* Feelings sub-page CTA */}
       <Link
@@ -213,13 +235,13 @@ export default function CardPage({ params }: Props) {
       </div>
 
       {/* FAQ */}
-      {ext && (
+      {allFaqs.length > 0 && (
         <div style={{ marginBottom:'2.5rem' }}>
           <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', marginBottom:'1rem', letterSpacing:'.06em' }}>
             Frequently Asked Questions
           </h2>
           <div style={{ display:'flex', flexDirection:'column', gap:'.75rem' }}>
-            {ext.faq.map(({ q, a }) => (
+            {allFaqs.map(({ q, a }) => (
               <div key={q} style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.1rem 1.25rem' }}>
                 <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.82rem', color:'var(--gold)', marginBottom:'.5rem', letterSpacing:'.03em' }}>{q}</div>
                 <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, margin:0 }}>{a}</p>
