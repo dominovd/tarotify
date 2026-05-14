@@ -1,22 +1,35 @@
 import { ImageResponse } from 'next/og'
+import { CARDS_BY_SLUG } from '../../lib/cards'
 
 export const runtime = 'edge'
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const slug    = searchParams.get('slug')  ?? 'the-fool'
-    const name    = searchParams.get('n')     ?? 'Tarot'
-    const suit    = searchParams.get('s')     ?? ''
-    const element = searchParams.get('e')     ?? ''
-    const kws     = (searchParams.get('k') ?? '').split(',').filter(Boolean).slice(0, 4)
-    const text    = searchParams.get('t')     ?? ''
-    const reversed = searchParams.get('rev')  === '1'
-    const type    = searchParams.get('type')  ?? ''
-    const daily   = type === 'daily'
-    const feelings = type === 'feelings'
+    const slugParam = searchParams.get('slug') ?? 'the-fool'
+    const reversed  = searchParams.get('rev')  === '1'
+    const type      = searchParams.get('type') ?? ''
+    const daily     = type === 'daily'
+    const feelings  = type === 'feelings'
 
-    const label = [daily ? 'Card of the Day' : feelings ? 'In a Feelings Reading' : '', suit, element].filter(Boolean).join('  ·  ')
+    // Single source of truth — pull card data from the cards module.
+    const card = CARDS_BY_SLUG[slugParam] ?? CARDS_BY_SLUG['the-fool']
+    const slug = card.slug
+    const name = card.name
+    const suit = card.suitLabel
+    const element = card.element
+    // Use upright keywords by default, reversed keywords when rev=1.
+    // Feelings pages keep upright vocabulary — the "as Feelings" angle is in the title.
+    const kws = (reversed ? card.kw_rev : card.kw_up).slice(0, 4)
+    // Short flavour text — first sentence of upright/reversed reading, or feelings hint.
+    const rawText = reversed ? card.rev : card.up
+    const text = rawText.split(/(?<=\.)\s/)[0].slice(0, 140)
+
+    const label = [
+      daily ? 'Card of the Day' : feelings ? 'In a Feelings Reading' : '',
+      suit,
+      element,
+    ].filter(Boolean).join('  ·  ')
 
     // Pre-fetch image as base64 — satori cannot load images from the same domain via URL
     let imgSrc = ''
@@ -63,6 +76,7 @@ export async function GET(request: Request) {
               borderStyle: 'solid',
               borderColor: 'rgba(201,168,76,0.4)',
               marginRight: 60,
+              transform: reversed ? 'rotate(180deg)' : 'none',
             }}
           >
             {imgSrc && (
