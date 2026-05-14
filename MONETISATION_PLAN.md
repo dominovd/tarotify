@@ -87,9 +87,35 @@ create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text not null,
   display_name text,
-  zodiac_sign text,           -- pre-fill personalisation prefs
+  -- Pre-fill personalisation prefs (D4 — free account perk)
+  zodiac_sign text,
+  preferred_theme text,       -- 'general', 'love', 'career', etc.
+  preferred_frequency text,   -- 'single', 'daily', 'weekly', etc.
   created_at timestamptz default now(),
   updated_at timestamptz default now()
+);
+
+-- quiz_stats: cross-device sync of /quiz progress (D4 — free perk)
+create table public.quiz_stats (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  pool text not null,         -- 'major', 'minor', 'cups', ..., 'major_rev'
+  best_score int not null default 0,
+  best_streak int not null default 0,
+  games int not null default 0,
+  updated_at timestamptz default now(),
+  unique (user_id, pool)
+);
+
+-- favourites: free user pinned spreads/cards/readings (D4 — free perk)
+create table public.favourites (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  kind text not null check (kind in ('card','spread','reading')),
+  target_slug text not null,  -- card slug, spread route, or saved_reading id
+  label text,                 -- user-set label (optional)
+  created_at timestamptz default now(),
+  unique (user_id, kind, target_slug)
 );
 
 -- subscriptions: 1:N (history), but only one active row per user
@@ -139,12 +165,16 @@ alter table public.profiles enable row level security;
 alter table public.subscriptions enable row level security;
 alter table public.saved_readings enable row level security;
 alter table public.ai_usage enable row level security;
+alter table public.quiz_stats enable row level security;
+alter table public.favourites enable row level security;
 
 create policy "profiles_self_read" on public.profiles for select using (auth.uid() = id);
 create policy "profiles_self_update" on public.profiles for update using (auth.uid() = id);
 create policy "subs_self_read" on public.subscriptions for select using (auth.uid() = user_id);
 create policy "readings_self_all" on public.saved_readings for all using (auth.uid() = user_id);
 create policy "ai_usage_self_read" on public.ai_usage for select using (auth.uid() = user_id);
+create policy "quiz_stats_self_all" on public.quiz_stats for all using (auth.uid() = user_id);
+create policy "favourites_self_all" on public.favourites for all using (auth.uid() = user_id);
 
 -- Trigger: create profile on signup
 create or replace function public.handle_new_user() returns trigger as $$
@@ -591,3 +621,98 @@ That's roughly 30 new files, mostly small. The total code added is maybe 1500-20
 ## TL;DR for future-Denis reading this
 
 Build everything except the AI API call now. Get accounts and subscriptions live with cloud journal as the headline premium feature. Collect a waitlist. When traffic justifies the API spend, flip two env vars and one feature flag — 30 minutes of work, and a year of pre-built infrastructure pays off.
+
+---
+
+## 11. Frozen decisions (2026-05-14)
+
+All six decision points are settled. Use these as the source of truth — do not re-litigate during implementation.
+
+### D1 — Pricing
+- **Monthly:** $7.00 USD
+- **Yearly:** $60.00 USD (28.5% effective discount — close to "two months free")
+- All future references in code and copy use these numbers; grandfather existing subscribers if pricing changes later.
+
+### D2 — Free tier strategy: **Generous**
+- All 245+ current public pages stay fully open.
+- No artificial caps on /reading-analysis, no rate-limits on /quiz, no limit on /daily web access.
+- Local-device journal stays free with the existing 20-entry limit (already in place via `arr.slice(0, 20)`).
+- Premium is purely additive. We sell on what's added, not what's taken away.
+
+### D3 — Payment provider: **Lemon Squeezy**
+- Merchant of Record — they handle VAT/sales tax/EU OSS globally.
+- Fees: 5% + $0.50 per transaction.
+- Implementation per Sprint 2 plan.
+
+### D4 — Free account perks (vs. guest)
+
+Signed-in free users get, in addition to everything guests have:
+
+1. **Cross-device quiz progress** — `quiz_stats` table syncs `tarotify_quiz_stats_*` across devices. Free users without an account still get localStorage.
+2. **Save favourite spreads/cards** — `favourites` table — pin readings, spreads, or cards for quick recall in /account.
+3. **Pre-fill personalisation prefs** — `profiles.zodiac_sign`, `profiles.preferred_theme`, `profiles.preferred_frequency` auto-fill the /free-reading filters and bias the daily card email.
+4. **Weekly TarotAxis digest** — Friday-morning email, curated content, free-only since premium gets daily.
+
+Crucially **NOT** in free tier (premium-only):
+
+- **Cloud journal sync** — `saved_readings` table is premium-only (storage is the cost, and this is the strongest reason to upgrade)
+- **Unlimited journal history** — free stays at 20 entries
+- **Daily card email** at 6:00 UTC (free gets 12:00 UTC version via D6)
+- **AI features** (Phase 2)
+- **Ad-free promise**
+
+### D5 — Upgrade prompt placement: **Subtle, 5 locations**
+
+In priority order:
+
+1. `/reading-analysis` — "Get AI Interpretation" button (Sprint 3 placeholder, post-flip real)
+2. `/journal` — banner for signed-in free users with >5 entries — "Sync these to the cloud, available across devices"
+3. `/account` — top of dashboard if free — "You're on the Free plan — upgrade for cloud sync and AI"
+4. `/free-reading` after-reading screen — "Save this reading forever" CTA (when journal has hit 20 entries)
+5. Nav bar — small "Upgrade" link, signed-in free users only
+
+**Never** on: `/cards/*`, `/yes-no/*`, `/spreads/*`, `/quiz/*`, `/daily`, `/zodiac/*`. These are SEO-critical pages where prompts hurt downstream conversion and add friction to discovery.
+
+### D6 — Daily card email: **Time-shifted**
+
+- Premium: Resend Broadcast at **6:00 UTC**
+- Free: Resend Broadcast at **12:00 UTC** with identical content
+- Two separate Resend Audiences: `premium-daily` and `free-daily` (in addition to the existing General audience). Subscription webhook moves users between them. Unsubscribed users leave both.
+- Cron in `vercel.json` adds a second job:
+  ```json
+  "crons": [
+    { "path": "/api/cron/daily-card?audience=premium", "schedule": "0 6 * * *" },
+    { "path": "/api/cron/daily-card?audience=free",    "schedule": "0 12 * * *" }
+  ]
+  ```
+- `/api/cron/daily-card` reads `audience` query param, picks the right Resend Audience ID, otherwise identical logic.
+
+---
+
+## 12. Pricing copy — final wording (frozen)
+
+For `/pricing` page hero and CTA copy:
+
+> **Free** — Everything to read tarot, for free.
+> **Premium** — $7/month or $60/year. Save your readings to the cloud, get the daily card before everyone else, and get first access to AI-powered features launching in 2026.
+
+For the comparison table, use the D4/D5/D6 distinctions exactly as above.
+
+---
+
+## 13. Future-session checklist — what to do when starting Sprint 1
+
+If you are an AI agent or future Denis starting Sprint 1, read these files first:
+
+1. **This file (MONETISATION_PLAN.md)** — full plan, sections 1, 2, 6, 7 are most important
+2. **memory/project_tarotaxis.md** — current state of the site
+3. **memory/feedback_tarotaxis.md** — coding conventions (inline styles, British English, tsc verification, etc.)
+
+Then:
+
+1. Create Supabase project (eu-west-1)
+2. Run the SQL schema from Section 2 → Sprint 1 → "DB schema"
+3. Add env vars to Vercel (`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`)
+4. Configure Resend SMTP in Supabase for branded auth emails
+5. Implement files from Sprint 1's "Code" subsection in order
+6. Test sign-up → magic link → /account → sign-out flow end-to-end before moving to Sprint 2

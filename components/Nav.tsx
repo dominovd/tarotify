@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import DeckSwitcher from '@/components/DeckSwitcher'
+import UserMenu from '@/components/UserMenu'
 
 const links = [
   { href: '/free-reading', label: 'Free Reading' },
@@ -56,6 +57,11 @@ export default function Nav() {
         {/* Deck switcher */}
         <div className="nav-deck">
           <DeckSwitcher />
+        </div>
+
+        {/* User menu */}
+        <div className="nav-user" style={{ marginLeft: '.5rem' }}>
+          <UserMenu />
         </div>
 
         {/* Hamburger button (mobile only) */}
