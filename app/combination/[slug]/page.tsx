@@ -38,7 +38,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${c1.name} + ${c2.name} Tarot Combination`,
       description: `${kw1} meets ${kw2}. Discover what these two cards mean together in love, career and personal growth.`,
-      images: [`/cards/${c1.slug}.webp`],
+      images: [{
+        url: `https://tarotaxis.com/og?type=combination&slug=${c1.slug}&slug2=${c2.slug}`,
+        width: 1200,
+        height: 630,
+        alt: `${c1.name} and ${c2.name} tarot combination`,
+      }],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${c1.name} + ${c2.name} Tarot Combination`,
+      images: [`https://tarotaxis.com/og?type=combination&slug=${c1.slug}&slug2=${c2.slug}`],
     },
   }
 }

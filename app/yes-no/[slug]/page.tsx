@@ -35,7 +35,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${card.name} Yes or No | TarotAxis`,
       description: `${card.name} is ${m.summary}. ${card.yn_exp}`,
+      images: [{
+        url: `https://tarotaxis.com/og?slug=${card.slug}`,
+        width: 1200,
+        height: 630,
+        alt: `${card.name} tarot card — yes or no`,
+      }],
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${card.name} Yes or No | TarotAxis`,
+      images: [`https://tarotaxis.com/og?slug=${card.slug}`],
     },
   }
 }
