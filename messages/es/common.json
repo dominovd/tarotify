@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "freeReading": "Lectura gratis",
+    "cards": "Cartas",
+    "spreads": "Tiradas",
+    "yesNo": "Sí / No",
+    "daily": "Carta del día",
+    "quiz": "Quiz",
+    "journal": "Diario",
+    "signIn": "Iniciar sesión",
+    "signUp": "Crear cuenta",
+    "signOut": "Cerrar sesión",
+    "account": "Cuenta"
+  },
+  "cta": {
+    "readMore": "Leer más",
+    "tryAgain": "Intentar de nuevo",
+    "drawCards": "Sacar cartas",
+    "reveal": "Revelar",
+    "saveToJournal": "Guardar en el diario",
+    "share": "Compartir",
+    "subscribe": "Suscribirse",
+    "analyse": "Analizar",
+    "next": "Siguiente",
+    "back": "Atrás"
+  },
+  "card": {
+    "uprightMeaning": "Significado del derecho",
+    "reversedMeaning": "Significado invertido",
+    "inLove": "En el amor",
+    "inCareer": "En la carrera",
+    "inSpirit": "En lo espiritual",
+    "asFeelings": "Como sentimientos",
+    "asPerson": "Como persona",
+    "keywords": "Palabras clave",
+    "relatedCards": "Cartas relacionadas",
+    "freeReadingPrompt": "Prueba una lectura gratuita de 3 cartas"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes"
+  },
+  "footer": {
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "about": "Acerca de"
+  }
+}

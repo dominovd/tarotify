@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "freeReading": "Free Reading",
+    "cards": "Cards",
+    "spreads": "Spreads",
+    "yesNo": "Yes / No",
+    "daily": "Daily Card",
+    "quiz": "Quiz",
+    "journal": "Journal",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "account": "Account"
+  },
+  "cta": {
+    "readMore": "Read more",
+    "tryAgain": "Try again",
+    "drawCards": "Draw cards",
+    "reveal": "Reveal",
+    "saveToJournal": "Save to journal",
+    "share": "Share",
+    "subscribe": "Subscribe",
+    "analyse": "Analyse",
+    "next": "Next",
+    "back": "Back"
+  },
+  "card": {
+    "uprightMeaning": "Upright meaning",
+    "reversedMeaning": "Reversed meaning",
+    "inLove": "In love",
+    "inCareer": "In career",
+    "inSpirit": "In spirit",
+    "asFeelings": "As feelings",
+    "asPerson": "As a person",
+    "keywords": "Keywords",
+    "relatedCards": "Related cards",
+    "freeReadingPrompt": "Try a free 3-card reading"
+  },
+  "faq": {
+    "title": "Frequently asked questions"
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "about": "About"
+  }
+}
