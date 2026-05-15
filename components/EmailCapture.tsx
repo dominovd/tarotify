@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 interface Props {
   source: string
@@ -10,16 +11,68 @@ interface Props {
   compact?: boolean
 }
 
+// Locale-aware string bundles. Detected from the URL path: anything under
+// `/es` renders Spanish, everything else stays English. Callers can still
+// override individual strings via props.
+type Locale = 'en' | 'es'
+
+const COPY: Record<Locale, {
+  headline: string
+  copy: string
+  cta: string
+  placeholder: string
+  emailLabel: string
+  success: string
+  errGeneric: string
+  errNetwork: string
+  legal: string
+}> = {
+  en: {
+    headline: 'Daily tarot in your inbox',
+    copy: 'One thoughtful card each morning, free. Unsubscribe anytime.',
+    cta: 'Subscribe',
+    placeholder: 'you@example.com',
+    emailLabel: 'Email address',
+    success: '✓ Welcome — check your inbox for the first card.',
+    errGeneric: 'Could not subscribe. Please try again.',
+    errNetwork: 'Network error. Please try again.',
+    legal: 'No spam. No data sharing. Unsubscribe in one click.',
+  },
+  es: {
+    headline: 'Tarot diario en tu bandeja',
+    copy: 'Una carta cuidadosa cada mañana, gratis. Cancela la suscripción cuando quieras.',
+    cta: 'Suscribirse',
+    placeholder: 'tu@ejemplo.com',
+    emailLabel: 'Correo electrónico',
+    success: '✓ Bienvenida — revisa tu bandeja para la primera carta.',
+    errGeneric: 'No se pudo suscribir. Inténtalo de nuevo.',
+    errNetwork: 'Error de red. Inténtalo de nuevo.',
+    legal: 'Sin spam. Sin compartir datos. Cancela con un clic.',
+  },
+}
+
+function useLocale(): Locale {
+  const path = usePathname() ?? '/'
+  return path === '/es' || path.startsWith('/es/') ? 'es' : 'en'
+}
+
 export default function EmailCapture({
   source,
-  headline = 'Daily tarot in your inbox',
-  copy = 'One thoughtful card each morning, free. Unsubscribe anytime.',
-  cta = 'Subscribe',
+  headline,
+  copy,
+  cta,
   compact = false,
 }: Props) {
+  const locale = useLocale()
+  const t = COPY[locale]
   const [email, setEmail] = useState('')
   const [state, setState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errMsg, setErrMsg] = useState('')
+
+  // Resolve copy from props (override) or locale defaults.
+  const finalHeadline = headline ?? t.headline
+  const finalCopy = copy ?? t.copy
+  const finalCta = cta ?? t.cta
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -34,13 +87,13 @@ export default function EmailCapture({
       })
       const data = await res.json().catch(() => ({} as { error?: string }))
       if (!res.ok) {
-        setErrMsg(data.error || 'Could not subscribe. Please try again.')
+        setErrMsg(data.error || t.errGeneric)
         setState('error')
         return
       }
       setState('success')
     } catch {
-      setErrMsg('Network error. Please try again.')
+      setErrMsg(t.errNetwork)
       setState('error')
     }
   }
@@ -61,7 +114,7 @@ export default function EmailCapture({
           letterSpacing: '0.04em',
           margin: 0,
         }}>
-          ✓ Welcome — check your inbox for the first card.
+          {t.success}
         </p>
       </section>
     )
@@ -86,7 +139,7 @@ export default function EmailCapture({
         marginBottom: '0.5rem',
         marginTop: 0,
       }}>
-        {headline}
+        {finalHeadline}
       </h2>
       <p style={{
         color: 'var(--muted)',
@@ -95,7 +148,7 @@ export default function EmailCapture({
         maxWidth: compact ? undefined : 460,
         margin: compact ? '0 0 0.85rem' : '0 auto 1.1rem',
       }}>
-        {copy}
+        {finalCopy}
       </p>
 
       <form
@@ -112,8 +165,8 @@ export default function EmailCapture({
           required
           value={email}
           onChange={e => setEmail(e.target.value)}
-          placeholder="you@example.com"
-          aria-label="Email address"
+          placeholder={t.placeholder}
+          aria-label={t.emailLabel}
           disabled={state === 'submitting'}
           style={{
             flex: 1,
@@ -147,7 +200,7 @@ export default function EmailCapture({
             transition: 'opacity .2s',
           }}
         >
-          {state === 'submitting' ? '…' : cta}
+          {state === 'submitting' ? '…' : finalCta}
         </button>
       </form>
 
@@ -173,7 +226,7 @@ export default function EmailCapture({
         opacity: 0.75,
         textAlign: compact ? 'left' : 'center',
       }}>
-        No spam. No data sharing. Unsubscribe in one click.
+        {t.legal}
       </p>
     </section>
   )

@@ -14,6 +14,9 @@
  * extract + translate scripts, and the resolver picks it up automatically.
  */
 
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
+
 import { CARDS, type Card } from '../cards'
 import { CARD_EXTENDED, type ExtendedContent } from '../card-extended'
 import { CARD_REVERSED_EXTENDED, type ReversedContext } from '../card-reversed-extended'
@@ -21,8 +24,9 @@ import { CARD_LOVE_EXTENDED, type LoveContext } from '../card-love-extended'
 import { CARD_FEELINGS_EXTENDED, type FeelingsContext } from '../card-feelings-extended'
 import type { Locale } from './slugs'
 
-// Per-locale JSON dictionaries. Loaded lazily on first use to avoid pulling
-// every locale into the bundle when only one is active for the request.
+// Per-locale JSON dictionaries. Loaded lazily on first use and cached for the
+// process lifetime. Reading via fs (not dynamic import) avoids bundler edge
+// cases with template-string import paths and makes graceful fallback simple.
 type LocaleDict = Record<string, Record<string, unknown>>
 const cache: Partial<Record<Locale, LocaleDict>> = {}
 
@@ -35,8 +39,9 @@ async function loadLocale(locale: Locale): Promise<LocaleDict> {
   const dict: LocaleDict = {}
   for (const file of ['cards', 'cards-extended', 'cards-reversed', 'cards-love', 'cards-feelings']) {
     try {
-      const mod = await import(`../../messages/${locale}/${file}.json`)
-      dict[file] = (mod.default ?? mod) as Record<string, unknown>
+      const filePath = path.join(process.cwd(), 'messages', locale, `${file}.json`)
+      const raw = await fs.readFile(filePath, 'utf8')
+      dict[file] = JSON.parse(raw) as Record<string, unknown>
     } catch {
       dict[file] = {}
     }

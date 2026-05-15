@@ -1,0 +1,1804 @@
+{
+  "the-fool": {
+    "name": "El Loco",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Loco dice sí — salta hacia adelante con confianza. Los nuevos comienzos esperan a quienes se atreven a empezar.",
+    "kw_up": [
+      "principios",
+      "espontaneidad",
+      "inocencia",
+      "potencial",
+      "aventura"
+    ],
+    "kw_rev": [
+      "imprudencia",
+      "ingenuidad",
+      "necedad",
+      "riesgo",
+      "caos"
+    ],
+    "up": "El Loco marca el inicio de un viaje completamente nuevo. Estás adentrándote en lo desconocido con apertura y disposición a vivir la vida plenamente. Confía en el proceso — lo que parece un riesgo es en realidad una invitación a crecer.",
+    "rev": "La imprudencia o la ingenuidad pueden estar desviándote. Quizás estés asumiendo riesgos innecesarios sin pensar en las consecuencias. Haz una pausa, conéctate con tu cuerpo y considera si tienes suficiente información antes de saltar.",
+    "love": "Un nuevo y emocionante comienzo romántico o una energía despreocupada en tu relación. Mantén el corazón abierto pero atento.",
+    "career": "Una nueva oportunidad audaz o un cambio profesional está en el horizonte. Da el salto — pero ten al menos un plan básico.",
+    "spirit": "Se te invita a un despertar espiritual fresco. Aproxímate a tu práctica con mente de principiante."
+  },
+  "the-magician": {
+    "name": "El Mago",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Mago es un sí poderoso — tienes ahora mismo todo lo que necesitas para hacerlo realidad.",
+    "kw_up": [
+      "voluntad",
+      "habilidad",
+      "manifestación",
+      "ingenio",
+      "acción"
+    ],
+    "kw_rev": [
+      "manipulación",
+      "talento sin explotar",
+      "engaño",
+      "potencial desperdiciado"
+    ],
+    "up": "El Mago te dice que todas las herramientas, habilidades y recursos que necesitas ya están en tus manos. Ahora es el momento de enfocar tu voluntad y emprender una acción deliberada. Lo que puedes concebir, lo puedes crear.",
+    "rev": "Tus talentos pueden estar desperdiciándose, o alguien a tu alrededor puede estar usando la manipulación para conseguir lo que quiere. Revisa tus intenciones — ¿estás usando tus dones con sabiduría y honestidad?",
+    "love": "Tienes el poder de atraer la relación que deseas. Sé intencional con lo que quieres y comunícalo con claridad.",
+    "career": "Tus habilidades están en su punto máximo. Ahora es el momento ideal para presentar esa idea, lanzar el proyecto o pedir el ascenso.",
+    "spirit": "Eres un canal para la sabiduría superior. Tu práctica espiritual tiene poder real — úsalo con intención e integridad."
+  },
+  "the-high-priestess": {
+    "name": "La Sacerdotisa",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Sacerdotisa dice quizás — no todo se ha revelado aún. Mira hacia adentro antes de decidir.",
+    "kw_up": [
+      "intuición",
+      "misterio",
+      "conocimiento interior",
+      "paciencia",
+      "subconsciente"
+    ],
+    "kw_rev": [
+      "secretos",
+      "intenciones ocultas",
+      "pensamiento superficial",
+      "sentimientos reprimidos"
+    ],
+    "up": "La Sacerdotisa te insta a quedarte en silencio y escuchar la voz interior. No todas las respuestas llegan por la lógica — algunas verdades solo pueden sentirse. Confía en tu intuición incluso cuando no puedas explicarla del todo.",
+    "rev": "Puede haber información importante oculta para ti, o podrías estar ignorando tu intuición a favor de lo que parece racional. Pueden estar en juego secretos e intenciones ocultas.",
+    "love": "Hay más bajo la superficie de tu relación. Evita sacar conclusiones precipitadas — deja que las cosas se revelen naturalmente.",
+    "career": "No es el momento adecuado para un gran movimiento. Reúne información en silencio, observa, y espera la claridad antes de actuar.",
+    "spirit": "Profundiza tu meditación y práctica reflexiva. Las respuestas que buscas ya están dentro de ti."
+  },
+  "the-empress": {
+    "name": "La Emperatriz",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Emperatriz es un sí cálido — la abundancia, el crecimiento y la energía nutricia rodean tu pregunta.",
+    "kw_up": [
+      "abundancia",
+      "nutrición",
+      "creatividad",
+      "fertilidad",
+      "belleza"
+    ],
+    "kw_rev": [
+      "bloqueo creativo",
+      "dependencia",
+      "sobreprotección",
+      "abandono"
+    ],
+    "up": "La Emperatriz irradia abundancia, creatividad y calidez maternal. Este es un momento para nutrir tus proyectos, tus relaciones y a ti misma. El crecimiento es natural y seguro cuando lo cuidas con amor y paciencia.",
+    "rev": "Quizás estés descuidando tus propias necesidades o asfixiando a quienes te rodean. Pueden estar presentes bloqueos creativos o una sensación de carencia. Vuelve al autocuidado y permítete también recibir, no solo dar.",
+    "love": "Plenitud romántica profunda, sensualidad y posiblemente un desarrollo significativo en tu vida amorosa — incluso un embarazo o un nuevo capítulo familiar.",
+    "career": "Tu trabajo creativo florece ahora. La abundancia y el éxito llegan al nutrir tus ideas en lugar de forzarlas.",
+    "spirit": "Conéctate con el mundo natural. La tierra, las estaciones y tu cuerpo son tus maestros espirituales más poderosos ahora mismo."
+  },
+  "the-emperor": {
+    "name": "El Emperador",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Emperador es un sí confiado — toma el mando, establece estructura y lidera con autoridad.",
+    "kw_up": [
+      "autoridad",
+      "estructura",
+      "estabilidad",
+      "liderazgo",
+      "disciplina"
+    ],
+    "kw_rev": [
+      "rigidez",
+      "control",
+      "dominación",
+      "inflexibilidad",
+      "tiranía"
+    ],
+    "up": "El Emperador te llama a entrar en tu poder con disciplina e intención clara. Construye sobre cimientos sólidos, establece orden y asume la responsabilidad de tu dominio. El liderazgo y la estructura te servirán bien.",
+    "rev": "El control excesivo o la rigidez pueden estar creando problemas. El poder podría estar siendo abusado — ya sea por ti o por alguien a tu alrededor. Afloja un poco tu agarre y permite cierta flexibilidad.",
+    "love": "La estabilidad y el compromiso están resaltados. Una pareja fuerte y protectora — pero cuidado con las dinámicas controladoras.",
+    "career": "Un sí rotundo para la ambición y la autoridad. Construye sistemas, establece metas claras y afirma tu experiencia con confianza.",
+    "spirit": "La disciplina en tu práctica espiritual producirá resultados profundos. La estructura no es enemiga de la trascendencia — es su fundamento."
+  },
+  "the-hierophant": {
+    "name": "El Hierofante",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Hierofante dice quizás — alinéate con tus valores más profundos y la sabiduría establecida antes de decidir.",
+    "kw_up": [
+      "tradición",
+      "guía",
+      "creencia",
+      "convención",
+      "mentoría"
+    ],
+    "kw_rev": [
+      "rebelión",
+      "dogma",
+      "camino no convencional",
+      "cuestionar las normas"
+    ],
+    "up": "El Hierofante te invita a buscar la sabiduría a través de las tradiciones establecidas, un maestro de confianza o tus propios valores arraigados. Es un momento para el estudio espiritual, el ritual y para alinear tus elecciones con tus principios más altos.",
+    "rev": "Quizás te sientas ahogada por la convención o llamada a romper con la tradición. Es el momento de cuestionar las creencias heredadas y encontrar lo que es auténticamente verdadero para ti.",
+    "love": "Se favorece una relación convencional y comprometida. Se indica matrimonio o una profundización de los valores compartidos.",
+    "career": "Trabajar dentro de instituciones establecidas o estructuras de mentoría te sirve bien ahora. Las credenciales y la experiencia importan.",
+    "spirit": "El estudio espiritual formal, unirte a una comunidad o trabajar con un maestro o guía profundizará tu camino en este momento."
+  },
+  "the-lovers": {
+    "name": "Los Enamorados",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "Los Enamorados dicen sí — especialmente en asuntos del corazón. Alinea tu elección con tus valores más profundos.",
+    "kw_up": [
+      "amor",
+      "alineación",
+      "elección",
+      "conexión",
+      "valores"
+    ],
+    "kw_rev": [
+      "desequilibrio",
+      "desalineación",
+      "tentación",
+      "evasión",
+      "conflicto"
+    ],
+    "up": "Los Enamorados hablan de conexión profunda, elección significativa y alineación entre el corazón y los valores. Una relación o decisión importante está en juego — elige desde tu yo auténtico, no desde el miedo o la presión.",
+    "rev": "Una relación puede estar desequilibrada, o estás evitando una elección difícil pero necesaria. La tentación o la desalineación de valores podría estar creando un conflicto interno.",
+    "love": "Una poderosa conexión romántica, energía de alma gemela o una decisión clave sobre el compromiso. Sigue la verdad más profunda de tu corazón.",
+    "career": "Una elección entre dos caminos o proyectos. Elige el que verdaderamente se alinea con tus valores, no solo el más cómodo.",
+    "spirit": "Integración de los opuestos dentro de ti — mente y corazón, sombra y luz. La verdadera unión empieza por dentro."
+  },
+  "the-chariot": {
+    "name": "El Carro",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Carro es un sí fuerte — la victoria llega a través de la voluntad enfocada, la disciplina y el impulso hacia adelante.",
+    "kw_up": [
+      "determinación",
+      "victoria",
+      "control",
+      "voluntad",
+      "impulso"
+    ],
+    "kw_rev": [
+      "falta de dirección",
+      "agresión",
+      "energía dispersa",
+      "derrota"
+    ],
+    "up": "El Carro señala que la victoria está al alcance — pero requiere voluntad enfocada, disciplina y la capacidad de manejar fuerzas opuestas. Tienes la fuerza para superar los obstáculos. Mantén la vista en el destino.",
+    "rev": "Quizás te estés moviendo en demasiadas direcciones a la vez, o la agresión y el ego estén obstaculizando el progreso. Recupera el control de tus emociones y reenfoca tu dirección.",
+    "love": "Perseguir el amor con confianza e intención. No esperes a que las cosas sucedan — toma el volante.",
+    "career": "Empuja hacia adelante con convicción. Una situación competitiva o un desafío puede ganarse por pura determinación.",
+    "spirit": "Aprovecha tu fuerza de voluntad al servicio del crecimiento espiritual. La disciplina y la dedicación te llevarán lejos."
+  },
+  "strength": {
+    "name": "La Fuerza",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Fuerza dice sí — aborda tu situación con coraje, compasión y confianza serena.",
+    "kw_up": [
+      "coraje",
+      "paciencia",
+      "compasión",
+      "fuerza interior",
+      "resiliencia"
+    ],
+    "kw_rev": [
+      "dudas",
+      "debilidad",
+      "inseguridad",
+      "miedo",
+      "represión"
+    ],
+    "up": "La verdadera fuerza no es fuerza bruta — es el coraje silencioso de afrontar los desafíos con gracia, paciencia y compasión. Tienes más recursos internos de los que crees. Aproxímate a tu situación con suavidad en lugar de agresión.",
+    "rev": "Las dudas y la inseguridad pueden estar frenándote. Quizás estés reprimiendo emociones que necesitan ser reconocidas. Sé más amable contigo misma.",
+    "love": "Una relación construida sobre el cariño genuino, la paciencia y la madurez emocional. Ama desde la comprensión, no desde el control.",
+    "career": "Puedes manejar a personas difíciles y los desafíos con diplomacia y aplomo interno. Tu compostura es tu mayor recurso.",
+    "spirit": "El guerrero espiritual no pelea — perdura con amor. Tu compasión es tu mayor don espiritual."
+  },
+  "the-hermit": {
+    "name": "El Ermitaño",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Ermitaño dice quizás — la respuesta requiere soledad y reflexión interior antes de aclararse.",
+    "kw_up": [
+      "soledad",
+      "introspección",
+      "guía interior",
+      "sabiduría",
+      "retiro"
+    ],
+    "kw_rev": [
+      "aislamiento",
+      "retraimiento",
+      "soledad dolorosa",
+      "evasión",
+      "perdido"
+    ],
+    "up": "El Ermitaño te llama hacia adentro. Aléjate del ruido del mundo y busca tu propia luz interior. Es un tiempo para el autoexamen honesto, la meditación y la sabiduría que solo el silencio puede revelar.",
+    "rev": "Puedes estar retirándote de la vida de una manera poco saludable, o negándote a mirarte honestamente. El aislamiento se ha convertido en evasión. Encuentra el coraje de volver a involucrarte.",
+    "love": "Un periodo de introspección sobre lo que verdaderamente necesitas en el amor. Soledad antes de la conexión. Conócete primero a ti misma.",
+    "career": "Un tiempo para el análisis cuidadoso en lugar de la acción. La investigación, la planificación y el enfoque silencioso te servirán mejor que los movimientos audaces.",
+    "spirit": "Un periodo profundo de despertar espiritual a través de la soledad. La meditación, escribir un diario y los paseos por la naturaleza son tus maestros ahora."
+  },
+  "wheel-of-fortune": {
+    "name": "La Rueda de la Fortuna",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Rueda de la Fortuna dice sí — el cambio ya está en marcha. Confía en el ciclo natural que gira a tu favor.",
+    "kw_up": [
+      "cambio",
+      "ciclos",
+      "destino",
+      "punto de inflexión",
+      "suerte"
+    ],
+    "kw_rev": [
+      "mala suerte",
+      "resistencia",
+      "estancamiento",
+      "aferrarse al pasado"
+    ],
+    "up": "La Rueda de la Fortuna señala un punto de inflexión — las circunstancias están cambiando a tu favor. Lo que se sentía estancado empieza a moverse. Confía en que el universo tiene un plan, aunque aún no puedas ver el cuadro completo.",
+    "rev": "Quizás estés resistiendo un cambio inevitable, o sintiendo que el destino trabaja en tu contra. En lugar de luchar contra la corriente, busca la lección en la dificultad.",
+    "love": "Un punto de inflexión significativo en tu vida amorosa. Nuevas oportunidades románticas o una relación que alcanza un nuevo capítulo.",
+    "career": "Una racha de suerte, una oportunidad inesperada o un cambio en tu trayectoria profesional. Mantente lista para moverte cuando llegue el momento.",
+    "spirit": "La vida es cíclica — todo pasa y vuelve. Abraza la impermanencia como una verdad espiritual, no como una amenaza."
+  },
+  "justice": {
+    "name": "La Justicia",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Justicia dice quizás — el resultado depende de la honestidad y de si tus acciones han sido justas y arraigadas en la verdad.",
+    "kw_up": [
+      "verdad",
+      "equidad",
+      "causa y efecto",
+      "responsabilidad",
+      "claridad"
+    ],
+    "kw_rev": [
+      "injusticia",
+      "deshonestidad",
+      "evasión",
+      "desequilibrio",
+      "sesgo"
+    ],
+    "up": "La Justicia exige verdad, equidad y responsabilidad. Una situación está siendo pesada cuidadosamente — el resultado reflejará las decisiones tomadas. Actúa con integridad y confía en que lo correcto prevalecerá.",
+    "rev": "Puede haber injusticia en juego, o una negativa a asumir la responsabilidad por acciones pasadas. La deshonestidad no resistirá el escrutinio por mucho tiempo.",
+    "love": "La equidad y la honestidad son los cimientos de una relación sana. Aborda cualquier desequilibrio con comunicación abierta.",
+    "career": "Los contratos, los asuntos legales o las evaluaciones de desempeño están resaltados. Actúa con total integridad y documenta todo.",
+    "spirit": "El equilibrio kármico está en juego. Cada pensamiento y acción tiene una consecuencia — alinea tus decisiones diarias con tus valores más altos."
+  },
+  "the-hanged-man": {
+    "name": "El Colgado",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Colgado dice todavía no — haz una pausa, ríndete, y deja que emerja una nueva perspectiva antes de actuar.",
+    "kw_up": [
+      "pausa",
+      "rendición",
+      "nueva perspectiva",
+      "soltar",
+      "paciencia"
+    ],
+    "kw_rev": [
+      "resistencia",
+      "estancamiento",
+      "martirio",
+      "indecisión",
+      "evasión"
+    ],
+    "up": "El Colgado te pide que pares, te rindas y veas las cosas desde un ángulo completamente diferente. Lo que parece un retraso es en realidad un regalo profundo — una oportunidad para ganar la perspectiva que lo cambiará todo.",
+    "rev": "Quizás estés postergando o resistiendo un cambio necesario, tal vez incluso jugando el papel de víctima. La suspensión que experimentas es de tu propia creación. Suelta lo que ya no te sirve.",
+    "love": "Una pausa en el amor — no un callejón sin salida, sino un replanteamiento necesario. Suelta el control y permite que la relación respire.",
+    "career": "Este no es el momento de empujar o forzar resultados. Da un paso atrás, reconsidera tu enfoque y espera mayor claridad.",
+    "spirit": "La intuición espiritual profunda llega a través de la rendición, no del esfuerzo. Suelta tu agarre sobre los resultados y deja que el Espíritu fluya a través de ti."
+  },
+  "death": {
+    "name": "La Muerte",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Muerte dice no a lo que fue — pero sí a la transformación. Un final está despejando espacio para una renovación esencial.",
+    "kw_up": [
+      "transformación",
+      "finales",
+      "renovación",
+      "transición",
+      "liberación"
+    ],
+    "kw_rev": [
+      "resistencia al cambio",
+      "estancamiento",
+      "aferrarse",
+      "miedo a los finales"
+    ],
+    "up": "La Muerte en el tarot rara vez significa muerte física — anuncia una transformación profunda. Algo debe terminar para que algo nuevo pueda comenzar. Esta transición, aunque difícil, es profundamente necesaria y, en última instancia, liberadora.",
+    "rev": "Estás resistiendo un final inevitable y aferrándote a algo que ya ha completado su ciclo. Cuanto más te aferres, más dolorosa será la eventual liberación.",
+    "love": "El final de un capítulo de la relación y el comienzo de otro. Una relación puede concluir, o una transformación significativa ocurre dentro de ella.",
+    "career": "Una carrera, un rol o un proyecto está llegando a su fin. Limpia lo viejo para abrir paso a un camino más auténtico.",
+    "spirit": "La muerte y el renacimiento del ego son centrales en el camino espiritual. Se te llama a despojarte de viejas capas de identidad y emerger renovada."
+  },
+  "temperance": {
+    "name": "La Templanza",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Templanza dice sí — con paciencia y equilibrio. La mezcla correcta de elementos traerá el resultado deseado.",
+    "kw_up": [
+      "equilibrio",
+      "paciencia",
+      "moderación",
+      "integración",
+      "flujo"
+    ],
+    "kw_rev": [
+      "desequilibrio",
+      "exceso",
+      "falta de armonía",
+      "impaciencia",
+      "extremos"
+    ],
+    "up": "La Templanza llama al equilibrio, a la paciencia y a la mezcla de opuestos. Fluye, no fuerces. El camino medio entre los extremos lleva a la armonía duradera. La integración lleva tiempo pero produce algo mucho más duradero.",
+    "rev": "Quizás estés yendo a los extremos o forzando una situación que necesita tiempo para desarrollarse naturalmente. El desequilibrio en el estilo de vida, las relaciones o el pensamiento está causando desorden.",
+    "love": "Una relación hermosamente equilibrada construida sobre el respeto mutuo, la paciencia y la compatibilidad genuina. La sanación es posible si ambos están dispuestos.",
+    "career": "El éxito llega a través del esfuerzo constante y medido en lugar de la acción dramática. Se favorecen la colaboración y la integración de diferentes habilidades.",
+    "spirit": "Estás en el camino de la integración alquímica — uniendo las partes dispares de ti misma en un todo armonioso."
+  },
+  "the-devil": {
+    "name": "El Diablo",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Diablo dice no — lo que persigues puede estar impulsado por el miedo, la adicción o un apego poco saludable.",
+    "kw_up": [
+      "sombra",
+      "apego",
+      "esclavitud",
+      "materialismo",
+      "conciencia"
+    ],
+    "kw_rev": [
+      "liberación",
+      "soltar",
+      "recuperar el poder",
+      "romper las cadenas",
+      "desapego"
+    ],
+    "up": "El Diablo te confronta con tus sombras — los hábitos, creencias y apegos que te mantienen en cadenas. La conciencia es el primer paso hacia la libertad. ¿A qué le estás cediendo tu poder?",
+    "rev": "Te estás liberando de un patrón, una adicción o una situación tóxica que te ha frenado. Recupera tu poder — las cadenas nunca fueron tan sólidas como parecían.",
+    "love": "Apego poco saludable, obsesión o una dinámica tóxica en la relación. La verdadera intimidad requiere libertad, no control.",
+    "career": "La codicia, el ego o un entorno laboral tóxico pueden estar atrapándote. Examina qué estás sacrificando por la ganancia material.",
+    "spirit": "Confronta tu sombra — las partes de ti que has negado o reprimido. La integración, no la evasión, trae la totalidad."
+  },
+  "the-tower": {
+    "name": "La Torre",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Torre dice no — viene o se necesita una disrupción. Las estructuras falsas deben caer antes de que la verdad pueda construirse.",
+    "kw_up": [
+      "disrupción",
+      "revelación",
+      "convulsión",
+      "cambio repentino",
+      "despertar"
+    ],
+    "kw_rev": [
+      "evitar el colapso",
+      "miedo al cambio",
+      "disrupción interna",
+      "retrasar lo inevitable"
+    ],
+    "up": "La Torre trae una disrupción repentina y dramática — pero solo demuele lo que fue construido sobre cimientos falsos. Aunque sea estremecedora, esta convulsión revela la verdad y crea el espacio necesario para una reconstrucción auténtica.",
+    "rev": "Quizás estés evitando un colapso inevitable o viviendo en ansiedad constante por una posible disrupción. El caos interno necesita ser abordado antes de que se manifieste externamente.",
+    "love": "Una revelación o convulsión repentina en la relación. Las verdades ocultas salen a la luz. Esta crisis, aunque dolorosa, puede ser esclarecedora.",
+    "career": "Pérdida repentina de empleo, convulsión organizacional o colapso de un proyecto. Lo que se está destruyendo no fue construido para durar.",
+    "spirit": "Un despertar espiritual dramático que rompe tu antigua visión del mundo. Lo que se desmorona nunca fue tu verdadero fundamento."
+  },
+  "the-star": {
+    "name": "La Estrella",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Estrella es un hermoso sí — esperanza, sanación y confianza en el futuro. Estás en el camino correcto.",
+    "kw_up": [
+      "esperanza",
+      "sanación",
+      "serenidad",
+      "inspiración",
+      "fe"
+    ],
+    "kw_rev": [
+      "desesperanza",
+      "desconexión",
+      "pérdida de fe",
+      "sin dirección"
+    ],
+    "up": "La Estrella llega después de las tormentas para ofrecer sanación, esperanza y un renovado sentido de dirección. El universo te está guiando hacia algo genuinamente bueno. Confía en el proceso, cree en el viaje y permítete ser renovada.",
+    "rev": "Quizás estés luchando por encontrar esperanza o sintiéndote desconectada de cualquier sentido de propósito o guía divina. Reconéctate con la belleza, la naturaleza y los pequeños momentos de gracia.",
+    "love": "Esperanza y sanación en el amor. Después de la dificultad, una conexión tierna y genuina viene en camino — o se está profundizando ahora mismo.",
+    "career": "Inspiración, visión y propósito renovado en tu trabajo. Vuelve un avance creativo o una sensación de dirección significativa.",
+    "spirit": "Estás siendo guiada y sostenida por algo más grande que tú misma. Confía en la benevolencia del universo en este momento."
+  },
+  "the-moon": {
+    "name": "La Luna",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "La Luna dice no — demasiado está poco claro u oculto en este momento. Espera más luz antes de tomar una decisión.",
+    "kw_up": [
+      "ilusión",
+      "el inconsciente",
+      "sueños",
+      "confusión",
+      "intuición"
+    ],
+    "kw_rev": [
+      "claridad que regresa",
+      "miedo que se libera",
+      "engaño expuesto",
+      "malentendido resuelto"
+    ],
+    "up": "La Luna proyecta largas sombras y distorsiona la realidad. No todo es lo que parece. Los miedos ocultos, los patrones inconscientes y las ilusiones están saliendo a la superficie. Presta atención a tus sueños e intuiciones.",
+    "rev": "La confusión empieza a disiparse y un engaño puede salir a la luz. A medida que la niebla se levanta, finalmente puedes ver una situación con mayor precisión.",
+    "love": "La confusión, el miedo o los sentimientos ocultos están complicando la relación. Sé honesta sobre lo que estás proyectando frente a lo que es real.",
+    "career": "No firmes nada ni hagas movimientos importantes ahora mismo — las cosas no son como parecen. Espera por claridad.",
+    "spirit": "Tu inconsciente está hablando alto a través de sueños, símbolos y sincronicidades. Lleva un diario de sueños y presta atención."
+  },
+  "the-sun": {
+    "name": "El Sol",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Sol es un sí entusiasta — claridad, alegría y éxito brillan intensamente sobre tu pregunta.",
+    "kw_up": [
+      "alegría",
+      "claridad",
+      "éxito",
+      "vitalidad",
+      "confianza"
+    ],
+    "kw_rev": [
+      "contratiempo temporal",
+      "optimismo nublado",
+      "heridas del niño interior",
+      "falta de claridad"
+    ],
+    "up": "El Sol irradia alegría pura, claridad y éxito. Esta es una de las cartas más positivas del mazo. Estás entrando en un periodo de vitalidad, confianza y expresión auténtica de ti misma. Celebra quién eres.",
+    "rev": "Una caída temporal en la confianza o una situación que no es tan brillante como parece. Las heridas del niño interior o las decepciones del pasado pueden estar atenuando tu luz.",
+    "love": "Alegría, calidez y una conexión romántica profundamente plena. Si estás soltera, la expresión segura de ti misma atrae el amor naturalmente.",
+    "career": "Reconocimiento, éxito y vitalidad creativa en tu trabajo. Estás brillando en tu campo en este momento.",
+    "spirit": "Tu espíritu está radiante y expansivo. Es un tiempo de alegría espiritual — encarnada, presente y llena de gratitud."
+  },
+  "judgement": {
+    "name": "El Juicio",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Juicio dice sí — se te llama a elevarte, perdonar, y entrar plenamente en quien estás llegando a ser.",
+    "kw_up": [
+      "despertar",
+      "renovación",
+      "ajuste de cuentas",
+      "llamada",
+      "absolución"
+    ],
+    "kw_rev": [
+      "dudas",
+      "rechazar la llamada",
+      "incapacidad de perdonar",
+      "ignorar la señal"
+    ],
+    "up": "El Juicio anuncia un despertar profundo y una llamada a elevarse por encima del pasado. Se te convoca a una versión superior de ti misma — libera los viejos juicios, perdona lo que necesita ser perdonado y responde a la llamada.",
+    "rev": "Quizás estés dudando de tu propio merecimiento o negándote a atender una llamada importante. La vieja culpa o el autojuicio te están manteniendo estancada. Es momento de perdonar y avanzar.",
+    "love": "Una segunda oportunidad, una reconciliación significativa o una relación que ha alcanzado un punto de inflexión profundo basado en la verdad.",
+    "career": "Una llamada a tu verdadero propósito. Puedes recibir reconocimiento por trabajo pasado, o sentir un fuerte tirón hacia un camino completamente distinto.",
+    "spirit": "Un despertar espiritual de proporciones significativas. Se te está iniciando en un nuevo nivel de conciencia y propósito."
+  },
+  "the-world": {
+    "name": "El Mundo",
+    "suitLabel": "Arcanos Mayores",
+    "yn_exp": "El Mundo es un sí rotundo — completitud, totalidad y logro. Has llegado.",
+    "kw_up": [
+      "completitud",
+      "totalidad",
+      "logro",
+      "integración",
+      "éxito"
+    ],
+    "kw_rev": [
+      "incompletitud",
+      "atajos",
+      "cabos sueltos",
+      "cierre retrasado"
+    ],
+    "up": "El Mundo celebra la culminación exitosa de un ciclo importante. Has integrado las lecciones, hecho el trabajo y llegado a un lugar de totalidad genuina. Honra lo que has logrado antes de adentrarte en la próxima gran aventura.",
+    "rev": "Algo queda incompleto o estás tomando atajos para evitar los pasos finales. El verdadero cierre requiere terminar lo que se ha comenzado.",
+    "love": "Una relación profundamente plena y completa, o una historia de amor alcanzando su culminación natural y gozosa.",
+    "career": "Éxito mayor, finalización de un proyecto a largo plazo o logro de una meta profesional significativa.",
+    "spirit": "Has alcanzado un nivel de integración y totalidad que es genuinamente raro. Descansa en esta completitud antes de comenzar el siguiente ciclo."
+  },
+  "ace-of-wands": {
+    "name": "As de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El As de Bastos es un sí ardiente — nueva energía creativa y pasión están listas para encenderse.",
+    "kw_up": [
+      "inspiración",
+      "nuevos comienzos",
+      "pasión",
+      "chispa creativa",
+      "potencial"
+    ],
+    "kw_rev": [
+      "demoras",
+      "falta de motivación",
+      "bloqueo creativo",
+      "falso inicio"
+    ],
+    "up": "El As de Bastos trae un estallido de fuego creativo y nuevos comienzos. Una idea, proyecto u oportunidad emocionante está emergiendo — actúa mientras la energía es alta. Este es el momento de comenzar.",
+    "rev": "La energía creativa está bloqueada o un nuevo emprendimiento se estancó antes de empezar realmente. Reaviva tu pasión volviendo a lo que verdaderamente te entusiasma.",
+    "love": "Un romance nuevo apasionado y emocionante o una chispa renovada en una relación existente.",
+    "career": "Una idea brillante nueva, un proyecto creativo o una oportunidad de negocio está lista para lanzarse.",
+    "spirit": "Una nueva inspiración espiritual o el despertar de tu propósito de vida. Sigue el fuego."
+  },
+  "two-of-wands": {
+    "name": "Dos de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Dos de Bastos dice sí — estás en la fase de planificación y el camino por delante está abierto.",
+    "kw_up": [
+      "planificación",
+      "visión",
+      "futuro",
+      "expansión",
+      "decisiones"
+    ],
+    "kw_rev": [
+      "miedo a lo desconocido",
+      "falta de planificación",
+      "perspectiva limitada"
+    ],
+    "up": "El Dos de Bastos te muestra de pie en una encrucijada con el mundo a tus pies. Tienes una base sólida — ahora es momento de planificar tu próximo movimiento audaz y pensar más allá de tu horizonte actual.",
+    "rev": "El miedo a lo desconocido o la falta de visión te están manteniendo pequeña. Expande tu visión y confía en tu capacidad de navegar terreno nuevo.",
+    "love": "Planificar un futuro juntos o considerar si una relación tiene potencial a largo plazo.",
+    "career": "Planificación estratégica, expansión empresarial o una decisión sobre llevar tu carrera al ámbito internacional.",
+    "spirit": "Se te llama a expandir tus horizontes espirituales más allá del territorio familiar."
+  },
+  "three-of-wands": {
+    "name": "Tres de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Tres de Bastos dice sí — tus barcos están llegando. La expansión y la recompensa vienen en camino.",
+    "kw_up": [
+      "expansión",
+      "previsión",
+      "crecimiento",
+      "oportunidades",
+      "recompensa"
+    ],
+    "kw_rev": [
+      "demoras",
+      "obstáculos",
+      "visión limitada",
+      "frustración"
+    ],
+    "up": "El Tres de Bastos muestra que lo que pusiste en marcha está dando frutos. El crecimiento, la expansión y las recompensas vienen — a menudo desde direcciones inesperadas. Mantén la fe y sigue construyendo.",
+    "rev": "Las demoras y frustraciones están poniendo a prueba tu paciencia. Amplía tu perspectiva o busca ayuda fuera de tu círculo actual.",
+    "love": "Una relación está creciendo y profundizándose. Puede indicarse amor a distancia o romance internacional.",
+    "career": "Expansión empresarial, nuevos mercados o recibir resultados de esfuerzos pasados.",
+    "spirit": "Tu práctica espiritual empieza a dar frutos tangibles. Mantente constante."
+  },
+  "four-of-wands": {
+    "name": "Cuatro de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Cuatro de Bastos es un sí gozoso — celebración, estabilidad y un hito están a la mano.",
+    "kw_up": [
+      "celebración",
+      "hogar",
+      "hito",
+      "estabilidad",
+      "comunidad"
+    ],
+    "kw_rev": [
+      "inestabilidad",
+      "conflicto en el hogar",
+      "transición",
+      "contratiempo temporal"
+    ],
+    "up": "El Cuatro de Bastos te invita a celebrar un hito, honrar lo que has construido y disfrutar de la estabilidad y calidez de la comunidad y el hogar. Un momento de alegría y plenitud genuinas merece ser marcado.",
+    "rev": "Inestabilidad doméstica o una interrupción de un momento de celebración. Un periodo de transición que requiere flexibilidad.",
+    "love": "Celebración en el amor — compromiso, mudarse juntos o un hito romántico significativo.",
+    "career": "Reconocimiento de tu trabajo, finalización de un proyecto o celebración en equipo.",
+    "spirit": "La práctica de la gratitud, la comunidad y el ritual sagrado son poderosos para ti ahora mismo."
+  },
+  "five-of-wands": {
+    "name": "Cinco de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Cinco de Bastos dice no — hay demasiado conflicto y competencia bloqueando un camino claro hacia adelante.",
+    "kw_up": [
+      "conflicto",
+      "competencia",
+      "tensión",
+      "desacuerdo",
+      "caos"
+    ],
+    "kw_rev": [
+      "resolución",
+      "fin del conflicto",
+      "evitar la confrontación",
+      "lucha interna"
+    ],
+    "up": "El Cinco de Bastos trae energía caótica, competencia y fuerzas contrarias. Múltiples voces o egos están chocando. Este es un reto — pero también puede ser fricción creativa que, una vez canalizada apropiadamente, conduce a avances.",
+    "rev": "Un conflicto se está resolviendo, o estás eligiendo elevarte por encima del caos en lugar de involucrarte con él.",
+    "love": "Discusiones, malentendidos o necesidades en competencia creando fricción en la relación.",
+    "career": "Competencia laboral, desacuerdos o una lucha por el reconocimiento. Mantente enfocada en tu propio trabajo.",
+    "spirit": "Conflicto interno entre diferentes sistemas de creencias o valores. Busca la integración en lugar de elegir bandos."
+  },
+  "six-of-wands": {
+    "name": "Seis de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Seis de Bastos es un sí triunfante — el éxito, el reconocimiento y el aplauso público vienen en camino.",
+    "kw_up": [
+      "victoria",
+      "reconocimiento",
+      "éxito",
+      "aplauso",
+      "orgullo"
+    ],
+    "kw_rev": [
+      "arrogancia",
+      "victoria privada",
+      "éxito retrasado",
+      "caída en desgracia"
+    ],
+    "up": "El Seis de Bastos anuncia un reconocimiento y una victoria bien merecidos. Tus esfuerzos están siendo reconocidos públicamente. Es un momento para llevar la cabeza en alto y aceptar la recompensa que tu trabajo arduo ha ganado.",
+    "rev": "El éxito puede llegar en silencio, o la arrogancia está disminuyendo un logro genuino. Mantente humilde en la victoria.",
+    "love": "Estar orgullosa de tu relación o una pareja que te defiende públicamente.",
+    "career": "Reconocimiento público, ascenso, premio o un éxito de alto perfil.",
+    "spirit": "Tu viaje espiritual está empezando a influenciar e inspirar positivamente a quienes te rodean."
+  },
+  "seven-of-wands": {
+    "name": "Siete de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Siete de Bastos dice quizás — puedes tener éxito, pero requerirá mantener tu posición contra la oposición.",
+    "kw_up": [
+      "perseverancia",
+      "defensa",
+      "coraje",
+      "resiliencia",
+      "competencia"
+    ],
+    "kw_rev": [
+      "rendirse",
+      "agobio",
+      "dudas",
+      "echarse atrás"
+    ],
+    "up": "El Siete de Bastos te llama a sostener tu posición bajo presión. Te has ganado tu lugar y otros pueden desafiarlo — pero tienes todo el derecho de defender lo que has construido. Mantente firme con confianza.",
+    "rev": "El agotamiento o las dudas hacen difícil seguir luchando. Considera si esta batalla vale la energía.",
+    "love": "Defender tu relación contra la interferencia externa o la presión familiar.",
+    "career": "Competencia o desafíos a tu posición. Mantén tus estándares profesionales y sostén tu posición.",
+    "spirit": "Tus creencias y valores están siendo puestos a prueba. Mantente firme en lo que sabes que es verdadero."
+  },
+  "eight-of-wands": {
+    "name": "Ocho de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Ocho de Bastos es un sí veloz — las cosas se están moviendo rápido y el impulso está a tu favor.",
+    "kw_up": [
+      "movimiento veloz",
+      "progreso rápido",
+      "comunicación",
+      "viaje",
+      "impulso"
+    ],
+    "kw_rev": [
+      "demoras",
+      "mala comunicación",
+      "frustración",
+      "prisa"
+    ],
+    "up": "El Ocho de Bastos señala movimiento rápido e impulso después de un periodo de espera. Las cosas están progresando rápidamente — las comunicaciones llegan, los planes se unen y un viaje o noticias emocionantes son probables. Ve con el flujo.",
+    "rev": "Demoras, mensajes perdidos o moverse demasiado rápido sin pensar bien las cosas.",
+    "love": "Romance que avanza rápido, noticias emocionantes en una relación, o una conexión arrolladora.",
+    "career": "Un proyecto se acelera, las noticias llegan rápido o un viaje de trabajo está en el horizonte.",
+    "spirit": "Descargas espirituales rápidas, sincronicidades y una sensación de impulso divino llevándote hacia adelante."
+  },
+  "nine-of-wands": {
+    "name": "Nueve de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Nueve de Bastos dice quizás — estás casi allí, pero requiere un último empujón de coraje.",
+    "kw_up": [
+      "resiliencia",
+      "persistencia",
+      "última batalla",
+      "coraje",
+      "casi completo"
+    ],
+    "kw_rev": [
+      "paranoia",
+      "rigidez",
+      "agotamiento",
+      "rendirse cerca de la meta"
+    ],
+    "up": "El Nueve de Bastos muestra resiliencia curtida en la batalla. Has llegado tan lejos y enfrentado tanto — y casi estás en la línea de meta. Excava en busca de esa última reserva de coraje. Puedes hacerlo.",
+    "rev": "El agotamiento, la paranoia o la terquedad pueden estar haciendo el tramo final más difícil de lo necesario. Pide apoyo.",
+    "love": "Heridas de relaciones pasadas hacen difícil confiar. Se necesita sanación antes de poder abrirse completamente.",
+    "career": "Perseverancia frente a los contratiempos. No te rindas cuando estás así de cerca de tu meta.",
+    "spirit": "Resistencia espiritual. La noche oscura del alma casi termina — sigue adelante."
+  },
+  "ten-of-wands": {
+    "name": "Diez de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Diez de Bastos dice no — estás cargando demasiado ahora mismo para asumir nada más.",
+    "kw_up": [
+      "carga",
+      "responsabilidad",
+      "trabajo duro",
+      "culminación",
+      "sobrecarga"
+    ],
+    "kw_rev": [
+      "liberar la carga",
+      "delegar",
+      "incapaz de soltar",
+      "agotamiento"
+    ],
+    "up": "El Diez de Bastos te muestra cargando un peso pesado. Has asumido demasiado y el peso se está volviendo insostenible. Es momento de reevaluar, delegar y liberar algunas de tus responsabilidades.",
+    "rev": "Estás empezando a soltar el peso, o luchas por dejar ir cargas que ya no necesitas llevar.",
+    "love": "Sintiéndote agobiada en la relación o asumiendo demasiada responsabilidad emocional.",
+    "career": "Exceso de trabajo y agotamiento. No puedes hacerlo todo sola — delega y prioriza despiadadamente.",
+    "spirit": "La carga del perfeccionismo o la sobre-responsabilidad está bloqueando tu ligereza espiritual. Aprende a rendirte."
+  },
+  "page-of-wands": {
+    "name": "Sota de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "La Sota de Bastos dice sí — aborda con entusiasmo, curiosidad y disposición a aprender.",
+    "kw_up": [
+      "entusiasmo",
+      "curiosidad",
+      "ideas nuevas",
+      "exploración",
+      "energía creativa"
+    ],
+    "kw_rev": [
+      "falta de dirección",
+      "apresurado",
+      "inmadurez",
+      "energía dispersa"
+    ],
+    "up": "La Sota de Bastos llega con entusiasmo creativo y ganas de explorar. Una idea fresca o un proyecto apasionante está chispeando. Aborda con curiosidad y no te preocupes por hacerlo perfecto — solo comienza.",
+    "rev": "Energía dispersa, saltando de idea en idea sin seguir adelante. Se necesita enfoque y paciencia.",
+    "love": "Una energía romántica nueva, coqueta, juguetona y emocionante.",
+    "career": "Una nueva idea creativa, prácticas o el comienzo de un proyecto emocionante.",
+    "spirit": "Un enfoque fresco y entusiasta de tu camino espiritual. Estudia, explora, prueba prácticas nuevas."
+  },
+  "knight-of-wands": {
+    "name": "Caballero de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Caballero de Bastos dice sí — actúa con audacia, muévete rápido y confía en tu pasión.",
+    "kw_up": [
+      "acción",
+      "aventura",
+      "pasión",
+      "audacia",
+      "energía"
+    ],
+    "kw_rev": [
+      "impulsividad",
+      "imprudencia",
+      "ira",
+      "dispersión"
+    ],
+    "up": "El Caballero de Bastos carga hacia adelante con pasión e intrepidez. Esta es la energía de la acción inspirada — audaz, rápida e impulsada por entusiasmo genuino. El momento de actuar es ahora.",
+    "rev": "Decisiones impulsivas y comportamiento imprudente están creando problemas. Baja la velocidad y piensa antes de cargar.",
+    "love": "Una energía romántica emocionante, apasionada y aventurera — o alguien que te arrastra sin que puedas resistirte.",
+    "career": "Un movimiento profesional audaz, energía emprendedora o un avance rápido por puro impulso.",
+    "spirit": "Práctica espiritual apasionada y activa. Peregrinaje, retiros o un estudio vigoroso te llaman."
+  },
+  "queen-of-wands": {
+    "name": "Reina de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "La Reina de Bastos dice sí — la confianza, el carisma y la calidez te llevarán al éxito.",
+    "kw_up": [
+      "confianza",
+      "carisma",
+      "calidez",
+      "independencia",
+      "pasión"
+    ],
+    "kw_rev": [
+      "celos",
+      "egoísmo",
+      "exigente",
+      "agotamiento",
+      "inseguridad"
+    ],
+    "up": "La Reina de Bastos es audazmente ella misma — segura, cálida, creativa y magnéticamente carismática. Lidera desde el corazón y la presencia. Entra en tu propia autoridad y deja que tu naturaleza auténtica brille.",
+    "rev": "Los celos, el egocentrismo o el agotamiento pueden estar atenuando tu radiancia natural. Vuelve a lo que te enciende.",
+    "love": "Amor apasionado y seguro. Alguien que conoce su valor atrayendo lo que merece.",
+    "career": "Liderazgo creativo, emprendimiento y el coraje de ser plenamente tú misma en tu vida profesional.",
+    "spirit": "Encarna tus dones espirituales con confianza. Comparte tu luz — es momento de dejar de esconderla."
+  },
+  "king-of-wands": {
+    "name": "Rey de Bastos",
+    "suitLabel": "Bastos",
+    "yn_exp": "El Rey de Bastos dice sí — lidera con visión, coraje y carisma.",
+    "kw_up": [
+      "liderazgo",
+      "visión",
+      "emprendimiento",
+      "audacia",
+      "inspiración"
+    ],
+    "kw_rev": [
+      "arrogancia",
+      "impulsividad",
+      "fuerza excesiva",
+      "dominante"
+    ],
+    "up": "El Rey de Bastos es un maestro de la visión y el liderazgo inspirado. Actúa con audacia, lidera con el ejemplo y arrastra a otros consigo por puro carisma y competencia. Toma el liderazgo — otros te seguirán.",
+    "rev": "La arrogancia, el comportamiento dominante o las decisiones impulsivas están socavando tu liderazgo.",
+    "love": "Una pareja segura y apasionada que lidera y protege. O abrazar tu propio liderazgo en el amor.",
+    "career": "Éxito emprendedor, liderazgo ejecutivo o el lanzamiento de un proyecto creativo importante.",
+    "spirit": "Liderazgo espiritual y el coraje de enseñar, guiar o inspirar a otros en su camino."
+  },
+  "ace-of-cups": {
+    "name": "As de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El As de Copas dice sí — nuevos comienzos emocionales, amor y conexión sincera están fluyendo.",
+    "kw_up": [
+      "amor nuevo",
+      "comienzo emocional",
+      "compasión",
+      "creatividad",
+      "intuición"
+    ],
+    "kw_rev": [
+      "emociones bloqueadas",
+      "sentimientos reprimidos",
+      "pérdida emocional",
+      "vacío"
+    ],
+    "up": "El As de Copas rebosa de amor, compasión y nuevos comienzos emocionales. Un corazón abierto invita la conexión profunda, la inspiración creativa y la nutrición espiritual. Permítete sentir plenamente.",
+    "rev": "Los bloqueos emocionales o los sentimientos reprimidos están impidiendo la conexión verdadera. Algo te está impidiendo abrir tu corazón.",
+    "love": "Un nuevo amor hermoso o una profunda profundización emocional en una relación existente.",
+    "career": "Inspiración creativa, trabajo significativo y proyectos emocionalmente satisfactorios.",
+    "spirit": "El amor espiritual y la compasión se están abriendo dentro de ti. El corazón es tu mayor guía."
+  },
+  "two-of-cups": {
+    "name": "Dos de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Dos de Copas dice sí — conexión, sociedad y atracción mutua están fluyendo entre ustedes.",
+    "kw_up": [
+      "sociedad",
+      "conexión",
+      "atracción",
+      "armonía",
+      "unión"
+    ],
+    "kw_rev": [
+      "desequilibrio",
+      "ruptura",
+      "desconexión",
+      "incompatibilidad"
+    ],
+    "up": "El Dos de Copas celebra una poderosa conexión entre dos personas — romántica o no. Hay atracción mutua genuina, respeto y una sensación de volver a casa el uno con el otro. Esta unión tiene potencial real.",
+    "rev": "Una relación pierde el equilibrio, o la incompatibilidad se vuelve aparente a pesar de la atracción inicial.",
+    "love": "Una conexión de almas gemelas, romance que se profundiza o una relación que se siente mutuamente plena y equilibrada.",
+    "career": "Una sociedad de negocios altamente compatible o un colega que se convierte en un aliado de confianza.",
+    "spirit": "El encuentro sagrado de dos almas. Asociación espiritual y la unión del masculino y femenino interior."
+  },
+  "three-of-cups": {
+    "name": "Tres de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Tres de Copas dice sí — celebración, amistad y la alegría comunitaria apoyan tu situación.",
+    "kw_up": [
+      "celebración",
+      "amistad",
+      "comunidad",
+      "alegría",
+      "reencuentro"
+    ],
+    "kw_rev": [
+      "exceso",
+      "chismes",
+      "interferencia de terceros",
+      "aislamiento"
+    ],
+    "up": "El Tres de Copas es pura celebración — la alegría compartida con amigos y comunidad. Una razón para celebrar está aquí o por venir. Honra las conexiones que te elevan y permítete recibir el amor de tu tribu.",
+    "rev": "Excesos, chismes en un círculo social o un tercero creando complicaciones.",
+    "love": "Celebrar el amor con amigos, un reencuentro o una nueva conexión romántica hecha a través de tu círculo social.",
+    "career": "Éxito en equipo, celebración en la oficina o un proyecto colaborativo llegando a su culminación.",
+    "spirit": "Comunidad espiritual y la alegría de la devoción compartida. Busca a tu gente."
+  },
+  "four-of-cups": {
+    "name": "Cuatro de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Cuatro de Copas dice no — la apatía o el ensimismamiento pueden estar haciéndote perder lo que está justo delante de ti.",
+    "kw_up": [
+      "apatía",
+      "contemplación",
+      "retraimiento",
+      "oportunidad perdida",
+      "introspección"
+    ],
+    "kw_rev": [
+      "reconexión",
+      "nueva perspectiva",
+      "claridad",
+      "apertura"
+    ],
+    "up": "El Cuatro de Copas señala retraimiento emocional y apatía. Puedes estar tan atrapada en lo que no tienes que te estás perdiendo una oportunidad que se te está ofreciendo. Levanta la mirada de tu mundo interior.",
+    "rev": "Estás sacudiéndote la apatía y empezando a reconectarte con las posibilidades de la vida. Una nueva oportunidad captura tu atención.",
+    "love": "Retraimiento emocional o dar por sentada a tu pareja. Practica gratitud por lo que tienes.",
+    "career": "Aburrimiento o desconexión en el trabajo. Una nueva oportunidad se está ofreciendo — ¿estás demasiado enfocada hacia adentro para verla?",
+    "spirit": "Estancamiento espiritual causado por el ensimismamiento. Abre los ojos al regalo que se te extiende."
+  },
+  "five-of-cups": {
+    "name": "Cinco de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Cinco de Copas dice no — el duelo y la pérdida nublan el panorama. La sanación debe venir primero.",
+    "kw_up": [
+      "duelo",
+      "pérdida",
+      "arrepentimiento",
+      "decepción",
+      "luto"
+    ],
+    "kw_rev": [
+      "aceptación",
+      "sanación",
+      "seguir adelante",
+      "encontrar esperanza"
+    ],
+    "up": "El Cinco de Copas habita en la pérdida y el arrepentimiento — pero aún quedan copas en pie detrás de ti. El duelo merece ser sentido, pero no dejes que sea la única historia. Cuando estés lista, voltéate y mira lo que queda.",
+    "rev": "Estás empezando a aceptar una pérdida y a encontrar la fuerza para avanzar. La esperanza regresa.",
+    "love": "Duelo por el fin de una relación o una decepción en el amor. Permite el luto antes de poder realmente seguir adelante.",
+    "career": "Decepción, pérdida o un proyecto que no salió como esperabas. Busca lo que aún se puede salvar.",
+    "spirit": "Las emociones oscuras — el duelo, la pérdida, el arrepentimiento — también son maestros espirituales. Permítete sentirlas."
+  },
+  "six-of-cups": {
+    "name": "Seis de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Seis de Copas dice sí — la nostalgia, el reencuentro y la dulzura del pasado te están apoyando ahora.",
+    "kw_up": [
+      "nostalgia",
+      "infancia",
+      "reencuentro",
+      "inocencia",
+      "amabilidad"
+    ],
+    "kw_rev": [
+      "vivir en el pasado",
+      "ingenuidad",
+      "seguir adelante",
+      "dejar el hogar"
+    ],
+    "up": "El Seis de Copas trae una cálida ola de nostalgia y la dulzura de los recuerdos atesorados. Un reencuentro, un retorno a un lugar familiar o un acto de bondad genuina están indicados. La inocencia y la buena voluntad te rodean.",
+    "rev": "Puedes estar atrapada en la nostalgia o negándote a crecer más allá del pasado. Es momento de llevar lo mejor de tu historia hacia adelante.",
+    "love": "Un reencuentro con un amor pasado, un amor de la infancia que resurge o una relación llena de dulzura genuina.",
+    "career": "Volver a un empleador anterior, una mentoría del pasado o trabajo con niños o comunidad.",
+    "spirit": "Sanar al niño interior. Las vidas pasadas y los patrones ancestrales pueden ser relevantes para tu camino actual."
+  },
+  "seven-of-cups": {
+    "name": "Siete de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Siete de Copas dice no — demasiadas ilusiones y fantasías están nublando tu capacidad de ver con claridad.",
+    "kw_up": [
+      "fantasía",
+      "ilusión",
+      "opciones",
+      "pensamiento ilusorio",
+      "imaginación"
+    ],
+    "kw_rev": [
+      "claridad",
+      "tomar una decisión",
+      "verificación de la realidad",
+      "enfoque"
+    ],
+    "up": "El Siete de Copas presenta un mareo de posibilidades — pero no todo lo que brilla es real. El pensamiento ilusorio y las ilusiones pueden estar distrayéndote de lo que es genuinamente alcanzable. Aterrízate antes de elegir.",
+    "rev": "La niebla se está disipando y estás obteniendo la claridad necesaria para tomar una decisión real y enraizada.",
+    "love": "Fantasía vs. realidad en el amor. Sé honesta contigo misma sobre si estás viendo tu relación como realmente es.",
+    "career": "Demasiadas ideas, falta de enfoque o ser seducida por el pensamiento de hacerse rica rápidamente.",
+    "spirit": "Escapismo espiritual o perderse en fantasías de iluminación en lugar de hacer el trabajo real."
+  },
+  "eight-of-cups": {
+    "name": "Ocho de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Ocho de Copas dice no — algo necesita dejarse atrás antes de que puedas avanzar hacia lo que verdaderamente te llena.",
+    "kw_up": [
+      "alejarse",
+      "transición",
+      "búsqueda del alma",
+      "irse",
+      "seguir adelante"
+    ],
+    "kw_rev": [
+      "miedo a seguir adelante",
+      "quedarse demasiado tiempo",
+      "deambular sin rumbo",
+      "regresar"
+    ],
+    "up": "El Ocho de Copas señala el coraje de alejarse de algo que ya no alimenta tu alma, incluso cuando es cómodo o familiar. Un llamado más profundo te está atrayendo hacia algo más significativo.",
+    "rev": "Miedo de irse o aferrarse a algo que pasó hace mucho su fecha de caducidad. O un regreso a algo que dejaste atrás.",
+    "love": "Dejar una relación que ya no nutre tu alma, o sentirte emocionalmente insatisfecha a pesar de la aparente estabilidad.",
+    "career": "Dejar un trabajo estable pero insatisfactorio para perseguir algo más significativo.",
+    "spirit": "Un peregrinaje espiritual — interno o externo — que te llama lejos de lo familiar hacia algo sagrado."
+  },
+  "nine-of-cups": {
+    "name": "Nueve de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Nueve de Copas dice sí — esta es la carta del deseo. Lo que tu corazón anhela está al alcance.",
+    "kw_up": [
+      "deseo cumplido",
+      "contento",
+      "satisfacción",
+      "gratitud",
+      "placer"
+    ],
+    "kw_rev": [
+      "insatisfacción",
+      "codicia",
+      "materialismo",
+      "exceso"
+    ],
+    "up": "El Nueve de Copas es conocido como 'la carta del deseo' — el contento, la satisfacción y el cumplimiento del deseo más profundo de tu corazón están cerca. Cuenta tus bendiciones y reconoce que eres más afortunada de lo que crees.",
+    "rev": "Satisfacción material sin plenitud emocional. Excesos o dar por sentado lo que tienes.",
+    "love": "Profunda satisfacción emocional en el amor — o la llegada de la relación que has deseado.",
+    "career": "Éxito y satisfacción en tu vida profesional. Lo que has trabajado para conseguir está llegando a su fruto.",
+    "spirit": "Profundo contento espiritual y un sentido de gratitud genuina por el regalo de la vida."
+  },
+  "ten-of-cups": {
+    "name": "Diez de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Diez de Copas es un sí radiante — plenitud emocional, felicidad duradera y armonía familiar.",
+    "kw_up": [
+      "felicidad",
+      "armonía",
+      "familia",
+      "plenitud a largo plazo",
+      "amor"
+    ],
+    "kw_rev": [
+      "hogar roto",
+      "desarmonía",
+      "expectativas irreales",
+      "desalineación de valores"
+    ],
+    "up": "El Diez de Copas representa la plenitud emocional definitiva — una vida familiar profundamente feliz, amor duradero y un sentido de pertenencia que nutre el alma. Así se ve el amor y la comunidad en su mejor expresión.",
+    "rev": "Interrupción de la armonía familiar o una brecha entre la imagen ideal y la realidad de la vida hogareña.",
+    "love": "Una asociación profundamente feliz, duradera y emocionalmente plena — posiblemente con hijos y un hogar hermoso.",
+    "career": "Trabajo que está alineado con tus valores y apoya la vida que quieres construir con quienes amas.",
+    "spirit": "Cielo en la tierra — el ideal espiritual del amor, la conexión y la pertenencia hechos reales en la vida cotidiana."
+  },
+  "page-of-cups": {
+    "name": "Sota de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "La Sota de Copas dice sí — un mensaje intuitivo o un comienzo emocional creativo está llegando.",
+    "kw_up": [
+      "intuición",
+      "mensaje creativo",
+      "sensibilidad",
+      "sueños",
+      "inteligencia emocional"
+    ],
+    "kw_rev": [
+      "inmadurez emocional",
+      "escapismo",
+      "fantasías irreales",
+      "intuición bloqueada"
+    ],
+    "up": "La Sota de Copas trae un mensaje intuitivo y gentil del corazón. Ideas creativas, sueños proféticos y tiernos comienzos emocionales están presentes. Mantente abierta a lo inesperado — algo sorprendente y significativo está emergiendo.",
+    "rev": "La inmadurez emocional o el escapismo está bloqueando la conexión genuina. Aterriza tus sentimientos antes de actuar sobre ellos.",
+    "love": "Un mensaje tierno y sincero o el comienzo de un romance dulce y emocionalmente profundo.",
+    "career": "Un mensaje creativo o inspiración llega. Confía en tu intuición sobre un nuevo proyecto u oportunidad.",
+    "spirit": "Tu intuición y sensibilidad psíquica están abriéndose. Presta atención a los sueños y a los impulsos internos."
+  },
+  "knight-of-cups": {
+    "name": "Caballero de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Caballero de Copas dice sí — el romance, la búsqueda creativa y seguir tu corazón serán recompensados.",
+    "kw_up": [
+      "romance",
+      "encanto",
+      "imaginación",
+      "seguir el corazón",
+      "creatividad"
+    ],
+    "kw_rev": [
+      "mal humor",
+      "irrealista",
+      "celos",
+      "sobre-idealización"
+    ],
+    "up": "El Caballero de Copas es el idealista romántico — persiguiendo el amor, la belleza y la inspiración creativa con sentimiento genuino. Sigue el llamado de tu corazón. Lo que persigues con sinceridad y encanto vale la pena perseguir.",
+    "rev": "Sobre-idealización, mal humor o perseguir algo que se ve hermoso pero carece de sustancia.",
+    "love": "Un pretendiente romántico y encantador llegando, o un gesto romántico profundamente sincero.",
+    "career": "Perseguir un camino profesional creativo con pasión e inteligencia emocional.",
+    "spirit": "Una búsqueda romántica de la verdad y la belleza espirituales. Sigue lo que mueve tu alma."
+  },
+  "queen-of-cups": {
+    "name": "Reina de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "La Reina de Copas dice sí — confía en tu sabiduría emocional y lidera con compasión.",
+    "kw_up": [
+      "compasión",
+      "inteligencia emocional",
+      "intuición",
+      "nutrir",
+      "sensibilidad"
+    ],
+    "kw_rev": [
+      "agobio emocional",
+      "codependencia",
+      "inseguridad",
+      "dar demasiado"
+    ],
+    "up": "La Reina de Copas es profundamente inteligente emocionalmente, compasiva e intuitivamente sabia. Sabe cómo sostener espacio para otros mientras se mantiene fiel a su propio mundo interior. Confía en tu guía emocional — es fiable.",
+    "rev": "Agobio emocional, dar demasiado a costa de ti misma o ser excesivamente sensible.",
+    "love": "Amor profundamente empático y nutritivo — alguien que verdaderamente te ve y te sostiene emocionalmente.",
+    "career": "Trabajo en profesiones de cuidado, consejería, creatividad o cualquier campo que requiera inteligencia emocional.",
+    "spirit": "La mística que siente su camino hacia la verdad. La intuición, la oración y la profundidad emocional son tus dones espirituales."
+  },
+  "king-of-cups": {
+    "name": "Rey de Copas",
+    "suitLabel": "Copas",
+    "yn_exp": "El Rey de Copas dice sí — lidera con madurez emocional, sabiduría y autoridad serena.",
+    "kw_up": [
+      "madurez emocional",
+      "sabiduría",
+      "diplomacia",
+      "compasión",
+      "equilibrio"
+    ],
+    "kw_rev": [
+      "manipulación emocional",
+      "mal humor",
+      "represión",
+      "frío"
+    ],
+    "up": "El Rey de Copas sostiene la maestría emocional — siente profundamente pero no está gobernado por sus sentimientos. Lidera con sabiduría, compasión y autoridad genuina. Trae esta inteligencia emocional madura a tu situación actual.",
+    "rev": "Represión emocional, manipulación a través de los sentimientos o alguien cuyos cambios de humor crean inestabilidad.",
+    "love": "Una pareja madura, emocionalmente disponible y genuinamente cariñosa que brinda seguridad real.",
+    "career": "Liderazgo con empatía, consejería, negociación o dirección creativa.",
+    "spirit": "El anciano espiritual — sabio, compasivo y profundamente experimentado en los caminos del corazón."
+  },
+  "ace-of-swords": {
+    "name": "As de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El As de Espadas dice sí — la claridad, la verdad y un avance cortan a través de la confusión.",
+    "kw_up": [
+      "claridad",
+      "verdad",
+      "avance",
+      "intelecto",
+      "idea nueva"
+    ],
+    "kw_rev": [
+      "confusión",
+      "verdad brutal",
+      "bloqueo mental",
+      "desinformación"
+    ],
+    "up": "El As de Espadas trae claridad afilada como una navaja, verdad y un avance decisivo. La niebla se levanta, la verdad se revela y una idea o dirección nueva y poderosa emerge. Corta a través de la ilusión y di tu verdad.",
+    "rev": "Confusión mental, una verdad que corta demasiado bruscamente o una idea brillante que necesita más refinamiento antes de la acción.",
+    "love": "Una conversación que aclara el aire — o una decisión tomada con completa honestidad.",
+    "career": "Una idea revolucionaria, una decisión clara o el coraje de decir verdades difíciles en un contexto profesional.",
+    "spirit": "Claridad mental y la espada del discernimiento — la capacidad de cortar a través de la ilusión y ver lo que es real."
+  },
+  "two-of-swords": {
+    "name": "Dos de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Dos de Espadas dice no — estás en un punto muerto. Hay que tomar una decisión antes de que las cosas puedan moverse.",
+    "kw_up": [
+      "indecisión",
+      "punto muerto",
+      "evasión",
+      "perspectiva bloqueada",
+      "tregua"
+    ],
+    "kw_rev": [
+      "decisión tomada",
+      "claridad",
+      "ver ambos lados",
+      "liberación del estancamiento"
+    ],
+    "up": "El Dos de Espadas te muestra con los ojos vendados en una encrucijada, evitando una decisión difícil pero necesaria. El estancamiento no se resolverá por sí mismo. Quítate la venda, enfrenta la verdad y toma la decisión.",
+    "rev": "La indecisión se está rompiendo. Estás ganando la claridad y el coraje para finalmente dar el paso.",
+    "love": "Evitar una conversación difícil o negarte a ver la relación con claridad.",
+    "career": "Hay que tomar una decisión entre dos caminos u opciones. Evita el aplazamiento indefinido.",
+    "spirit": "Resistiendo una verdad espiritual que requiere que cambies. La venda es autoimpuesta."
+  },
+  "three-of-swords": {
+    "name": "Tres de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Tres de Espadas dice no — el desamor, el duelo o una verdad dolorosa están en el centro de esta situación.",
+    "kw_up": [
+      "desamor",
+      "duelo",
+      "pérdida",
+      "verdad dolorosa",
+      "separación"
+    ],
+    "kw_rev": [
+      "sanación",
+      "recuperación",
+      "perdón",
+      "liberar el duelo"
+    ],
+    "up": "El Tres de Espadas habla de desamor, tristeza y verdades dolorosas que no pueden evitarse. Este dolor es real y válido — permítete llorar plenamente. Con el tiempo, las lágrimas limpiarán y el corazón sanará.",
+    "rev": "Un periodo de sanación y recuperación. El duelo se levanta y el perdón se vuelve posible.",
+    "love": "Desamor, traición o una separación dolorosa que requiere un duelo genuino.",
+    "career": "Decepción, rechazo o un revés profesional doloroso.",
+    "spirit": "El duelo como maestro espiritual. La herida abierta eventualmente se convierte en sabiduría."
+  },
+  "four-of-swords": {
+    "name": "Cuatro de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Cuatro de Espadas dice todavía no — se requiere descanso antes de poder tomar cualquier acción significativa.",
+    "kw_up": [
+      "descanso",
+      "recuperación",
+      "retiro",
+      "contemplación",
+      "recuperación"
+    ],
+    "kw_rev": [
+      "inquietud",
+      "agotamiento",
+      "incapacidad de descansar",
+      "re-despertar"
+    ],
+    "up": "El Cuatro de Espadas te ordena detenerte y descansar. Tu mente y tu cuerpo necesitan tiempo de recuperación antes del próximo desafío. Esto no es derrota — es la sabiduría de saber que la acción sin descanso conduce al colapso.",
+    "rev": "Inquietud, incapacidad de descansar verdaderamente, o empezar a emerger lentamente después de un periodo de recuperación.",
+    "love": "Un descanso necesario de la intensidad relacional. El espacio y la quietud restauran lo que la urgencia agota.",
+    "career": "Toma un descanso antes de que el agotamiento te lo imponga. Una retirada estratégica ahora previene un colapso después.",
+    "spirit": "La meditación, el silencio y el retiro son medicina esencial para tu alma en este momento."
+  },
+  "five-of-swords": {
+    "name": "Cinco de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Cinco de Espadas dice no — ganar a toda costa daña lo que más importa. Elige la integridad sobre la victoria.",
+    "kw_up": [
+      "conflicto",
+      "derrota",
+      "victoria hueca",
+      "ego",
+      "traición"
+    ],
+    "kw_rev": [
+      "reconciliación",
+      "seguir adelante",
+      "elegir batallas sabiamente",
+      "culpa"
+    ],
+    "up": "El Cinco de Espadas advierte de una victoria hueca — puedes ganar la batalla pero perder algo mucho más importante. El conflicto impulsado por el ego crea daño duradero. ¿Realmente vale la pena el costo de esta pelea?",
+    "rev": "Un conflicto se está resolviendo, o estás reconociendo el costo de una batalla anterior y buscando la reconciliación.",
+    "love": "Una discusión destructiva, manipulación o alguien ganando a expensas de la relación.",
+    "career": "Política de oficina, sabotaje o una situación donde alguien está jugando sucio.",
+    "spirit": "Elegir el ego sobre la integridad siempre tiene un costo espiritual. La verdadera victoria requiere honor."
+  },
+  "six-of-swords": {
+    "name": "Seis de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Seis de Espadas dice sí — te estás moviendo hacia aguas más tranquilas. La transición y la sanación están en marcha.",
+    "kw_up": [
+      "transición",
+      "seguir adelante",
+      "sanación",
+      "aguas más tranquilas",
+      "viaje"
+    ],
+    "kw_rev": [
+      "atascado",
+      "resistencia al cambio",
+      "incapaz de avanzar",
+      "aguas turbulentas"
+    ],
+    "up": "El Seis de Espadas muestra un viaje lejos de la turbulencia hacia aguas más tranquilas. Lo peor ha quedado atrás. Esta transición — física o emocional — es necesaria y sanadora. Confía en el movimiento.",
+    "rev": "Estás luchando por dejar atrás una situación difícil, o las aguas tranquilas aún están fuera de alcance.",
+    "love": "Dejar una dinámica relacional difícil y moverse hacia la paz emocional.",
+    "career": "Una transición lejos de un entorno de trabajo difícil, una renuncia o un cambio profesional significativo.",
+    "spirit": "Un viaje espiritual del caos hacia la claridad y la paz interior."
+  },
+  "seven-of-swords": {
+    "name": "Siete de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Siete de Espadas dice no — el engaño, las intenciones ocultas o la deshonestidad están socavando la situación.",
+    "kw_up": [
+      "engaño",
+      "estrategia",
+      "astucia",
+      "intenciones ocultas",
+      "salirse con la suya"
+    ],
+    "kw_rev": [
+      "confesión",
+      "ser descubierto",
+      "conciencia",
+      "sincerarse"
+    ],
+    "up": "El Siete de Espadas señala engaño — o tú o alguien a tu alrededor no está jugando con plena integridad. Las intenciones ocultas, las medias verdades y las maniobras estratégicas están en juego. Procede con los ojos bien abiertos.",
+    "rev": "Un engaño está siendo expuesto, o una conciencia culpable está empujando a alguien a sincerarse.",
+    "love": "Deshonestidad, infidelidad o alguien que no es completamente transparente en la relación.",
+    "career": "Robo intelectual, política de oficina o alguien llevándose el crédito por tu trabajo. Documenta todo.",
+    "spirit": "El lado sombrío de la inteligencia — usar la astucia para fines egoístas. Vuelve a la integridad."
+  },
+  "eight-of-swords": {
+    "name": "Ocho de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Ocho de Espadas dice no — te sientes atrapada, pero las ataduras son en gran parte autoimpuestas. La salida existe.",
+    "kw_up": [
+      "restricción",
+      "atrapada",
+      "impotencia",
+      "límites autoimpuestos",
+      "mentalidad de víctima"
+    ],
+    "kw_rev": [
+      "liberación",
+      "soltar",
+      "ver con claridad",
+      "recuperar el poder"
+    ],
+    "up": "El Ocho de Espadas te muestra con los ojos vendados y atada — pero si miraras con cuidado, verías que la salida está cerca. La prisión es en gran medida mental. Cuestiona tus suposiciones sobre lo que es y no es posible.",
+    "rev": "Te estás liberando de restricciones mentales y viendo tu situación con nueva claridad.",
+    "love": "Sentirte atrapada en una relación o ser frenada por el miedo a estar sola.",
+    "career": "Sentirte atascada en un trabajo o rol por miedo en lugar de obligación genuina.",
+    "spirit": "La mente crea su propia jaula. La liberación comienza al cuestionar las creencias que te atan."
+  },
+  "nine-of-swords": {
+    "name": "Nueve de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Nueve de Espadas dice no — la ansiedad y el pensamiento catastrófico están abrumando tu juicio ahora mismo.",
+    "kw_up": [
+      "ansiedad",
+      "pesadillas",
+      "preocupación",
+      "angustia mental",
+      "miedo"
+    ],
+    "kw_rev": [
+      "enfrentar los miedos",
+      "liberar la ansiedad",
+      "claridad",
+      "atravesar la noche oscura"
+    ],
+    "up": "El Nueve de Espadas es la carta de la ansiedad y las espirales de preocupación a las 3 de la mañana. Los miedos que te atormentan en la noche son a menudo mucho peores que la realidad. Busca apoyo, cuestiona el pensamiento catastrófico y reconoce que el amanecer llegará.",
+    "rev": "Estás empezando a enfrentar tus miedos y a soltar el agarre de la ansiedad. La claridad y el alivio vienen.",
+    "love": "Ansiedad sobre una relación, miedo al abandono o noches sin dormir preocupándote por el amor.",
+    "career": "Estrés laboral abrumador, síndrome del impostor o miedo al fracaso dominando tu pensamiento.",
+    "spirit": "La noche oscura del alma — una prueba espiritual necesaria que profundiza la compasión y la sabiduría."
+  },
+  "ten-of-swords": {
+    "name": "Diez de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Diez de Espadas dice no — un final doloroso está ocurriendo, pero el amanecer sigue a cada momento más oscuro.",
+    "kw_up": [
+      "finales dolorosos",
+      "tocar fondo",
+      "traición",
+      "crisis",
+      "nuevo amanecer"
+    ],
+    "kw_rev": [
+      "recuperación",
+      "mejora lenta",
+      "resistencia al final inevitable"
+    ],
+    "up": "El Diez de Espadas marca un final doloroso — una crisis, traición o colapso que se siente devastador. Pero observa: en el fondo, el sol está saliendo. Lo peor ya pasó. Este final, aunque doloroso, despeja el camino.",
+    "rev": "Una recuperación muy lenta o parcial, o resistir un final que ya ha ocurrido efectivamente.",
+    "love": "Un final relacional doloroso o traición. El momento más oscuro antes de un nuevo comienzo.",
+    "career": "Pérdida de empleo, fracaso de proyecto o crisis profesional. El fondo del cual solo puedes levantarte.",
+    "spirit": "Muerte del ego. Lo que se desmorona en la oscuridad más profunda crea el espacio para el renacimiento espiritual."
+  },
+  "page-of-swords": {
+    "name": "Sota de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "La Sota de Espadas dice sí — aborda con curiosidad, pensamiento agudo y disposición a reunir más información.",
+    "kw_up": [
+      "curiosidad",
+      "intelecto",
+      "comunicación",
+      "vigilancia",
+      "noticias"
+    ],
+    "kw_rev": [
+      "chismes",
+      "prisa",
+      "cinismo",
+      "pensamiento disperso"
+    ],
+    "up": "La Sota de Espadas es aguda, curiosa y alerta — siempre observando, aprendiendo y reuniendo información. Se requiere una energía perspicaz. Mantente vigilante, haz buenas preguntas, y no aceptes las cosas tal como aparecen.",
+    "rev": "Chismes, palabras precipitadas o usar la inteligencia aguda de formas cortantes. Piensa antes de hablar.",
+    "love": "Una energía curiosa, comunicativa y a veces reservada en el romance. La conexión intelectual importa.",
+    "career": "Investigación, análisis, periodismo o cualquier campo donde se valore el pensamiento agudo y la recolección de información.",
+    "spirit": "Buscar la verdad espiritual a través del estudio, el cuestionamiento y el rigor intelectual."
+  },
+  "knight-of-swords": {
+    "name": "Caballero de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Caballero de Espadas dice quizás — se necesita acción audaz, pero la impulsividad sin estrategia puede salir mal.",
+    "kw_up": [
+      "directo",
+      "rápido",
+      "decisivo",
+      "ambicioso",
+      "intelectual"
+    ],
+    "kw_rev": [
+      "impulsivo",
+      "imprudente",
+      "argumentativo",
+      "disperso"
+    ],
+    "up": "El Caballero de Espadas carga hacia adelante con precisión intelectual y acción decisiva. Es de pensamiento rápido y sin miedo — pero a veces demasiado apresurado. Equilibra la urgencia con la estrategia para obtener el mejor resultado.",
+    "rev": "Acción imprudente e impulsiva o discusiones que hacen más daño que bien. Baja la velocidad y piensa.",
+    "love": "Comunicación directa, pasión intelectual o una personalidad enérgica que dice exactamente lo que piensa.",
+    "career": "Acción profesional rápida y decisiva. Una oportunidad que requiere una respuesta inmediata y audaz.",
+    "spirit": "El buscador de la verdad que corta a través del ruido espiritual con discernimiento agudo."
+  },
+  "queen-of-swords": {
+    "name": "Reina de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "La Reina de Espadas dice sí — aplica el pensamiento claro, la comunicación directa y la experiencia bien ganada.",
+    "kw_up": [
+      "claridad",
+      "franqueza",
+      "independencia",
+      "intelecto",
+      "experiencia"
+    ],
+    "kw_rev": [
+      "frialdad",
+      "amargura",
+      "aislamiento",
+      "juicio severo"
+    ],
+    "up": "La Reina de Espadas ve con claridad, habla directamente y ha ganado su sabiduría por el camino difícil. No se engaña a sí misma y no tolera a los tontos. Aborda tu situación con honestidad, claridad y autosuficiencia.",
+    "rev": "Frialdad, amargura o usar la inteligencia aguda como arma en lugar de herramienta.",
+    "love": "Independiente y exigente en el amor — saber lo que quieres y no conformarte con menos.",
+    "career": "Liderazgo a través de la claridad y la comunicación directa. Sin tonterías, altamente competente.",
+    "spirit": "La sabiduría que viene de haber atravesado una gran dificultad con la integridad intacta."
+  },
+  "king-of-swords": {
+    "name": "Rey de Espadas",
+    "suitLabel": "Espadas",
+    "yn_exp": "El Rey de Espadas dice sí — actúa con autoridad intelectual, equidad y pensamiento estratégico claro.",
+    "kw_up": [
+      "autoridad",
+      "intelecto",
+      "verdad",
+      "estrategia",
+      "justicia"
+    ],
+    "kw_rev": [
+      "tiranía",
+      "manipulación",
+      "juicio frío",
+      "abuso de poder"
+    ],
+    "up": "El Rey de Espadas manda mediante la autoridad intelectual, la claridad estratégica y un compromiso inquebrantable con la verdad. Es un maestro de la mente que lidera con equidad y precisión. Piensa con claridad, habla con cuidado, decide con firmeza.",
+    "rev": "Usar el poder intelectual de forma manipuladora, despiadada o para dominar en lugar de servir.",
+    "love": "Una pareja que valora la verdad, la inteligencia y la franqueza sobre todo lo demás.",
+    "career": "Asuntos legales, liderazgo a través de la estrategia, autoridad académica o toma de decisiones ejecutivas.",
+    "spirit": "La mente disciplinada al servicio de la verdad es un poderoso instrumento espiritual."
+  },
+  "ace-of-pentacles": {
+    "name": "As de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El As de Pentáculos dice sí — un nuevo comienzo material, una oportunidad financiera o un camino sólido se está abriendo.",
+    "kw_up": [
+      "oportunidad nueva",
+      "comienzo material",
+      "abundancia",
+      "prosperidad",
+      "manifestación"
+    ],
+    "kw_rev": [
+      "oportunidad perdida",
+      "mala planificación",
+      "contratiempo financiero",
+      "materialismo"
+    ],
+    "up": "El As de Pentáculos ofrece un nuevo comienzo tangible — una oportunidad financiera, un nuevo trabajo, una idea de negocio o una base práctica que se está estableciendo. Toma esta oferta en serio y construye sobre ella con diligencia.",
+    "rev": "Una oportunidad financiera perdida o un proyecto práctico que no ha sido bien pensado.",
+    "love": "Construir una base estable y práctica para una relación — seguridad, compromiso y potencial a largo plazo.",
+    "career": "Una nueva oferta de trabajo, oportunidad financiera o el comienzo de un emprendimiento próspero.",
+    "spirit": "Anclar la práctica espiritual en el mundo físico. Servicio, trabajo corporal y cuidado de la tierra."
+  },
+  "two-of-pentacles": {
+    "name": "Dos de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Dos de Pentáculos dice quizás — estás malabareando múltiples prioridades y necesitas encontrar mejor equilibrio primero.",
+    "kw_up": [
+      "equilibrio",
+      "malabareo",
+      "adaptabilidad",
+      "gestión del tiempo",
+      "prioridades"
+    ],
+    "kw_rev": [
+      "agobio",
+      "pérdida de equilibrio",
+      "inestabilidad financiera",
+      "mala gestión del tiempo"
+    ],
+    "up": "El Dos de Pentáculos muestra el arte de malabarear prioridades que compiten entre sí con gracia y adaptabilidad. Estás manejando múltiples demandas — la clave es mantenerte flexible y conservar el sentido del humor frente al caos.",
+    "rev": "Estás dejando caer las pelotas y perdiendo la capacidad de mantener todos los platos girando. Prioriza despiadadamente.",
+    "love": "Equilibrar una relación junto a otras demandas de la vida. Cuídate de no descuidar lo que más importa.",
+    "career": "Multitarea, gestión de múltiples proyectos o navegar fluctuaciones financieras.",
+    "spirit": "Encontrar la práctica espiritual dentro de los ritmos y demandas de la vida cotidiana."
+  },
+  "three-of-pentacles": {
+    "name": "Tres de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Tres de Pentáculos dice sí — la colaboración, la habilidad y el trabajo en equipo llevarán esto a una culminación exitosa.",
+    "kw_up": [
+      "trabajo en equipo",
+      "habilidad",
+      "colaboración",
+      "planificación",
+      "aprendizaje"
+    ],
+    "kw_rev": [
+      "desarmonía",
+      "falta de trabajo en equipo",
+      "mala planificación",
+      "mediocridad"
+    ],
+    "up": "El Tres de Pentáculos celebra la maestría a través de la colaboración. Cada persona aporta sus habilidades únicas a una visión compartida, y el resultado es mayor que cualquier esfuerzo individual. Trabaja bien con otros y honra la experiencia.",
+    "rev": "Mal trabajo en equipo, falta de planificación o conformarse con resultados mediocres en lugar de aspirar a la excelencia.",
+    "love": "Construir una relación a través del esfuerzo compartido, los valores y una visión común del futuro.",
+    "career": "Trabajo en equipo experto, pensamiento arquitectónico o aprendizaje bajo un verdadero maestro.",
+    "spirit": "Comunidad espiritual y la geometría sagrada de la creación compartida."
+  },
+  "four-of-pentacles": {
+    "name": "Cuatro de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Cuatro de Pentáculos dice no — el miedo a la pérdida y aferrarse a la seguridad están bloqueando el crecimiento y la generosidad.",
+    "kw_up": [
+      "seguridad",
+      "conservación",
+      "control",
+      "materialismo",
+      "acaparamiento"
+    ],
+    "kw_rev": [
+      "generosidad",
+      "soltar el control",
+      "pérdida financiera",
+      "apertura"
+    ],
+    "up": "El Cuatro de Pentáculos agarra sus posesiones con fuerza por miedo a la pérdida. La seguridad es importante, pero acaparar energía — sea financiera o emocional — crea estancamiento. Abre las manos para recibir soltando primero.",
+    "rev": "Pérdida financiera o un avance hacia la generosidad después de un periodo de aferrarse demasiado.",
+    "love": "Retraimiento emocional, posesividad o miedo a la vulnerabilidad en la relación.",
+    "career": "Cautela excesiva, falta de disposición para invertir o aferrarse demasiado a viejos modelos de negocio.",
+    "spirit": "Apego al confort material como sustituto de una verdadera seguridad espiritual."
+  },
+  "five-of-pentacles": {
+    "name": "Cinco de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Cinco de Pentáculos dice no — la dificultad, la carencia o el aislamiento son la realidad actual que necesita ser abordada primero.",
+    "kw_up": [
+      "dificultad",
+      "pobreza",
+      "aislamiento",
+      "inseguridad",
+      "carencia"
+    ],
+    "kw_rev": [
+      "recuperación",
+      "apoyo que llega",
+      "encontrar ayuda",
+      "mejora"
+    ],
+    "up": "El Cinco de Pentáculos habla de dificultad — financiera, física o emocional. Puedes sentirte excluida en el frío. Recuerda: la ayuda está más cerca de lo que crees. No dejes que el orgullo te impida pedirla.",
+    "rev": "La recuperación financiera o material está en marcha. La ayuda llega o encuentras tu camino de regreso al calor.",
+    "love": "Sentirte emocionalmente empobrecida en una relación o atravesar dificultades financieras juntos.",
+    "career": "Dificultad financiera, pérdida de empleo o una crisis del sector afectando tu sustento.",
+    "spirit": "Pobreza espiritual — sentirte desconectada de lo divino. Busca comunidad y calor humano."
+  },
+  "six-of-pentacles": {
+    "name": "Seis de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Seis de Pentáculos dice sí — la generosidad fluye en ambas direcciones. Da libremente y recibe con gracia.",
+    "kw_up": [
+      "generosidad",
+      "dar",
+      "recibir",
+      "caridad",
+      "equilibrio"
+    ],
+    "kw_rev": [
+      "condiciones",
+      "deuda",
+      "desequilibrio de poder",
+      "dar condicional"
+    ],
+    "up": "El Seis de Pentáculos celebra el hermoso equilibrio de dar y recibir. La generosidad fluye libremente — puedes estar en posición de dar o de recibir. Ambos son actos de gracia. Comparte lo que tienes.",
+    "rev": "Dar con condiciones, un desequilibrio de poder en el intercambio o recibir caridad que viene con ataduras.",
+    "love": "Generosidad, reciprocidad y un intercambio hermosamente equilibrado de cuidado y apoyo.",
+    "career": "Filantropía, becas, aumentos salariales o un mentor que invierte en tu crecimiento.",
+    "spirit": "La ley espiritual de la reciprocidad — lo que das con el corazón pleno regresa a ti multiplicado."
+  },
+  "seven-of-pentacles": {
+    "name": "Siete de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Siete de Pentáculos dice quizás — estás en el periodo de espera. La cosecha viene pero aún no está aquí.",
+    "kw_up": [
+      "paciencia",
+      "inversión a largo plazo",
+      "cosecha",
+      "evaluación",
+      "perseverancia"
+    ],
+    "kw_rev": [
+      "impaciencia",
+      "mala inversión",
+      "falta de recompensa",
+      "rendirse demasiado pronto"
+    ],
+    "up": "El Siete de Pentáculos te pide dar un paso atrás, evaluar tu progreso y confiar en que el crecimiento lento y constante producirá una cosecha significativa. Este no es el momento de la recompensa — pero es el momento de la promesa.",
+    "rev": "Impaciencia, mal retorno de la inversión o un proyecto que no crece como esperabas.",
+    "love": "Una relación que crece de forma constante — confía en la construcción lenta en lugar de apresurarte a sacar conclusiones.",
+    "career": "Inversión a largo plazo en habilidades, un negocio o un proyecto que aún no ha alcanzado su madurez.",
+    "spirit": "El crecimiento espiritual no es lineal. Confía en el desarrollo invisible que ocurre bajo la superficie."
+  },
+  "eight-of-pentacles": {
+    "name": "Ocho de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Ocho de Pentáculos dice sí — el esfuerzo dedicado y la maestría de tu oficio traerán resultados.",
+    "kw_up": [
+      "diligencia",
+      "habilidad",
+      "maestría",
+      "enfoque",
+      "oficio"
+    ],
+    "kw_rev": [
+      "perfeccionismo",
+      "falta de enfoque",
+      "mala calidad",
+      "monotonía"
+    ],
+    "up": "El Ocho de Pentáculos celebra el oficio dedicado y paciente. Estás afinando tus habilidades y haciendo el trabajo con cuidado y enfoque genuinos. La maestría viene exactamente de este tipo de práctica comprometida. Sigue adelante.",
+    "rev": "Parálisis perfeccionista, trabajo descuidado o repetición desgastante que ha perdido todo significado.",
+    "love": "Construir una relación a través del esfuerzo consistente y cuidadoso a lo largo del tiempo.",
+    "career": "Aprendizaje, desarrollo de habilidades, trabajo meticuloso o maestría profesional a través de la práctica sostenida.",
+    "spirit": "Disciplina espiritual y la repetición sagrada de la práctica diaria construyendo una profundidad genuina."
+  },
+  "nine-of-pentacles": {
+    "name": "Nueve de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Nueve de Pentáculos dice sí — la autosuficiencia, la abundancia y el lujo bien merecido son tuyos.",
+    "kw_up": [
+      "abundancia",
+      "autosuficiencia",
+      "lujo",
+      "independencia",
+      "recompensa"
+    ],
+    "kw_rev": [
+      "exceso de trabajo",
+      "dependencia financiera",
+      "superficialidad",
+      "éxito hueco"
+    ],
+    "up": "El Nueve de Pentáculos es una carta de autosuficiencia elegante y abundancia bien ganada. Has construido algo hermoso a través de tus propios esfuerzos. Saborea las recompensas — te has ganado esta independencia y este lujo.",
+    "rev": "Éxito que vino a un costo personal demasiado alto, o dependencia financiera socavando la independencia genuina.",
+    "love": "Amarte a ti misma y a tu vida independiente — una base sólida desde la cual atraer una pareja digna.",
+    "career": "Independencia financiera, éxito emprendedor o una vida profesional hermosamente cómoda.",
+    "spirit": "La gracia espiritual de disfrutar los frutos de este mundo material sin estar apegada a ellos."
+  },
+  "ten-of-pentacles": {
+    "name": "Diez de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Diez de Pentáculos dice sí — riqueza duradera, legado familiar y abundancia generacional están indicados.",
+    "kw_up": [
+      "legado",
+      "riqueza familiar",
+      "éxito a largo plazo",
+      "herencia",
+      "tradición"
+    ],
+    "kw_rev": [
+      "conflicto familiar",
+      "inestabilidad financiera",
+      "pensamiento a corto plazo",
+      "legado roto"
+    ],
+    "up": "El Diez de Pentáculos representa el pináculo del éxito material — un legado duradero, riqueza familiar y la satisfacción de construir algo que perdurará a través de las generaciones. La seguridad y plenitud a largo plazo están aquí.",
+    "rev": "Conflicto familiar sobre dinero, un legado que se está desmoronando o enfocarse en la ganancia a corto plazo a costa de algo duradero.",
+    "love": "Una relación profundamente estable y duradera que se convierte en el fundamento de una hermosa vida familiar.",
+    "career": "Éxito empresarial a largo plazo, un negocio familiar o la creación de un legado financiero duradero.",
+    "spirit": "El mundo físico como herencia sagrada — cuídalo, construye sobre él y trasmítelo con amor."
+  },
+  "page-of-pentacles": {
+    "name": "Sota de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "La Sota de Pentáculos dice sí — aplícate con diligencia, curiosidad y una mentalidad de estudiante.",
+    "kw_up": [
+      "estudio",
+      "diligencia",
+      "oportunidad nueva",
+      "aprendizaje práctico",
+      "enraizamiento"
+    ],
+    "kw_rev": [
+      "falta de enfoque",
+      "procrastinación",
+      "oportunidades perdidas",
+      "impracticidad"
+    ],
+    "up": "La Sota de Pentáculos es una estudiante entusiasta del mundo material — estudiosa, práctica y comprometida con el aprendizaje. Una nueva habilidad u oportunidad práctica está emergiendo. Aborda con diligencia y atención al detalle.",
+    "rev": "Procrastinación, distracción o negarte a hacer el trabajo práctico requerido.",
+    "love": "Construir una base estable y enraizada para el amor. Pasos prácticos hacia el compromiso.",
+    "career": "Una nueva oportunidad de aprendizaje, beca, prácticas o el comienzo mismo de una carrera práctica.",
+    "spirit": "Anclar el aprendizaje espiritual en la aplicación práctica cotidiana."
+  },
+  "knight-of-pentacles": {
+    "name": "Caballero de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Caballero de Pentáculos dice sí — el esfuerzo constante y metódico te llevará allí.",
+    "kw_up": [
+      "fiabilidad",
+      "paciencia",
+      "metódico",
+      "trabajo duro",
+      "rutina"
+    ],
+    "kw_rev": [
+      "terquedad",
+      "aburrimiento",
+      "estancamiento",
+      "perfeccionismo"
+    ],
+    "up": "El Caballero de Pentáculos puede ser el más lento de los caballeros, pero es el más confiable. Se compromete con el juego largo y no toma atajos. El esfuerzo constante y metódico y el seguimiento confiable son tus mayores recursos ahora.",
+    "rev": "Terquedad, quedarse atrapada en la rutina o perfeccionismo que impide el progreso.",
+    "love": "Una pareja confiable, constante y comprometida que está aquí para el largo plazo.",
+    "career": "Progreso metódico, hábitos de trabajo confiables y la disciplina de ver un proyecto largo hasta su finalización.",
+    "spirit": "El valor espiritual de la regularidad — la práctica diaria, la consistencia y aparecer incluso cuando no te sientes inspirada."
+  },
+  "queen-of-pentacles": {
+    "name": "Reina de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "La Reina de Pentáculos dice sí — sabiduría práctica, abundancia nutritiva y cuidado con los pies en la tierra.",
+    "kw_up": [
+      "practicidad",
+      "nutrir",
+      "abundancia",
+      "enraizamiento",
+      "ingenio"
+    ],
+    "kw_rev": [
+      "materialismo",
+      "descuido propio",
+      "exceso de trabajo",
+      "sobreprotección"
+    ],
+    "up": "La Reina de Pentáculos es la madre tierra por excelencia — práctica, nutritiva, ingeniosa y profundamente conectada con el mundo físico. Crea abundancia a través del cuidado y el sentido común. Confía en tu sabiduría práctica.",
+    "rev": "Descuidar el autocuidado, trabajar en exceso o poner demasiado énfasis en la acumulación material.",
+    "love": "Un amor cálido, nutritivo y enraizado — seguro, práctico y profundamente afectuoso.",
+    "career": "Visión empresarial, gestión financiera, llevar el hogar como un arte, o trabajo en alimentación, naturaleza o bienestar.",
+    "spirit": "Encarnación sagrada — honrar lo divino a través del cuidado del cuerpo, el hogar y el mundo natural."
+  },
+  "king-of-pentacles": {
+    "name": "Rey de Pentáculos",
+    "suitLabel": "Pentáculos",
+    "yn_exp": "El Rey de Pentáculos dice sí — la maestría financiera, la estabilidad y la autoridad práctica te servirán bien.",
+    "kw_up": [
+      "abundancia",
+      "maestría financiera",
+      "estabilidad",
+      "liderazgo",
+      "seguridad"
+    ],
+    "kw_rev": [
+      "codicia",
+      "materialismo",
+      "terquedad",
+      "malas decisiones financieras"
+    ],
+    "up": "El Rey de Pentáculos ha dominado el mundo material a través de la paciencia, la disciplina y la sabiduría práctica. Provee seguridad y abundancia a quienes están bajo su cuidado. Entra en esta energía de maestría financiera y liderazgo enraizado.",
+    "rev": "Codicia, materialismo excesivo o mala gestión financiera socavando la seguridad genuina.",
+    "love": "Un proveedor estable, seguro y generoso — alguien que construye una vida hermosa contigo.",
+    "career": "Maestría financiera, liderazgo ejecutivo, éxito emprendedor o bienes raíces e inversiones.",
+    "spirit": "La responsabilidad sagrada de la administración — cuidar sabiamente los recursos y las personas que se te han confiado."
+  }
+}

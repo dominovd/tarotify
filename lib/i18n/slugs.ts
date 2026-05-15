@@ -323,12 +323,36 @@ export function canonicalZodiac(localSign: string, locale: Locale): string {
   return ZODIAC_SLUGS_REVERSE[locale]?.[localSign] ?? localSign
 }
 
+// Sub-segments under /cards/[slug]/* that have locale-specific translations.
+// Add to this map when new card sub-routes are localised (e.g. /history,
+// /symbolism). Keep in sync with the page.tsx files in app/es/cartas/[slug]/.
+const CARD_SUB_SEGMENTS: Record<string, Record<Locale, string>> = {
+  '/reversed': { en: '/reversed', es: '/invertida' },
+  '/feelings': { en: '/feelings', es: '/sentimientos' },
+}
+
+function translateCardSubSegment(rest: string, locale: Locale): string {
+  if (!rest) return rest
+  const mapped = CARD_SUB_SEGMENTS[rest]?.[locale]
+  return mapped ?? rest
+}
+
+function reverseCardSubSegment(localRest: string, locale: Locale): string {
+  if (!localRest) return localRest
+  for (const [enSeg, byLocale] of Object.entries(CARD_SUB_SEGMENTS)) {
+    if (byLocale[locale] === localRest) return enSeg
+  }
+  return localRest
+}
+
 /**
  * Build the localised href for an English internal path.
  * Adds locale prefix for non-default locale.
  *
  * @example
  *   buildHref('/cards/the-fool', 'es') → '/es/cartas/el-loco'
+ *   buildHref('/cards/the-fool/reversed', 'es') → '/es/cartas/el-loco/invertida'
+ *   buildHref('/cards/the-fool/feelings', 'es') → '/es/cartas/el-loco/sentimientos'
  *   buildHref('/cards/the-fool', 'en') → '/cards/the-fool'
  */
 export function buildHref(enPath: string, locale: Locale): string {
@@ -339,7 +363,8 @@ export function buildHref(enPath: string, locale: Locale): string {
     const [, slug, rest = ''] = cardMatch
     const localSlug = localizeCardSlug(slug, locale)
     const localBase = locale === 'en' ? '/cards' : (PATH_SLUGS[locale]['/cards'] ?? '/cards')
-    const path = `${localBase}/${localSlug}${rest}`
+    const localRest = translateCardSubSegment(rest, locale)
+    const path = `${localBase}/${localSlug}${localRest}`
     return locale === DEFAULT_LOCALE ? path : `/${locale}${path}`
   }
 
@@ -363,6 +388,15 @@ export function buildHref(enPath: string, locale: Locale): string {
     return locale === DEFAULT_LOCALE ? path : `/${locale}${path}`
   }
 
+  // /combination/[slug] — combo slug stays English-only in both locales
+  const comboMatch = enPath.match(/^\/combination\/([^\/]+)$/)
+  if (comboMatch) {
+    const [, slug] = comboMatch
+    const localBase = locale === 'en' ? '/combination' : (PATH_SLUGS[locale]['/combination'] ?? '/combination')
+    const path = `${localBase}/${slug}`
+    return locale === DEFAULT_LOCALE ? path : `/${locale}${path}`
+  }
+
   // Generic path lookup
   const localPath = localizePath(enPath, locale)
   return locale === DEFAULT_LOCALE ? localPath : `/${locale}${localPath}`
@@ -380,7 +414,10 @@ export function canonicaliseHref(localPath: string, locale: Locale): string {
   if (localPath.startsWith(localCards + '/')) {
     const rest = localPath.slice(localCards.length + 1)
     const [slug, ...sub] = rest.split('/')
-    return `/cards/${canonicalCardSlug(slug, locale)}${sub.length ? '/' + sub.join('/') : ''}`
+    const enSlug = canonicalCardSlug(slug, locale)
+    const localSubPath = sub.length ? '/' + sub.join('/') : ''
+    const enSubPath = reverseCardSubSegment(localSubPath, locale)
+    return `/cards/${enSlug}${enSubPath}`
   }
 
   // /si-no/[slug]
@@ -395,6 +432,13 @@ export function canonicaliseHref(localPath: string, locale: Locale): string {
   if (localPath.startsWith(localZ + '/')) {
     const sign = localPath.slice(localZ.length + 1)
     return `/zodiac/${canonicalZodiac(sign, locale)}`
+  }
+
+  // /combinaciones/[slug] — combo slug stays the same
+  const localCombo = PATH_SLUGS[locale]['/combination'] ?? '/combination'
+  if (localPath.startsWith(localCombo + '/')) {
+    const slug = localPath.slice(localCombo.length + 1)
+    return `/combination/${slug}`
   }
 
   // Generic

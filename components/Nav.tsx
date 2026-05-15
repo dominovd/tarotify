@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import DeckSwitcher from '@/components/DeckSwitcher'
 import UserMenu from '@/components/UserMenu'
+import LangSwitcher from '@/components/LangSwitcher'
 
 const links = [
   { href: '/free-reading', label: 'Free Reading' },
@@ -59,6 +60,11 @@ export default function Nav() {
           <DeckSwitcher />
         </div>
 
+        {/* Language switcher */}
+        <div className="nav-lang" style={{ marginLeft: '.5rem' }}>
+          <LangSwitcher />
+        </div>
+
         {/* User menu */}
         <div className="nav-user" style={{ marginLeft: '.5rem' }}>
           <UserMenu />
@@ -103,6 +109,9 @@ export default function Nav() {
           background:'rgba(7,7,26,.97)', borderBottom:'1px solid var(--border)',
           padding:'1rem 1.5rem', display:'flex', flexDirection:'column', gap:'1.1rem'
         }}>
+          <div style={{ display:'flex', justifyContent:'flex-end', paddingBottom:'.4rem', borderBottom:'1px solid var(--border)' }}>
+            <LangSwitcher />
+          </div>
           {links.map(l => (
             <Link key={l.href} href={l.href} style={{
               color: isActive(l.href) ? 'var(--gold)' : 'var(--text)',
@@ -119,6 +128,7 @@ export default function Nav() {
       <style>{`
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
+          .nav-lang { display: none !important; }
           .nav-burger { display: flex !important; }
         }
         @media (max-width: 480px) {

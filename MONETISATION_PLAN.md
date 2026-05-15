@@ -200,29 +200,39 @@ create trigger on_auth_user_created after insert on auth.users
 
 ---
 
-### Sprint 2 — Billing rails (Lemon Squeezy)
+### Sprint 2 — Billing rails (Paddle Billing)
 
-**Goal:** A signed-in free user can click "Upgrade", complete Lemon Squeezy checkout, return to the site as a premium user. Cancel works. Webhooks keep `subscriptions` table in sync.
+**Goal:** A signed-in free user can click "Upgrade", complete Paddle checkout, return to the site as a premium user. Cancel works. Webhooks keep `subscriptions` table in sync.
 
-**External setup (Denis):**
-- Sign up at lemonsqueezy.com — they're Merchant of Record, so VAT, sales tax, EU-VAT-OSS are all handled.
-- Create a store: "TarotAxis".
-- Create one product: "TarotAxis Premium". Two variants: monthly ($7), yearly ($60 — two months free). Numbers tentative — see "Decision points".
-- Create webhook → endpoint `https://tarotaxis.com/api/lemonsqueezy/webhook`, secret saved to Vercel env as `LEMONSQUEEZY_WEBHOOK_SECRET`. Subscribe to events: `subscription_created`, `subscription_updated`, `subscription_cancelled`, `subscription_resumed`, `subscription_expired`, `subscription_payment_success`, `subscription_payment_failed`.
-- API key → `LEMONSQUEEZY_API_KEY` in Vercel env.
-- Copy variant IDs → `LEMONSQUEEZY_VARIANT_MONTHLY`, `LEMONSQUEEZY_VARIANT_YEARLY`.
+**External setup (Denis):** see `PADDLE_SETUP.md` for the step-by-step. Summary:
+- Sign up at paddle.com/billing (NOT Paddle Classic). Sandbox active immediately, production approval 1-2 weeks.
+- Submit production verification (passport, ФОП registration number, business info, Wise bank details).
+- In SANDBOX dashboard: create product "TarotAxis Premium" with two prices — monthly ($7 USD recurring 1 month) and yearly ($60 USD recurring 1 year).
+- Create webhook destination → `https://tarotaxis.com/api/paddle/webhook`. Subscribe to: `subscription.{created,updated,canceled,activated,paused,resumed,past_due}`, `transaction.{completed,payment_failed}`, optionally `customer.created`.
+- Generate API key (server-side) and Client-side token (browser-safe).
+
+**Env vars (all from sandbox during dev, swap to production values after approval):**
+- `PADDLE_ENVIRONMENT` = `sandbox` | `production`
+- `PADDLE_API_KEY` — server-only, full-access API key
+- `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN` — public, used by Paddle.js overlay
+- `PADDLE_PRODUCT_ID` — `pro_...`
+- `PADDLE_PRICE_MONTHLY_ID` — `pri_...`
+- `PADDLE_PRICE_YEARLY_ID` — `pri_...`
+- `PADDLE_WEBHOOK_SECRET` — `pdl_ntfset_...`, used to HMAC-verify webhook bodies
 
 **Code:**
-- `lib/lemonsqueezy/client.ts` — fetch wrapper around LS API
-- `lib/lemonsqueezy/checkout.ts` — `createCheckoutUrl(userId, variant)` — generates pre-filled checkout URL with `custom_data.user_id` so the webhook can match it.
-- `app/api/lemonsqueezy/webhook/route.ts` — verifies HMAC signature, parses event, upserts `subscriptions` row. Edge runtime safe.
-- `app/pricing/page.tsx` — pricing table (Free vs Premium), feature comparison, CTA → /api/lemonsqueezy/checkout/[variant]
-- `app/api/lemonsqueezy/checkout/[variant]/route.ts` — signed-in only, generates checkout URL, redirects
-- `app/api/lemonsqueezy/portal/route.ts` — opens customer portal for cancel/update payment
-- `lib/subscription.ts` — `async getSubscription(userId): Subscription | null` + `isPremium(userId): boolean` — server-only utilities cached via React `cache()` so multiple components don't re-query
-- `components/UpgradeButton.tsx` — used across the site
+- `lib/paddle/client.ts` — fetch wrapper around Paddle API. Picks `api.paddle.com` vs `sandbox-api.paddle.com` based on `PADDLE_ENVIRONMENT`.
+- `lib/paddle/checkout.ts` — `createCheckoutSession(userId, priceId)`. Paddle Billing uses Checkout Sessions API (POST /transactions or /checkout/sessions endpoint), returning a hosted checkout URL with `custom_data.user_id` so the webhook can match.
+- `app/api/paddle/webhook/route.ts` — verifies signature via `paddle-signature` header HMAC, parses event, upserts `subscriptions` row. Idempotency via `event.notification_id` stored in `webhook_events`. Edge runtime safe.
+- `app/pricing/page.tsx` — pricing table (Free vs Premium), feature comparison, CTA → /api/paddle/checkout/[interval]
+- `app/api/paddle/checkout/[interval]/route.ts` — signed-in only (`interval` is `monthly` or `yearly`); creates checkout session, redirects to hosted URL.
+- `app/api/paddle/portal/route.ts` — opens Paddle Customer Portal for cancel/update payment.
+- `lib/subscription.ts` — `async getSubscription(userId): Subscription | null` + `isPremium(userId): boolean`. Cached via React `cache()`.
+- `components/UpgradeButton.tsx` — reusable across the 5 prompt locations from D5.
 
-**Webhook idempotency:** Lemon Squeezy may retry. Use `meta.event_id` as a dedup key — store in a small `webhook_events` table, no-op if already seen.
+**Webhook signature verification:** Paddle sends `paddle-signature` header in format `ts=<timestamp>;h1=<hmac>`. HMAC-SHA256 of `<timestamp>:<raw body>` with `PADDLE_WEBHOOK_SECRET`. Reject if timestamp older than 5 minutes (replay protection) or HMAC mismatch.
+
+**Webhook idempotency:** every Paddle notification has a unique `notification_id` (`ntf_...`). Use it as the `event_id` in `webhook_events` table — skip processing if already seen. Paddle retries failed deliveries for ~3 days.
 
 **Pages that change:**
 - `app/account/page.tsx` — shows real subscription status, next billing date, "Manage" button → portal
@@ -230,11 +240,13 @@ create trigger on_auth_user_created after insert on auth.users
 - `app/sitemap.ts` — `/pricing` added at priority 0.7
 
 **Acceptance criteria:**
-- Free user clicks Upgrade → Lemon Squeezy checkout → returns to site → /account shows "Premium · monthly · renews on X".
-- Cancel via portal updates `subscriptions.cancel_at`. Status flips to `cancelled` on period end via webhook.
-- Failed-payment dunning is handled by Lemon Squeezy automatically; we just receive the eventual `subscription_expired` event.
+- Free user clicks Upgrade → Paddle checkout (sandbox: $7 test card `4000 0000 0000 0002`) → returns to site → /account shows "Premium · monthly · renews on X".
+- Cancel via portal updates `subscriptions.cancel_at`. Status flips to `cancelled` on period end via `subscription.canceled` webhook.
+- Failed-payment dunning is handled by Paddle automatically; we just receive the eventual `subscription.past_due` then `subscription.canceled`.
 
-**Estimated time:** 2h.
+**Sandbox → Production migration:** when Paddle approves the live account (1-2 weeks), recreate the same Product + Prices + Webhook in the production dashboard. Update env vars in Vercel. Redeploy. Sandbox values stay for local dev / preview deploys.
+
+**Estimated time:** 2-2.5h.
 
 ---
 
@@ -578,9 +590,9 @@ app/
       card-meaning/route.ts
       custom-spread/route.ts
       waitlist/route.ts
-    lemonsqueezy/
+    paddle/
       webhook/route.ts
-      checkout/[variant]/route.ts
+      checkout/[interval]/route.ts
       portal/route.ts
   journal/
     sync/page.tsx
@@ -597,7 +609,7 @@ lib/
     client.ts
     server.ts
     admin.ts
-  lemonsqueezy/
+  paddle/
     client.ts
     checkout.ts
   ai/
@@ -639,10 +651,16 @@ All six decision points are settled. Use these as the source of truth — do not
 - Local-device journal stays free with the existing 20-entry limit (already in place via `arr.slice(0, 20)`).
 - Premium is purely additive. We sell on what's added, not what's taken away.
 
-### D3 — Payment provider: **Lemon Squeezy**
-- Merchant of Record — they handle VAT/sales tax/EU OSS globally.
-- Fees: 5% + $0.50 per transaction.
-- Implementation per Sprint 2 plan.
+### D3 — Payment provider: **Paddle (Billing)** ⚠ revised from Lemon Squeezy
+
+Originally settled on Lemon Squeezy. Switched to Paddle after discovering Stripe Connect payouts are unavailable for Ukraine, where the ФОП is registered. Paddle supports Ukrainian merchants via Wise / SWIFT payouts.
+
+- **Merchant of Record** — same VAT/sales-tax compliance benefit as LS.
+- **Fees:** 5% + $0.50 per transaction (identical to LS).
+- **Payout method:** Wise Business (USD denominated, converts to UAH at withdrawal).
+- **Onboarding caveat:** Paddle production approval takes 1-2 weeks. Sandbox is instant. All Sprint 2 dev happens in sandbox; flip to production env vars when approved.
+- **Setup guide:** `PADDLE_SETUP.md` in repo root.
+- **Note:** `LEMONSQUEEZY_SETUP.md` is retained as historical reference but is OBSOLETE — do not follow it.
 
 ### D4 — Free account perks (vs. guest)
 

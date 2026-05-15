@@ -1,7 +1,63 @@
 import { ImageResponse } from 'next/og'
 import { CARDS_BY_SLUG } from '../../lib/cards'
+import cardsEs from '../../messages/es/cards.json'
 
 export const runtime = 'edge'
+
+// Locale-aware card resolver. For es locale, prefer Spanish content from
+// messages/es/cards.json; fall back to EN per-field when the JSON lacks an
+// entry (e.g. before batch translate has filled extended modules).
+type LocaleCard = {
+  name: string
+  suitLabel: string
+  element: string
+  kw_up: string[]
+  kw_rev: string[]
+  up: string
+  rev: string
+  slug: string
+}
+
+const ELEMENT_ES: Record<string, string> = {
+  Air: 'Aire',
+  Water: 'Agua',
+  Fire: 'Fuego',
+  Earth: 'Tierra',
+}
+
+function getLocaleCard(slug: string, locale: string): LocaleCard {
+  const base = CARDS_BY_SLUG[slug] ?? CARDS_BY_SLUG['the-fool']
+  if (locale !== 'es') return base as LocaleCard
+  const esRaw = (cardsEs as Record<string, Partial<LocaleCard>>)[base.slug] ?? {}
+  return {
+    slug: base.slug,
+    name: esRaw.name ?? base.name,
+    suitLabel: esRaw.suitLabel ?? base.suitLabel,
+    element: ELEMENT_ES[base.element] ?? base.element,
+    kw_up: (esRaw.kw_up as string[] | undefined) ?? base.kw_up,
+    kw_rev: (esRaw.kw_rev as string[] | undefined) ?? base.kw_rev,
+    up: esRaw.up ?? base.up,
+    rev: esRaw.rev ?? base.rev,
+  }
+}
+
+// Locale-aware UI labels.
+const LABELS = {
+  en: {
+    cardOfDay: 'Card of the Day',
+    feelings: 'In a Feelings Reading',
+    tarotCombo: 'Tarot Combination',
+    reversedSuffix: ' (Reversed)',
+    asFeelingsSuffix: ' as Feelings',
+  },
+  es: {
+    cardOfDay: 'Carta del Día',
+    feelings: 'En una lectura de sentimientos',
+    tarotCombo: 'Combinación de Tarot',
+    reversedSuffix: ' (Invertida)',
+    asFeelingsSuffix: ' como sentimientos',
+  },
+} as const
 
 async function fetchCardImage(slug: string): Promise<string> {
   try {
@@ -26,6 +82,9 @@ export async function GET(request: Request) {
     const slug2Param = searchParams.get('slug2') ?? ''
     const reversed   = searchParams.get('rev')   === '1'
     const type       = searchParams.get('type')  ?? ''
+    const localeParam = searchParams.get('locale') ?? 'en'
+    const locale     = localeParam === 'es' ? 'es' : 'en'
+    const L          = LABELS[locale]
     const daily      = type === 'daily'
     const feelings   = type === 'feelings'
     const combination = type === 'combination' && slug2Param.length > 0
@@ -34,14 +93,14 @@ export async function GET(request: Request) {
     // Combination mode — two cards side-by-side.
     // ────────────────────────────────────────────────────────────────
     if (combination) {
-      const c1 = CARDS_BY_SLUG[slugParam]  ?? CARDS_BY_SLUG['the-fool']
-      const c2 = CARDS_BY_SLUG[slug2Param] ?? CARDS_BY_SLUG['the-magician']
+      const c1 = getLocaleCard(slugParam, locale)
+      const c2 = getLocaleCard(slug2Param || 'the-magician', locale)
       const [img1, img2] = await Promise.all([
         fetchCardImage(c1.slug),
         fetchCardImage(c2.slug),
       ])
       const elements = c1.element === c2.element ? c1.element : `${c1.element} + ${c2.element}`
-      const label = ['Tarot Combination', elements].filter(Boolean).join('  ·  ')
+      const label = [L.tarotCombo, elements].filter(Boolean).join('  ·  ')
       const kws = [c1.kw_up[0], c2.kw_up[0]].filter(Boolean)
 
       return new ImageResponse(
@@ -151,7 +210,7 @@ export async function GET(request: Request) {
     // ────────────────────────────────────────────────────────────────
     // Single-card mode — default.
     // ────────────────────────────────────────────────────────────────
-    const card = CARDS_BY_SLUG[slugParam] ?? CARDS_BY_SLUG['the-fool']
+    const card = getLocaleCard(slugParam, locale)
     const slug = card.slug
     const name = card.name
     const suit = card.suitLabel
@@ -164,7 +223,7 @@ export async function GET(request: Request) {
     const text = rawText.split(/(?<=\.)\s/)[0].slice(0, 140)
 
     const label = [
-      daily ? 'Card of the Day' : feelings ? 'In a Feelings Reading' : '',
+      daily ? L.cardOfDay : feelings ? L.feelings : '',
       suit,
       element,
     ].filter(Boolean).join('  ·  ')
@@ -216,7 +275,7 @@ export async function GET(request: Request) {
             </div>
 
             <div style={{ display: 'flex', color: '#c9a84c', fontSize: 60, fontWeight: 700, marginBottom: 20 }}>
-              {name}{reversed ? ' (Reversed)' : feelings ? ' as Feelings' : ''}
+              {name}{reversed ? L.reversedSuffix : feelings ? L.asFeelingsSuffix : ''}
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: 24 }}>
