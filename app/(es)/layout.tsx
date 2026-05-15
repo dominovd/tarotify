@@ -35,7 +35,7 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
           <main style={{ position: 'relative', zIndex: 1 }}>
             {children}
           </main>
-          <Footer />
+          <Footer locale="es" />
         </DeckProvider>
         <Analytics />
       </body>

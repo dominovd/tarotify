@@ -1,36 +1,94 @@
 import Link from 'next/link'
 
-const READ = [
-  { href: '/free-reading', label: 'Free Reading' },
-  { href: '/daily',        label: 'Card of the Day' },
-  { href: '/yes-no',       label: 'Yes / No' },
-  { href: '/birth-card',   label: 'Birth Card' },
-]
+type Locale = 'en' | 'es'
 
-const LEARN = [
-  { href: '/cards',                     label: 'All 78 Cards' },
-  { href: '/tarot-suits',               label: 'The Four Suits' },
-  { href: '/spreads',                   label: 'Spreads' },
-  { href: '/combination',               label: 'Combinations' },
-  { href: '/zodiac',                    label: 'Zodiac Tarot' },
-]
+interface Props {
+  locale?: Locale
+}
 
-const GUIDES = [
-  { href: '/tarot-for-beginners',        label: 'For Beginners' },
-  { href: '/how-to-read-tarot',          label: 'How to Read' },
-  { href: '/how-to-shuffle-tarot',       label: 'How to Shuffle' },
-  { href: '/how-to-cleanse-tarot-cards', label: 'How to Cleanse' },
-  { href: '/how-to-ask-tarot-questions', label: 'Asking Questions' },
-  { href: '/tarot-journal',              label: 'Tarot Journal' },
-]
+const COPY: Record<Locale, {
+  brandTagline: string
+  contactHeader: string
+  contactBody: string
+  copyrightSuffix: string
+  headers: { read: string; learn: string; guides: string }
+  read: { href: string; label: string }[]
+  learn: { href: string; label: string }[]
+  guides: { href: string; label: string }[]
+  site: { href: string; label: string }[]
+}> = {
+  en: {
+    brandTagline:
+      'Free AI-powered tarot readings, all 78 card meanings, spreads and lunar rituals — for self-reflection and honest guidance.',
+    contactHeader: 'Contact',
+    contactBody: 'Questions, feedback or partnership enquiries — we read every message.',
+    copyrightSuffix: 'All rights reserved',
+    headers: { read: 'Read', learn: 'Learn', guides: 'Guides' },
+    read: [
+      { href: '/free-reading', label: 'Free Reading' },
+      { href: '/daily',        label: 'Card of the Day' },
+      { href: '/yes-no',       label: 'Yes / No' },
+      { href: '/birth-card',   label: 'Birth Card' },
+    ],
+    learn: [
+      { href: '/cards',        label: 'All 78 Cards' },
+      { href: '/tarot-suits',  label: 'The Four Suits' },
+      { href: '/spreads',      label: 'Spreads' },
+      { href: '/combination',  label: 'Combinations' },
+      { href: '/zodiac',       label: 'Zodiac Tarot' },
+    ],
+    guides: [
+      { href: '/tarot-for-beginners',         label: 'For Beginners' },
+      { href: '/how-to-read-tarot',           label: 'How to Read' },
+      { href: '/how-to-shuffle-tarot',        label: 'How to Shuffle' },
+      { href: '/how-to-cleanse-tarot-cards',  label: 'How to Cleanse' },
+      { href: '/how-to-ask-tarot-questions',  label: 'Asking Questions' },
+      { href: '/tarot-journal',               label: 'Tarot Journal' },
+    ],
+    site: [
+      { href: '/about',   label: 'About' },
+      { href: '/privacy', label: 'Privacy Policy' },
+      { href: '/terms',   label: 'Terms & Conditions' },
+    ],
+  },
+  es: {
+    brandTagline:
+      'Lecturas de tarot gratuitas con IA, los significados de las 78 cartas, tiradas y rituales lunares — para la reflexión personal y una guía honesta.',
+    contactHeader: 'Contacto',
+    contactBody: 'Preguntas, comentarios o consultas de colaboración — leemos cada mensaje.',
+    copyrightSuffix: 'Todos los derechos reservados',
+    headers: { read: 'Leer', learn: 'Aprender', guides: 'Guías' },
+    read: [
+      { href: '/es/lectura-gratis',     label: 'Lectura Gratis' },
+      { href: '/es/carta-del-dia',      label: 'Carta del Día' },
+      { href: '/es/si-no',              label: 'Sí / No' },
+      { href: '/es/carta-de-nacimiento', label: 'Carta de Nacimiento' },
+    ],
+    learn: [
+      { href: '/es/cartas',          label: 'Las 78 Cartas' },
+      { href: '/es/palos-del-tarot', label: 'Los Cuatro Palos' },
+      { href: '/es/tiradas',         label: 'Tiradas' },
+      { href: '/es/combinaciones',   label: 'Combinaciones' },
+      { href: '/es/zodiaco',         label: 'Zodíaco' },
+    ],
+    guides: [
+      { href: '/es/tarot-para-principiantes',     label: 'Para Principiantes' },
+      { href: '/es/como-leer-tarot',              label: 'Cómo Leer' },
+      { href: '/es/como-barajar-tarot',           label: 'Cómo Barajar' },
+      { href: '/es/como-limpiar-cartas-de-tarot', label: 'Cómo Limpiar' },
+      { href: '/es/como-preguntar-al-tarot',      label: 'Cómo Preguntar' },
+      { href: '/es/diario-de-tarot',              label: 'Diario de Tarot' },
+    ],
+    site: [
+      { href: '/es/acerca-de',  label: 'Acerca de' },
+      { href: '/es/privacidad', label: 'Política de Privacidad' },
+      { href: '/es/terminos',   label: 'Términos y Condiciones' },
+    ],
+  },
+}
 
-const SITE = [
-  { href: '/about',           label: 'About' },
-  { href: '/privacy',         label: 'Privacy Policy' },
-  { href: '/terms',           label: 'Terms & Conditions' },
-]
-
-export default function Footer() {
+export default function Footer({ locale = 'en' }: Props) {
+  const t = COPY[locale]
   return (
     <footer style={{
       borderTop: '1px solid var(--border)',
@@ -63,18 +121,13 @@ export default function Footer() {
               lineHeight: 1.7,
               margin: 0,
             }}>
-              Free AI-powered tarot readings, all 78 card meanings, spreads and lunar rituals — for self-reflection and honest guidance.
+              {t.brandTagline}
             </p>
           </div>
 
-          {/* Read */}
-          <FooterColumn title="Read" items={READ} />
-
-          {/* Learn */}
-          <FooterColumn title="Learn" items={LEARN} />
-
-          {/* Guides */}
-          <FooterColumn title="Guides" items={GUIDES} />
+          <FooterColumn title={t.headers.read} items={t.read} />
+          <FooterColumn title={t.headers.learn} items={t.learn} />
+          <FooterColumn title={t.headers.guides} items={t.guides} />
 
           {/* Contact */}
           <div>
@@ -87,7 +140,7 @@ export default function Footer() {
               textTransform: 'uppercase',
               marginBottom: '.85rem',
             }}>
-              Contact
+              {t.contactHeader}
             </div>
             <a
               href="mailto:info@tarotaxis.com"
@@ -108,7 +161,7 @@ export default function Footer() {
               lineHeight: 1.6,
               margin: 0,
             }}>
-              Questions, feedback or partnership enquiries — we read every message.
+              {t.contactBody}
             </p>
           </div>
         </div>
@@ -124,7 +177,7 @@ export default function Footer() {
           gap: '1rem',
         }}>
           <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
-            {SITE.map(l => (
+            {t.site.map(l => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -146,7 +199,7 @@ export default function Footer() {
             fontFamily: "'Cinzel',serif",
             letterSpacing: '.05em',
           }}>
-            © {new Date().getFullYear()} TarotAxis · All rights reserved
+            © {new Date().getFullYear()} TarotAxis · {t.copyrightSuffix}
           </div>
         </div>
       </div>

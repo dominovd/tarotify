@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main style={{ position: 'relative', zIndex: 1 }}>
             {children}
           </main>
-          <Footer />
+          <Footer locale="en" />
         </DeckProvider>
         <Analytics />
       </body>
