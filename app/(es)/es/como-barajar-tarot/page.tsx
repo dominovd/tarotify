@@ -130,7 +130,7 @@ export default function ComoBarajarTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {methods.map(({ n, name, body }) => (
-            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.78rem', marginTop: 2 }}>
                 {n}
               </div>
@@ -148,7 +148,7 @@ export default function ComoBarajarTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           ¿Cuántas veces deberías barajar?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             No hay un número mágico. La guía más práctica es tu propia disposición: baraja hasta que la pregunta con la que trabajas se forme con claridad en tu mente, o hasta que te sientas lo bastante asentado como para sacar. En la práctica, la mayoría de los lectores baraja entre 30 y 60 segundos. Algunos trabajan con un número fijo — tres pasadas o siete — como estructura ritual que les ayuda a entrar en un estado de enfoque. Lo que importa es la intención constante, no la técnica concreta ni el conteo.
           </p>
@@ -160,7 +160,7 @@ export default function ComoBarajarTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           ¿Deberías invertir cartas mientras barajas?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Si usas las invertidas en tu práctica, sí — permite que las cartas se den la vuelta de forma natural durante el barajado sin corregirlas. Rotar una parte de la baraja 180 grados antes de empezar es una forma de introducir las invertidas deliberadamente. Si no las usas, mantén todas las cartas orientadas en la misma dirección durante todo el proceso. Ningún enfoque es más válido que el otro; la elección depende por completo de tu estilo de lectura.
           </p>
@@ -172,7 +172,7 @@ export default function ComoBarajarTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Qué hacer con las cartas que se caen
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Si una carta se cae de la baraja mientras barajas, no la devuelvas automáticamente y sigas como si nada. Muchos lectores tratan una carta que salta o se escapa de la baraja como especialmente significativa — en cierto sentido se ha presentado sin que se le pidiera. Puedes incorporarla a tu lectura como carta adicional, dejarla a un lado como aclaratoria de tu tirada, o simplemente tomar nota y devolverla a su sitio. La clave es no descartarla sin considerar al menos hacia qué podría estar apuntando.
           </p>
@@ -190,7 +190,7 @@ export default function ComoBarajarTarotPage() {
             { name: 'Cómo limpiar las cartas del tarot', href: '/es/como-limpiar-cartas-de-tarot', use: 'Siete métodos prácticos — luz lunar, humo, sal y más' },
             { name: 'Tarot para principiantes', href: '/es/tarot-para-principiantes', use: 'Un mes guiado para empezar con buen pie' },
           ].map(({ name, href, use }) => (
-            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
+            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
               <span style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem' }}>{name}</span>
               <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>{use}</span>
             </Link>
@@ -203,7 +203,7 @@ export default function ComoBarajarTarotPage() {
         <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Empezar una lectura gratis →
         </Link>
-        <Link href="/es/como-leer-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/como-leer-tarot" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Aprender a leer el tarot →
         </Link>
       </div>
@@ -215,7 +215,7 @@ export default function ComoBarajarTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

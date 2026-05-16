@@ -103,7 +103,7 @@ export default function TiradaParejaHubPage() {
         </div>
 
         {/* Intro */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '.85rem' }}>
             Qué Hace Diferente a una Tirada de Pareja
           </h2>
@@ -121,7 +121,7 @@ export default function TiradaParejaHubPage() {
         {/* Spread grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem', marginBottom: '2.5rem' }}>
           {SPREADS.map(s => (
-            <Link key={s.slug} href={`/es/tiradas/pareja/${s.slug}`} style={{ display: 'block', padding: '1.15rem 1.2rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, textDecoration: 'none' }}>
+            <Link key={s.slug} href={`/es/tiradas/pareja/${s.slug}`} style={{ display: 'block', padding: '1.15rem 1.2rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, textDecoration: 'none' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.65rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.4rem' }}>{s.cards}</div>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.95rem', marginBottom: '.45rem' }}>{s.title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.65, margin: 0 }}>{s.desc}</p>
@@ -130,7 +130,7 @@ export default function TiradaParejaHubPage() {
         </div>
 
         {/* Approaching honestly */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '.85rem' }}>
             Cómo Abordar las Lecturas de Relación con Honestidad
           </h2>
@@ -159,7 +159,7 @@ export default function TiradaParejaHubPage() {
               { when: 'Estás soltero/a y quieres hacer el trabajo interior que invita al amor real', use: 'Atracción Amorosa (5 cartas)' },
               { when: 'Estás en medio de una situación y solo necesitas un siguiente paso claro', use: 'Guía para Citas (4 cartas)' },
             ].map((row, i) => (
-              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '.3rem', padding: '1rem 1.1rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12 }}>
+              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '.3rem', padding: '1rem 1.1rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12 }}>
                 <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.6, margin: 0 }}>{row.when}</p>
                 <p style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem', margin: 0 }}>→ {row.use}</p>
               </div>
@@ -168,7 +168,7 @@ export default function TiradaParejaHubPage() {
         </div>
 
         {/* FAQ */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1.1rem' }}>Preguntas Frecuentes</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
             {faqSchema.mainEntity.map((item, i, arr) => (

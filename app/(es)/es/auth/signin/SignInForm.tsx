@@ -82,7 +82,7 @@ export default function SignInForm({ next, initialError, initialSent, mode = 'si
         placeholder="tu@ejemplo.com"
         style={{
           width: '100%',
-          background: 'rgba(255,255,255,.03)',
+          background: 'var(--on-bg-03)',
           border: '1px solid var(--border)',
           borderRadius: 10,
           padding: '.85rem 1rem',
@@ -114,7 +114,7 @@ export default function SignInForm({ next, initialError, initialSent, mode = 'si
         disabled={sending || !email}
         style={{
           width: '100%',
-          background: (sending || !email) ? 'rgba(255,255,255,.02)' : 'rgba(201,168,76,.13)',
+          background: (sending || !email) ? 'var(--on-bg-02)' : 'rgba(201,168,76,.13)',
           border: `1px solid ${(sending || !email) ? 'var(--border)' : 'rgba(201,168,76,.65)'}`,
           borderRadius: 10,
           padding: '.9rem',

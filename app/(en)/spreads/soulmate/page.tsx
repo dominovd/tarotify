@@ -116,7 +116,7 @@ export default function SoulmatePage() {
       </div>
 
       {/* How to do the reading */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           How to Do Your Soulmate Reading
         </h2>
@@ -149,7 +149,7 @@ export default function SoulmatePage() {
             ['4', 'The Path', 'How you will encounter or recognise your soulmate. This card often speaks to the conditions, inner shifts or life circumstances through which a meaningful connection becomes possible. A Major Arcana card here suggests a significant, even fated, turning point.'],
             ['5', 'The Connection', 'The potential nature and quality of the soulmate bond. This card describes the energetic character of the relationship — its strengths, its gifts, and the kind of growth it is likely to bring. It is a picture of possibility rather than a guarantee.'],
           ].map(([num, title, text]) => (
-            <div key={num} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+            <div key={num} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
               <div style={{ minWidth: 28, height: 28, border: '1px solid rgba(201,168,76,.35)', borderRadius: 6, background: 'rgba(201,168,76,.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", fontSize: '.75rem', color: 'var(--gold)', flexShrink: 0, marginTop: '.05rem' }}>
                 {num}
               </div>
@@ -174,7 +174,7 @@ export default function SoulmatePage() {
             ['🌊', 'Challenging cards', "Cards such as The Tower, Five of Swords or Three of Swords in this spread often signal that some inner work — releasing old patterns or healing past wounds — is needed before a deep connection can flourish. They are not a 'no'; they are a 'not yet, and here is why'."],
             ['🌱', 'Ace cards', 'An Ace anywhere in the spread brings fresh-start energy to that position. In a soulmate reading, Aces — particularly the Ace of Cups — suggest that a new emotional chapter is genuinely available to you right now.'],
           ].map(([icon, title, text]) => (
-            <div key={title as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+            <div key={title as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
               <div style={{ fontSize: '1.3rem', marginBottom: '.4rem' }}>{icon}</div>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', letterSpacing: '.08em', color: 'var(--gold)', opacity: .8, marginBottom: '.4rem', textTransform: 'uppercase' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.6, margin: 0 }}>{text as string}</p>
@@ -190,7 +190,7 @@ export default function SoulmatePage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(item => (
-            <div key={item.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={item.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

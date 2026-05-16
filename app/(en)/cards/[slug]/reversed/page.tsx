@@ -139,7 +139,7 @@ export default function CardReversedPage({ params }: Props) {
             { href: '#spirit', label: 'Spirit' },
             { href: '#faq', label: 'FAQ' },
           ].map(item => (
-            <a key={item.href} href={item.href} style={{ padding: '.3rem .8rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--muted)', fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.06em', textDecoration: 'none' }}>
+            <a key={item.href} href={item.href} style={{ padding: '.3rem .8rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--muted)', fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.06em', textDecoration: 'none' }}>
               {item.label}
             </a>
           ))}
@@ -147,7 +147,7 @@ export default function CardReversedPage({ params }: Props) {
       )}
 
       {/* Intro */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.7rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
           What a Reversed Card Means
         </div>
@@ -157,7 +157,7 @@ export default function CardReversedPage({ params }: Props) {
       </div>
 
       {/* Reversed Keywords */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
           {card.name} Reversed Keywords
         </div>
@@ -169,7 +169,7 @@ export default function CardReversedPage({ params }: Props) {
       </div>
 
       {/* Main Reversed Meaning */}
-      <div id="meaning" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
+      <div id="meaning" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.75rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           {card.name} Reversed — Meaning
         </h2>
@@ -180,7 +180,7 @@ export default function CardReversedPage({ params }: Props) {
       {/* Long-form Love / Career / Spirit (Reversed) — primary content for long-tail SEO */}
       {revExt ? (
         <>
-          <section id="love" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
+          <section id="love" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>❤️</span> {card.name} Reversed in Love
             </h2>
@@ -189,7 +189,7 @@ export default function CardReversedPage({ params }: Props) {
             ))}
           </section>
 
-          <section id="career" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
+          <section id="career" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>💼</span> {card.name} Reversed in Career
             </h2>
@@ -198,7 +198,7 @@ export default function CardReversedPage({ params }: Props) {
             ))}
           </section>
 
-          <section id="spirit" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
+          <section id="spirit" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>🌿</span> {card.name} Reversed Spiritually
             </h2>
@@ -214,7 +214,7 @@ export default function CardReversedPage({ params }: Props) {
             ['💼', `${card.name} Reversed in Career`, ext.career2, 'career'],
             ['🌿', `${card.name} Reversed — Spirit`, ext.spirit2, 'spirit'],
           ].map(([icon, label, text, id]) => (
-            <div key={label as string} id={id as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', scrollMarginTop: '2rem' }}>
+            <div key={label as string} id={id as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', scrollMarginTop: '2rem' }}>
               <div style={{ fontSize: '1.2rem', marginBottom: '.4rem' }}>{icon}</div>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.1em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.5rem' }}>{label}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.6, margin: 0 }}>{text as string}</p>
@@ -246,7 +246,7 @@ export default function CardReversedPage({ params }: Props) {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {reversedFaqs.map(({ q, a }) => (
-            <div key={q} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={q} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{q}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{a}</p>
             </div>

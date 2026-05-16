@@ -128,7 +128,7 @@ export default function OracleVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           The Short Answer
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Tarot is a standardised 78-card system with a fixed structure — 22 Major Arcana and 56 Minor Arcana split across four suits, with court cards in each. Oracle decks have no fixed structure: each deck has its own number of cards, its own themes and its own meanings, all determined by the creator. Put another way, tarot is a <em>shared language</em> with grammar and vocabulary that work across decks; oracle is a <em>personal vocabulary</em> unique to whichever deck you are holding.
           </p>
@@ -142,7 +142,7 @@ export default function OracleVsTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {comparisons.map((c, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.85rem' }}>
                 {c.point}
               </div>
@@ -166,7 +166,7 @@ export default function OracleVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           When to Use Each
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             <strong style={{ color: 'var(--gold)', fontWeight: 'normal', fontFamily: "'Cinzel',serif" }}>Tarot</strong> is best when you want to map a situation in detail — to see multiple angles at once, examine the internal patterns at play, and work with a system that rewards study over time. If your question has layers, contradictions or moving parts, tarot is built to hold all of them in a single reading. It is also the right choice if you want a long-term practice you can deepen for years rather than months.
           </p>
@@ -181,7 +181,7 @@ export default function OracleVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Can You Use Both Together?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Many readers do exactly this. A common pattern is to lay a tarot spread for structural insight — past, present, influences, what is blocked, what wants to emerge — and then draw a single oracle card at the end as a closing note: a &ldquo;what to take away&rdquo; or &ldquo;what is the energy underneath it all&rdquo;. The tarot does the detailed mapping; the oracle delivers the final, plain-spoken message. The two tools complement each other rather than compete, and there is no tradition or rule that says you must choose between them.
           </p>
@@ -193,7 +193,7 @@ export default function OracleVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           A Brief History
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             Tarot originated in 15th-century Italy as a card game called <em>tarocchi</em>, played with a deck whose trump cards eventually became the Major Arcana. It was repurposed for divination in 18th-century France, with figures such as Jean-Baptiste Alliette (Etteilla) writing the first systematic guides. The Rider-Waite-Smith deck, published in 1909 with illustrations by Pamela Colman Smith, standardised modern tarot reading and is still the visual reference for most decks produced today.
           </p>
@@ -208,7 +208,7 @@ export default function OracleVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Which Should You Buy First?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             If you want to develop a long-term divinatory practice — one that grows in depth over years — start with tarot. The structure rewards the investment, and the skills you build with one deck transfer to every other tarot deck you will ever own. If you want a gentler introduction, or you specifically resonate with a particular oracle deck&apos;s theme, oracle is a perfectly valid place to begin. There is no purist hierarchy here: a thoughtful reader with an oracle deck is doing more meaningful work than a distracted one with a Rider-Waite. The right first deck is the one you will actually pick up.
           </p>
@@ -220,10 +220,10 @@ export default function OracleVsTarotPage() {
         <Link href="/tarot-decks" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Browse Tarot Decks →
         </Link>
-        <Link href="/tarot-for-beginners" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/tarot-for-beginners" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Tarot for Beginners →
         </Link>
-        <Link href="/free-reading" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/free-reading" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Try a Free Reading →
         </Link>
       </div>
@@ -235,7 +235,7 @@ export default function OracleVsTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

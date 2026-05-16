@@ -137,7 +137,7 @@ export default function CardFeelingsPage({ params }: Props) {
             { href: '#how-they-feel', label: 'How They Feel' },
             { href: '#faq', label: 'FAQ' },
           ].map(item => (
-            <a key={item.href} href={item.href} style={{ padding: '.3rem .8rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--muted)', fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.06em', textDecoration: 'none' }}>
+            <a key={item.href} href={item.href} style={{ padding: '.3rem .8rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--muted)', fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.06em', textDecoration: 'none' }}>
               {item.label}
             </a>
           ))}
@@ -145,7 +145,7 @@ export default function CardFeelingsPage({ params }: Props) {
       )}
 
       {/* Intro */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.7rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
           Reading a Card as Feelings
         </div>
@@ -155,7 +155,7 @@ export default function CardFeelingsPage({ params }: Props) {
       </div>
 
       {/* Feelings Keywords */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
           {card.name} — Feelings Keywords
         </div>
@@ -169,7 +169,7 @@ export default function CardFeelingsPage({ params }: Props) {
       {/* Long-form sections — upright / reversed / how-they-feel */}
       {feel ? (
         <>
-          <section id="upright" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
+          <section id="upright" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem', color: 'var(--gold)' }}>❦</span> {card.name} as Feelings — Upright
             </h2>
@@ -178,7 +178,7 @@ export default function CardFeelingsPage({ params }: Props) {
             ))}
           </section>
 
-          <section id="reversed" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
+          <section id="reversed" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: '2rem' }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>↻</span> {card.name} Reversed as Feelings
             </h2>
@@ -187,7 +187,7 @@ export default function CardFeelingsPage({ params }: Props) {
             ))}
           </section>
 
-          <section id="how-they-feel" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
+          <section id="how-they-feel" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', scrollMarginTop: '2rem' }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>💭</span> How They Feel About You
             </h2>
@@ -197,7 +197,7 @@ export default function CardFeelingsPage({ params }: Props) {
           </section>
         </>
       ) : ext ? (
-        <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.95rem', marginBottom: '.75rem' }}>{card.name} in Love</h2>
           <p style={{ color: 'var(--text)', lineHeight: 1.75, marginBottom: '1rem' }}>{card.love}</p>
           {ext.love2 && <p style={{ color: 'var(--text)', lineHeight: 1.75, margin: 0 }}>{ext.love2}</p>}
@@ -227,7 +227,7 @@ export default function CardFeelingsPage({ params }: Props) {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {feelingsFaqs.map(({ q, a }) => (
-            <div key={q} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={q} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{q}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{a}</p>
             </div>

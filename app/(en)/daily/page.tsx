@@ -131,10 +131,10 @@ export default function DailyPage() {
             <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: reversed ? 'rgba(180,130,60,.12)' : 'rgba(201,168,76,.12)', color: 'var(--gold)', border: '1px solid rgba(201,168,76,.25)' }}>
               {reversed ? 'Reversed' : 'Upright'}
             </span>
-            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'rgba(255,255,255,.04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
+            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'var(--on-bg-04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
               {card.suitLabel}
             </span>
-            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'rgba(255,255,255,.04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
+            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'var(--on-bg-04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
               {card.element}
             </span>
           </div>
@@ -154,7 +154,7 @@ export default function DailyPage() {
       </div>
 
       {/* Interpretation */}
-      <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.9rem' }}>
           {reversed ? "Reversed — today's message" : "Upright — today's message"}
         </div>
@@ -170,7 +170,7 @@ export default function DailyPage() {
           { label: 'Career', text: reversed ? (ext?.career2 ?? card.career) : card.career },
           { label: 'Spirit', text: card.spirit },
         ].map(({ label, text }) => (
-          <div key={label} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+          <div key={label} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
             <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.62rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.5rem' }}>
               {label}
             </div>
@@ -198,7 +198,7 @@ export default function DailyPage() {
             { href:'/daily/morning-afternoon-evening', name:'Morning · Afternoon · Evening', desc:'A three-card temporal map for the day ahead.' },
             { href:'/daily/balance',                   name:'Daily Balance',            desc:'One card with prompts — where am I out of balance today?' },
           ].map(v => (
-            <Link key={v.href} href={v.href} style={{ display:'block', background:'rgba(255,255,255,.025)', border:'1px solid var(--border)', borderRadius:12, padding:'.9rem 1rem', textDecoration:'none' }}>
+            <Link key={v.href} href={v.href} style={{ display:'block', background:'var(--on-bg-025)', border:'1px solid var(--border)', borderRadius:12, padding:'.9rem 1rem', textDecoration:'none' }}>
               <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.82rem', marginBottom:'.3rem', letterSpacing:'.04em' }}>{v.name} →</div>
               <p style={{ color:'var(--muted)', fontSize:'.77rem', lineHeight:1.55, margin:0 }}>{v.desc}</p>
             </Link>
@@ -211,7 +211,7 @@ export default function DailyPage() {
         <Link href="/free-reading" style={{ padding: '.75rem 1.5rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Full Free Reading →
         </Link>
-        <Link href={`/cards/${card.slug}`} style={{ padding: '.75rem 1.5rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href={`/cards/${card.slug}`} style={{ padding: '.75rem 1.5rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Full {card.name} Meaning →
         </Link>
       </div>
@@ -223,7 +223,7 @@ export default function DailyPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>
                 {item.name}
               </div>

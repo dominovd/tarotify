@@ -154,12 +154,12 @@ export default function TiradaAmorPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {SPREADS.map((spread) => (
-            <div key={spread.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem' }}>
+            <div key={spread.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', flexWrap: 'wrap', marginBottom: '.6rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.04em' }}>{spread.name}</div>
                 <div style={{ display: 'flex', gap: '.5rem', flexShrink: 0 }}>
                   <span style={{ padding: '.2rem .6rem', borderRadius: 20, fontSize: '.65rem', background: 'rgba(201,168,76,.1)', color: 'var(--gold)', fontFamily: "'Cinzel',serif" }}>{spread.cards} cartas</span>
-                  <span style={{ padding: '.2rem .6rem', borderRadius: 20, fontSize: '.65rem', background: 'rgba(255,255,255,.04)', color: 'var(--muted)', fontFamily: "'Cinzel',serif" }}>{spread.level}</span>
+                  <span style={{ padding: '.2rem .6rem', borderRadius: 20, fontSize: '.65rem', background: 'var(--on-bg-04)', color: 'var(--muted)', fontFamily: "'Cinzel',serif" }}>{spread.level}</span>
                 </div>
               </div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>{spread.desc}</p>
@@ -208,7 +208,7 @@ export default function TiradaAmorPage() {
             { href: '/es/tiradas/amor/nueva-relacion', title: 'Nueva Relación', cards: '3–5', desc: 'Para conexiones en etapa temprana.' },
             { href: '/es/tiradas/alma-gemela', title: 'Alma Gemela', cards: 5, desc: 'Lo que aportas, lo que necesitas, la conexión.' },
           ].map(s => (
-            <Link key={s.href} href={s.href} style={{ display: 'block', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem 1.1rem', textDecoration: 'none' }}>
+            <Link key={s.href} href={s.href} style={{ display: 'block', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem 1.1rem', textDecoration: 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '.5rem', marginBottom: '.4rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem', letterSpacing: '.03em' }}>{s.title}</div>
                 <span style={{ flexShrink: 0, padding: '.15rem .55rem', borderRadius: 20, fontSize: '.62rem', background: 'rgba(201,168,76,.1)', color: 'var(--gold)', fontFamily: "'Cinzel',serif", letterSpacing: '.06em' }}>{s.cards}c</span>
@@ -220,7 +220,7 @@ export default function TiradaAmorPage() {
       </div>
 
       {/* How to read love spreads */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Cómo Leer una Tirada de Amor
         </h2>
@@ -244,7 +244,7 @@ export default function TiradaAmorPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(item => (
-            <div key={item.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={item.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

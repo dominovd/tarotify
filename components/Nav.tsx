@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import DeckSwitcher from '@/components/DeckSwitcher'
 import UserMenu from '@/components/UserMenu'
 import LangSwitcher from '@/components/LangSwitcher'
+import ThemeSwitcher from '@/components/ThemeSwitcher'
 
 type Locale = 'en' | 'es'
 
@@ -50,7 +51,7 @@ export default function Nav() {
         display:'flex', alignItems:'center', justifyContent:'space-between',
         padding:'0.85rem 1.25rem', borderBottom:'1px solid var(--border)',
         backdropFilter:'blur(8px)', position:'sticky', top:0, zIndex:100,
-        background:'rgba(7,7,26,.92)'
+        background:'var(--nav-bg)'
       }}>
         {/* Logo */}
         <Link href={homeHref} style={{
@@ -81,6 +82,11 @@ export default function Nav() {
         {/* Language switcher */}
         <div className="nav-lang" style={{ marginLeft: '.5rem' }}>
           <LangSwitcher />
+        </div>
+
+        {/* Theme switcher */}
+        <div className="nav-theme" style={{ marginLeft: '.5rem' }}>
+          <ThemeSwitcher />
         </div>
 
         {/* User menu */}
@@ -124,11 +130,12 @@ export default function Nav() {
       {open && (
         <div className="nav-mobile-menu" style={{
           position:'fixed', top:'53px', left:0, right:0, zIndex:99,
-          background:'rgba(7,7,26,.97)', borderBottom:'1px solid var(--border)',
+          background:'var(--nav-bg-strong)', borderBottom:'1px solid var(--border)',
           padding:'1rem 1.5rem', display:'flex', flexDirection:'column', gap:'1.1rem'
         }}>
-          <div style={{ display:'flex', justifyContent:'flex-end', paddingBottom:'.4rem', borderBottom:'1px solid var(--border)' }}>
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', paddingBottom:'.6rem', borderBottom:'1px solid var(--border)', gap:'.75rem', flexWrap:'wrap' }}>
             <LangSwitcher />
+            <ThemeSwitcher />
           </div>
           {links.map(l => (
             <Link key={l.href} href={l.href} style={{
@@ -147,6 +154,7 @@ export default function Nav() {
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-lang { display: none !important; }
+          .nav-theme { display: none !important; }
           .nav-burger { display: flex !important; }
         }
         @media (max-width: 480px) {

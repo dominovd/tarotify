@@ -235,7 +235,7 @@ export default async function ComboPageES({ params }: Props) {
       </div>
 
       {/* Combined Energy */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.72rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           Energía combinada
         </h2>
@@ -258,7 +258,7 @@ export default async function ComboPageES({ params }: Props) {
           ['💼', 'Carrera y dinero', result.career],
           ['🌿', 'Crecimiento personal', result.spirit],
         ].map(([icon, label, text]) => (
-          <div key={label as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem' }}>
+          <div key={label as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem' }}>
             <div style={{ fontSize: '1.1rem', marginBottom: '.4rem' }}>{icon}</div>
             <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.67rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.5rem' }}>{label}</div>
             <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.65, margin: 0 }}>{text as string}</p>
@@ -272,7 +272,7 @@ export default async function ComboPageES({ params }: Props) {
           { enSlug: s1, esSlug: esSlug1, name: c1.name, kw: c1.kw_up },
           { enSlug: s2, esSlug: esSlug2, name: c2.name, kw: c2.kw_up },
         ].map(c => (
-          <Link key={c.enSlug} href={`/es/cartas/${c.esSlug}`} style={{ display: 'flex', gap: '.75rem', alignItems: 'center', padding: '1rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12 }}>
+          <Link key={c.enSlug} href={`/es/cartas/${c.esSlug}`} style={{ display: 'flex', gap: '.75rem', alignItems: 'center', padding: '1rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12 }}>
             <div style={{ position: 'relative', width: 36, height: 54, borderRadius: 6, overflow: 'hidden', flexShrink: 0 }}>
               <Image src={`/cards/${c.enSlug}.webp`} alt={c.name} fill sizes="36px" style={{ objectFit: 'cover' }} />
             </div>
@@ -291,7 +291,7 @@ export default async function ComboPageES({ params }: Props) {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(({ name, acceptedAnswer }) => (
-            <div key={name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{acceptedAnswer.text}</p>
             </div>
@@ -300,7 +300,7 @@ export default async function ComboPageES({ params }: Props) {
       </div>
 
       {/* CTA — back to hub */}
-      <div style={{ textAlign: 'center', background: 'rgba(255,255,255,.02)', border: '1px solid rgba(201,168,76,.15)', borderRadius: 14, padding: '1.75rem' }}>
+      <div style={{ textAlign: 'center', background: 'var(--on-bg-02)', border: '1px solid rgba(201,168,76,.15)', borderRadius: 14, padding: '1.75rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.72rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           Explora más combinaciones
         </div>

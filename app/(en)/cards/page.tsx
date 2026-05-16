@@ -63,7 +63,7 @@ export default function CardsIndex({ searchParams }: Props) {
               href={item.href}
               style={{
                 padding: '.4rem .95rem',
-                background: active ? 'rgba(201,168,76,.15)' : 'rgba(255,255,255,.03)',
+                background: active ? 'rgba(201,168,76,.15)' : 'var(--on-bg-03)',
                 border: active ? '1px solid var(--gold)' : '1px solid var(--border)',
                 borderRadius: 20,
                 color: active ? 'var(--gold)' : 'var(--muted)',
@@ -89,7 +89,7 @@ export default function CardsIndex({ searchParams }: Props) {
           { href: '/quiz',                title: 'Tarot Quiz',         desc: 'Practise the 22 Major Arcana' },
           { href: '/reading-analysis',    title: 'Reading Analyser',   desc: 'Analyse a reading you drew at home' },
         ].map(item => (
-          <Link key={item.href} href={item.href} style={{ display:'block', padding:'.85rem 1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none' }}>
+          <Link key={item.href} href={item.href} style={{ display:'block', padding:'.85rem 1rem', background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, textDecoration:'none' }}>
             <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'.82rem', letterSpacing:'.04em', marginBottom:'.25rem' }}>{item.title} →</div>
             <div style={{ color:'var(--muted)', fontSize:'.75rem', lineHeight:1.5 }}>{item.desc}</div>
           </Link>
@@ -107,7 +107,7 @@ export default function CardsIndex({ searchParams }: Props) {
               {suitCards.map(card => {
                 const yn = YN_STYLE[card.yn]
                 return (
-                  <Link key={card.slug} href={`/cards/${card.slug}${slugSuffix}`} style={{ display:'flex', flexDirection:'column', gap:'.4rem', padding:'1rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, transition:'border-color .2s, background .2s' }}>
+                  <Link key={card.slug} href={`/cards/${card.slug}${slugSuffix}`} style={{ display:'flex', flexDirection:'column', gap:'.4rem', padding:'1rem', background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, transition:'border-color .2s, background .2s' }}>
                     <div style={{ position:'relative', width:'100%', aspectRatio:'2/3', borderRadius:8, overflow:'hidden', marginBottom:'.4rem', transform: view === 'reversed' ? 'rotate(180deg)' : undefined }}>
                       <CardImage slug={card.slug} alt={`${card.name} tarot card ${viewLabel}`} />
                       {/* Card name overlay */}

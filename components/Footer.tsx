@@ -92,7 +92,7 @@ export default function Footer({ locale = 'en' }: Props) {
   return (
     <footer style={{
       borderTop: '1px solid var(--border)',
-      background: 'rgba(7,7,26,.6)',
+      background: 'var(--footer-bg)',
       marginTop: '4rem',
       padding: '3rem 1.5rem 2rem',
     }}>

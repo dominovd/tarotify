@@ -132,7 +132,7 @@ export default function PalosDelTarotHubPage() {
       </div>
 
       {/* What are the tarot suits */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           ¿Qué son los palos del tarot?
         </h2>
@@ -156,14 +156,14 @@ export default function PalosDelTarotHubPage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '1rem' }}>
           {SUITS.map(s => (
-            <Link key={s.slug} href={s.href} style={{ display: 'block', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.25rem 1.4rem', textDecoration: 'none' }}>
+            <Link key={s.slug} href={s.href} style={{ display: 'block', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.25rem 1.4rem', textDecoration: 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '.6rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', letterSpacing: '.06em' }}>{s.name}</div>
                 <div style={{ fontSize: '1.25rem', color: 'var(--gold)', opacity: .75 }}>{s.symbol}</div>
               </div>
               <div style={{ display: 'flex', gap: '.4rem', flexWrap: 'wrap', marginBottom: '.7rem' }}>
                 <span style={{ padding: '.15rem .55rem', borderRadius: 20, fontSize: '.62rem', background: 'rgba(201,168,76,.1)', color: 'var(--gold)', fontFamily: "'Cinzel',serif", letterSpacing: '.06em' }}>Elemento {s.element}</span>
-                <span style={{ padding: '.15rem .55rem', borderRadius: 20, fontSize: '.62rem', background: 'rgba(255,255,255,.04)', color: 'var(--muted)', fontFamily: "'Cinzel',serif", letterSpacing: '.06em' }}>14 cartas</span>
+                <span style={{ padding: '.15rem .55rem', borderRadius: 20, fontSize: '.62rem', background: 'var(--on-bg-04)', color: 'var(--muted)', fontFamily: "'Cinzel',serif", letterSpacing: '.06em' }}>14 cartas</span>
               </div>
               <p style={{ color: 'var(--text)', fontSize: '.85rem', lineHeight: 1.6, margin: '0 0 .7rem 0' }}>{s.theme}</p>
               <p style={{ color: 'var(--muted)', fontSize: '.74rem', lineHeight: 1.55, margin: 0, fontStyle: 'italic' }}>
@@ -175,7 +175,7 @@ export default function PalosDelTarotHubPage() {
       </div>
 
       {/* Reading a suit-heavy spread */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Cómo leer una tirada con predominio de un palo
         </h2>
@@ -199,7 +199,7 @@ export default function PalosDelTarotHubPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(item => (
-            <div key={item.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={item.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

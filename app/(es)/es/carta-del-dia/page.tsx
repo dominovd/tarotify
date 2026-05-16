@@ -184,10 +184,10 @@ export default async function SpanishDailyPage() {
             <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: reversed ? 'rgba(180,130,60,.12)' : 'rgba(201,168,76,.12)', color: 'var(--gold)', border: '1px solid rgba(201,168,76,.25)' }}>
               {reversed ? 'Invertida' : 'Del Derecho'}
             </span>
-            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'rgba(255,255,255,.04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
+            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'var(--on-bg-04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
               {suitLabel}
             </span>
-            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'rgba(255,255,255,.04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
+            <span style={{ padding: '.2rem .7rem', borderRadius: 20, fontSize: '.65rem', fontFamily: "'Cinzel',serif", letterSpacing: '.07em', background: 'var(--on-bg-04)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
               {elementLabel}
             </span>
           </div>
@@ -207,7 +207,7 @@ export default async function SpanishDailyPage() {
       </div>
 
       {/* Interpretation */}
-      <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.9rem' }}>
           {reversed ? 'Invertida — mensaje de hoy' : 'Del derecho — mensaje de hoy'}
         </div>
@@ -223,7 +223,7 @@ export default async function SpanishDailyPage() {
           { label: 'Carrera',  text: reversed ? (ext?.career2 ?? careerText) : careerText },
           { label: 'Espíritu', text: spiritText },
         ].map(({ label, text }) => (
-          <div key={label} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+          <div key={label} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
             <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.62rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.5rem' }}>
               {label}
             </div>
@@ -244,7 +244,7 @@ export default async function SpanishDailyPage() {
         <Link href="/es/lectura-gratis" style={{ padding: '.75rem 1.5rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Lectura completa →
         </Link>
-        <Link href={`/es/cartas/${localizeCardSlug(card.slug, 'es')}`} style={{ padding: '.75rem 1.5rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href={`/es/cartas/${localizeCardSlug(card.slug, 'es')}`} style={{ padding: '.75rem 1.5rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Significado completo de {name} →
         </Link>
       </div>
@@ -256,7 +256,7 @@ export default async function SpanishDailyPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>
                 {item.name}
               </div>

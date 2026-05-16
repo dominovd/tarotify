@@ -128,7 +128,7 @@ export default function MajorArcanaSpreadsHub() {
         </div>
 
         {/* Intro */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '.85rem' }}>
             Why a Major-Only Spread
           </h2>
@@ -143,7 +143,7 @@ export default function MajorArcanaSpreadsHub() {
         {/* Spread cards grid */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
           {SPREADS.map(({ href, symbol, title, cards, desc }) => (
-            <Link key={href} href={href} style={{ display: 'block', padding: '1.25rem 1.25rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, textDecoration: 'none' }}>
+            <Link key={href} href={href} style={{ display: 'block', padding: '1.25rem 1.25rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, textDecoration: 'none' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '.85rem', marginBottom: '.55rem' }}>
                 <div style={{ fontSize: '1.3rem', color: 'var(--gold)', opacity: .85 }}>{symbol}</div>
                 <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem' }}>{title}</div>
@@ -155,7 +155,7 @@ export default function MajorArcanaSpreadsHub() {
         </div>
 
         {/* When to use */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '.85rem' }}>
             When to Reach for a Major-Only Spread
           </h2>
@@ -171,7 +171,7 @@ export default function MajorArcanaSpreadsHub() {
         </div>
 
         {/* How to prepare */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '.85rem' }}>
             How to Prepare a Major-Only Deck
           </h2>
@@ -184,7 +184,7 @@ export default function MajorArcanaSpreadsHub() {
         </div>
 
         {/* FAQ */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1.1rem' }}>Frequently Asked Questions</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
             {faqSchema.mainEntity.map((item, i, arr) => (

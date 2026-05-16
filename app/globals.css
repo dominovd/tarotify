@@ -1,6 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
 
+/* ---------------------------------------------------------------
+   Theme tokens
+   ---------------------------------------------------------------
+   Dark is the default (defined on :root). Light overrides via
+   html[data-theme="light"] — set before paint by an inline script
+   in the layout <head> to avoid flash-of-wrong-theme.
+
+   Naming convention:
+   --bg / --bg2     : page base background
+   --text / --muted : foreground text tones
+   --border         : 1px borders (warm gold tint)
+   --gold / --gold2 : brand accent (stays the same in both themes)
+   --nav-bg         : sticky nav translucent background
+   --nav-bg-strong  : mobile dropdown menu background (less translucent)
+   --footer-bg      : footer translucent background
+   --on-bg-02..06   : subtle "card surface" overlays. In dark theme
+                       these are tiny whites on dark bg; in light theme
+                       they invert to small blacks on cream bg. Every
+                       inline `rgba(255,255,255,.x)` in the codebase
+                       references these via var().
+   --hero-glow-1/2  : body::before radial wash
+--------------------------------------------------------------- */
 :root {
+  /* Dark (default) */
   --bg: #07071a;
   --bg2: #0d0d2b;
   --gold: #c9a84c;
@@ -8,7 +31,54 @@
   --text: #e8e0d0;
   --muted: #7a7a9a;
   --border: rgba(201,168,76,.18);
+
+  --nav-bg: rgba(7,7,26,.92);
+  --nav-bg-strong: rgba(7,7,26,.97);
+  --footer-bg: rgba(7,7,26,.6);
+
+  --on-bg-02: rgba(255,255,255,.02);
+  --on-bg-025: rgba(255,255,255,.025);
+  --on-bg-03: rgba(255,255,255,.03);
+  --on-bg-04: rgba(255,255,255,.04);
+  --on-bg-05: rgba(255,255,255,.05);
+  --on-bg-06: rgba(255,255,255,.06);
+
+  --hero-glow-1: rgba(201,168,76,.06);
+  --hero-glow-2: rgba(100,80,200,.06);
 }
+
+html[data-theme="light"] {
+  /* Warm parchment palette — keeps the mystical / art-nouveau feel without
+     going pure white. Brand colour relations are preserved: gold against
+     warm cream, secondary text in a deep umber, borders & card surfaces
+     in dark sienna tones tuned for clear separation against the bg.
+
+     Tuned 2026-05-16 after first visual pass: original pastel values were
+     too washed — card outlines disappeared and gold headings looked pale.
+     Bumped border, overlay opacities, and pulled gold deeper. */
+  --bg: #faf5e8;             /* lighter warm cream — airy but still parchment */
+  --bg2: #ece0c0;            /* secondary surface — visible against lightened bg */
+  --gold: #8a6a10;           /* deeper sienna gold — strong on cream */
+  --gold2: #b88a1c;
+  --text: #1a1408;           /* near-black ink */
+  --muted: #5a4a2c;          /* dark umber for secondary text */
+  --border: rgba(120,85,15,.40);
+
+  --nav-bg: rgba(243,236,217,.94);
+  --nav-bg-strong: rgba(243,236,217,.98);
+  --footer-bg: rgba(220,202,160,.72);
+
+  --on-bg-02: rgba(60,40,10,.05);
+  --on-bg-025: rgba(60,40,10,.07);
+  --on-bg-03: rgba(60,40,10,.09);   /* most common — 480 usages */
+  --on-bg-04: rgba(60,40,10,.12);
+  --on-bg-05: rgba(60,40,10,.16);
+  --on-bg-06: rgba(60,40,10,.20);
+
+  --hero-glow-1: rgba(180,140,50,.16);
+  --hero-glow-2: rgba(160,90,40,.09);
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -17,15 +87,17 @@ body {
   font-family: 'Lato', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color .25s ease, color .25s ease;
 }
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(100,80,200,.06) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 50%, var(--hero-glow-1) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, var(--hero-glow-2) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
+  transition: opacity .25s ease;
 }
 a { color: inherit; text-decoration: none; }

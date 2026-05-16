@@ -137,7 +137,7 @@ export default function OraculoVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           La respuesta breve
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             El tarot es un sistema estandarizado de 78 cartas con estructura fija — 22 Arcanos Mayores y 56 Arcanos Menores divididos en cuatro palos, cada uno con cartas de la corte. Las barajas de oráculo no tienen estructura fija: cada baraja tiene su propio número de cartas, sus propios temas y sus propios significados, todo determinado por su creadora. Dicho de otra forma: el tarot es un <em>lenguaje compartido</em> con gramática y vocabulario que funcionan entre barajas; el oráculo es un <em>vocabulario personal</em> único de la baraja que tienes en la mano.
           </p>
@@ -151,7 +151,7 @@ export default function OraculoVsTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {comparisons.map((c, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.85rem' }}>
                 {c.point}
               </div>
@@ -175,7 +175,7 @@ export default function OraculoVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Cuándo usar cada uno
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             <strong style={{ color: 'var(--gold)', fontWeight: 'normal', fontFamily: "'Cinzel',serif" }}>El tarot</strong> es lo mejor cuando quieres mapear una situación con detalle — ver varios ángulos a la vez, examinar los patrones internos en juego y trabajar con un sistema que recompensa el estudio sostenido. Si tu pregunta tiene capas, contradicciones o partes en movimiento, el tarot está construido para sostenerlas todas en una sola lectura. Es también la elección adecuada si quieres una práctica a largo plazo que puedas profundizar durante años en lugar de meses.
           </p>
@@ -190,7 +190,7 @@ export default function OraculoVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           ¿Se pueden usar juntos?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Muchas lectoras hacen exactamente eso. Un patrón común es tirar una lectura de tarot para la mirada estructural — pasado, presente, influencias, qué está bloqueado, qué quiere emerger — y al final sacar una sola carta de oráculo como nota de cierre: un &ldquo;qué llevarse&rdquo; o &ldquo;cuál es la energía por debajo de todo&rdquo;. El tarot hace el mapeo detallado; el oráculo entrega el mensaje final, dicho con sencillez. Las dos herramientas se complementan en lugar de competir, y no hay ninguna tradición ni regla que diga que tengas que elegir entre ellas.
           </p>
@@ -202,7 +202,7 @@ export default function OraculoVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Una breve historia
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             El tarot se originó en la Italia del siglo XV como un juego de cartas llamado <em>tarocchi</em>, jugado con una baraja cuyas cartas de triunfo acabarían convirtiéndose en los Arcanos Mayores. Fue reutilizado para la adivinación en la Francia del siglo XVIII, con figuras como Jean-Baptiste Alliette (Etteilla) escribiendo las primeras guías sistemáticas. La baraja Rider-Waite-Smith, publicada en 1909 con ilustraciones de Pamela Colman Smith, estandarizó la lectura moderna del tarot y sigue siendo la referencia visual para la mayoría de barajas que se producen hoy.
           </p>
@@ -217,7 +217,7 @@ export default function OraculoVsTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           ¿Cuál deberías comprar primero?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Si quieres desarrollar una práctica adivinatoria a largo plazo — una que gane profundidad a lo largo de los años — empieza con el tarot. La estructura recompensa la inversión, y las habilidades que construyes con una baraja se transfieren a cualquier otra baraja de tarot que tengas en el futuro. Si quieres una introducción más amable, o resuenas específicamente con la temática de una baraja de oráculo concreta, el oráculo es un punto de partida perfectamente válido. Aquí no hay jerarquía purista: una lectora reflexiva con una baraja de oráculo hace un trabajo más significativo que una distraída con una Rider-Waite. La baraja inicial correcta es la que realmente vas a coger.
           </p>
@@ -229,10 +229,10 @@ export default function OraculoVsTarotPage() {
         <Link href="/es/cartas" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Explorar las cartas →
         </Link>
-        <Link href="/es/tarot-para-principiantes" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/tarot-para-principiantes" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Tarot para principiantes →
         </Link>
-        <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Prueba una lectura gratis →
         </Link>
       </div>
@@ -244,7 +244,7 @@ export default function OraculoVsTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

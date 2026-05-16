@@ -142,7 +142,7 @@ export default function TiradaAnualPage() {
             </div>
           </div>
           {MONTHS.map((month, i) => (
-            <div key={month} style={{ display: 'flex', gap: '.75rem', alignItems: 'flex-start', padding: '.7rem 1rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10 }}>
+            <div key={month} style={{ display: 'flex', gap: '.75rem', alignItems: 'flex-start', padding: '.7rem 1rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10 }}>
               <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: '50%', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", fontSize: '.7rem', color: 'var(--gold)' }}>{i + 1}</span>
               <div>
                 <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.85rem', color: 'var(--gold)', marginRight: '.4rem', textTransform: 'capitalize' }}>{month} —</span>
@@ -154,7 +154,7 @@ export default function TiradaAnualPage() {
       </div>
 
       {/* How it works */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Cómo Hacer Tu Lectura del Año por Delante
         </h2>
@@ -186,7 +186,7 @@ export default function TiradaAnualPage() {
             ['🌱', 'Meses con Ases', 'Un As señala un comienzo genuinamente nuevo en el ámbito de su palo: Bastos (creatividad/carrera), Copas (emoción/amor), Espadas (claridad/reto), Pentáculos (material/práctico). Estos meses suelen sentirse como un punto y aparte.'],
             ['🌊', 'Cartas desafiantes', 'La Torre, el Diez de Espadas, el Cinco de Pentáculos y cartas similares indican meses de disrupción o dificultad — pero también son meses de liberación y limpieza. Mira la carta que les sigue para encontrar el camino adelante.'],
           ].map(([icon, title, text]) => (
-            <div key={title as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+            <div key={title as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
               <div style={{ fontSize: '1.3rem', marginBottom: '.4rem' }}>{icon}</div>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', letterSpacing: '.08em', color: 'var(--gold)', opacity: .8, marginBottom: '.4rem', textTransform: 'uppercase' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.6, margin: 0 }}>{text as string}</p>
@@ -202,7 +202,7 @@ export default function TiradaAnualPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(item => (
-            <div key={item.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={item.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

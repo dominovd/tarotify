@@ -187,18 +187,18 @@ export default function SpreadsPage() {
 
       <div style={{ display:'flex', flexDirection:'column', gap:'1rem', marginBottom:'3rem' }}>
         {SPREADS.map(s => (
-          <Link key={s.slug} href={`/spreads/${s.slug}`} style={{ display:'block', background:'rgba(255,255,255,.03)', border:'1px solid rgba(201,168,76,.3)', borderRadius:14, padding:'1.5rem', transition:'border-color .2s' }}>
+          <Link key={s.slug} href={`/spreads/${s.slug}`} style={{ display:'block', background:'var(--on-bg-03)', border:'1px solid rgba(201,168,76,.3)', borderRadius:14, padding:'1.5rem', transition:'border-color .2s' }}>
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:'1rem', flexWrap:'wrap', marginBottom:'.6rem' }}>
               <div style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1.05rem', letterSpacing:'.04em' }}>{s.name}</div>
               <div style={{ display:'flex', gap:'.5rem' }}>
                 <span style={{ padding:'.2rem .6rem', borderRadius:20, fontSize:'.65rem', background:'rgba(201,168,76,.1)', color:'var(--gold)', fontFamily:"'Cinzel',serif", letterSpacing:'.06em' }}>{s.cards} cards</span>
-                <span style={{ padding:'.2rem .6rem', borderRadius:20, fontSize:'.65rem', background:'rgba(255,255,255,.04)', color:'var(--muted)', fontFamily:"'Cinzel',serif", letterSpacing:'.06em' }}>{s.level}</span>
+                <span style={{ padding:'.2rem .6rem', borderRadius:20, fontSize:'.65rem', background:'var(--on-bg-04)', color:'var(--muted)', fontFamily:"'Cinzel',serif", letterSpacing:'.06em' }}>{s.level}</span>
               </div>
             </div>
             <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, marginBottom:'.75rem' }}>{s.desc}</p>
             <div style={{ display:'flex', gap:'.4rem', flexWrap:'wrap' }}>
               {s.tags.map(t => (
-                <span key={t} style={{ padding:'.15rem .5rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:20, fontSize:'.65rem', color:'var(--muted)' }}>{t}</span>
+                <span key={t} style={{ padding:'.15rem .5rem', background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:20, fontSize:'.65rem', color:'var(--muted)' }}>{t}</span>
               ))}
             </div>
           </Link>

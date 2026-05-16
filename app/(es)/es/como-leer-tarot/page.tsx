@@ -123,7 +123,7 @@ export default function ComoLeerTarotPage() {
               body: 'Los Arcanos Menores cubren el día a día de la experiencia humana. Se dividen en cuatro palos de 14 cartas cada uno — Bastos, Copas, Espadas y Pentáculos — con un As hasta el Diez más cuatro cartas de la corte (Sota, Caballero, Reina y Rey). Estas cartas suelen describir las dimensiones prácticas, emocionales y mentales de una situación tal y como se está desplegando ahora mismo.',
             },
           ].map(({ title, body }) => (
-            <div key={title} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={title} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.6rem' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{body}</p>
             </div>
@@ -146,7 +146,7 @@ export default function ComoLeerTarotPage() {
             { suit: 'Espadas', element: 'Aire', theme: 'Pensamiento, conflicto, comunicación, desafío, verdad, decisiones' },
             { suit: 'Pentáculos', element: 'Tierra', theme: 'Dinero, trabajo, salud, vida material, construcción a largo plazo' },
           ].map(({ suit, element, theme }) => (
-            <div key={suit} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+            <div key={suit} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.25rem' }}>{suit}</div>
               <div style={{ fontSize: '.62rem', color: 'var(--muted)', opacity: .6, letterSpacing: '.08em', marginBottom: '.5rem' }}>{element}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.78rem', lineHeight: 1.6, margin: 0 }}>{theme}</p>
@@ -182,7 +182,7 @@ export default function ComoLeerTarotPage() {
             { n: '5', title: 'Lee las cartas juntas', body: 'La habilidad real en el tarot es la síntesis — entender lo que las tres cartas dicen como una historia conectada, no como tres hechos sueltos. Busca patrones: ¿hay varias cartas del mismo palo? ¿Varios Arcanos Mayores? Las cartas en conversación entre sí revelan más que cualquier carta por separado.' },
             { n: '6', title: 'Anota tu lectura en el diario', body: 'Escribe tus cartas, sus posiciones y tu interpretación. Vuelve a ello en una semana o en un mes. Con el tiempo verás cuáles de tus interpretaciones resultaron más certeras — y ese bucle de retroalimentación es como realmente se desarrolla la intuición.' },
           ].map(({ n, title, body }) => (
-            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.78rem', marginTop: 2 }}>
                 {n}
               </div>
@@ -212,7 +212,7 @@ export default function ComoLeerTarotPage() {
             { name: 'Tirada semanal', href: '/es', use: 'Marcar intenciones para la semana que viene' },
             { name: 'Carta del día', href: '/es/carta-del-dia', use: 'Una carta cada mañana para enfocar el día' },
           ].map(({ name, href, use }) => (
-            <Link key={name} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
+            <Link key={name} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
               <span style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem' }}>{name}</span>
               <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>{use}</span>
             </Link>
@@ -232,7 +232,7 @@ export default function ComoLeerTarotPage() {
             { title: 'Confía en tu primera reacción', body: 'Antes de buscar un significado, fíjate en lo que la imagen te hace sentir. Esa respuesta inmediata, previa a las palabras, suele ser la parte más certera de una lectura. El significado intelectual viene después.' },
             { title: 'Lee la historia, no las cartas', body: 'Tres cartas juntas cuentan una historia. Practica narrar esa historia en español llano antes de buscar significados. "Esta persona estuvo en un periodo de conflicto, ahora busca claridad y se mueve hacia un nuevo comienzo." La narrativa sencilla suele ganarle a la precisión técnica.' },
           ].map(({ title, body }) => (
-            <div key={title} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={title} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem', marginBottom: '.5rem' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.82rem', lineHeight: 1.8, margin: 0 }}>{body}</p>
             </div>
@@ -251,7 +251,7 @@ export default function ComoLeerTarotPage() {
             { name: 'Cómo limpiar las cartas del tarot', href: '/es/como-limpiar-cartas-de-tarot', use: 'Luz lunar, humo, cristales, aliento y más' },
             { name: 'Tarot para principiantes', href: '/es/tarot-para-principiantes', use: 'Tus primeros pasos con la baraja — una ruta de un mes' },
           ].map(({ name, href, use }) => (
-            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
+            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
               <span style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem' }}>{name}</span>
               <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>{use}</span>
             </Link>
@@ -264,7 +264,7 @@ export default function ComoLeerTarotPage() {
         <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Prueba una lectura gratis →
         </Link>
-        <Link href="/es/cartas" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/cartas" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Ver las 78 cartas →
         </Link>
       </div>
@@ -276,7 +276,7 @@ export default function ComoLeerTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

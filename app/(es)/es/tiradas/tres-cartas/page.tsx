@@ -185,7 +185,7 @@ export default function TresCartasPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {MAIN_POSITIONS.map(pos => (
-            <div key={pos.num} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+            <div key={pos.num} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
               <div style={{ flexShrink: 0, width: 32, height: 32, borderRadius: '50%', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", fontSize: '.8rem', color: 'var(--gold)' }}>
                 {pos.num}
               </div>
@@ -209,7 +209,7 @@ export default function TresCartasPage() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {VARIATIONS.map((v, i) => (
-            <div key={v.slug} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={v.slug} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', marginBottom: '.75rem' }}>
                 <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.75rem', color: 'var(--gold)', opacity: .5, flexShrink: 0, paddingTop: '.1rem' }}>0{i + 1}</span>
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.92rem', color: 'var(--gold)' }}>{v.name}</div>
@@ -231,7 +231,7 @@ export default function TresCartasPage() {
       </div>
 
       {/* How to read */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Cómo hacer una lectura de tres cartas
         </h2>
@@ -263,7 +263,7 @@ export default function TresCartasPage() {
             ['↔️', 'Mira el arco', '¿La energía sube, baja o se mantiene estable a través de las cartas 1→2→3? La dirección te dice tanto como las propias cartas.'],
             ['📓', 'Lleva un diario', 'Las lecturas de tres cartas son ideales para el diario diario. Anota la fecha, la pregunta, las cartas y tu interpretación — los patrones emergen con el tiempo.'],
           ].map(([icon, title, text]) => (
-            <div key={title as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+            <div key={title as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
               <div style={{ fontSize: '1.3rem', marginBottom: '.4rem' }}>{icon}</div>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', letterSpacing: '.08em', color: 'var(--gold)', opacity: .8, marginBottom: '.4rem', textTransform: 'uppercase' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.6, margin: 0 }}>{text as string}</p>
@@ -279,7 +279,7 @@ export default function TresCartasPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(item => (
-            <div key={item.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={item.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

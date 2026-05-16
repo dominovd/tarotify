@@ -141,7 +141,7 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
           Saca tres cartas para una tirada de pasado, presente y futuro. Sin registro. Tu pregunta es opcional pero ayuda a enfocar las cartas.
         </p>
 
-        <div style={{ background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem', textAlign: 'left' }}>
+        <div style={{ background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem', textAlign: 'left' }}>
           <label htmlFor="question" style={{ display: 'block', fontFamily: "'Cinzel',serif", fontSize: '.72rem', letterSpacing: '.14em', color: g, opacity: 0.7, textTransform: 'uppercase', marginBottom: '.75rem' }}>
             Tu pregunta (opcional)
           </label>
@@ -150,7 +150,7 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
             value={question}
             onChange={e => setQuestion(e.target.value)}
             placeholder="ej. ¿Qué necesito saber sobre esta nueva relación?"
-            style={{ width: '100%', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(201,168,76,.2)', borderRadius: 10, color: 'var(--text)', fontFamily: "'Lato',sans-serif", fontSize: '1rem', padding: '1rem', resize: 'none', height: 90, outline: 'none', boxSizing: 'border-box' }}
+            style={{ width: '100%', background: 'var(--on-bg-04)', border: '1px solid rgba(201,168,76,.2)', borderRadius: 10, color: 'var(--text)', fontFamily: "'Lato',sans-serif", fontSize: '1rem', padding: '1rem', resize: 'none', height: 90, outline: 'none', boxSizing: 'border-box' }}
           />
         </div>
 
@@ -266,7 +266,7 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
         ))}
       </div>
 
-      <div style={{ background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.75rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.75rem', marginBottom: '1.5rem' }}>
         <h3 style={{ fontFamily: "'Cinzel',serif", color: g, marginBottom: '1rem', fontSize: '.9rem', letterSpacing: '.1em' }}>
           ✦ Tu reflexión
         </h3>
@@ -287,7 +287,7 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
               <Link
                 key={i}
                 href={`/es/cartas/${localizeCardSlug(d.slug, 'es')}`}
-                style={{ padding: '1rem', background: 'rgba(255,255,255,.02)', border: `1px solid ${b}`, borderRadius: 10, textDecoration: 'none' }}
+                style={{ padding: '1rem', background: 'var(--on-bg-02)', border: `1px solid ${b}`, borderRadius: 10, textDecoration: 'none' }}
               >
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.7rem', color: g, opacity: 0.65, letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: '.4rem' }}>
                   {POSITIONS[i]}

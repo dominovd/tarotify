@@ -75,7 +75,7 @@ export default async function AccountPage() {
       </div>
 
       {/* Subscription card */}
-      <section style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem 1.75rem', marginBottom: '1.5rem' }}>
+      <section style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem 1.75rem', marginBottom: '1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', flexWrap: 'wrap', marginBottom: '.6rem' }}>
           <div>
             <div style={{ fontSize: '.66rem', letterSpacing: '.16em', color: 'var(--muted)', fontFamily: "'Cinzel',serif", textTransform: 'uppercase', opacity: .65, marginBottom: '.4rem' }}>

@@ -53,7 +53,7 @@ function CardRow({ slug, pairCount = 9 }: { slug: string; pairCount?: number }) 
   if (!card) return null
   const pairs = getMajorPairs(slug, pairCount)
   return (
-    <div style={{ padding: '.85rem 1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, marginBottom: '.5rem' }}>
+    <div style={{ padding: '.85rem 1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, marginBottom: '.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '.6rem', marginBottom: '.65rem' }}>
         {/* eslint-disable-next-line */}
         <img src={`/cards/${slug}.webp`} alt={card.name} style={{ width: 24, height: 38, objectFit: 'cover', borderRadius: 3, border: '1px solid rgba(201,168,76,.2)', flexShrink: 0 }} />
@@ -65,7 +65,7 @@ function CardRow({ slug, pairCount = 9 }: { slug: string; pairCount?: number }) 
           <Link
             key={comboSlug}
             href={`/combination/${comboSlug}`}
-            style={{ padding: '.22rem .6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 100, color: 'var(--muted)', fontSize: '.73rem', textDecoration: 'none', fontFamily: "'Cinzel',serif", letterSpacing: '.03em', whiteSpace: 'nowrap' }}
+            style={{ padding: '.22rem .6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 100, color: 'var(--muted)', fontSize: '.73rem', textDecoration: 'none', fontFamily: "'Cinzel',serif", letterSpacing: '.03em', whiteSpace: 'nowrap' }}
           >
             + {majName}
           </Link>
@@ -76,7 +76,7 @@ function CardRow({ slug, pairCount = 9 }: { slug: string; pairCount?: number }) 
 }
 
 const detailsStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,.025)',
+  background: 'var(--on-bg-025)',
   border: '1px solid var(--border)',
   borderRadius: 12,
   marginBottom: '1rem',

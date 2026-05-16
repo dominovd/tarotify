@@ -169,7 +169,7 @@ export default async function SpanishCardPage({ params }: Props) {
       </div>
 
       {/* Yes/No */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.7rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
           Sí o No
         </div>
@@ -182,7 +182,7 @@ export default async function SpanishCardPage({ params }: Props) {
           ['Palabras clave (del derecho)', card.kw_up],
           ['Palabras clave (invertida)', card.kw_rev],
         ].map(([label, kws]) => (
-          <div key={label as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+          <div key={label as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
             <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>{label}</div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.35rem' }}>
               {(kws as string[]).map(k => (
@@ -194,7 +194,7 @@ export default async function SpanishCardPage({ params }: Props) {
       </div>
 
       {/* Upright Meaning */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.75rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           Significado del derecho
         </h2>
@@ -203,7 +203,7 @@ export default async function SpanishCardPage({ params }: Props) {
       </div>
 
       {/* Reversed Meaning */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '1rem', flexWrap: 'wrap', marginBottom: '.75rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.75rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', margin: 0 }}>
             Significado invertida
@@ -226,7 +226,7 @@ export default async function SpanishCardPage({ params }: Props) {
           ['💼', 'Carrera', card.career],
           ['🌿', 'Espíritu', card.spirit],
         ].map(([icon, label, text]) => (
-          <div key={label as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+          <div key={label as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
             <div style={{ fontSize: '1.2rem', marginBottom: '.4rem' }}>{icon}</div>
             <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.5rem' }}>{label}</div>
             <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.6 }}>{text as string}</p>
@@ -236,7 +236,7 @@ export default async function SpanishCardPage({ params }: Props) {
 
       {/* Extended upright-love section */}
       {loveExt && (
-        <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem 1.4rem', marginBottom: '1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem 1.4rem', marginBottom: '1.5rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.95rem', color: 'var(--gold)', letterSpacing: '.06em', marginTop: 0, marginBottom: '.85rem' }}>
             {card.name} en el amor — Significado completo
           </h2>
@@ -277,7 +277,7 @@ export default async function SpanishCardPage({ params }: Props) {
             ['💼', `${card.name} en la carrera — Invertida`, ext.career2],
             ['🌿', `${card.name} espiritualidad — Invertida`, ext.spirit2],
           ].map(([icon, label, text]) => (
-            <div key={label as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid rgba(201,168,76,.1)', borderRadius: 12, padding: '1rem' }}>
+            <div key={label as string} style={{ background: 'var(--on-bg-03)', border: '1px solid rgba(201,168,76,.1)', borderRadius: 12, padding: '1rem' }}>
               <div style={{ fontSize: '1.2rem', marginBottom: '.4rem' }}>{icon}</div>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .5, textTransform: 'uppercase', marginBottom: '.5rem' }}>{label}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.6 }}>{text as string}</p>
@@ -304,7 +304,7 @@ export default async function SpanishCardPage({ params }: Props) {
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
             {allFaqs.map(({ q, a }) => (
-              <div key={q} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+              <div key={q} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{q}</div>
                 <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{a}</p>
               </div>

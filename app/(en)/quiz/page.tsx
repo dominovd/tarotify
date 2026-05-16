@@ -144,7 +144,7 @@ export default function QuizHubPage() {
 
       {/* Primary CTA */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '2rem 1.75rem',
@@ -206,7 +206,7 @@ export default function QuizHubPage() {
               href={m.href}
               style={{
                 display: 'block',
-                background: 'rgba(255,255,255,.025)',
+                background: 'var(--on-bg-025)',
                 border: '1px solid var(--border)',
                 borderRadius: 12,
                 padding: '1.25rem 1.1rem',
@@ -245,7 +245,7 @@ export default function QuizHubPage() {
 
       {/* What you'll learn */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '1.75rem',
@@ -270,7 +270,7 @@ export default function QuizHubPage() {
 
       {/* FAQ */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '1.75rem',

@@ -111,7 +111,7 @@ export default function HomeClient() {
       <p style={{ color: 'var(--muted)', maxWidth: 480, margin: '0 auto 2.5rem', lineHeight: 1.7 }}>
         Ask a question, draw three cards, and receive a personalised reading to guide your reflection.
       </p>
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily:"'Cinzel',serif", fontSize: '.72rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           Your Question
         </div>
@@ -119,7 +119,7 @@ export default function HomeClient() {
           value={question}
           onChange={e => setQuestion(e.target.value)}
           placeholder="e.g. What should I focus on right now? What does this relationship need?"
-          style={{ width:'100%', background:'rgba(255,255,255,.04)', border:'1px solid rgba(201,168,76,.2)', borderRadius:10, color:'var(--text)', fontFamily:"'Lato',sans-serif", fontSize:'1rem', padding:'1rem', resize:'none', height:90, outline:'none' }}
+          style={{ width:'100%', background:'var(--on-bg-04)', border:'1px solid rgba(201,168,76,.2)', borderRadius:10, color:'var(--text)', fontFamily:"'Lato',sans-serif", fontSize:'1rem', padding:'1rem', resize:'none', height:90, outline:'none' }}
         />
       </div>
       <button
@@ -228,7 +228,7 @@ export default function HomeClient() {
           </div>
         ))}
       </div>
-      <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.75rem', marginBottom:'1.5rem' }}>
+      <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.75rem', marginBottom:'1.5rem' }}>
         <h3 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', marginBottom:'1rem', fontSize:'.9rem', letterSpacing:'.1em' }}>✦ Your Reflection</h3>
         {typing ? (
           <p style={{ color:'var(--text)', lineHeight:1.8, fontSize:'.97rem' }}>{displayText}<span style={{ animation:'blink 1s infinite' }}>|</span></p>
@@ -240,7 +240,7 @@ export default function HomeClient() {
         <>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:'.75rem', marginBottom:'1.5rem' }}>
             {drawn.map((d,i) => (
-              <Link key={i} href={`/cards/${d.card.slug}`} style={{ padding:'1rem', background:'rgba(255,255,255,.02)', border:'1px solid var(--border)', borderRadius:10 }}>
+              <Link key={i} href={`/cards/${d.card.slug}`} style={{ padding:'1rem', background:'var(--on-bg-02)', border:'1px solid var(--border)', borderRadius:10 }}>
                 <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', color:'var(--gold)', opacity:.65, letterSpacing:'.12em', textTransform:'uppercase', marginBottom:'.4rem' }}>{POSITIONS[i]}</div>
                 <div style={{ fontSize:'.85rem', color:'var(--text)', marginBottom:'.25rem' }}>{d.card.name}</div>
                 <div style={{ fontSize:'.75rem', color:'var(--muted)' }}>{(d.reversed ? d.card.kw_rev : d.card.kw_up).slice(0,3).join(' · ')}</div>

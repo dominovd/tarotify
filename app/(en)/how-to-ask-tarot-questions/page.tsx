@@ -161,7 +161,7 @@ export default function HowToAskTarotQuestionsPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Why Yes/No Questions Fall Short
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             Yes/no questions are not forbidden — and a single-card yes/no draw is perfectly valid for a quick check-in. But yes/no framing reaches its limit very quickly. Tarot describes <em>energies, influences and patterns</em>; it does not pass verdicts. When you draw five cards in response to a yes/no question, you receive five layers of nuance that resist being collapsed into a single binary answer.
           </p>
@@ -178,7 +178,7 @@ export default function HowToAskTarotQuestionsPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {principles.map(({ n, name, body }) => (
-            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.78rem', marginTop: 2 }}>
                 {n}
               </div>
@@ -201,7 +201,7 @@ export default function HowToAskTarotQuestionsPage() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {rewrites.map((r, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
               <div style={{ marginBottom: '.85rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.18em', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '.3rem' }}>Before</div>
                 <div style={{ color: 'var(--text)', fontSize: '.95rem', fontStyle: 'italic', opacity: .7 }}>&ldquo;{r.before}&rdquo;</div>
@@ -224,7 +224,7 @@ export default function HowToAskTarotQuestionsPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           When Yes/No <em>Is</em> Fine
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             None of this means yes/no readings are wrong. A single-card yes/no draw is a fast, useful tool for a moment of friction — should I send this message, should I take the meeting, should I go to the gathering. The structure matches the question: one card for one decision in front of you right now.
           </p>
@@ -325,7 +325,7 @@ export default function HowToAskTarotQuestionsPage() {
               ],
             },
           ] as const).map(({ theme, icon, questions }) => (
-            <div key={theme} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={theme} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem', marginBottom: '.85rem', paddingBottom: '.6rem', borderBottom: '1px solid rgba(201,168,76,.15)' }}>
                 <span style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>{icon}</span>
                 <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', letterSpacing: '.1em', color: 'var(--gold)', textTransform: 'uppercase' }}>{theme}</span>
@@ -345,10 +345,10 @@ export default function HowToAskTarotQuestionsPage() {
         <Link href="/free-reading" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Try a Free Reading →
         </Link>
-        <Link href="/how-to-read-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/how-to-read-tarot" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           How to Read Tarot →
         </Link>
-        <Link href="/how-to-shuffle-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/how-to-shuffle-tarot" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           How to Shuffle →
         </Link>
       </div>
@@ -360,7 +360,7 @@ export default function HowToAskTarotQuestionsPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

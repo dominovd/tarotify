@@ -90,7 +90,7 @@ export default function PastPresentFuturePage() {
         </div>
 
         {/* Layout */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.75rem', marginBottom: '2rem', textAlign: 'center' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.75rem', marginBottom: '2rem', textAlign: 'center' }}>
           <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '1.25rem' }}>The Layout</div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
             {[
@@ -120,7 +120,7 @@ export default function PastPresentFuturePage() {
               { num: 2, name: 'Present', desc: 'Where you are right now — the dominant energy, mood, or circumstance active in this moment. This is the heart of the reading. If the card surprises you, pay close attention: it may be pointing to something you are not fully acknowledging about your current situation.' },
               { num: 3, name: 'Future', desc: 'The most likely direction if current energies continue unchanged. This is not a fixed prediction — it is a projection based on what is happening now. If the card is challenging, it is an invitation to shift something in the present. If it is encouraging, it affirms that you are on the right path.' },
             ].map(({ num, name, desc }) => (
-              <div key={num} style={{ display: 'flex', gap: '1rem', padding: '1.25rem 1.25rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12 }}>
+              <div key={num} style={{ display: 'flex', gap: '1rem', padding: '1.25rem 1.25rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12 }}>
                 <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.78rem' }}>{num}</div>
                 <div>
                   <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.9rem', marginBottom: '.4rem' }}>{name}</div>
@@ -132,7 +132,7 @@ export default function PastPresentFuturePage() {
         </div>
 
         {/* Tips */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '.85rem' }}>
             Reading Tips
           </h2>
@@ -143,7 +143,7 @@ export default function PastPresentFuturePage() {
               { tip: 'Let the future card inform the present', desc: 'If the future card is challenging, look back at the present card and ask: what here could be shifted? The future is not fixed. Tarot shows you where you are heading — you decide what to do with that information.' },
               { tip: 'One clear question works best', desc: 'The past-present-future spread gives the clearest reading when your question is specific. "What is happening with my job situation?" gives better results than "What does my future hold?"' },
             ].map(({ tip, desc }) => (
-              <div key={tip} style={{ paddingBottom: '.75rem', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
+              <div key={tip} style={{ paddingBottom: '.75rem', borderBottom: '1px solid var(--on-bg-06)' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.82rem', marginBottom: '.3rem', opacity: .9 }}>{tip}</div>
                 <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.65, margin: 0 }}>{desc}</p>
               </div>
@@ -152,7 +152,7 @@ export default function PastPresentFuturePage() {
         </div>
 
         {/* FAQ */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1.1rem' }}>Frequently Asked Questions</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
             {faqSchema.mainEntity.map((item, i, arr) => (

@@ -110,7 +110,7 @@ export default function HowToReadTarotPage() {
               body: 'The Minor Arcana covers the day-to-day fabric of human experience. It is divided into four suits of 14 cards each — Wands, Cups, Swords and Pentacles — each with an Ace through Ten plus four court cards (Page, Knight, Queen, King). These cards tend to describe the practical, emotional and mental dimensions of a situation as it is unfolding right now.',
             },
           ].map(({ title, body }) => (
-            <div key={title} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={title} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.6rem' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{body}</p>
             </div>
@@ -133,7 +133,7 @@ export default function HowToReadTarotPage() {
             { suit: 'Swords', element: 'Air', theme: 'Thought, conflict, communication, challenge, truth, decisions', },
             { suit: 'Pentacles', element: 'Earth', theme: 'Money, work, health, material life, long-term building', },
           ].map(({ suit, element, theme }) => (
-            <div key={suit} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+            <div key={suit} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.25rem' }}>{suit}</div>
               <div style={{ fontSize: '.62rem', color: 'var(--muted)', opacity: .6, letterSpacing: '.08em', marginBottom: '.5rem' }}>{element}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.78rem', lineHeight: 1.6, margin: 0 }}>{theme}</p>
@@ -169,7 +169,7 @@ export default function HowToReadTarotPage() {
             { n: '5', title: 'Read the cards together', body: 'The real skill in tarot is synthesis — understanding what the three cards are saying as a connected story rather than three separate facts. Look for patterns: are there multiple cards from the same suit? Several Major Arcana? The cards in conversation with each other reveal more than any single card can.' },
             { n: '6', title: 'Journal your reading', body: 'Write down your cards, their positions, and your interpretation. Come back to it in a week or a month. Over time you will see which of your interpretations turned out to be most accurate — and that feedback loop is how intuition actually develops.' },
           ].map(({ n, title, body }) => (
-            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.78rem', marginTop: 2 }}>
                 {n}
               </div>
@@ -199,7 +199,7 @@ export default function HowToReadTarotPage() {
             { name: 'Weekly Spread', href: '/spreads/weekly', use: 'Setting intentions for the week ahead' },
             { name: 'Daily Card', href: '/daily', use: 'One card each morning for daily focus' },
           ].map(({ name, href, use }) => (
-            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
+            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
               <span style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem' }}>{name}</span>
               <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>{use}</span>
             </Link>
@@ -219,7 +219,7 @@ export default function HowToReadTarotPage() {
             { title: 'Trust your first reaction', body: 'Before you reach for a meaning, notice what the image makes you feel. That immediate, pre-verbal response is often the most accurate part of a reading. The intellectual meaning comes second.' },
             { title: 'Read the story, not the cards', body: 'Three cards together tell a story. Practise narrating that story in plain English before you look up any meanings. "This person was in a period of conflict, is now seeking clarity, and is moving toward a new beginning." Simple narrative usually beats technical accuracy.' },
           ].map(({ title, body }) => (
-            <div key={title} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={title} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem', marginBottom: '.5rem' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.82rem', lineHeight: 1.8, margin: 0 }}>{body}</p>
             </div>
@@ -238,7 +238,7 @@ export default function HowToReadTarotPage() {
             { name: 'How to Cleanse Tarot Cards', href: '/how-to-cleanse-tarot-cards', use: 'Moonlight, sage, crystals, breath and more' },
             { name: 'Your Tarot Birth Card', href: '/birth-card', use: 'Calculate the Major Arcana card linked to your birth date' },
           ].map(({ name, href, use }) => (
-            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
+            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
               <span style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem' }}>{name}</span>
               <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>{use}</span>
             </Link>
@@ -251,7 +251,7 @@ export default function HowToReadTarotPage() {
         <Link href="/free-reading" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Try a Free Reading →
         </Link>
-        <Link href="/cards" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/cards" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Browse All 78 Cards →
         </Link>
       </div>
@@ -263,7 +263,7 @@ export default function HowToReadTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

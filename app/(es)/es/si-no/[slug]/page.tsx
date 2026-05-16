@@ -210,7 +210,7 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
             { label: 'Carrera', text: card.career },
             { label: 'Espiritualidad', text: card.spirit },
           ].map(({ label, text }) => (
-            <div key={label} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem 1.1rem' }}>
+            <div key={label} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem 1.1rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.5rem' }}>{label}</div>
               <p style={{ color: 'var(--text)', fontSize: '.88rem', lineHeight: 1.65, margin: 0 }}>{text}</p>
             </div>
@@ -218,7 +218,7 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
         </div>
 
         {/* Why this card leans yes/no/maybe */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
             Por qué {card.name} {ynContext(card.yn)}
           </h2>
@@ -241,7 +241,7 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
         </div>
 
         {/* Reversed note */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
             {card.name} Invertida — ¿Sí o No?
           </h2>
@@ -249,7 +249,7 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
         </div>
 
         {/* FAQ */}
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 1.1rem' }}>
             Preguntas frecuentes
           </h2>
@@ -291,7 +291,7 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
                 <Link
                   key={rel.slug}
                   href={`/es/si-no/${localizeCardSlug(rel.slug, 'es')}`}
-                  style={{ padding: '.35rem .9rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 100, color: 'var(--muted)', fontSize: '.82rem', textDecoration: 'none', fontFamily: "'Cinzel',serif", letterSpacing: '.04em' }}
+                  style={{ padding: '.35rem .9rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 100, color: 'var(--muted)', fontSize: '.82rem', textDecoration: 'none', fontFamily: "'Cinzel',serif", letterSpacing: '.04em' }}
                 >
                   {rel.name}
                 </Link>

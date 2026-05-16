@@ -170,7 +170,7 @@ export default function ComoPreguntarAlTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Por qué las preguntas de sí/no se quedan cortas
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             Las preguntas de sí/no no están prohibidas — y una tirada de una sola carta de sí/no es perfectamente válida para una consulta rápida. Pero el formato sí/no llega a su límite muy pronto. El tarot describe <em>energías, influencias y patrones</em>; no dicta veredictos. Cuando sacas cinco cartas en respuesta a una pregunta de sí/no, recibes cinco capas de matiz que se resisten a colapsarse en una sola respuesta binaria.
           </p>
@@ -187,7 +187,7 @@ export default function ComoPreguntarAlTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {principles.map(({ n, name, body }) => (
-            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={n} style={{ display: 'flex', gap: '1rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.78rem', marginTop: 2 }}>
                 {n}
               </div>
@@ -210,7 +210,7 @@ export default function ComoPreguntarAlTarotPage() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {rewrites.map((r, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
               <div style={{ marginBottom: '.85rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.18em', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '.3rem' }}>Antes</div>
                 <div style={{ color: 'var(--text)', fontSize: '.95rem', fontStyle: 'italic', opacity: .7 }}>&ldquo;{r.before}&rdquo;</div>
@@ -233,7 +233,7 @@ export default function ComoPreguntarAlTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Cuándo sí/no <em>sí</em> funciona
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             Nada de esto significa que las lecturas de sí/no estén mal. Una tirada de una sola carta de sí/no es una herramienta rápida y útil para un momento de fricción — debería mandar este mensaje, debería aceptar la reunión, debería ir al encuentro. La estructura encaja con la pregunta: una carta para una decisión que tienes delante ahora mismo.
           </p>
@@ -334,7 +334,7 @@ export default function ComoPreguntarAlTarotPage() {
               ],
             },
           ] as const).map(({ theme, icon, questions }) => (
-            <div key={theme} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={theme} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem', marginBottom: '.85rem', paddingBottom: '.6rem', borderBottom: '1px solid rgba(201,168,76,.15)' }}>
                 <span style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>{icon}</span>
                 <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', letterSpacing: '.1em', color: 'var(--gold)', textTransform: 'uppercase' }}>{theme}</span>
@@ -354,10 +354,10 @@ export default function ComoPreguntarAlTarotPage() {
         <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Prueba una lectura gratis →
         </Link>
-        <Link href="/es/como-leer-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/como-leer-tarot" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Cómo leer el tarot →
         </Link>
-        <Link href="/es/como-barajar-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/como-barajar-tarot" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Cómo barajar →
         </Link>
       </div>
@@ -369,7 +369,7 @@ export default function ComoPreguntarAlTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

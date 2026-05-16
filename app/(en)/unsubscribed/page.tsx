@@ -65,7 +65,7 @@ export default function UnsubscribedPage({ searchParams }: Props) {
       </h1>
 
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: `1px solid ${borderColor}`,
         borderRadius: 14,
         padding: '1.5rem 1.75rem',

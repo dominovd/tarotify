@@ -65,7 +65,7 @@ export default function ProfileForm({ initial }: Props) {
 
   const fieldStyle: React.CSSProperties = {
     width: '100%',
-    background: 'rgba(255,255,255,.03)',
+    background: 'var(--on-bg-03)',
     border: '1px solid var(--border)',
     borderRadius: 10,
     padding: '.65rem .85rem',
@@ -88,7 +88,7 @@ export default function ProfileForm({ initial }: Props) {
   }
 
   return (
-    <section style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem 1.75rem' }}>
+    <section style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem 1.75rem' }}>
       <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginTop: 0, marginBottom: '.4rem' }}>
         Personalisation
       </h2>
@@ -134,7 +134,7 @@ export default function ProfileForm({ initial }: Props) {
             type="submit"
             disabled={saving}
             style={{
-              background: saving ? 'rgba(255,255,255,.02)' : 'rgba(201,168,76,.13)',
+              background: saving ? 'var(--on-bg-02)' : 'rgba(201,168,76,.13)',
               border: `1px solid ${saving ? 'var(--border)' : 'rgba(201,168,76,.65)'}`,
               borderRadius: 10,
               padding: '.65rem 1.4rem',

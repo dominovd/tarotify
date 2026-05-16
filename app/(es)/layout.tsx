@@ -4,6 +4,12 @@ import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { DeckProvider } from '@/hooks/useDeck'
+import { ThemeProvider } from '@/hooks/useTheme'
+
+// Inline pre-paint script — reads the persisted theme from localStorage and
+// applies it to <html data-theme> before the page renders. Avoids flash of
+// dark on light-mode users. Mirrored in the EN root layout.
+const THEME_BOOT_SCRIPT = `(function(){try{var t=localStorage.getItem('tarotify-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}})();`
 
 // Root layout for the Spanish (es) route group.
 //
@@ -28,15 +34,18 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
       <head>
         <meta name="google-site-verification" content="BgFTjjxBX-Qr_Qkmy1V5lL2Qz07CKEjN90Ld6nCSUho" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
       </head>
       <body>
-        <DeckProvider>
-          <Nav />
-          <main style={{ position: 'relative', zIndex: 1 }}>
-            {children}
-          </main>
-          <Footer locale="es" />
-        </DeckProvider>
+        <ThemeProvider>
+          <DeckProvider>
+            <Nav />
+            <main style={{ position: 'relative', zIndex: 1 }}>
+              {children}
+            </main>
+            <Footer locale="es" />
+          </DeckProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

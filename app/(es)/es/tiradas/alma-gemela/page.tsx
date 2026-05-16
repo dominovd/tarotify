@@ -120,7 +120,7 @@ export default function AlmaGemelaPage() {
       </div>
 
       {/* How to do the reading */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Cómo Hacer Tu Lectura del Alma Gemela
         </h2>
@@ -153,7 +153,7 @@ export default function AlmaGemelaPage() {
             ['4', 'El camino', 'Cómo te encontrarás o reconocerás a tu alma gemela. Esta carta suele hablar de las condiciones, los cambios internos o las circunstancias vitales a través de las cuales una conexión significativa se vuelve posible. Una carta de los Arcanos Mayores aquí sugiere un punto de inflexión significativo, incluso destinado.'],
             ['5', 'La conexión', 'La naturaleza y la calidad potencial del vínculo del alma gemela. Esta carta describe el carácter energético de la relación — sus fortalezas, sus dones y el tipo de crecimiento que probablemente traerá. Es una imagen de posibilidad, no una garantía.'],
           ].map(([num, title, text]) => (
-            <div key={num} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+            <div key={num} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
               <div style={{ minWidth: 28, height: 28, border: '1px solid rgba(201,168,76,.35)', borderRadius: 6, background: 'rgba(201,168,76,.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", fontSize: '.75rem', color: 'var(--gold)', flexShrink: 0, marginTop: '.05rem' }}>
                 {num}
               </div>
@@ -178,7 +178,7 @@ export default function AlmaGemelaPage() {
             ['🌊', 'Cartas desafiantes', 'Cartas como La Torre, el Cinco de Espadas o el Tres de Espadas en esta tirada suelen indicar que es necesario algún trabajo interior — soltar viejos patrones o sanar heridas pasadas — antes de que una conexión profunda pueda florecer. No son un «no»; son un «todavía no, y aquí está el motivo».'],
             ['🌱', 'Cartas de Ases', 'Un As en cualquier lugar de la tirada trae energía de nuevo comienzo a esa posición. En una lectura del alma gemela, los Ases — especialmente el As de Copas — sugieren que un nuevo capítulo emocional está realmente disponible para ti ahora.'],
           ].map(([icon, title, text]) => (
-            <div key={title as string} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
+            <div key={title as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem' }}>
               <div style={{ fontSize: '1.3rem', marginBottom: '.4rem' }}>{icon}</div>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.78rem', letterSpacing: '.08em', color: 'var(--gold)', opacity: .8, marginBottom: '.4rem', textTransform: 'uppercase' }}>{title}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.6, margin: 0 }}>{text as string}</p>
@@ -194,7 +194,7 @@ export default function AlmaGemelaPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(item => (
-            <div key={item.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={item.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

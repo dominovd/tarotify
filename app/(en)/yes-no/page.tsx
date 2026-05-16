@@ -61,7 +61,7 @@ export default function YesNoPage() {
                     <Link
                       key={card.slug}
                       href={`/yes-no/${card.slug}`}
-                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '.55rem .85rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', gap: '.4rem' }}
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '.55rem .85rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', gap: '.4rem' }}
                     >
                       <span style={{ color: 'var(--text)', fontSize: '.82rem', fontFamily: "'Cinzel',serif", letterSpacing: '.03em', lineHeight: 1.3 }}>
                         {card.name}

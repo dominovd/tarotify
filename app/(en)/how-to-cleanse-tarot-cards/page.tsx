@@ -118,7 +118,7 @@ export default function HowToCleanseCardsPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           When to Cleanse Your Deck
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             There is no fixed schedule — cleanse when it feels necessary. Common situations include: when you first acquire a new deck; after reading for someone else; when readings start to feel confused, repetitive, or oddly off-target; after a particularly intense or emotionally charged session; and at the new moon or the start of a new season as a routine reset. Any of these is a reasonable prompt.
           </p>
@@ -132,7 +132,7 @@ export default function HowToCleanseCardsPage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: '1rem' }}>
           {methods.map(({ title, body }, i) => (
-            <div key={title} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={title} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '.65rem', marginBottom: '.65rem' }}>
                 <div style={{ flexShrink: 0, width: 26, height: 26, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.75rem' }}>
                   {i + 1}
@@ -150,7 +150,7 @@ export default function HowToCleanseCardsPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           How Often Should You Cleanse?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             It depends on how much you use your deck. Regular readers often knock or breathe over the deck before every session, do a moonlight cleanse once a month, and a full cleanse — salt or smoke — every few months. There is no rule. Cleanse when readings feel off, after someone else handles the deck, or simply when it feels right. Your own sense of when the deck needs a reset is a reliable guide.
           </p>
@@ -162,7 +162,7 @@ export default function HowToCleanseCardsPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Does Cleansing Damage Cards?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Most methods are entirely safe. A few things to avoid: do not let cards come into contact with moisture, including wet salt. Keep cards away from direct flame. Store any crystals you use so they cannot scratch card surfaces. Smoke cleansing is fine for most card stock and will not affect the printed images. None of these methods alter the physical cards in any meaningful way when applied sensibly.
           </p>
@@ -174,7 +174,7 @@ export default function HowToCleanseCardsPage() {
         <Link href="/how-to-read-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Learn to Read Tarot →
         </Link>
-        <Link href="/free-reading" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/free-reading" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Try a Free Reading →
         </Link>
       </div>
@@ -186,7 +186,7 @@ export default function HowToCleanseCardsPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

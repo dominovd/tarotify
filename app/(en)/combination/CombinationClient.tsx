@@ -106,7 +106,7 @@ export default function CombinationClient() {
   }
 
   const Selector = ({ idx, q, setQ, card, refEl }: { idx: 1|2, q: string, setQ: (s:string)=>void, card: Card|null, refEl: React.RefObject<HTMLDivElement> }) => (
-    <div ref={refEl} style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.25rem', flex:1 }}>
+    <div ref={refEl} style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.25rem', flex:1 }}>
       <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.72rem', letterSpacing:'.14em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', marginBottom:'.75rem' }}>
         {idx === 1 ? 'First Card' : 'Second Card'}
       </div>
@@ -116,7 +116,7 @@ export default function CombinationClient() {
             type="text" value={q} placeholder="Search card name…"
             onChange={e => { setQ(e.target.value); setOpen(idx) }}
             onFocus={() => setOpen(idx)}
-            style={{ width:'100%', background:'rgba(255,255,255,.04)', border:'1px solid rgba(201,168,76,.2)', borderRadius:8, color:'var(--text)', fontFamily:"'Lato',sans-serif", fontSize:'.9rem', padding:'.6rem .8rem', outline:'none' }}
+            style={{ width:'100%', background:'var(--on-bg-04)', border:'1px solid rgba(201,168,76,.2)', borderRadius:8, color:'var(--text)', fontFamily:"'Lato',sans-serif", fontSize:'.9rem', padding:'.6rem .8rem', outline:'none' }}
           />
           {open === idx && (
             <div style={{ position:'absolute', top:'100%', left:0, right:0, marginTop:4, maxHeight:220, overflowY:'auto', background:'#0e0e28', border:'1px solid var(--border)', borderRadius:8, zIndex:10 }}>
@@ -163,7 +163,7 @@ export default function CombinationClient() {
 
       <button
         onClick={runInterpret} disabled={!canInterpret}
-        style={{ display:'block', width:'100%', padding:'1rem', background: canInterpret ? 'linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08))' : 'rgba(255,255,255,.02)', border: `1px solid ${canInterpret ? 'var(--gold)' : 'var(--border)'}`, borderRadius:12, color: canInterpret ? 'var(--gold)' : 'var(--muted)', fontFamily:"'Cinzel',serif", fontSize:'1rem', letterSpacing:'.1em', cursor: canInterpret ? 'pointer' : 'not-allowed', marginBottom:'2rem', opacity: canInterpret ? 1 : .5 }}>
+        style={{ display:'block', width:'100%', padding:'1rem', background: canInterpret ? 'linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08))' : 'var(--on-bg-02)', border: `1px solid ${canInterpret ? 'var(--gold)' : 'var(--border)'}`, borderRadius:12, color: canInterpret ? 'var(--gold)' : 'var(--muted)', fontFamily:"'Cinzel',serif", fontSize:'1rem', letterSpacing:'.1em', cursor: canInterpret ? 'pointer' : 'not-allowed', marginBottom:'2rem', opacity: canInterpret ? 1 : .5 }}>
         ✦ Interpret This Combination
       </button>
 
@@ -180,14 +180,14 @@ export default function CombinationClient() {
             )).reduce((acc, el, i) => i === 0 ? [el] : [...acc, <span key="plus" style={{color:'var(--muted)',opacity:.5}}>✦</span>, el], [] as React.ReactNode[])}
           </div>
 
-          <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.5rem', marginBottom:'1rem' }}>
+          <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.5rem', marginBottom:'1rem' }}>
             <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', letterSpacing:'.14em', color:'var(--gold)', opacity:.65, textTransform:'uppercase', marginBottom:'.75rem' }}>Combined Energy</div>
             <p style={{ color:'var(--text)', lineHeight:1.75 }}>{result.main}</p>
           </div>
 
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:'.75rem', marginBottom:'1.5rem' }}>
             {[['❤️','Love & Relationships',result.love],['💼','Career & Money',result.career],['🌿','Personal Growth',result.spirit]].map(([icon,label,text])=>(
-              <div key={label as string} style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1rem' }}>
+              <div key={label as string} style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1rem' }}>
                 <div style={{ fontSize:'1.2rem', marginBottom:'.4rem' }}>{icon}</div>
                 <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.68rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.65, textTransform:'uppercase', marginBottom:'.5rem' }}>{label}</div>
                 <p style={{ color:'var(--muted)', fontSize:'.83rem', lineHeight:1.6 }}>{text as string}</p>
@@ -217,7 +217,7 @@ export default function CombinationClient() {
         </p>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))', gap:'.6rem' }}>
           {POPULAR_COMBOS.map(({ slug, label }) => (
-            <Link key={slug} href={`/combination/${slug}`} style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.65rem .9rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:10, color:'var(--muted)', fontSize:'.82rem', fontFamily:"'Lato',sans-serif" }}>
+            <Link key={slug} href={`/combination/${slug}`} style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.65rem .9rem', background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:10, color:'var(--muted)', fontSize:'.82rem', fontFamily:"'Lato',sans-serif" }}>
               <span style={{ color:'var(--gold)', opacity:.5, fontSize:'.7rem' }}>✦</span>
               {label}
             </Link>

@@ -195,7 +195,7 @@ export default function TarotParaPrincipiantesPage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '.85rem' }}>
           {essentials.map(({ name, body, href, cta }) => (
-            <div key={name} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
+            <div key={name} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', display: 'flex', flexDirection: 'column' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.4rem' }}>{name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.7, margin: 0, flex: 1 }}>{body}</p>
               {href && cta && (
@@ -218,7 +218,7 @@ export default function TarotParaPrincipiantesPage() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {weeks.map(({ n, title, body, href, cta }) => (
-            <div key={n} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+            <div key={n} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', marginBottom: '.6rem' }}>
                 <div style={{ flexShrink: 0, width: 32, height: 32, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.82rem' }}>
                   {n}
@@ -242,7 +242,7 @@ export default function TarotParaPrincipiantesPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Errores comunes de principiante
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {mistakes.map(({ name, body }, i) => (
               <div key={i} style={{ paddingBottom: i === mistakes.length - 1 ? 0 : '1rem', borderBottom: i === mistakes.length - 1 ? 'none' : '1px solid var(--border)' }}>
@@ -259,7 +259,7 @@ export default function TarotParaPrincipiantesPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Cómo practicar
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             La forma de una práctica de tarot sólida es poco glamurosa: una carta al día, unas líneas en un diario, una lectura cuando realmente la necesitas. La constancia le gana a la intensidad. Diez minutos cada mañana te enseñarán más en seis meses que una sesión de dos horas una vez al mes en tres años. Las cartas recompensan al lector que aparece.
           </p>
@@ -279,7 +279,7 @@ export default function TarotParaPrincipiantesPage() {
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '.85rem' }}>
           {resources.map(({ href, name, body }) => (
-            <Link key={href} href={href} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', textDecoration: 'none', display: 'block' }}>
+            <Link key={href} href={href} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem', textDecoration: 'none', display: 'block' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.4rem' }}>{name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.82rem', lineHeight: 1.7, margin: 0 }}>{body}</p>
             </Link>
@@ -294,7 +294,7 @@ export default function TarotParaPrincipiantesPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>
@@ -321,10 +321,10 @@ export default function TarotParaPrincipiantesPage() {
           <Link href="/es/carta-del-dia" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
             Empezar con la carta de hoy →
           </Link>
-          <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+          <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
             Lectura gratis →
           </Link>
-          <Link href="/es/cartas" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+          <Link href="/es/cartas" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
             Ver todas las cartas →
           </Link>
         </div>

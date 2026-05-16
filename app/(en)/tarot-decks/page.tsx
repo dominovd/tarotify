@@ -174,7 +174,7 @@ export default function TarotDecksPage() {
       </div>
 
       {/* Why the deck matters */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Why the Deck Matters
         </h2>
@@ -202,7 +202,7 @@ export default function TarotDecksPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(320px,1fr))', gap: '1rem' }}>
           {DECKS.map(deck => (
-            <div key={deck.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={deck.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '1rem', color: 'var(--gold)', marginBottom: '.3rem', letterSpacing: '.03em' }}>{deck.name}</h3>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.1em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.85rem' }}>
                 {deck.meta}
@@ -218,7 +218,7 @@ export default function TarotDecksPage() {
       </div>
 
       {/* Choosing Your First Deck */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2.5rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Choosing Your First Deck
         </h2>
@@ -243,7 +243,7 @@ export default function TarotDecksPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>
           Tools to Care for Your Deck
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+        <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
           <p style={{ color: 'var(--text)', fontSize: '.92rem', lineHeight: 1.8, margin: 0 }}>
             Once you have a deck, learn how to{' '}
             <Link href="/how-to-shuffle-tarot" style={{ color: 'var(--gold)' }}>shuffle it</Link>,{' '}
@@ -261,7 +261,7 @@ export default function TarotDecksPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {faqSchema.mainEntity.map(item => (
-            <div key={item.name} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={item.name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

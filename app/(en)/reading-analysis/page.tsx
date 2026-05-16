@@ -66,7 +66,7 @@ export default function ReadingAnalysisPage() {
       {/* Visible FAQ */}
       <section style={{ maxWidth: 820, margin: '0 auto', padding: '0 1.5rem 5rem' }}>
         <div style={{
-          background: 'rgba(255,255,255,.025)',
+          background: 'var(--on-bg-025)',
           border: '1px solid var(--border)',
           borderRadius: 14,
           padding: '1.75rem',

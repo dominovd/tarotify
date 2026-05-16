@@ -120,7 +120,7 @@ export default async function CombinacionesHub() {
       majName: nameMap[majSlug] ?? CARDS_BY_SLUG[majSlug]?.name ?? majSlug,
     }))
     return (
-      <div style={{ padding: '.85rem 1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, marginBottom: '.5rem' }}>
+      <div style={{ padding: '.85rem 1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, marginBottom: '.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '.6rem', marginBottom: '.65rem' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`/cards/${slug}.webp`} alt={localizedName} style={{ width: 24, height: 38, objectFit: 'cover', borderRadius: 3, border: '1px solid rgba(201,168,76,.2)', flexShrink: 0 }} />
@@ -132,7 +132,7 @@ export default async function CombinacionesHub() {
             <Link
               key={comboSlug}
               href={`/es/combinaciones/${comboSlug}`}
-              style={{ padding: '.22rem .6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 100, color: 'var(--muted)', fontSize: '.73rem', textDecoration: 'none', fontFamily: "'Cinzel',serif", letterSpacing: '.03em', whiteSpace: 'nowrap' }}
+              style={{ padding: '.22rem .6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 100, color: 'var(--muted)', fontSize: '.73rem', textDecoration: 'none', fontFamily: "'Cinzel',serif", letterSpacing: '.03em', whiteSpace: 'nowrap' }}
             >
               + {majName}
             </Link>
@@ -143,7 +143,7 @@ export default async function CombinacionesHub() {
   }
 
   const detailsStyle: React.CSSProperties = {
-    background: 'rgba(255,255,255,.025)',
+    background: 'var(--on-bg-025)',
     border: '1px solid var(--border)',
     borderRadius: 12,
     marginBottom: '1rem',
@@ -195,7 +195,7 @@ export default async function CombinacionesHub() {
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: '.6rem' }}>
             {POPULAR_COMBOS.map(slug => (
-              <Link key={slug} href={`/es/combinaciones/${slug}`} style={{ display: 'flex', alignItems: 'center', gap: '.6rem', padding: '.65rem .9rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontSize: '.82rem', fontFamily: "'Lato',sans-serif" }}>
+              <Link key={slug} href={`/es/combinaciones/${slug}`} style={{ display: 'flex', alignItems: 'center', gap: '.6rem', padding: '.65rem .9rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontSize: '.82rem', fontFamily: "'Lato',sans-serif" }}>
                 <span style={{ color: 'var(--gold)', opacity: .5, fontSize: '.7rem' }}>✦</span>
                 {comboLabel(slug)}
               </Link>

@@ -171,7 +171,7 @@ export default function DiarioDeTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Por qué llevar un diario de tarot
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', marginBottom: '1rem' }}>
             Las cartas se vuelven reales sólo cuando tienes que articularlas con tus propias palabras. Leer los significados de otra persona — en un libro, una app, una web — te da vocabulario, no comprensión. En el momento en que tienes que escribir lo que significa el Cinco de Pentáculos en <em>esta</em> tirada, en <em>este</em> día, sobre <em>esta</em> situación, la carta deja de ser un párrafo en una guía y empieza a ser un fragmento de lenguaje que realmente te pertenece.
           </p>
@@ -194,7 +194,7 @@ export default function DiarioDeTarotPage() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
           {recordItems.map(({ name, body }, i) => (
-            <div key={i} style={{ display: 'flex', gap: '1rem', background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ display: 'flex', gap: '1rem', background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.78rem', marginTop: 2 }}>
                 {i + 1}
               </div>
@@ -217,7 +217,7 @@ export default function DiarioDeTarotPage() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {templates.map((t, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.95rem', marginBottom: '.5rem' }}>{t.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.7, marginBottom: '1rem' }}>{t.blurb}</p>
               <div style={{ paddingTop: '.85rem', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '.55rem' }}>
@@ -238,7 +238,7 @@ export default function DiarioDeTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Con qué frecuencia escribir
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Para principiantes, las entradas diarias funcionan mejor — idealmente acompañadas de una tirada matinal de una sola carta. La repetición es lo que construye familiaridad con la baraja, y una lectura diaria de una carta es lo bastante pequeña como para mantenerla de verdad. Para practicantes establecidos, los resúmenes semanales suelen funcionar mejor que los diarios: un registro de cualquier lectura completa hecha esa semana, más una nota breve de seguimiento de patrones sobre qué cartas o temas siguieron surgiendo. Lo importante es la constancia, no el volumen. Cinco minutos al día durante un mes te enseñarán más que una sesión de tres horas cada seis semanas.
           </p>
@@ -250,7 +250,7 @@ export default function DiarioDeTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           TarotAxis incluye un diario
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.25rem 1.5rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Nuestra <Link href="/es/lectura-gratis" style={{ color: 'var(--gold)' }}>herramienta de lectura gratis</Link> guarda automáticamente cada lectura de forma local en tu dispositivo, así que puedes usarla como diario digital junto a cualquier cuaderno físico que ya tengas. La fecha, la tirada, las cartas y la interpretación están todas ahí para revisarlas — buscables, en orden y sin enviarse nunca a ningún lugar fuera de tu equipo. Muchas lectoras encuentran que la combinación funciona bien: la app gestiona el registro y el cuaderno acoge las reflexiones más largas que conviene escribir a mano.
           </p>
@@ -262,10 +262,10 @@ export default function DiarioDeTarotPage() {
         <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Prueba una lectura gratis →
         </Link>
-        <Link href="/es/como-leer-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/como-leer-tarot" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Cómo leer el tarot →
         </Link>
-        <Link href="/es/como-preguntar-al-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/como-preguntar-al-tarot" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Cómo preguntar al tarot →
         </Link>
       </div>
@@ -277,7 +277,7 @@ export default function DiarioDeTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>

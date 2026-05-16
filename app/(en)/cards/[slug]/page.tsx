@@ -131,7 +131,7 @@ export default function CardPage({ params }: Props) {
       </div>
 
       {/* Yes/No */}
-      <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem', marginBottom:'1.5rem' }}>
+      <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem', marginBottom:'1.5rem' }}>
         <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.7rem', letterSpacing:'.14em', color:'var(--gold)', opacity:.65, textTransform:'uppercase', marginBottom:'.6rem' }}>
           Yes or No
         </div>
@@ -141,7 +141,7 @@ export default function CardPage({ params }: Props) {
       {/* Keywords */}
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'.75rem', marginBottom:'1.5rem' }}>
         {[['Upright Keywords', card.kw_up], ['Reversed Keywords', card.kw_rev]].map(([label, kws]) => (
-          <div key={label as string} style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1rem' }}>
+          <div key={label as string} style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1rem' }}>
             <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.68rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.65, textTransform:'uppercase', marginBottom:'.6rem' }}>{label}</div>
             <div style={{ display:'flex', flexWrap:'wrap', gap:'.35rem' }}>
               {(kws as string[]).map(k => (
@@ -153,14 +153,14 @@ export default function CardPage({ params }: Props) {
       </div>
 
       {/* Upright Meaning */}
-      <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem', marginBottom:'1rem' }}>
+      <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem', marginBottom:'1rem' }}>
         <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:'.75rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', marginBottom:'.75rem' }}>Upright Meaning</h2>
         <p style={{ color:'var(--text)', lineHeight:1.75, marginBottom: ext?.up2 ? '1rem' : 0 }}>{card.up}</p>
         {ext?.up2 && <p style={{ color:'var(--text)', lineHeight:1.75 }}>{ext.up2}</p>}
       </div>
 
       {/* Reversed Meaning */}
-      <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem', marginBottom:'1.5rem' }}>
+      <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem', marginBottom:'1.5rem' }}>
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline', gap:'1rem', flexWrap:'wrap', marginBottom:'.75rem' }}>
           <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:'.75rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', margin:0 }}>Reversed Meaning</h2>
           <Link href={`/cards/${card.slug}/reversed`} style={{ fontSize:'.72rem', color:'var(--gold)', opacity:.7, fontFamily:"'Cinzel',serif", letterSpacing:'.06em' }}>Full Reversed Page →</Link>
@@ -176,7 +176,7 @@ export default function CardPage({ params }: Props) {
           ['💼', 'Career', card.career],
           ['🌿', 'Spirit', card.spirit],
         ].map(([icon, label, text]) => (
-          <div key={label as string} style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1rem' }}>
+          <div key={label as string} style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1rem' }}>
             <div style={{ fontSize:'1.2rem', marginBottom:'.4rem' }}>{icon}</div>
             <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.68rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.65, textTransform:'uppercase', marginBottom:'.5rem' }}>{label}</div>
             <p style={{ color:'var(--muted)', fontSize:'.85rem', lineHeight:1.6 }}>{text as string}</p>
@@ -186,7 +186,7 @@ export default function CardPage({ params }: Props) {
 
       {/* Extended upright-love section */}
       {loveExt && (
-        <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem 1.4rem', marginBottom:'1.5rem' }}>
+        <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.25rem 1.4rem', marginBottom:'1.5rem' }}>
           <h2 style={{ fontFamily:"'Cinzel',serif", fontSize:'.95rem', color:'var(--gold)', letterSpacing:'.06em', marginTop: 0, marginBottom:'.85rem' }}>
             {card.name} in Love — Full Meaning
           </h2>
@@ -227,7 +227,7 @@ export default function CardPage({ params }: Props) {
             ['💼', `${card.name} in Career — Reversed`, ext.career2],
             ['🌿', `${card.name} Spirituality — Reversed`, ext.spirit2],
           ].map(([icon, label, text]) => (
-            <div key={label as string} style={{ background:'rgba(255,255,255,.03)', border:'1px solid rgba(201,168,76,.1)', borderRadius:12, padding:'1rem' }}>
+            <div key={label as string} style={{ background:'var(--on-bg-03)', border:'1px solid rgba(201,168,76,.1)', borderRadius:12, padding:'1rem' }}>
               <div style={{ fontSize:'1.2rem', marginBottom:'.4rem' }}>{icon}</div>
               <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.68rem', letterSpacing:'.12em', color:'var(--gold)', opacity:.5, textTransform:'uppercase', marginBottom:'.5rem' }}>{label}</div>
               <p style={{ color:'var(--muted)', fontSize:'.85rem', lineHeight:1.6 }}>{text as string}</p>
@@ -251,7 +251,7 @@ export default function CardPage({ params }: Props) {
           </h2>
           <div style={{ display:'flex', flexDirection:'column', gap:'.75rem' }}>
             {allFaqs.map(({ q, a }) => (
-              <div key={q} style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.1rem 1.25rem' }}>
+              <div key={q} style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:12, padding:'1.1rem 1.25rem' }}>
                 <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.82rem', color:'var(--gold)', marginBottom:'.5rem', letterSpacing:'.03em' }}>{q}</div>
                 <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, margin:0 }}>{a}</p>
               </div>
@@ -279,7 +279,7 @@ export default function CardPage({ params }: Props) {
                 const other = CARDS_BY_SLUG[otherSlug]
                 const comboSlug = makeComboSlug(card.slug, otherSlug)
                 return (
-                  <Link key={otherSlug} href={`/combination/${comboSlug}`} style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.6rem .85rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:10, fontSize:'.82rem', color:'var(--muted)' }}>
+                  <Link key={otherSlug} href={`/combination/${comboSlug}`} style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.6rem .85rem', background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:10, fontSize:'.82rem', color:'var(--muted)' }}>
                     <div style={{ position:'relative', width:22, height:33, borderRadius:3, overflow:'hidden', flexShrink:0 }}>
                       <Image src={`/cards/${otherSlug}.webp`} alt={other.name} fill sizes="22px" style={{ objectFit:'cover' }} />
                     </div>
@@ -322,7 +322,7 @@ export default function CardPage({ params }: Props) {
                       if (!minor) return null
                       const comboSlug = makeComboSlug(card.slug, minorSlug)
                       return (
-                        <Link key={minorSlug} href={`/combination/${comboSlug}`} style={{ display:'flex', alignItems:'center', gap:'.4rem', padding:'.3rem .75rem', background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:100, color:'var(--muted)', fontSize:'.78rem', textDecoration:'none', whiteSpace:'nowrap' }}>
+                        <Link key={minorSlug} href={`/combination/${comboSlug}`} style={{ display:'flex', alignItems:'center', gap:'.4rem', padding:'.3rem .75rem', background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:100, color:'var(--muted)', fontSize:'.78rem', textDecoration:'none', whiteSpace:'nowrap' }}>
                           <div style={{ position:'relative', width:14, height:22, borderRadius:2, overflow:'hidden', flexShrink:0 }}>
                             <Image src={`/cards/${minorSlug}.webp`} alt={minor.name} fill sizes="14px" style={{ objectFit:'cover' }} />
                           </div>

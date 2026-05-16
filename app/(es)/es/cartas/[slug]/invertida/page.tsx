@@ -141,7 +141,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
       </div>
 
       {/* Intro */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
         <p style={{ color: 'var(--text)', lineHeight: 1.75, margin: 0 }}>
           Cuando {card.name} aparece invertida, su energía se vuelve hacia adentro o se encuentra bloqueada. Lee el significado en el amor, la carrera y lo espiritual — más cuatro preguntas frecuentes sobre cómo trabajar con cartas invertidas.
         </p>
@@ -155,7 +155,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
             { href: '#carrera', label: 'En la carrera' },
             { href: '#espiritu', label: 'En lo espiritual' },
           ].map(item => (
-            <a key={item.href} href={item.href} style={{ padding: '.3rem .8rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--muted)', fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.06em', textDecoration: 'none' }}>
+            <a key={item.href} href={item.href} style={{ padding: '.3rem .8rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--muted)', fontSize: '.72rem', fontFamily: "'Cinzel',serif", letterSpacing: '.06em', textDecoration: 'none' }}>
               {item.label}
             </a>
           ))}
@@ -163,7 +163,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
       )}
 
       {/* Reversed Keywords */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
           Palabras clave (invertida)
         </div>
@@ -175,7 +175,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
       </div>
 
       {/* Main Reversed Meaning */}
-      <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.75rem', letterSpacing: '.12em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           Significado invertido
         </h2>
@@ -186,7 +186,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
       {/* Long-form Love / Career / Spirit (Reversed) — primary content for long-tail SEO */}
       {revExt && (
         <>
-          <section id="amor" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: 80 }}>
+          <section id="amor" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: 80 }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>❤️</span> {card.name} invertida en el amor
             </h2>
@@ -195,7 +195,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
             ))}
           </section>
 
-          <section id="carrera" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: 80 }}>
+          <section id="carrera" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem', scrollMarginTop: 80 }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>💼</span> {card.name} invertida en la carrera
             </h2>
@@ -204,7 +204,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
             ))}
           </section>
 
-          <section id="espiritu" style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', scrollMarginTop: 80 }}>
+          <section id="espiritu" style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', scrollMarginTop: 80 }}>
             <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.06em', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <span style={{ fontSize: '1.1rem' }}>🌿</span> {card.name} invertida en lo espiritual
             </h2>
@@ -239,7 +239,7 @@ export default async function SpanishCardReversedPage({ params }: Props) {
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
             {reversedFaqs.map(({ q, a }) => (
-              <div key={q} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+              <div key={q} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{q}</div>
                 <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{a}</p>
               </div>

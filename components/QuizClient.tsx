@@ -236,7 +236,7 @@ export default function QuizClient({ pool, reversed = false }: Props) {
         </header>
 
         <section style={{
-          background: 'rgba(255,255,255,.025)',
+          background: 'var(--on-bg-025)',
           border: '1px solid var(--border)',
           borderRadius: 14,
           padding: '2rem 1.75rem',
@@ -293,7 +293,7 @@ export default function QuizClient({ pool, reversed = false }: Props) {
 
         {wrongCards.length > 0 && (
           <section style={{
-            background: 'rgba(255,255,255,.025)',
+            background: 'var(--on-bg-025)',
             border: '1px solid var(--border)',
             borderRadius: 14,
             padding: '1.5rem 1.75rem',
@@ -504,7 +504,7 @@ export default function QuizClient({ pool, reversed = false }: Props) {
 
       <div style={{
         height: 3,
-        background: 'rgba(255,255,255,.06)',
+        background: 'var(--on-bg-06)',
         borderRadius: 2,
         overflow: 'hidden',
         marginBottom: '2rem',
@@ -518,7 +518,7 @@ export default function QuizClient({ pool, reversed = false }: Props) {
       </div>
 
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '1.75rem 1.5rem',
@@ -597,7 +597,7 @@ export default function QuizClient({ pool, reversed = false }: Props) {
 
       {answered && (
         <section style={{
-          background: 'rgba(255,255,255,.025)',
+          background: 'var(--on-bg-025)',
           border: '1px solid var(--border)',
           borderRadius: 14,
           padding: '1.25rem 1.5rem',

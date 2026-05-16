@@ -76,7 +76,7 @@ export default function BirthCardClient() {
   }
 
   const selectStyle: React.CSSProperties = {
-    background: 'rgba(255,255,255,.04)',
+    background: 'var(--on-bg-04)',
     border: '1px solid var(--border)',
     borderRadius: 8,
     color: 'var(--text)',
@@ -109,7 +109,7 @@ export default function BirthCardClient() {
 
       {/* Date input form */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '1.75rem',
@@ -191,7 +191,7 @@ export default function BirthCardClient() {
       {/* Result */}
       {result && day && month && year && (
         <section style={{
-          background: 'rgba(255,255,255,.025)',
+          background: 'var(--on-bg-025)',
           border: '1px solid var(--border)',
           borderRadius: 14,
           padding: '2rem 1.75rem',
@@ -297,7 +297,7 @@ export default function BirthCardClient() {
       {/* Calculation breakdown — shown after result */}
       {result && calcSteps && day && month && year && (
         <section style={{
-          background: 'rgba(255,255,255,.025)',
+          background: 'var(--on-bg-025)',
           border: '1px solid var(--border)',
           borderRadius: 14,
           padding: '1.5rem 1.75rem',
@@ -335,7 +335,7 @@ export default function BirthCardClient() {
 
       {/* Explanation section */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '1.75rem',

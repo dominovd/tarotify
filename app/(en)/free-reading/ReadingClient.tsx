@@ -266,7 +266,7 @@ export default function ReadingClient() {
                   key={s.id}
                   onClick={() => setSpreadId(s.id)}
                   style={{
-                    background: spreadId === s.id ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.025)',
+                    background: spreadId === s.id ? 'rgba(201,168,76,.12)' : 'var(--on-bg-025)',
                     border: `1px solid ${spreadId === s.id ? 'rgba(201,168,76,.7)' : b}`,
                     borderRadius: 12, padding: '1rem', cursor: 'pointer',
                     textAlign: 'left', transition: 'border-color .18s, background .18s',
@@ -294,7 +294,7 @@ export default function ReadingClient() {
                     value={theme}
                     onChange={e => setTheme(e.target.value as Theme)}
                     style={{
-                      background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 10,
+                      background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 10,
                       padding: '.55rem .75rem', color: 'var(--text)', fontSize: '.85rem',
                       outline: 'none', fontFamily: 'inherit',
                     }}
@@ -310,7 +310,7 @@ export default function ReadingClient() {
                     value={frequency}
                     onChange={e => setFrequency(e.target.value as Frequency)}
                     style={{
-                      background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 10,
+                      background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 10,
                       padding: '.55rem .75rem', color: 'var(--text)', fontSize: '.85rem',
                       outline: 'none', fontFamily: 'inherit',
                     }}
@@ -326,7 +326,7 @@ export default function ReadingClient() {
                     value={zodiac}
                     onChange={e => setZodiac(e.target.value as ZodiacSign)}
                     style={{
-                      background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 10,
+                      background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 10,
                       padding: '.55rem .75rem', color: 'var(--text)', fontSize: '.85rem',
                       outline: 'none', fontFamily: 'inherit',
                     }}
@@ -357,7 +357,7 @@ export default function ReadingClient() {
                 onKeyDown={e => e.key === 'Enter' && spreadId && startReading()}
                 placeholder="e.g. What should I focus on this week?"
                 style={{
-                  width: '100%', background: 'rgba(255,255,255,.03)',
+                  width: '100%', background: 'var(--on-bg-03)',
                   border: `1px solid ${b}`, borderRadius: 10,
                   padding: '.75rem 1rem', color: 'var(--text)',
                   fontSize: '.9rem', outline: 'none',
@@ -372,7 +372,7 @@ export default function ReadingClient() {
                 onClick={startReading}
                 disabled={!spreadId}
                 style={{
-                  background: spreadId ? 'rgba(201,168,76,.13)' : 'rgba(255,255,255,.02)',
+                  background: spreadId ? 'rgba(201,168,76,.13)' : 'var(--on-bg-02)',
                   border: `1px solid ${spreadId ? 'rgba(201,168,76,.65)' : b}`,
                   borderRadius: 10, padding: '.9rem 2.8rem',
                   color: spreadId ? g : m,
@@ -387,7 +387,7 @@ export default function ReadingClient() {
             </div>
 
             {/* Before you begin */}
-            <div style={{ padding: '1.25rem 1.5rem', background: 'rgba(255,255,255,.02)', border: `1px solid ${b}`, borderRadius: 12 }}>
+            <div style={{ padding: '1.25rem 1.5rem', background: 'var(--on-bg-02)', border: `1px solid ${b}`, borderRadius: 12 }}>
               <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.14em', color: g, opacity: .55, textTransform: 'uppercase', marginBottom: '.7rem' }}>
                 Before you begin
               </div>
@@ -481,7 +481,7 @@ export default function ReadingClient() {
                     const kws  = (dc.reversed ? dc.card.kw_rev : dc.card.kw_up).slice(0, 3)
 
                     return (
-                      <div key={idx} style={{ background: 'rgba(255,255,255,.025)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.25rem 1.5rem' }}>
+                      <div key={idx} style={{ background: 'var(--on-bg-025)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.25rem 1.5rem' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '.5rem', marginBottom: '.7rem' }}>
                           <div>
                             <div style={{ fontSize: '.58rem', letterSpacing: '.1em', color: m, fontFamily: "'Cinzel',serif", textTransform: 'uppercase', opacity: .62 }}>
@@ -515,7 +515,7 @@ export default function ReadingClient() {
                 <div style={{ textAlign: 'center', marginTop: '2.5rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                   <button
                     onClick={startReading}
-                    style={{ background: 'rgba(255,255,255,.03)', border: `1px solid ${b}`, borderRadius: 10, padding: '.75rem 1.6rem', color: m, fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', cursor: 'pointer' }}
+                    style={{ background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 10, padding: '.75rem 1.6rem', color: m, fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', cursor: 'pointer' }}
                   >
                     Shuffle Again
                   </button>

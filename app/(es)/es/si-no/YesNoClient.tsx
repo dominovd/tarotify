@@ -60,14 +60,14 @@ export default function YesNoClient({ cardNamesEs, cardYnExpEs }: Props) {
         <p style={{ color:'var(--muted)', maxWidth:480, margin:'0 auto', lineHeight:1.7 }}>Concéntrate en una pregunta clara de sí/no, saca una carta y recibe una respuesta instantánea del mazo completo de 78 cartas.</p>
       </div>
 
-      <div style={{ background:'rgba(255,255,255,.03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.5rem', marginBottom:'1.5rem' }}>
+      <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.5rem', marginBottom:'1.5rem' }}>
         <div style={{ fontFamily:"'Cinzel',serif", fontSize:'.72rem', letterSpacing:'.14em', color:'var(--gold)', opacity:.7, textTransform:'uppercase', marginBottom:'.75rem' }}>Tu pregunta</div>
         <textarea
           value={question}
           onChange={e => setQuestion(e.target.value)}
           disabled={phase !== 'idle'}
           placeholder="ej. ¿Funcionará esta relación? ¿Debería aceptar el nuevo trabajo?"
-          style={{ width:'100%', background:'rgba(255,255,255,.04)', border:'1px solid rgba(201,168,76,.2)', borderRadius:10, color:'var(--text)', fontFamily:"'Lato',sans-serif", fontSize:'1rem', padding:'1rem', resize:'none', height:80, outline:'none' }}
+          style={{ width:'100%', background:'var(--on-bg-04)', border:'1px solid rgba(201,168,76,.2)', borderRadius:10, color:'var(--text)', fontFamily:"'Lato',sans-serif", fontSize:'1rem', padding:'1rem', resize:'none', height:80, outline:'none' }}
         />
         {phase === 'idle' && (
           <button onClick={draw} style={{ display:'block', width:'100%', marginTop:'1rem', padding:'1rem', background:'linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08))', border:'1px solid var(--gold)', borderRadius:12, color:'var(--gold)', fontFamily:"'Cinzel',serif", fontSize:'1rem', letterSpacing:'.1em', cursor:'pointer' }}>
@@ -127,7 +127,7 @@ export default function YesNoClient({ cardNamesEs, cardYnExpEs }: Props) {
             {history.map((h,i) => {
               const s = YN[h.yn as keyof typeof YN]
               return (
-                <div key={i} style={{ display:'flex', alignItems:'center', gap:'.75rem', padding:'.6rem 1rem', background:'rgba(255,255,255,.02)', border:'1px solid rgba(255,255,255,.05)', borderRadius:8, fontSize:'.82rem' }}>
+                <div key={i} style={{ display:'flex', alignItems:'center', gap:'.75rem', padding:'.6rem 1rem', background:'var(--on-bg-02)', border:'1px solid var(--on-bg-05)', borderRadius:8, fontSize:'.82rem' }}>
                   <span style={{ padding:'.15rem .5rem', borderRadius:20, fontSize:'.65rem', fontFamily:"'Cinzel',serif", background:s.bg, color:s.color }}>{s.label.toUpperCase()}</span>
                   <span style={{ flex:1, color:'var(--text)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{h.q}</span>
                   <span style={{ color:'var(--muted)', fontSize:'.75rem', whiteSpace:'nowrap' }}>{h.card}</span>

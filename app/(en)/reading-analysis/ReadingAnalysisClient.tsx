@@ -343,7 +343,7 @@ export default function ReadingAnalysisClient() {
 
       {/* Instructions */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 12,
         padding: '1rem 1.25rem',
@@ -376,7 +376,7 @@ export default function ReadingAnalysisClient() {
         gap: '0.75rem',
         position: 'sticky',
         top: 54,
-        background: 'rgba(7,7,26,.92)',
+        background: 'var(--nav-bg)',
         backdropFilter: 'blur(8px)',
         padding: '0.6rem 0',
         zIndex: 50,
@@ -504,7 +504,7 @@ export default function ReadingAnalysisClient() {
                         position: 'absolute',
                         top: 4,
                         right: 4,
-                        background: 'rgba(7,7,26,.85)',
+                        background: 'var(--nav-bg-strong)',
                         color: 'var(--gold)',
                         fontFamily: "'Cinzel',serif",
                         fontSize: '.6rem',
@@ -552,7 +552,7 @@ export default function ReadingAnalysisClient() {
 
           {/* Headline panel */}
           <div style={{
-            background: 'rgba(255,255,255,.025)',
+            background: 'var(--on-bg-025)',
             border: '1px solid var(--gold)',
             borderRadius: 14,
             padding: '1.75rem',
@@ -605,7 +605,7 @@ export default function ReadingAnalysisClient() {
             <div style={{ marginBottom: '2rem' }}>
               {analysis.themes.map((t, i) => (
                 <article key={i} style={{
-                  background: 'rgba(255,255,255,.025)',
+                  background: 'var(--on-bg-025)',
                   border: '1px solid var(--border)',
                   borderRadius: 12,
                   padding: '1.25rem 1.4rem',
@@ -654,7 +654,7 @@ export default function ReadingAnalysisClient() {
                     style={{
                       display: 'flex',
                       gap: '0.85rem',
-                      background: 'rgba(255,255,255,.025)',
+                      background: 'var(--on-bg-025)',
                       border: '1px solid var(--border)',
                       borderRadius: 12,
                       padding: '0.9rem 1rem',
@@ -834,7 +834,7 @@ export default function ReadingAnalysisClient() {
 
       {/* Bottom info */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '1.75rem',

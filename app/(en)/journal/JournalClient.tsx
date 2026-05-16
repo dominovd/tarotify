@@ -152,7 +152,7 @@ export default function JournalClient() {
       {/* Empty state */}
       {entries.length === 0 && (
         <section style={{
-          background: 'rgba(255,255,255,.025)',
+          background: 'var(--on-bg-025)',
           border: '1px solid var(--border)',
           borderRadius: 14,
           padding: '2.5rem 1.75rem',
@@ -221,7 +221,7 @@ export default function JournalClient() {
                 minWidth: 180,
                 fontFamily: "'Cinzel',serif",
                 fontSize: '0.85rem',
-                background: 'rgba(255,255,255,.04)',
+                background: 'var(--on-bg-04)',
                 border: '1px solid var(--border)',
                 borderRadius: 8,
                 color: 'var(--text)',
@@ -298,7 +298,7 @@ export default function JournalClient() {
 
               return (
                 <article key={originalIdx} style={{
-                  background: 'rgba(255,255,255,.025)',
+                  background: 'var(--on-bg-025)',
                   border: '1px solid var(--border)',
                   borderRadius: 12,
                   padding: '1.25rem 1.4rem',
@@ -403,7 +403,7 @@ export default function JournalClient() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '0.4rem',
-                          background: 'rgba(255,255,255,.03)',
+                          background: 'var(--on-bg-03)',
                           border: '1px solid var(--border)',
                           borderRadius: 20,
                           padding: '0.2rem 0.65rem 0.2rem 0.3rem',
@@ -504,7 +504,7 @@ export default function JournalClient() {
 
       {/* About / privacy note */}
       <section style={{
-        background: 'rgba(255,255,255,.025)',
+        background: 'var(--on-bg-025)',
         border: '1px solid var(--border)',
         borderRadius: 14,
         padding: '1.5rem 1.6rem',

@@ -43,7 +43,7 @@ export default function AcercaDePage() {
         </p>
       </div>
 
-      <section style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <section style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>En qué Creemos</h2>
         <p style={{ color: 'var(--text)', lineHeight: 1.85, fontSize: '.9rem', marginBottom: '1rem' }}>
           El tarot es una herramienta para pensar, no una máquina de adivinación. Las 78 cartas son una biblioteca extraordinariamente compacta de la experiencia humana — reflejan lo que ya es cierto en lugar de determinar lo que será. Usadas con honestidad, las cartas convierten sentimientos vagos en preguntas concretas y te permiten ver tu situación desde ángulos a los que no habrías llegado por tu cuenta.
@@ -53,7 +53,7 @@ export default function AcercaDePage() {
         </p>
       </section>
 
-      <section style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <section style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>Qué Encontrarás Aquí</h2>
         <ul style={{ color: 'var(--text)', lineHeight: 1.85, fontSize: '.9rem', paddingLeft: '1.25rem', margin: 0 }}>
           <li style={{ marginBottom: '.5rem' }}>Los significados de las 78 cartas del tarot — al derecho e invertidas, además de contexto de amor, carrera y espiritualidad.</li>
@@ -64,14 +64,14 @@ export default function AcercaDePage() {
         </ul>
       </section>
 
-      <section style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <section style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>Una Nota Sobre la IA</h2>
         <p style={{ color: 'var(--text)', lineHeight: 1.85, fontSize: '.9rem', margin: 0 }}>
           Los significados de las cartas en TarotAxis son contenido escrito, basado en la tradición estándar Rider-Waite-Smith y curado por un editor humano. El sitio utiliza asistencia automatizada para parte de la producción de contenido, pero cada página se revisa en cuanto a honestidad, precisión y tono antes de publicarse. No usamos IA para generar afirmaciones místicas en vivo sobre tu futuro — no es así como funcionan las cartas.
         </p>
       </section>
 
-      <section style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+      <section style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>Contacto</h2>
         <p style={{ color: 'var(--text)', lineHeight: 1.85, fontSize: '.9rem', margin: 0 }}>
           Preguntas, comentarios, correcciones, consultas de colaboración — lo leemos todo. <a href="mailto:info@tarotaxis.com" style={{ color: 'var(--gold)', borderBottom: '1px solid rgba(201,168,76,.3)' }}>info@tarotaxis.com</a>

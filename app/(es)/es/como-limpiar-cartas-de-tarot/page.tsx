@@ -131,7 +131,7 @@ export default function ComoLimpiarCartasDeTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           Cuándo limpiar la baraja
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             No hay un calendario fijo — limpia cuando lo sientas necesario. Situaciones habituales: cuando estrenas una baraja; después de leer para otra persona; cuando las lecturas empiezan a sentirse confusas, repetitivas o curiosamente fuera de tono; después de una sesión especialmente intensa o cargada emocionalmente; y en luna nueva o al comienzo de una nueva estación como reinicio rutinario. Cualquiera de estas es una señal razonable.
           </p>
@@ -145,7 +145,7 @@ export default function ComoLimpiarCartasDeTarotPage() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: '1rem' }}>
           {methods.map(({ title, body }, i) => (
-            <div key={title} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
+            <div key={title} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '.65rem', marginBottom: '.65rem' }}>
                 <div style={{ flexShrink: 0, width: 26, height: 26, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1px solid rgba(201,168,76,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.75rem' }}>
                   {i + 1}
@@ -163,7 +163,7 @@ export default function ComoLimpiarCartasDeTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           ¿Con qué frecuencia hay que limpiar?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             Depende del uso que le des a la baraja. Los lectores habituales suelen golpear la baraja o exhalar sobre ella antes de cada sesión, hacer una limpieza con luz lunar una vez al mes y una limpieza completa — sal o humo — cada pocos meses. No hay una regla. Limpia cuando las lecturas se sientan fuera de tono, después de que otra persona maneje la baraja o simplemente cuando lo sientas. Tu propio criterio sobre cuándo la baraja necesita un reset es una guía fiable.
           </p>
@@ -175,7 +175,7 @@ export default function ComoLimpiarCartasDeTarotPage() {
         <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem' }}>
           ¿La limpieza daña las cartas?
         </h2>
-        <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
+        <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 13, padding: '1.25rem 1.4rem' }}>
           <p style={{ color: 'var(--muted)', lineHeight: 1.9, fontSize: '.9rem', margin: 0 }}>
             La mayoría de los métodos son completamente seguros. Algunas cosas que evitar: no dejes que las cartas entren en contacto con humedad, incluida la sal mojada. Mantén las cartas lejos de llamas directas. Guarda los cristales que uses de forma que no rayen la superficie. La limpieza con humo es adecuada para casi todos los acabados y no afecta a las imágenes impresas. Ninguno de estos métodos altera físicamente las cartas de forma relevante cuando se aplican con sentido común.
           </p>
@@ -193,7 +193,7 @@ export default function ComoLimpiarCartasDeTarotPage() {
             { name: 'Cómo barajar el tarot', href: '/es/como-barajar-tarot', use: 'Cinco técnicas y cómo barajar con intención' },
             { name: 'Tarot para principiantes', href: '/es/tarot-para-principiantes', use: 'Tus primeros pasos con la baraja — un mes guiado' },
           ].map(({ name, href, use }) => (
-            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'rgba(255,255,255,.02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
+            <Link key={href} href={href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '.9rem 1.1rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, textDecoration: 'none', flexWrap: 'wrap' }}>
               <span style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem' }}>{name}</span>
               <span style={{ color: 'var(--muted)', fontSize: '.8rem' }}>{use}</span>
             </Link>
@@ -206,7 +206,7 @@ export default function ComoLimpiarCartasDeTarotPage() {
         <Link href="/es/como-leer-tarot" style={{ padding: '.8rem 1.6rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.35)', borderRadius: 10, color: 'var(--gold)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Aprender a leer el tarot →
         </Link>
-        <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'rgba(255,255,255,.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
+        <Link href="/es/lectura-gratis" style={{ padding: '.8rem 1.6rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--muted)', fontFamily: "'Cinzel',serif", fontSize: '.82rem', letterSpacing: '.07em', textDecoration: 'none' }}>
           Probar una lectura gratis →
         </Link>
       </div>
@@ -218,7 +218,7 @@ export default function ComoLimpiarCartasDeTarotPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {faqSchema.mainEntity.map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,.025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+            <div key={i} style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
               <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.88rem', marginBottom: '.5rem' }}>{item.name}</div>
               <p style={{ color: 'var(--muted)', fontSize: '.83rem', lineHeight: 1.8, margin: 0 }}>{item.acceptedAnswer.text}</p>
             </div>
