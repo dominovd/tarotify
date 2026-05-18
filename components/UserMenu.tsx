@@ -3,11 +3,9 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useUser } from '@/hooks/useUser'
-import { usePremium } from '@/hooks/usePremium'
 
 export default function UserMenu() {
   const { user, loading } = useUser()
-  const { isPremium } = usePremium()
   const pathname = usePathname()
   const isEs = pathname?.startsWith('/es') ?? false
 
@@ -37,33 +35,15 @@ export default function UserMenu() {
     )
   }
 
-  // Signed in — show "Upgrade" pill for free users + avatar link to /account.
+  // Signed in — avatar link to /account.
+  // Upgrade pill intentionally hidden: paid tier deferred until payment provider
+  // landscape resolves (tarot+UA constraint, see llm_discoverability_strategy memory).
+  // Re-enable when subscription provider is live.
   const initial = (user.email || '?').trim().charAt(0).toUpperCase()
   const accountHref = isEs ? '/es/account' : '/account'
-  const pricingHref = isEs ? '/es/precios' : '/pricing'
-  const upgradeLabel = isEs ? 'Mejorar' : 'Upgrade'
 
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem' }}>
-      {!isPremium && (
-        <Link
-          href={pricingHref}
-          style={{
-            fontSize: '.72rem',
-            color: 'var(--gold)',
-            fontFamily: "'Cinzel',serif",
-            letterSpacing: '.08em',
-            padding: '.3rem .75rem',
-            border: '1px solid rgba(201,168,76,.45)',
-            background: 'rgba(201,168,76,.08)',
-            borderRadius: 18,
-            whiteSpace: 'nowrap',
-            textDecoration: 'none',
-          }}
-        >
-          ✦ {upgradeLabel}
-        </Link>
-      )}
       <Link
         href={accountHref}
         title={user.email ?? 'Account'}

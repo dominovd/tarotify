@@ -96,44 +96,9 @@ export default async function AccountPage() {
               {tierLabel}
             </div>
           </div>
-          {!isPremium && !isPastDue && (
-            <Link
-              href="/pricing"
-              style={{
-                background: 'rgba(201,168,76,.13)',
-                border: '1px solid rgba(201,168,76,.55)',
-                borderRadius: 10,
-                padding: '.55rem 1.25rem',
-                color: 'var(--gold)',
-                fontFamily: "'Cinzel',serif",
-                fontSize: '.82rem',
-                letterSpacing: '.08em',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Upgrade
-            </Link>
-          )}
-          {(isPremium || isPastDue) && (
-            <Link
-              href="/api/paddle/portal"
-              style={{
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                borderRadius: 10,
-                padding: '.55rem 1.25rem',
-                color: 'var(--muted)',
-                fontFamily: "'Cinzel',serif",
-                fontSize: '.82rem',
-                letterSpacing: '.08em',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Manage
-            </Link>
-          )}
+          {/* Upgrade / Manage CTAs intentionally hidden — paid tier deferred.
+              When a working payment provider is in place, restore the buttons here.
+              See memory: llm_discoverability_strategy.md, monetisation_plan_pointer.md */}
         </div>
         <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.7, margin: 0 }}>
           {tierDesc}

@@ -96,44 +96,9 @@ export default async function AccountPage() {
               {tierLabel}
             </div>
           </div>
-          {!isPremium && !isPastDue && (
-            <Link
-              href="/es/precios"
-              style={{
-                background: 'rgba(201,168,76,.13)',
-                border: '1px solid rgba(201,168,76,.55)',
-                borderRadius: 10,
-                padding: '.55rem 1.25rem',
-                color: 'var(--gold)',
-                fontFamily: "'Cinzel',serif",
-                fontSize: '.82rem',
-                letterSpacing: '.08em',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Mejorar
-            </Link>
-          )}
-          {(isPremium || isPastDue) && (
-            <Link
-              href="/api/paddle/portal"
-              style={{
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                borderRadius: 10,
-                padding: '.55rem 1.25rem',
-                color: 'var(--muted)',
-                fontFamily: "'Cinzel',serif",
-                fontSize: '.82rem',
-                letterSpacing: '.08em',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Gestionar
-            </Link>
-          )}
+          {/* Botones de "Mejorar" / "Gestionar" ocultos intencionalmente —
+              el nivel premium está aplazado hasta que esté en marcha un
+              proveedor de pago compatible con tarot + UA. */}
         </div>
         <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.7, margin: 0 }}>
           {tierDesc}
