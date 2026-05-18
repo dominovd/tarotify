@@ -140,10 +140,10 @@ export async function GET(request: Request) {
                   borderColor: 'rgba(201,168,76,0.4)',
                 }}
               >
-                {img1 && (
+                {img1 ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={img1} alt={c1.name} width={180} height={270} style={{ display: 'flex', objectFit: 'cover' }} />
-                )}
+                  <img src={img1} alt={c1.name} width={180} height={270} style={{ objectFit: 'cover' }} />
+                ) : null}
               </div>
 
               {/* + */}
@@ -165,10 +165,10 @@ export async function GET(request: Request) {
                   marginRight: 40,
                 }}
               >
-                {img2 && (
+                {img2 ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={img2} alt={c2.name} width={180} height={270} style={{ display: 'flex', objectFit: 'cover' }} />
-                )}
+                  <img src={img2} alt={c2.name} width={180} height={270} style={{ objectFit: 'cover' }} />
+                ) : null}
               </div>
 
               {/* Keyword pills column */}
@@ -261,10 +261,10 @@ export async function GET(request: Request) {
               transform: reversed ? 'rotate(180deg)' : 'none',
             }}
           >
-            {imgSrc && (
+            {imgSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={imgSrc} alt={name} width={230} height={345} style={{ display: 'flex', objectFit: 'cover' }} />
-            )}
+              <img src={imgSrc} alt={name} width={230} height={345} style={{ objectFit: 'cover' }} />
+            ) : null}
           </div>
 
           {/* Text column */}
