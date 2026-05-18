@@ -11,6 +11,7 @@ const COPY: Record<Locale, {
   contactHeader: string
   contactBody: string
   copyrightSuffix: string
+  frameworkCredit: { prefix: string; linkLabel: string; linkHref: string }
   headers: { read: string; learn: string; guides: string }
   read: { href: string; label: string }[]
   learn: { href: string; label: string }[]
@@ -23,6 +24,11 @@ const COPY: Record<Locale, {
     contactHeader: 'Contact',
     contactBody: 'Questions, feedback or partnership enquiries — we read every message.',
     copyrightSuffix: 'All rights reserved',
+    frameworkCredit: {
+      prefix: 'Interpretations are built on the Rider-Waite-Smith framework, structured by elemental and numerological logic, and refined with AI assistance.',
+      linkLabel: 'Read our methodology',
+      linkHref: '/methodology',
+    },
     headers: { read: 'Read', learn: 'Learn', guides: 'Guides' },
     read: [
       { href: '/free-reading', label: 'Free Reading' },
@@ -46,9 +52,10 @@ const COPY: Record<Locale, {
       { href: '/tarot-journal',               label: 'Tarot Journal' },
     ],
     site: [
-      { href: '/about',   label: 'About' },
-      { href: '/privacy', label: 'Privacy Policy' },
-      { href: '/terms',   label: 'Terms & Conditions' },
+      { href: '/about',       label: 'About' },
+      { href: '/methodology', label: 'Methodology' },
+      { href: '/privacy',     label: 'Privacy Policy' },
+      { href: '/terms',       label: 'Terms & Conditions' },
     ],
   },
   es: {
@@ -57,6 +64,11 @@ const COPY: Record<Locale, {
     contactHeader: 'Contacto',
     contactBody: 'Preguntas, comentarios o consultas de colaboración — leemos cada mensaje.',
     copyrightSuffix: 'Todos los derechos reservados',
+    frameworkCredit: {
+      prefix: 'Las interpretaciones se construyen sobre el marco Rider-Waite-Smith, estructuradas por la lógica elemental y numerológica, y refinadas con asistencia de IA.',
+      linkLabel: 'Lee nuestra metodología',
+      linkHref: '/es/metodologia',
+    },
     headers: { read: 'Leer', learn: 'Aprender', guides: 'Guías' },
     read: [
       { href: '/es/lectura-gratis',     label: 'Lectura Gratis' },
@@ -80,9 +92,10 @@ const COPY: Record<Locale, {
       { href: '/es/diario-de-tarot',              label: 'Diario de Tarot' },
     ],
     site: [
-      { href: '/es/acerca-de',  label: 'Acerca de' },
-      { href: '/es/privacidad', label: 'Política de Privacidad' },
-      { href: '/es/terminos',   label: 'Términos y Condiciones' },
+      { href: '/es/acerca-de',   label: 'Acerca de' },
+      { href: '/es/metodologia', label: 'Metodología' },
+      { href: '/es/privacidad',  label: 'Política de Privacidad' },
+      { href: '/es/terminos',    label: 'Términos y Condiciones' },
     ],
   },
 }
@@ -164,6 +177,29 @@ export default function Footer({ locale = 'en' }: Props) {
               {t.contactBody}
             </p>
           </div>
+        </div>
+
+        {/* Framework credit — E-E-A-T / AI transparency line */}
+        <div style={{
+          paddingTop: '1.25rem',
+          paddingBottom: '1.25rem',
+          borderTop: '1px solid var(--border)',
+          color: 'var(--muted)',
+          fontSize: '.75rem',
+          lineHeight: 1.7,
+          opacity: .8,
+        }}>
+          <span>{t.frameworkCredit.prefix} </span>
+          <Link
+            href={t.frameworkCredit.linkHref}
+            style={{
+              color: 'var(--gold)',
+              textDecoration: 'none',
+              borderBottom: '1px solid rgba(201,168,76,.35)',
+            }}
+          >
+            {t.frameworkCredit.linkLabel} →
+          </Link>
         </div>
 
         {/* Bottom: site links + copyright */}

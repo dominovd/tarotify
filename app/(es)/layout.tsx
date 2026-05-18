@@ -11,6 +11,38 @@ import { ThemeProvider } from '@/hooks/useTheme'
 // dark on light-mode users. Mirrored in the EN root layout.
 const THEME_BOOT_SCRIPT = `(function(){try{var t=localStorage.getItem('tarotify-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}})();`
 
+// Organization JSON-LD — emitted on every Spanish page. Same canonical entity
+// as the EN root layout (note shared @id), localised description.
+const ORGANIZATION_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://tarotaxis.com/#organization',
+  name: 'TarotAxis',
+  url: 'https://tarotaxis.com',
+  description: 'Lecturas de tarot gratuitas, los significados de las 78 cartas, tiradas y rituales lunares — construido sobre el marco Rider-Waite-Smith y refinado con asistencia de IA.',
+  knowsAbout: [
+    'Tarot',
+    'Rider-Waite-Smith tarot',
+    'Dignidades elementales',
+    'Numerología del tarot',
+    'Psicología de los arcanos mayores',
+    'Tiradas de tarot',
+    'Combinaciones de tarot',
+  ],
+  publishingPrinciples: 'https://tarotaxis.com/es/metodologia',
+  inLanguage: ['en', 'es'],
+}
+
+const WEBSITE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://tarotaxis.com/#website-es',
+  url: 'https://tarotaxis.com/es',
+  name: 'TarotAxis',
+  publisher: { '@id': 'https://tarotaxis.com/#organization' },
+  inLanguage: 'es',
+}
+
 // Root layout for the Spanish (es) route group.
 //
 // Next.js multi-root-layout pattern: each route group has its own <html>/<body>.
@@ -35,6 +67,14 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
         <meta name="google-site-verification" content="BgFTjjxBX-Qr_Qkmy1V5lL2Qz07CKEjN90Ld6nCSUho" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }}
+        />
       </head>
       <body>
         <ThemeProvider>

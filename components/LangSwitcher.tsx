@@ -104,6 +104,8 @@ const MIGRATED_EN_PATHS = new Set([
   '/about',
   '/privacy',
   '/terms',
+  // Phase 8: methodology (LLM-discoverability sprint 2026-05-18)
+  '/methodology',
   // Phase 7b: auth + account + journal
   '/auth/signin',
   '/auth/signup',

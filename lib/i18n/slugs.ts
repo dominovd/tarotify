@@ -151,6 +151,7 @@ export const PATH_SLUGS: Record<Locale, Record<string, string>> = {
     '/how-to-cleanse-tarot-cards': '/como-limpiar-cartas-de-tarot',
     '/how-to-ask-tarot-questions': '/como-preguntar-al-tarot',
     '/about': '/acerca-de',
+    '/methodology': '/metodologia',
     '/privacy': '/privacidad',
     '/terms': '/terminos',
 

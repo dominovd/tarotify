@@ -404,10 +404,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Bilingual Phase 7 — birth-card + static (about/privacy/terms)
   // ---------------------------------------------------------------------
   const PHASE_7_PAIRS: Array<{ en: string; es: string; priority: number; changeFrequency: 'monthly' | 'yearly' }> = [
-    { en: '/birth-card', es: '/es/carta-de-nacimiento', priority: 0.8, changeFrequency: 'monthly' },
-    { en: '/about',      es: '/es/acerca-de',           priority: 0.4, changeFrequency: 'yearly' },
-    { en: '/privacy',    es: '/es/privacidad',          priority: 0.3, changeFrequency: 'yearly' },
-    { en: '/terms',      es: '/es/terminos',            priority: 0.3, changeFrequency: 'yearly' },
+    { en: '/birth-card',   es: '/es/carta-de-nacimiento', priority: 0.8, changeFrequency: 'monthly' },
+    { en: '/methodology',  es: '/es/metodologia',         priority: 0.75, changeFrequency: 'monthly' },
+    { en: '/about',        es: '/es/acerca-de',           priority: 0.4, changeFrequency: 'yearly' },
+    { en: '/privacy',      es: '/es/privacidad',          priority: 0.3, changeFrequency: 'yearly' },
+    { en: '/terms',        es: '/es/terminos',            priority: 0.3, changeFrequency: 'yearly' },
   ]
   const phase7Bilingual: MetadataRoute.Sitemap = PHASE_7_PAIRS.flatMap(({ en, es, priority, changeFrequency }) => ([
     { url: `${base}${en}`,  lastModified: new Date(), changeFrequency, priority,                            alternates: withAltLanguages(en, es) },

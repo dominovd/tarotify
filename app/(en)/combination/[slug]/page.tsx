@@ -11,6 +11,7 @@ import {
   MAJOR_COMBOS,
   PRIORITY_MINOR_COMBOS,
 } from '@/lib/combinations'
+import { getComboContext } from '@/lib/combo-context'
 
 interface Props { params: { slug: string } }
 
@@ -27,13 +28,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!c1 || !c2) return {}
 
   const canonical = makeComboSlug(s1, s2)
-  const result = interpret(c1, c2)
-  const kw1 = c1.kw_up[0]
-  const kw2 = c2.kw_up[0]
+  const ctx = getComboContext(canonical)
+  const fallback = interpret(c1, c2)
+
+  // Prefer nuanced essence/reading for description; else fall back to template main.
+  const descSource = ctx?.essence
+    ? `${ctx.essence} ${ctx.reading.split('\n\n')[0]}`
+    : fallback.main
+  const description = `What does ${c1.name} and ${c2.name} mean together in tarot? ${descSource.slice(0, 155)}…`
 
   return {
     title: `${c1.name} and ${c2.name} Tarot Combination Meaning | TarotAxis`,
-    description: `What does ${c1.name} and ${c2.name} mean together in tarot? ${result.main.slice(0, 140)}…`,
+    description,
     alternates: {
       canonical: `https://tarotaxis.com/combination/${canonical}`,
       languages: {
@@ -44,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       title: `${c1.name} + ${c2.name} Tarot Combination`,
-      description: `${kw1} meets ${kw2}. Discover what these two cards mean together in love, career and personal growth.`,
+      description: ctx?.essence ?? `${c1.kw_up[0]} meets ${c2.kw_up[0]}. Discover what these two cards mean together in love, career and personal growth.`,
       images: [{
         url: `https://tarotaxis.com/og?type=combination&slug=${c1.slug}&slug2=${c2.slug}`,
         width: 1200,
@@ -74,7 +80,8 @@ export default function ComboPage({ params }: Props) {
   const canonical = makeComboSlug(s1, s2)
   if (params.slug !== canonical) redirect(`/combination/${canonical}`)
 
-  const result = interpret(c1, c2)
+  const ctx = getComboContext(canonical)
+  const fallback = interpret(c1, c2)
 
   const relLabel: Record<string, string> = {
     amplifying: 'Amplifying',
@@ -85,36 +92,32 @@ export default function ComboPage({ params }: Props) {
     complex: 'Complex',
   }
 
+  // FAQ schema — hand-curated FAQs win; otherwise signal-engine FAQs from interpret()
+  const faqEntries = ctx?.faqs.length ? ctx.faqs : fallback.faqs
+
+  // Procedural fallback combos also get shadowForm / edgeCase / readerNote, just
+  // from the signal engine rather than hand authorship. Hand-curated ctx wins for both.
+  const shadowForm = ctx?.shadowForm ?? fallback.shadowForm
+  const edgeCase = ctx?.edgeCase ?? fallback.edgeCase
+  const contradictionFlag = ctx?.contradictionFlag
+  const readerNote = ctx?.readerNote ?? fallback.readerNote
+  const timing = ctx?.timing
+  const isHandCurated = Boolean(ctx)
+
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: `What does ${c1.name} and ${c2.name} mean in tarot?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: result.main,
-        },
-      },
-      {
-        '@type': 'Question',
-        name: `What does ${c1.name} and ${c2.name} mean in love?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: result.love,
-        },
-      },
-      {
-        '@type': 'Question',
-        name: `What does ${c1.name} and ${c2.name} mean in career?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: result.career,
-        },
-      },
-    ],
+    mainEntity: faqEntries.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
   }
+
+  // Pick which body content to render — nuanced (ctx) or template (fallback).
+  const readingParagraphs = ctx
+    ? ctx.reading.split(/\n{2,}/).map(p => p.trim()).filter(Boolean)
+    : [fallback.main]
 
   return (
     <div style={{ maxWidth: 760, margin: '0 auto', padding: '2rem 1.5rem 5rem' }}>
@@ -159,17 +162,33 @@ export default function ComboPage({ params }: Props) {
 
         <div style={{ marginTop: '.75rem' }}>
           <span style={{ padding: '.25rem .85rem', background: 'rgba(201,168,76,.1)', border: '1px solid rgba(201,168,76,.2)', borderRadius: 20, fontSize: '.7rem', fontFamily: "'Cinzel',serif", letterSpacing: '.08em', color: 'var(--gold)' }}>
-            {relLabel[result.relType]} Energy
+            {relLabel[fallback.relType]} Energy
           </span>
         </div>
       </div>
 
-      {/* Combined Energy */}
+      {/* Essence (only when ctx exists — replaces the generic Combined Energy heading) */}
+      {ctx?.essence && (
+        <div style={{ background: 'linear-gradient(135deg, rgba(201,168,76,.08), rgba(201,168,76,.02))', border: '1px solid rgba(201,168,76,.18)', borderRadius: 14, padding: '1.5rem 1.75rem', marginBottom: '1.5rem' }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.6rem' }}>
+            The Essence
+          </div>
+          <p style={{ fontFamily: "'Cinzel',serif", color: 'var(--text)', fontSize: '1.05rem', lineHeight: 1.55, fontStyle: 'italic', margin: 0 }}>
+            {ctx.essence}
+          </p>
+        </div>
+      )}
+
+      {/* Main Reading — multi-paragraph if ctx, single block if fallback */}
       <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem', marginBottom: '1rem' }}>
         <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: '.72rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.75rem' }}>
-          Combined Energy
+          {ctx ? 'The Reading' : 'Combined Energy'}
         </h2>
-        <p style={{ color: 'var(--text)', lineHeight: 1.75 }}>{result.main}</p>
+        {readingParagraphs.map((p, i) => (
+          <p key={i} style={{ color: 'var(--text)', lineHeight: 1.75, marginBottom: i < readingParagraphs.length - 1 ? '.9rem' : 0 }}>
+            {p}
+          </p>
+        ))}
       </div>
 
       {/* Elemental relationship note */}
@@ -177,16 +196,50 @@ export default function ComboPage({ params }: Props) {
         <span style={{ fontSize: '1rem', flexShrink: 0 }}>⚗️</span>
         <div>
           <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', color: 'var(--gold)', opacity: .6, letterSpacing: '.1em', textTransform: 'uppercase' }}>Elemental Dynamic · </span>
-          <span style={{ color: 'var(--muted)', fontSize: '.85rem' }}>{c1.element} × {c2.element} — {result.relDesc}</span>
+          <span style={{ color: 'var(--muted)', fontSize: '.85rem' }}>{c1.element} × {c2.element} — {fallback.relDesc}</span>
+        </div>
+      </div>
+
+      {/* Shadow form + Edge case + Contradiction + Reader's Note — always rendered;
+          hand-curated combos get authored text, others get signal-engine output. */}
+      <div style={{ display: 'grid', gap: '.9rem', marginBottom: '1.5rem' }}>
+        <div style={{ background: 'var(--on-bg-02)', border: '1px solid rgba(180,80,80,.18)', borderRadius: 12, padding: '1.2rem 1.4rem' }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.14em', color: '#c87878', opacity: .85, textTransform: 'uppercase', marginBottom: '.5rem' }}>
+            ☾ Shadow Form
+          </div>
+          <p style={{ color: 'var(--muted)', fontSize: '.9rem', lineHeight: 1.7, margin: 0 }}>{shadowForm}</p>
+        </div>
+
+        <div style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.2rem 1.4rem' }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.5rem' }}>
+            ⚠ When This Combination Misleads
+          </div>
+          <p style={{ color: 'var(--muted)', fontSize: '.9rem', lineHeight: 1.7, margin: 0 }}>{edgeCase}</p>
+        </div>
+
+        {contradictionFlag && (
+          <div style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.2rem 1.4rem' }}>
+            <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .65, textTransform: 'uppercase', marginBottom: '.5rem' }}>
+              ✦ If These Cards Also Appear
+            </div>
+            <p style={{ color: 'var(--muted)', fontSize: '.9rem', lineHeight: 1.7, margin: 0 }}>{contradictionFlag}</p>
+          </div>
+        )}
+
+        <div style={{ background: 'var(--on-bg-02)', border: '1px solid rgba(201,168,76,.2)', borderRadius: 12, padding: '1.2rem 1.4rem' }}>
+          <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .85, textTransform: 'uppercase', marginBottom: '.5rem' }}>
+            ✦ Reader{isHandCurated ? '’' : '’'}s Note
+          </div>
+          <p style={{ color: 'var(--text)', fontSize: '.9rem', lineHeight: 1.7, margin: 0 }}>{readerNote}</p>
         </div>
       </div>
 
       {/* Love / Career / Spirit */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '.75rem', marginBottom: '2rem' }}>
         {[
-          ['❤️', 'Love & Relationships', result.love],
-          ['💼', 'Career & Money', result.career],
-          ['🌿', 'Personal Growth', result.spirit],
+          ['❤️', 'Love & Relationships', ctx?.love ?? fallback.love],
+          ['💼', 'Career & Money', ctx?.career ?? fallback.career],
+          ['🌿', 'Personal Growth', ctx?.spirit ?? fallback.spirit],
         ].map(([icon, label, text]) => (
           <div key={label as string} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem' }}>
             <div style={{ fontSize: '1.1rem', marginBottom: '.4rem' }}>{icon}</div>
@@ -195,6 +248,17 @@ export default function ComboPage({ params }: Props) {
           </div>
         ))}
       </div>
+
+      {/* Timing (hand-curated only — signal engine doesn't synthesise reliable timing) */}
+      {timing && (
+        <div style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.4rem', marginBottom: '2rem', display: 'flex', gap: '.75rem', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '1rem', flexShrink: 0 }}>⧗</span>
+          <div>
+            <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.68rem', color: 'var(--gold)', opacity: .65, letterSpacing: '.1em', textTransform: 'uppercase' }}>Timing · </span>
+            <span style={{ color: 'var(--muted)', fontSize: '.88rem' }}>{timing}</span>
+          </div>
+        </div>
+      )}
 
       {/* Individual card links */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.75rem', marginBottom: '2rem' }}>
@@ -217,10 +281,10 @@ export default function ComboPage({ params }: Props) {
           Frequently Asked Questions
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
-          {faqSchema.mainEntity.map(({ name, acceptedAnswer }) => (
-            <div key={name} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
-              <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{name}</div>
-              <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{acceptedAnswer.text}</p>
+          {faqEntries.map(({ q, a }) => (
+            <div key={q} style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+              <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)', marginBottom: '.5rem', letterSpacing: '.03em' }}>{q}</div>
+              <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>{a}</p>
             </div>
           ))}
         </div>

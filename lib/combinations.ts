@@ -15,8 +15,207 @@ export function getElementRel(e1: string, e2: string) {
   return { type: 'complex', desc: 'These two cards carry distinct elemental energies creating a layered, multifaceted combination.' }
 }
 
+// ---------------------------------------------------------------------------
+// Signal detection — produces a coalition of flags for procedural enrichment
+// ---------------------------------------------------------------------------
+
+const CRISIS_SLUGS = new Set(['the-tower', 'death', 'the-devil', 'three-of-swords', 'nine-of-swords', 'ten-of-swords', 'five-of-cups', 'five-of-pentacles'])
+const HEALING_SLUGS = new Set(['the-star', 'temperance', 'the-sun', 'six-of-pentacles', 'nine-of-cups', 'ten-of-cups', 'six-of-cups'])
+const COMMITMENT_SLUGS = new Set(['the-hierophant', 'the-lovers', 'two-of-cups', 'four-of-wands', 'ten-of-cups'])
+const TRANSITION_SLUGS = new Set(['death', 'wheel-of-fortune', 'the-tower', 'judgement', 'the-hanged-man', 'eight-of-cups'])
+const SHADOW_SLUGS = new Set(['the-moon', 'the-devil', 'seven-of-cups', 'eight-of-swords', 'nine-of-swords'])
+const WILLPOWER_SLUGS = new Set(['the-chariot', 'strength', 'the-emperor', 'the-magician'])
+const INTUITION_SLUGS = new Set(['the-high-priestess', 'the-moon', 'the-hermit', 'seven-of-cups'])
+
+const PIP_NUMBER_PREFIX: Record<string, number> = {
+  ace: 1, two: 2, three: 3, four: 4, five: 5,
+  six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+}
+
+function isCourtSlug(slug: string): boolean {
+  return /^(page|knight|queen|king)-of-/.test(slug)
+}
+function pipNumber(slug: string): number | null {
+  const m = slug.match(/^(ace|two|three|four|five|six|seven|eight|nine|ten)-of-/)
+  return m ? PIP_NUMBER_PREFIX[m[1]] : null
+}
+
+export type ComboArchetype =
+  | 'two-majors' | 'major-court' | 'major-pip'
+  | 'two-courts' | 'court-pip' | 'two-pips'
+
+export type ComboSignals = {
+  elementalRelation: 'amplifying' | 'nurturing' | 'tension' | 'grounding' | 'resonant' | 'complex'
+  elementalDesc: string
+  archetype: ComboArchetype
+  sameSuit: boolean
+  sameNumber: boolean   // pip-pip only
+  crisis: boolean
+  healing: boolean
+  commitment: boolean
+  transition: boolean
+  shadow: boolean
+  willpower: boolean
+  intuition: boolean
+}
+
+export function detectSignals(c1: Card, c2: Card): ComboSignals {
+  const rel = getElementRel(c1.element, c2.element)
+  const c1Major = c1.suit === 'major'
+  const c2Major = c2.suit === 'major'
+  const c1Court = isCourtSlug(c1.slug)
+  const c2Court = isCourtSlug(c2.slug)
+  const c1Pip = !c1Major && !c1Court
+  const c2Pip = !c2Major && !c2Court
+
+  let archetype: ComboArchetype
+  if (c1Major && c2Major) archetype = 'two-majors'
+  else if ((c1Major && c2Court) || (c2Major && c1Court)) archetype = 'major-court'
+  else if ((c1Major && c2Pip) || (c2Major && c1Pip)) archetype = 'major-pip'
+  else if (c1Court && c2Court) archetype = 'two-courts'
+  else if ((c1Court && c2Pip) || (c2Court && c1Pip)) archetype = 'court-pip'
+  else archetype = 'two-pips'
+
+  const p1 = pipNumber(c1.slug)
+  const p2 = pipNumber(c2.slug)
+
+  const has = (set: Set<string>) => set.has(c1.slug) || set.has(c2.slug)
+
+  return {
+    elementalRelation: rel.type as ComboSignals['elementalRelation'],
+    elementalDesc: rel.desc,
+    archetype,
+    sameSuit: c1.suit === c2.suit && !c1Major,
+    sameNumber: archetype === 'two-pips' && p1 !== null && p2 !== null && p1 === p2,
+    crisis: has(CRISIS_SLUGS),
+    healing: has(HEALING_SLUGS),
+    commitment: has(COMMITMENT_SLUGS),
+    transition: has(TRANSITION_SLUGS),
+    shadow: has(SHADOW_SLUGS),
+    willpower: has(WILLPOWER_SLUGS),
+    intuition: has(INTUITION_SLUGS),
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Signal-driven nuanced fragments — used when no hand-curated ComboContext exists
+// ---------------------------------------------------------------------------
+
+function buildShadowForm(c1: Card, c2: Card, s: ComboSignals): string {
+  if (s.crisis)
+    return `The shadow of this pair is collapse without release — small repeated breakages instead of one clean rupture. ${c1.name} or ${c2.name} keeps surfacing the same fragility in a slightly altered shape, and the querent asks why the situation keeps arriving. The work is structural, not cosmetic.`
+  if (s.shadow)
+    return `The shadow is the story the querent has been telling themselves to avoid a quieter, less flattering truth. ${c1.name} and ${c2.name} together rarely deceive on purpose; they highlight the explanation that has grown too convenient to question.`
+  if (s.commitment)
+    return `The shadow is commitment dressed up as inevitability — staying because leaving feels like failure, or because the alternative is unfamiliar, rather than because the staying still serves either life involved.`
+  if (s.healing)
+    return `The shadow of this pair is calling completion at the wrong gate. Healing combinations like ${c1.name} and ${c2.name} often arrive in the middle of the work, not at the end. The relief feels final until life tests whether it actually finished.`
+  if (s.transition)
+    return `The shadow is the transition stretched indefinitely — keeping one foot in the previous life because fully committing to the new one feels like betraying the old. ${c1.name} and ${c2.name} are pointing at the unfinished crossing.`
+  if (s.willpower)
+    return `The shadow is force applied where patience was required, or patience held where action was overdue. ${c1.name} and ${c2.name} sharpen whichever of those two errors the querent has been making.`
+  if (s.archetype === 'two-majors')
+    return `The shadow of two-Major pairings is treating the reading as fate rather than diagnosis. ${c1.name} and ${c2.name} describe the dynamic at play, not the choices that remain open inside it.`
+  if (s.elementalRelation === 'tension')
+    return `The shadow is treating the tension as a problem to be solved. ${c1.name} and ${c2.name} hold two valid energies in friction; the work is in letting both stay present rather than forcing resolution.`
+  if (s.elementalRelation === 'amplifying')
+    return `The shadow is acceleration without direction — momentum that feels like progress but multiplies whatever was already off-course. ${c1.name} and ${c2.name} amplify the system as it actually is, not as the querent wishes it were.`
+  if (s.elementalRelation === 'nurturing')
+    return `The shadow is over-tending — staying so long in the patient mode that growth quietly becomes stagnation. ${c1.name} and ${c2.name} reward care, then ask whether the care is still doing useful work.`
+  if (s.elementalRelation === 'grounding')
+    return `The shadow is hyper-pragmatism that crushes the imaginative spark the pair was offering. ${c1.name} and ${c2.name} ask for follow-through, not for the original vision to be filed away.`
+  if (s.elementalRelation === 'resonant')
+    return `The shadow is the echo chamber — the same energy compounded into a single dominant note, drowning out adjacent information the spread is also offering.`
+  return `The shadow of this pair is mistaking its complexity for incoherence. ${c1.name} and ${c2.name} are asking for a more careful reading, not a different one.`
+}
+
+function buildEdgeCase(c1: Card, c2: Card, s: ComboSignals): string {
+  if (s.crisis)
+    return `Crisis pairs like ${c1.name} and ${c2.name} are sometimes misread as future prediction when the querent is actually mid-recovery. Read the timing of the question, not just the cards — the same pair means very different things on day one of a rupture and on day ninety.`
+  if (s.shadow)
+    return `Pairs with strong shadow-cluster energy are frequently misread for paranoia when the signal is accurate intuition, or for accuracy when the signal is the querent's threat-detection misfiring. Verify against external evidence before acting on what ${c1.name} and ${c2.name} appear to be saying.`
+  if (s.archetype === 'major-court')
+    return `Court cards in the pair often describe an actual person around the querent. Before reading ${c1.name} or ${c2.name} as a facet of the querent's own personality, ask whether there is a specific real person in the situation the card might be naming.`
+  if (s.archetype === 'two-courts')
+    return `Two courts in a single pair almost always describe a relational dynamic between two specific people. Decide which of ${c1.name} or ${c2.name} the querent is in the situation — and which they are receiving — before reading further.`
+  if (s.sameNumber)
+    return `Same-number pip pairs like ${c1.name} and ${c2.name} read as energy in stereo — two suits processing the same numerical theme at once. The reading converges on the theme; the suits become texture.`
+  if (s.archetype === 'major-pip')
+    return `A Major + Pip pair is usually best read as the archetypal force (${c1.suit === 'major' ? c1.name : c2.name}) acting on the specific situation (${c1.suit === 'major' ? c2.name : c1.name}). Resist reading them as two co-equal voices; one is context, one is content.`
+  if (s.healing)
+    return `Healing combinations sometimes appear early in a difficult process to signal that the path back exists, not that it has been walked yet. Don't treat ${c1.name} and ${c2.name} as confirmation that the work is done.`
+  if (s.elementalRelation === 'tension')
+    return `Tension pairs are sometimes misread as warnings. They are not. ${c1.name} and ${c2.name} describe the friction the situation contains; the warning would look like different cards saying that friction is destroying something.`
+  return `The pair benefits from being read against the question that was actually asked. ${c1.name} and ${c2.name} are flexible enough to fit several adjacent situations; precision in the question produces precision in the reading.`
+}
+
+function buildReaderNote(c1: Card, c2: Card, s: ComboSignals): string {
+  if (s.crisis)
+    return `Experienced readers tend not to soften crisis pairs. They name the ending honestly, then ask the harder question: what was the querent loyal to that prevented earlier exit? That loyalty — to a vow, an image, a sunk cost — is usually the real subject of the reading.`
+  if (s.commitment)
+    return `Commitment combinations usually ask 'what would honesty cost you here'. The cards are not anti-commitment; they are anti-rote commitment. A working practitioner reading ${c1.name} and ${c2.name} is listening for what the querent has stopped saying out loud.`
+  if (s.shadow)
+    return `Readers seeing shadow-cluster pairs check first whether the querent is asking the same question repeatedly across sessions. If so, the cards have likely already answered it, and the work has shifted from clarification to confrontation.`
+  if (s.healing)
+    return `A working practitioner reads healing pairs like ${c1.name} and ${c2.name} as orientation, not arrival. The pair confirms the direction; the timing belongs to the querent's life, not the cards.`
+  if (s.transition)
+    return `Transition combinations reward patience in the reading itself. ${c1.name} and ${c2.name} are describing a process; compressing it into a single sentence delivers less value than naming the stages the querent is moving through.`
+  if (s.willpower)
+    return `Readers with experience know willpower pairs are usually a check on application — is the querent pushing where patience was required, or waiting where action was overdue. ${c1.name} and ${c2.name} sharpen the diagnostic; the choice remains the querent's.`
+  if (s.archetype === 'two-majors')
+    return `Two-Major pairs like ${c1.name} and ${c2.name} tend to invite the practitioner to slow down. The reading is usually about a life phase, not a single decision; treat it as a phase reading and the cards will give more useful detail.`
+  if (s.intuition)
+    return `Intuition-heavy pairs reward attention to what the querent already half-knows. ${c1.name} and ${c2.name} are rarely delivering new information; more often they are giving the existing intuition a structure clear enough to act on.`
+  return `The most useful question to bring to ${c1.name} and ${c2.name} is what the querent has been avoiding asking themselves about the situation. The cards are not refusing to answer; they are pointing toward the question that has not been articulated yet.`
+}
+
+function buildFaqs(c1: Card, c2: Card, s: ComboSignals, mainText: string, loveText: string, careerText: string): Array<{q: string; a: string}> {
+  const valenceAnswer = (() => {
+    if (s.crisis && !s.healing)
+      return `Neither, in the polarised sense. ${c1.name} and ${c2.name} together describe upheaval or ending, which feels negative in the moment but is rarely the full story. Many querents look back on this pair as the moment a stuck situation finally moved.`
+    if (s.healing && !s.crisis)
+      return `On balance, supportive. ${c1.name} and ${c2.name} carry a healing or completion signal, though the cards do not promise that the work is finished — only that the direction is sound.`
+    if (s.commitment)
+      return `Constructive but conditional. The pair rewards honest commitment and punishes inertial commitment; the reading depends on which one the querent is actually offering.`
+    if (s.transition)
+      return `Transitional. ${c1.name} and ${c2.name} describe a moving situation, neither stable enough to call good nor finished enough to call bad. The reading is about the direction of motion, not a verdict on the outcome.`
+    return `Tarot pairs do not divide neatly into positive and negative. ${c1.name} and ${c2.name} describe a dynamic with both shadow and light; what the querent does with the energy determines which side the reading falls on.`
+  })()
+
+  const contextFocus = (s.commitment || s.shadow || c1.suit === 'cups' || c2.suit === 'cups') ? 'love' : 'career'
+
+  return [
+    {
+      q: `What does ${c1.name} and ${c2.name} mean in tarot?`,
+      a: mainText,
+    },
+    {
+      q: `Is ${c1.name} and ${c2.name} a positive or negative combination?`,
+      a: valenceAnswer,
+    },
+    {
+      q: `What does the ${s.elementalRelation} energy between ${c1.name} and ${c2.name} mean?`,
+      a: `${s.elementalDesc} In practice this means readings with ${c1.name} and ${c2.name} tend to move ${s.elementalRelation === 'amplifying' ? 'quickly and reward decisive action' : s.elementalRelation === 'nurturing' ? 'slowly and reward patience' : s.elementalRelation === 'tension' ? 'with complexity that resists tidy resolution' : s.elementalRelation === 'grounding' ? 'with practical follow-through over speculation' : s.elementalRelation === 'resonant' ? 'with concentrated, single-themed clarity' : 'across several interpretive layers that benefit from re-reading'}.`,
+    },
+    contextFocus === 'love'
+      ? {
+          q: `How should I read ${c1.name} and ${c2.name} in a relationship question?`,
+          a: loveText,
+        }
+      : {
+          q: `How should I read ${c1.name} and ${c2.name} in a career question?`,
+          a: careerText,
+        },
+  ]
+}
+
+// ---------------------------------------------------------------------------
+// Main interpretation — backward-compatible, plus new signal-driven fields
+// ---------------------------------------------------------------------------
+
 export function interpret(c1: Card, c2: Card) {
   const rel = getElementRel(c1.element, c2.element)
+  const signals = detectSignals(c1, c2)
   const kw1 = c1.kw_up.slice(0, 2).join(' and ')
   const kw2 = c2.kw_up.slice(0, 2).join(' and ')
   const mains: Record<string, string> = {
@@ -27,13 +226,23 @@ export function interpret(c1: Card, c2: Card) {
     resonant: `When ${c1.name} meets ${c2.name}, their shared elemental nature creates deep resonance. ${kw1} and ${kw2} weave into a unified message — a combination of reinforcement and depth. What each card suggests alone becomes more certain and more important together.`,
     complex: `${c1.name} and ${c2.name} bring together two distinct archetypal currents. ${kw1} exists in dialogue with ${kw2}. ${rel.desc} Reading this combination requires holding both energies — each brings its own wisdom, and the message emerges in the space between them.`,
   }
+  const main = mains[rel.type]
+  const love = `In love, ${c1.name} and ${c2.name} suggest a relationship shaped by ${c1.kw_up[0]} and ${c2.kw_up[0]}. ${signals.commitment ? 'Commitment is part of the reading — either tested, offered, or asked for.' : signals.shadow ? 'Watch for projections; the relationship may carry more imagination than verified fact.' : 'Both emotional truth and personal growth are central themes.'}`
+  const career = `Professionally, the meeting of ${c1.name}'s ${c1.kw_up[0]} with ${c2.name}'s ${c2.kw_up[0]} describes a dynamic where ${rel.type === 'amplifying' ? 'bold moves and fast decisions lead to breakthroughs' : rel.type === 'grounding' ? 'careful planning and steady effort produce the best results' : signals.crisis ? 'an ending or restructuring is in motion — resist the urge to rebuild the previous form' : 'genuine collaboration and honest assessment are your greatest assets'}.`
+  const spirit = `For personal growth, ${c1.name} and ${c2.name} point at the relationship between ${c1.kw_up[0]} and ${c2.kw_up[0]}. ${signals.transition ? 'A phase is closing or has just closed; the spiritual task is not rushing the next phase into being.' : signals.intuition ? 'Inner knowing is the operative faculty here — quiet enough to hear it requires deliberately reducing input.' : `${c1.name} has prepared you; ${c2.name} shows you where to go next. The lesson is integration.`}`
+
   return {
     relType: rel.type,
     relDesc: rel.desc,
-    main: mains[rel.type],
-    love: `In love, ${c1.name} and ${c2.name} suggest a relationship shaped by ${c1.kw_up[0]} and ${c2.kw_up[0]}. This combination points to a partnership where both emotional truth and personal growth are central themes.`,
-    career: `Professionally, the meeting of ${c1.name}'s ${c1.kw_up[0]} with ${c2.name}'s ${c2.kw_up[0]} describes a dynamic where ${rel.type === 'amplifying' ? 'bold moves and fast decisions lead to breakthroughs' : rel.type === 'grounding' ? 'careful planning and steady effort produce the best results' : 'genuine collaboration and honest assessment are your greatest assets'}.`,
-    spirit: `For personal growth, these two cards invite you to explore the relationship between ${c1.kw_up[0]} and ${c2.kw_up[0]}. ${c1.name} has prepared you; ${c2.name} shows you where to go next. The lesson is integration — how can both qualities strengthen each other within you?`,
+    main,
+    love,
+    career,
+    spirit,
+    signals,
+    shadowForm: buildShadowForm(c1, c2, signals),
+    edgeCase: buildEdgeCase(c1, c2, signals),
+    readerNote: buildReaderNote(c1, c2, signals),
+    faqs: buildFaqs(c1, c2, signals, main, love, career),
   }
 }
 
