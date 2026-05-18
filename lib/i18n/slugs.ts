@@ -152,6 +152,7 @@ export const PATH_SLUGS: Record<Locale, Record<string, string>> = {
     '/how-to-ask-tarot-questions': '/como-preguntar-al-tarot',
     '/about': '/acerca-de',
     '/methodology': '/metodologia',
+    '/pricing': '/precios',
     '/privacy': '/privacidad',
     '/terms': '/terminos',
 

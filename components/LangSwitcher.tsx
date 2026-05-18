@@ -106,6 +106,8 @@ const MIGRATED_EN_PATHS = new Set([
   '/terms',
   // Phase 8: methodology (LLM-discoverability sprint 2026-05-18)
   '/methodology',
+  // Phase 9: pricing (Monetisation Sprint 2 — Paddle billing 2026-05-18)
+  '/pricing',
   // Phase 7b: auth + account + journal
   '/auth/signin',
   '/auth/signup',

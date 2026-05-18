@@ -54,6 +54,7 @@ const COPY: Record<Locale, {
     site: [
       { href: '/about',       label: 'About' },
       { href: '/methodology', label: 'Methodology' },
+      { href: '/pricing',     label: 'Pricing' },
       { href: '/privacy',     label: 'Privacy Policy' },
       { href: '/terms',       label: 'Terms & Conditions' },
     ],
@@ -94,6 +95,7 @@ const COPY: Record<Locale, {
     site: [
       { href: '/es/acerca-de',   label: 'Acerca de' },
       { href: '/es/metodologia', label: 'Metodología' },
+      { href: '/es/precios',     label: 'Precios' },
       { href: '/es/privacidad',  label: 'Política de Privacidad' },
       { href: '/es/terminos',    label: 'Términos y Condiciones' },
     ],

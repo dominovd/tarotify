@@ -31,6 +31,7 @@ interface Subscription {
   status: string
   plan: string
   current_period_end: string | null
+  cancel_at: string | null
 }
 
 export default async function AccountPage() {
@@ -47,17 +48,27 @@ export default async function AccountPage() {
   // Subscription is optional — most users won't have a row yet.
   const { data: subRow } = await supabase
     .from('subscriptions')
-    .select('status, plan, current_period_end')
+    .select('status, plan, current_period_end, cancel_at')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(1)
     .maybeSingle<Subscription>()
 
   const isPremium = subRow?.status === 'active' || subRow?.status === 'trialing'
-  const tierLabel = isPremium ? 'Premium' : 'Free'
+  const isPastDue = subRow?.status === 'past_due'
+  const isCancelling = isPremium && subRow?.cancel_at
+  const tierLabel = isPremium ? 'Premium' : isPastDue ? 'Premium · payment due' : 'Free'
   const tierDesc = isPremium
-    ? `${subRow?.plan === 'premium-yearly' ? 'Yearly' : 'Monthly'} plan${subRow?.current_period_end ? ' · renews ' + new Date(subRow.current_period_end).toLocaleDateString() : ''}`
-    : 'Free plan — upgrade for cloud journal sync and AI features when they launch.'
+    ? `${subRow?.plan === 'premium-yearly' ? 'Yearly' : 'Monthly'} plan${
+        subRow?.cancel_at
+          ? ' · cancels on ' + new Date(subRow.cancel_at).toLocaleDateString()
+          : subRow?.current_period_end
+            ? ' · renews ' + new Date(subRow.current_period_end).toLocaleDateString()
+            : ''
+      }`
+    : isPastDue
+      ? 'Your last payment did not go through. Update your card via the customer portal to keep premium access.'
+      : 'Free plan — upgrade for cloud journal sync and AI features when they launch.'
 
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
@@ -85,7 +96,7 @@ export default async function AccountPage() {
               {tierLabel}
             </div>
           </div>
-          {!isPremium && (
+          {!isPremium && !isPastDue && (
             <Link
               href="/pricing"
               style={{
@@ -104,10 +115,34 @@ export default async function AccountPage() {
               Upgrade
             </Link>
           )}
+          {(isPremium || isPastDue) && (
+            <Link
+              href="/api/paddle/portal"
+              style={{
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                borderRadius: 10,
+                padding: '.55rem 1.25rem',
+                color: 'var(--muted)',
+                fontFamily: "'Cinzel',serif",
+                fontSize: '.82rem',
+                letterSpacing: '.08em',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Manage
+            </Link>
+          )}
         </div>
         <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.7, margin: 0 }}>
           {tierDesc}
         </p>
+        {isCancelling && (
+          <p style={{ color: '#c87878', fontSize: '.78rem', lineHeight: 1.6, marginTop: '.6rem', marginBottom: 0 }}>
+            Your subscription will not renew. Premium access continues through the date above.
+          </p>
+        )}
       </section>
 
       {/* Personalisation prefs form */}

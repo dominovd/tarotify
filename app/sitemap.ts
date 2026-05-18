@@ -406,6 +406,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const PHASE_7_PAIRS: Array<{ en: string; es: string; priority: number; changeFrequency: 'monthly' | 'yearly' }> = [
     { en: '/birth-card',   es: '/es/carta-de-nacimiento', priority: 0.8, changeFrequency: 'monthly' },
     { en: '/methodology',  es: '/es/metodologia',         priority: 0.75, changeFrequency: 'monthly' },
+    { en: '/pricing',      es: '/es/precios',             priority: 0.7, changeFrequency: 'monthly' },
     { en: '/about',        es: '/es/acerca-de',           priority: 0.4, changeFrequency: 'yearly' },
     { en: '/privacy',      es: '/es/privacidad',          priority: 0.3, changeFrequency: 'yearly' },
     { en: '/terms',        es: '/es/terminos',            priority: 0.3, changeFrequency: 'yearly' },

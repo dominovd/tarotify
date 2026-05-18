@@ -1,10 +1,15 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useUser } from '@/hooks/useUser'
+import { usePremium } from '@/hooks/usePremium'
 
 export default function UserMenu() {
   const { user, loading } = useUser()
+  const { isPremium } = usePremium()
+  const pathname = usePathname()
+  const isEs = pathname?.startsWith('/es') ?? false
 
   if (loading) {
     return (
@@ -15,7 +20,7 @@ export default function UserMenu() {
   if (!user) {
     return (
       <Link
-        href="/auth/signin"
+        href={isEs ? '/es/auth/signin' : '/auth/signin'}
         style={{
           fontSize: '.78rem',
           color: 'var(--gold)',
@@ -27,35 +32,60 @@ export default function UserMenu() {
           whiteSpace: 'nowrap',
         }}
       >
-        Sign in
+        {isEs ? 'Entrar' : 'Sign in'}
       </Link>
     )
   }
 
-  // Signed in — show a compact avatar/email link to /account.
+  // Signed in — show "Upgrade" pill for free users + avatar link to /account.
   const initial = (user.email || '?').trim().charAt(0).toUpperCase()
+  const accountHref = isEs ? '/es/account' : '/account'
+  const pricingHref = isEs ? '/es/precios' : '/pricing'
+  const upgradeLabel = isEs ? 'Mejorar' : 'Upgrade'
+
   return (
-    <Link
-      href="/account"
-      title={user.email ?? 'Account'}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 32,
-        height: 32,
-        borderRadius: '50%',
-        background: 'rgba(201,168,76,.12)',
-        border: '1px solid rgba(201,168,76,.45)',
-        color: 'var(--gold)',
-        fontFamily: "'Cinzel',serif",
-        fontSize: '.78rem',
-        letterSpacing: '.04em',
-        textDecoration: 'none',
-        flexShrink: 0,
-      }}
-    >
-      {initial}
-    </Link>
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem' }}>
+      {!isPremium && (
+        <Link
+          href={pricingHref}
+          style={{
+            fontSize: '.72rem',
+            color: 'var(--gold)',
+            fontFamily: "'Cinzel',serif",
+            letterSpacing: '.08em',
+            padding: '.3rem .75rem',
+            border: '1px solid rgba(201,168,76,.45)',
+            background: 'rgba(201,168,76,.08)',
+            borderRadius: 18,
+            whiteSpace: 'nowrap',
+            textDecoration: 'none',
+          }}
+        >
+          ✦ {upgradeLabel}
+        </Link>
+      )}
+      <Link
+        href={accountHref}
+        title={user.email ?? 'Account'}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 32,
+          height: 32,
+          borderRadius: '50%',
+          background: 'rgba(201,168,76,.12)',
+          border: '1px solid rgba(201,168,76,.45)',
+          color: 'var(--gold)',
+          fontFamily: "'Cinzel',serif",
+          fontSize: '.78rem',
+          letterSpacing: '.04em',
+          textDecoration: 'none',
+          flexShrink: 0,
+        }}
+      >
+        {initial}
+      </Link>
+    </div>
   )
 }

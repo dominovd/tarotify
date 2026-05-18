@@ -31,6 +31,7 @@ interface Subscription {
   status: string
   plan: string
   current_period_end: string | null
+  cancel_at: string | null
 }
 
 export default async function AccountPage() {
@@ -47,17 +48,27 @@ export default async function AccountPage() {
   // Subscription is optional — most users won't have a row yet.
   const { data: subRow } = await supabase
     .from('subscriptions')
-    .select('status, plan, current_period_end')
+    .select('status, plan, current_period_end, cancel_at')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(1)
     .maybeSingle<Subscription>()
 
   const isPremium = subRow?.status === 'active' || subRow?.status === 'trialing'
-  const tierLabel = isPremium ? 'Premium' : 'Gratis'
+  const isPastDue = subRow?.status === 'past_due'
+  const isCancelling = isPremium && subRow?.cancel_at
+  const tierLabel = isPremium ? 'Premium' : isPastDue ? 'Premium · pago pendiente' : 'Gratis'
   const tierDesc = isPremium
-    ? `Plan ${subRow?.plan === 'premium-yearly' ? 'anual' : 'mensual'}${subRow?.current_period_end ? ' · se renueva el ' + new Date(subRow.current_period_end).toLocaleDateString('es-ES') : ''}`
-    : 'Plan gratuito — actualiza para sincronización del diario en la nube y funciones de IA cuando se lancen.'
+    ? `Plan ${subRow?.plan === 'premium-yearly' ? 'anual' : 'mensual'}${
+        subRow?.cancel_at
+          ? ' · se cancela el ' + new Date(subRow.cancel_at).toLocaleDateString('es-ES')
+          : subRow?.current_period_end
+            ? ' · se renueva el ' + new Date(subRow.current_period_end).toLocaleDateString('es-ES')
+            : ''
+      }`
+    : isPastDue
+      ? 'Tu último pago no se procesó. Actualiza tu método de pago en el portal de cliente para mantener el acceso premium.'
+      : 'Plan gratuito — actualiza para sincronización del diario en la nube y funciones de IA cuando se lancen.'
 
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
@@ -85,9 +96,9 @@ export default async function AccountPage() {
               {tierLabel}
             </div>
           </div>
-          {!isPremium && (
+          {!isPremium && !isPastDue && (
             <Link
-              href="/pricing"
+              href="/es/precios"
               style={{
                 background: 'rgba(201,168,76,.13)',
                 border: '1px solid rgba(201,168,76,.55)',
@@ -104,10 +115,34 @@ export default async function AccountPage() {
               Mejorar
             </Link>
           )}
+          {(isPremium || isPastDue) && (
+            <Link
+              href="/api/paddle/portal"
+              style={{
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                borderRadius: 10,
+                padding: '.55rem 1.25rem',
+                color: 'var(--muted)',
+                fontFamily: "'Cinzel',serif",
+                fontSize: '.82rem',
+                letterSpacing: '.08em',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Gestionar
+            </Link>
+          )}
         </div>
         <p style={{ color: 'var(--muted)', fontSize: '.85rem', lineHeight: 1.7, margin: 0 }}>
           {tierDesc}
         </p>
+        {isCancelling && (
+          <p style={{ color: '#c87878', fontSize: '.78rem', lineHeight: 1.6, marginTop: '.6rem', marginBottom: 0 }}>
+            Tu suscripción no se renovará. El acceso premium continúa hasta la fecha indicada.
+          </p>
+        )}
       </section>
 
       {/* Personalisation prefs form */}
