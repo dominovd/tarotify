@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { CARDS, CARDS_BY_SLUG, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
 import EmailCapture from '@/components/EmailCapture'
+import RenderedReading, { hasMarkdownMarkers } from '@/components/RenderedReading'
 import { useUser } from '@/hooks/useUser'
 
 const JOURNAL_KEY = 'tarotify_journal'
@@ -575,15 +576,21 @@ export default function JournalClient() {
                   {/* Reading */}
                   {entry.reading && (
                     <>
-                      <p style={{
-                        color: 'var(--text)',
-                        fontSize: '0.92rem',
-                        lineHeight: 1.7,
-                        margin: 0,
-                        whiteSpace: 'pre-wrap',
-                      }}>
-                        {readingPreview}
-                      </p>
+                      {hasMarkdownMarkers(entry.reading) ? (
+                        <div style={{ marginTop: '.25rem' }}>
+                          <RenderedReading text={readingPreview} fontSize=".92rem" />
+                        </div>
+                      ) : (
+                        <p style={{
+                          color: 'var(--text)',
+                          fontSize: '0.92rem',
+                          lineHeight: 1.7,
+                          margin: 0,
+                          whiteSpace: 'pre-wrap',
+                        }}>
+                          {readingPreview}
+                        </p>
+                      )}
                       {entry.reading.length > 280 && (
                         <button
                           onClick={() => toggleExpand(key)}

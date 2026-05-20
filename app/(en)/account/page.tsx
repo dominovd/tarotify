@@ -110,6 +110,53 @@ export default async function AccountPage() {
         )}
       </section>
 
+      {/* Quick links — your journal & saved AI readings */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))',
+        gap: '.75rem',
+        marginBottom: '1.5rem',
+      }}>
+        <Link
+          href="/journal"
+          style={{
+            display: 'block',
+            background: 'var(--on-bg-025)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: '1.1rem 1.25rem',
+            textDecoration: 'none',
+          }}
+        >
+          <div style={{ fontSize: '1.1rem', marginBottom: '.4rem' }}>📓</div>
+          <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.92rem', letterSpacing: '.04em', marginBottom: '.25rem' }}>
+            Your journal →
+          </div>
+          <div style={{ color: 'var(--muted)', fontSize: '.78rem', lineHeight: 1.5 }}>
+            Saved readings, AI interpretations and notes — synced across devices.
+          </div>
+        </Link>
+        <Link
+          href="/free-reading"
+          style={{
+            display: 'block',
+            background: 'var(--on-bg-025)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: '1.1rem 1.25rem',
+            textDecoration: 'none',
+          }}
+        >
+          <div style={{ fontSize: '1.1rem', marginBottom: '.4rem' }}>✦</div>
+          <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.92rem', letterSpacing: '.04em', marginBottom: '.25rem' }}>
+            New AI reading →
+          </div>
+          <div style={{ color: 'var(--muted)', fontSize: '.78rem', lineHeight: 1.5 }}>
+            Draw three cards and stream a personalised interpretation.
+          </div>
+        </Link>
+      </section>
+
       {/* Personalisation prefs form */}
       <ProfileForm
         initial={{

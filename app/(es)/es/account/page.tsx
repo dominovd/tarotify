@@ -110,6 +110,53 @@ export default async function AccountPage() {
         )}
       </section>
 
+      {/* Enlaces rápidos — diario y nueva lectura */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))',
+        gap: '.75rem',
+        marginBottom: '1.5rem',
+      }}>
+        <Link
+          href="/es/journal"
+          style={{
+            display: 'block',
+            background: 'var(--on-bg-025)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: '1.1rem 1.25rem',
+            textDecoration: 'none',
+          }}
+        >
+          <div style={{ fontSize: '1.1rem', marginBottom: '.4rem' }}>📓</div>
+          <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.92rem', letterSpacing: '.04em', marginBottom: '.25rem' }}>
+            Tu diario →
+          </div>
+          <div style={{ color: 'var(--muted)', fontSize: '.78rem', lineHeight: 1.5 }}>
+            Lecturas guardadas, interpretaciones con IA y notas — sincronizadas en todos tus dispositivos.
+          </div>
+        </Link>
+        <Link
+          href="/es/lectura-gratis"
+          style={{
+            display: 'block',
+            background: 'var(--on-bg-025)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: '1.1rem 1.25rem',
+            textDecoration: 'none',
+          }}
+        >
+          <div style={{ fontSize: '1.1rem', marginBottom: '.4rem' }}>✦</div>
+          <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.92rem', letterSpacing: '.04em', marginBottom: '.25rem' }}>
+            Nueva lectura con IA →
+          </div>
+          <div style={{ color: 'var(--muted)', fontSize: '.78rem', lineHeight: 1.5 }}>
+            Saca tres cartas y recibe una interpretación personalizada en tiempo real.
+          </div>
+        </Link>
+      </section>
+
       {/* Personalisation prefs form */}
       <ProfileForm
         initial={{
