@@ -28,38 +28,175 @@ Verify with the sanity queries at the bottom of the file. Expected:
 `user_id` becomes nullable, four new columns appear, two new indexes
 appear.
 
-### 2. Configure Google OAuth provider
+### 2. Configure Google OAuth provider — step by step
 
-**Google Cloud Console:**
+The flow at runtime:
 
-1. Open https://console.cloud.google.com/apis/credentials
-2. Pick (or create) a project for tarotaxis.
-3. **APIs & Services → OAuth consent screen:**
-   - User type: External
-   - App name: `TarotAxis`
-   - Support email: `info@tarotaxis.com`
-   - App domain: `https://tarotaxis.com`
-   - Authorised domain: `supabase.co` (Supabase hosts the callback)
-   - Developer contact: `info@tarotaxis.com`
-   - Scopes: just `openid`, `email`, `profile` — defaults are fine.
-4. **Credentials → Create credentials → OAuth client ID:**
-   - Type: Web application
-   - Name: `TarotAxis Web`
-   - Authorised JavaScript origins:
-     - `https://tarotaxis.com`
-     - `https://zvfpnigaegrbgmllbsqe.supabase.co`
-   - Authorised redirect URIs:
-     - `https://zvfpnigaegrbgmllbsqe.supabase.co/auth/v1/callback`
-   - Save. Copy the **Client ID** and **Client Secret**.
+```
+User clicks "Continue with Google" on tarotaxis.com
+    ↓
+Supabase redirects to accounts.google.com (Google's consent screen)
+    ↓
+User grants access
+    ↓
+Google redirects to <supabase>/auth/v1/callback?code=...
+    ↓
+Supabase exchanges code → session, then redirects to your redirectTo
+    ↓
+Your /auth/callback route finishes the session and redirects to /account
+```
 
-**Supabase Dashboard:**
+So we need to set up two halves: **Google side** (where the consent screen lives) and **Supabase side** (which handles the callback and stores the session). Plus one careful **redirect URL allowlist** in Supabase.
 
-1. Authentication → Providers → Google → Enable.
-2. Paste Client ID + Client Secret.
-3. Save.
+---
 
-**Verify:** open `https://tarotaxis.com/auth/signin` → click
-"Continue with Google" → consent screen → redirected back signed in.
+#### Part A — Google Cloud Console
+
+**A.1 Open or create the project**
+
+1. Open https://console.cloud.google.com/ — sign in with the Google account you want to own the OAuth app (use a stable account, not a throwaway).
+2. Top-left dropdown next to "Google Cloud" → "New Project" if there isn't already a `TarotAxis` project. Name: `TarotAxis`. Skip organisation. Create. Wait ~10 seconds, then switch into the project via the same dropdown.
+
+**A.2 OAuth consent screen**
+
+Left sidebar → **APIs & Services → OAuth consent screen**.
+
+If this is a fresh project Google asks you to choose a user type:
+
+- **User type: External** (you want anyone with a Google account to sign in, not just your workspace).
+
+Click **Create**. You land on a 4-step form. Fill out:
+
+*Step 1 — App information*
+- App name: `TarotAxis`
+- User support email: `info@tarotaxis.com` (or your Gmail — must be a real address that gets mail)
+- App logo: optional (skip for now, can add later)
+- Application home page: `https://tarotaxis.com`
+- Application privacy policy link: `https://tarotaxis.com/privacy`
+- Application terms of service link: `https://tarotaxis.com/terms`
+- Authorised domains → **Add domain** → `supabase.co`. Add another → `tarotaxis.com`. Both are required because Supabase hosts the callback and your site initiates the flow.
+- Developer contact information: `info@tarotaxis.com`
+
+**Save and continue.**
+
+*Step 2 — Scopes*
+- Click **Add or remove scopes**.
+- Tick: `.../auth/userinfo.email`, `.../auth/userinfo.profile`, `openid`. Nothing else.
+- **Update → Save and continue.**
+
+*Step 3 — Test users*
+- While the app is in "Testing" mode (default), only listed test users can sign in.
+- Add: your own Gmail address as a test user (so you can test the flow).
+- Add a couple of friends' Gmail addresses if you want them to try.
+- **Save and continue.**
+
+*Step 4 — Summary* — review, click **Back to dashboard**.
+
+⚠️ **Important:** the app is now in "Testing" mode. Real users (other than test users) will hit a "Google hasn't verified this app" screen and be **blocked**. Before public launch you need to click **Publish app** on the OAuth consent screen — this puts you in production mode without requiring full verification, as long as you stay within the basic scopes (which we do).
+
+**A.3 Create the OAuth client ID**
+
+Left sidebar → **APIs & Services → Credentials**.
+
+Click **+ Create Credentials → OAuth client ID**.
+
+- Application type: **Web application**
+- Name: `TarotAxis Web` (just a label, users never see it)
+
+**Authorised JavaScript origins** — click **+ Add URI** for each:
+- `https://tarotaxis.com`
+- `http://localhost:3000` (so the same client works for `npm run dev`)
+
+**Authorised redirect URIs** — click **+ Add URI**:
+- `https://zvfpnigaegrbgmllbsqe.supabase.co/auth/v1/callback`
+
+That's the only redirect URI you need. **Not** your own `/auth/callback` — Google sends users to Supabase first, Supabase then bounces them to your callback. The redirect URI must match **exactly** (no trailing slash, https, that exact host).
+
+Click **Create**. A modal pops up with two values:
+
+- **Client ID** — copy it somewhere temporary
+- **Client secret** — copy it somewhere temporary
+
+Then close.
+
+---
+
+#### Part B — Supabase Dashboard
+
+**B.1 Enable the Google provider**
+
+Open https://supabase.com/dashboard → pick the `tarotify` project (it's named after the old brand).
+
+Left sidebar → **Authentication → Providers**. Scroll to **Google** in the list.
+
+- Toggle **Enable Google provider** → on.
+- **Client ID (for OAuth)** → paste the Client ID from Part A.3.
+- **Client Secret (for OAuth)** → paste the Client Secret.
+- **Authorised Client IDs** → leave empty (this is for native iOS/Android apps).
+- **Skip nonce checks** → leave unchecked.
+- Click **Save**.
+
+**B.2 URL Configuration — allow your domain as a redirect target**
+
+This is the step everyone forgets. Supabase has a strict allowlist of post-auth redirect URLs; if your `redirectTo` isn't on it, you get a cryptic "redirect_to is not allowed" error after Google consent.
+
+Left sidebar → **Authentication → URL Configuration**.
+
+- **Site URL**: `https://tarotaxis.com` (the canonical home of your app — should already be set from magic-link sprint).
+- **Redirect URLs**: add ALL of these (one per line, click "Add URL" for each):
+  - `https://tarotaxis.com/auth/callback`
+  - `https://tarotaxis.com/auth/callback?next=*`
+  - `https://tarotaxis.com/es/account`
+  - `https://tarotaxis.com/account`
+  - `http://localhost:3000/auth/callback`
+  - `http://localhost:3000/auth/callback?next=*`
+
+The `?next=*` patterns are needed because our client code appends `?next=...` to track where the user was heading. Supabase's allowlist supports wildcards (`*`) on query strings.
+
+Click **Save**.
+
+---
+
+#### Part C — Test it
+
+**Production:**
+
+1. Open `https://tarotaxis.com/auth/signin` in an incognito window (so no cached session).
+2. Click **Continue with Google**.
+3. Google consent screen appears — pick the test-user Gmail you added in A.2 step 3.
+4. After consent, you should be redirected back to tarotaxis.com and land on `/account` already signed in (avatar appears in the Nav).
+
+If you see "Access blocked: TarotAxis has not completed the Google verification process" — that's the Testing-mode block. Either add yourself as a test user (A.2 step 3) or publish the app (A.2 dashboard → **Publish app**).
+
+If you see "redirect_uri_mismatch" — the redirect URI on Google side doesn't match exactly. Open the Credentials page (A.3) and re-check it's `https://zvfpnigaegrbgmllbsqe.supabase.co/auth/v1/callback`, nothing else.
+
+If you see "redirect_to is not allowed" after consent — the post-auth redirect target isn't on Supabase's allowlist. Go back to B.2 and confirm `https://tarotaxis.com/auth/callback` is there.
+
+**Spanish flow:**
+
+Same as above but start at `https://tarotaxis.com/es/auth/signin`. After consent you should land on `/es/account`. If you land on `/account` instead, the `next` query param isn't being preserved — re-check that `?next=*` patterns are in B.2.
+
+**Local dev:**
+
+```bash
+npm run dev
+# Open http://localhost:3000/auth/signin
+# Continue with Google → consent → back to localhost:3000/account
+```
+
+If local dev doesn't work but production does, you probably forgot `http://localhost:3000` in the Authorised JavaScript origins (A.3) or in Supabase Redirect URLs (B.2).
+
+---
+
+#### Part D — When you're ready for public launch
+
+The Testing-mode block only affects external (non-test-user) accounts. Before you announce the AI feature publicly:
+
+1. Go back to Google Cloud Console → **APIs & Services → OAuth consent screen**.
+2. Click **Publish app** at the top of the page.
+3. Confirm. Status changes to "In production".
+
+Because our scopes are limited to `openid`, `email`, `profile`, Google does **not** require a verification review — you're public immediately. Verification is only needed if you ask for sensitive scopes like Drive/Gmail.
 
 ### 3. Add ANTHROPIC_API_KEY to Vercel
 
