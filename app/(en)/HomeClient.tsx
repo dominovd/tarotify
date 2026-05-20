@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { CARDS } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
 import EmailCapture from '@/components/EmailCapture'
+import AIReadingBlock, { type AIReadingCard } from '@/components/AIReadingBlock'
 
 type DrawnCard = { card: typeof CARDS[0]; flipped: boolean; reversed: boolean }
 
@@ -108,9 +109,24 @@ export default function HomeClient() {
       <h1 style={{ fontFamily: "'Cinzel',serif", fontSize: 'clamp(1.6rem,4vw,2.4rem)', color: 'var(--gold)', marginBottom: '.75rem', lineHeight: 1.3 }}>
         What does the universe<br />want you to know?
       </h1>
-      <p style={{ color: 'var(--muted)', maxWidth: 480, margin: '0 auto 2.5rem', lineHeight: 1.7 }}>
-        Ask a question, draw three cards, and receive a personalised reading to guide your reflection.
+      <p style={{ color: 'var(--muted)', maxWidth: 480, margin: '0 auto 1.25rem', lineHeight: 1.7 }}>
+        Ask a question, draw three cards, and receive a personalised AI interpretation to guide your reflection.
       </p>
+      <div style={{ display: 'flex', gap: '.5rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+        {['Free AI reading', 'No card required', '78 card meanings'].map(t => (
+          <span key={t} style={{
+            padding: '.3rem .85rem',
+            border: '1px solid var(--border)',
+            borderRadius: 18,
+            fontSize: '.72rem',
+            color: 'var(--muted)',
+            fontFamily: "'Cinzel',serif",
+            letterSpacing: '.06em',
+          }}>
+            {t}
+          </span>
+        ))}
+      </div>
       <div style={{ background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily:"'Cinzel',serif", fontSize: '.72rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .7, textTransform: 'uppercase', marginBottom: '.75rem' }}>
           Your Question
@@ -247,7 +263,21 @@ export default function HomeClient() {
               </Link>
             ))}
           </div>
-          <div style={{ display:'flex', gap:'.75rem', flexWrap:'wrap' }}>
+
+          {/* AI Reading block — homepage funnel into the deeper interpretation */}
+          <AIReadingBlock
+            locale="en"
+            source="free-reading"
+            spreadName="Past · Present · Future"
+            cards={drawn.map((d, i): AIReadingCard => ({
+              slug: d.card.slug,
+              reversed: d.reversed,
+              position: POSITIONS[i],
+            }))}
+            question={question.trim() || undefined}
+          />
+
+          <div style={{ display:'flex', gap:'.75rem', flexWrap:'wrap', marginTop:'1.5rem' }}>
             <button onClick={saveToJournal} style={{ flex:1, minWidth:140, padding:'.85rem', background:'transparent', border:'1px solid var(--border)', borderRadius:10, color:'var(--muted)', fontFamily:"'Cinzel',serif", fontSize:'.82rem', letterSpacing:'.06em', cursor:'pointer' }}>
               Save to Journal
             </button>

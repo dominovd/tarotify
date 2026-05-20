@@ -90,10 +90,10 @@ export default function SpanishHome() {
           Lecturas de Tarot Gratis
         </h1>
         <p style={{ color: 'var(--muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7, fontSize: '1rem' }}>
-          Saca tres cartas para una reflexión guiada, explora el significado de las 78 cartas, o consulta el oráculo de Sí/No para una respuesta directa.
+          Saca tres cartas y recibe una interpretación personalizada con IA, explora el significado de las 78 cartas, o consulta el oráculo de Sí/No para una respuesta directa.
         </p>
         <div style={{ display: 'flex', gap: '.5rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-          {['Sin registro', 'Significados completos', 'Para amor, carrera, espíritu'].map(t => (
+          {['Lectura con IA gratis', 'Sin tarjeta', 'Significados completos'].map(t => (
             <span key={t} style={{ padding: '.3rem .85rem', border: '1px solid var(--border)', borderRadius: 18, fontSize: '.72rem', color: 'var(--muted)', fontFamily: "'Cinzel',serif", letterSpacing: '.06em' }}>
               {t}
             </span>
@@ -101,11 +101,14 @@ export default function SpanishHome() {
         </div>
       </div>
 
-      {/* Primary CTA — interactive 3-card free reading */}
+      {/* Primary CTA — interactive 3-card free reading with AI interpretation */}
       <Link
         href="/es/lectura-gratis"
         style={{
-          display: 'block',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '.65rem',
           width: '100%',
           padding: '1.1rem',
           background: 'linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.08))',
@@ -119,7 +122,18 @@ export default function SpanishHome() {
           textDecoration: 'none',
         }}
       >
-        ✦ Sacar tres cartas
+        ✦ Sacar tres cartas con lectura IA
+        <span style={{
+          fontSize: '.6rem',
+          letterSpacing: '.12em',
+          padding: '.18rem .5rem',
+          background: 'rgba(201,168,76,.18)',
+          border: '1px solid rgba(201,168,76,.55)',
+          borderRadius: 20,
+          color: 'var(--gold)',
+        }}>
+          GRATIS
+        </span>
       </Link>
 
       {/* Quick links */}
