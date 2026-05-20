@@ -55,7 +55,8 @@ Name the underlying current the cards reveal together.
 
 ## What to Focus On
 A 2–3 item bulleted list of practical next steps the seeker can take this
-week. Plain English, no jargon, no fortune-telling.
+week. Plain English, no jargon, no fortune-telling. Use \`- \` (dash + space)
+as the bullet marker, not \`*\`.
 `
 
 const FORMAT_GUIDE_ES = `
@@ -81,7 +82,8 @@ coherente. Nombra la corriente de fondo que las cartas revelan juntas.
 
 ## En qué centrarse
 Una lista con 2 a 3 puntos de pasos prácticos que la persona puede dar esta
-semana. Lenguaje claro, sin jerga, sin adivinación.
+semana. Lenguaje claro, sin jerga, sin adivinación. Usa \`- \` (guion +
+espacio) como marcador de viñeta, no \`*\`.
 `
 
 // ─── tone + framing ─────────────────────────────────────────────────────────

@@ -65,7 +65,7 @@ export default function RenderedReading({ text, streaming, fontSize }: Props) {
           {line.slice(3)}
         </h3>,
       )
-    } else if (line.trimStart().startsWith('- ')) {
+    } else if (isBulletLine(line)) {
       listBuf.push(line.trimStart().slice(2))
     } else if (line.trim() === '') {
       flushList()
@@ -107,6 +107,13 @@ export default function RenderedReading({ text, streaming, fontSize }: Props) {
       `}</style>
     </div>
   )
+}
+
+/** Accept either "- " or "* " as a bullet marker. Models sometimes use
+ *  one or the other regardless of the prompt. */
+function isBulletLine(line: string): boolean {
+  const trimmed = line.trimStart()
+  return trimmed.startsWith('- ') || trimmed.startsWith('* ')
 }
 
 /** Render a single line's inline syntax: **bold** → <strong>. */
