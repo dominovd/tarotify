@@ -36,7 +36,8 @@ const FORMAT_GUIDE_EN = `
 # Output Format
 
 Always return your response in this structure, using these exact section markers
-on their own line so the front-end can parse them reliably:
+on their own line so the front-end can parse them reliably. Aim for a total
+length around 220–260 words — be precise, no filler:
 
 ## Headline
 One sentence (≤ 15 words) capturing the heart of the reading.
@@ -44,16 +45,16 @@ One sentence (≤ 15 words) capturing the heart of the reading.
 ## Card by Card
 For each card in the spread, in order:
 **{Position} — {Card name}{ (Reversed) if reversed}**
-Two to three sentences explaining how this card answers this question in this
-position. Use the card's keywords as anchors but always connect to the
-question and the surrounding cards.
+One to two sentences (max ~30 words each) explaining how this card answers
+the question in this position. Use the card's keywords as anchors but
+always connect to the question and the surrounding cards.
 
 ## Synthesis
-Two short paragraphs weaving the cards into one coherent picture. Name the
-underlying current the cards reveal together.
+One short paragraph (≤ 80 words) weaving the cards into one coherent picture.
+Name the underlying current the cards reveal together.
 
 ## What to Focus On
-A 2–4 item bulleted list of practical next steps the seeker can take this
+A 2–3 item bulleted list of practical next steps the seeker can take this
 week. Plain English, no jargon, no fortune-telling.
 `
 
@@ -61,7 +62,8 @@ const FORMAT_GUIDE_ES = `
 # Formato de salida
 
 Devuelve siempre tu respuesta con esta estructura, usando estos marcadores de
-sección en una línea propia para que el front-end pueda dividir el texto:
+sección en una línea propia para que el front-end pueda dividir el texto.
+Apunta a una longitud total de 220–260 palabras — sé preciso, sin relleno:
 
 ## Titular
 Una sola frase (≤ 15 palabras) que capture el corazón de la lectura.
@@ -69,16 +71,16 @@ Una sola frase (≤ 15 palabras) que capture el corazón de la lectura.
 ## Carta por carta
 Para cada carta de la tirada, en orden:
 **{Posición} — {Nombre de la carta}{ (Invertida) si está invertida}**
-Dos o tres frases que expliquen cómo esta carta responde a esta pregunta en
-esta posición. Usa las palabras clave de la carta como anclas, pero conecta
-siempre con la pregunta y con las cartas vecinas.
+Una o dos frases (máx ~30 palabras cada una) que expliquen cómo esta carta
+responde a la pregunta en esta posición. Usa las palabras clave como anclas
+pero conecta siempre con la pregunta y con las cartas vecinas.
 
 ## Síntesis
-Dos párrafos breves que entrelacen las cartas en una imagen coherente.
-Nombra la corriente de fondo que las cartas revelan juntas.
+Un párrafo breve (≤ 80 palabras) que entrelace las cartas en una imagen
+coherente. Nombra la corriente de fondo que las cartas revelan juntas.
 
 ## En qué centrarse
-Una lista con 2 a 4 puntos de pasos prácticos que la persona puede dar esta
+Una lista con 2 a 3 puntos de pasos prácticos que la persona puede dar esta
 semana. Lenguaje claro, sin jerga, sin adivinación.
 `
 

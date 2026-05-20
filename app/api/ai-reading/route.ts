@@ -48,7 +48,6 @@ import {
   checkQuota,
   checkDailyBudget,
   logUsage,
-  ESTIMATED_COST_MICRO_PER_CALL,
 } from '@/lib/ai/quota'
 import {
   buildUserMessage,
@@ -63,16 +62,50 @@ import {
 
 export const runtime = 'edge'
 
-const MODEL = 'claude-sonnet-4-6'
-const MAX_TOKENS = 1800
+const MAX_TOKENS = 1200
 const MAX_CARDS = 22
 const MAX_QUESTION_LEN = 500
 
-// Pricing per million tokens (USD). Sonnet 4.6 as of 2026-05.
-const PRICE_INPUT_PER_M = 3.0
-const PRICE_CACHE_WRITE_PER_M = 3.75
-const PRICE_CACHE_READ_PER_M = 0.3
-const PRICE_OUTPUT_PER_M = 15.0
+// ─── per-source model routing ──────────────────────────────────────────────
+// Haiku 4.5 is ~5× cheaper than Sonnet 4.6 ($0.008/call vs $0.04/call) and
+// handles the standard "card meaning + apply to context" task well. We
+// keep Sonnet for /reading-analysis where the synthesis across many cards
+// is more nuanced.
+//
+// Each model carries its own per-call cost estimate that we write into
+// ai_usage.cost_usd_micro, so the daily budget cap stays accurate when
+// mixing both models.
+type ModelChoice = {
+  model: string
+  estimatedCostMicro: number
+  // Pricing per million tokens for accurate post-stream logging.
+  priceInputPerM: number
+  priceCacheWritePerM: number
+  priceCacheReadPerM: number
+  priceOutputPerM: number
+}
+
+const SONNET: ModelChoice = {
+  model: 'claude-sonnet-4-6',
+  estimatedCostMicro: 40_000, // ~$0.04
+  priceInputPerM: 3.0,
+  priceCacheWritePerM: 3.75,
+  priceCacheReadPerM: 0.3,
+  priceOutputPerM: 15.0,
+}
+const HAIKU: ModelChoice = {
+  model: 'claude-haiku-4-5-20251001',
+  estimatedCostMicro: 8_000, // ~$0.008
+  priceInputPerM: 1.0,
+  priceCacheWritePerM: 1.25,
+  priceCacheReadPerM: 0.1,
+  priceOutputPerM: 5.0,
+}
+
+function pickModel(source: 'free-reading' | 'reading-analysis'): ModelChoice {
+  if (source === 'reading-analysis') return SONNET
+  return HAIKU
+}
 
 function badRequest(message: string): Response {
   return new Response(JSON.stringify({ error: message }), {
@@ -245,12 +278,16 @@ export async function POST(req: Request): Promise<Response> {
     })
   }
 
+  // Pick a model based on the surface. Cheaper Haiku for /daily and
+  // /free-reading; Sonnet for /reading-analysis where the 22-card synthesis
+  // benefits from the bigger model.
+  const chosen = pickModel(source)
+
   // ─── pre-insert usage row (BEFORE streaming) ───────────────────────────
   // We log the usage row BEFORE starting the stream so quota enforcement is
   // deterministic regardless of the Edge runtime lifecycle. Cost is the
-  // per-call estimate (Sonnet 4.6 averages ~$0.04 cold cache); this lets
-  // the daily budget sum stay accurate even when token counts trickle in
-  // mid-stream and may not be persisted.
+  // chosen model's per-call estimate so the daily budget sum stays accurate
+  // when mixing Haiku + Sonnet traffic.
   //
   // (Previously the insert lived in a fire-and-forget `finally` block AFTER
   //  the stream finished. Edge workers were sometimes terminated as soon as
@@ -259,7 +296,7 @@ export async function POST(req: Request): Promise<Response> {
   await logUsage({
     userId, browserId, ipHash, source, locale,
     tokensIn: 0, tokensOut: 0,
-    costUsdMicro: ESTIMATED_COST_MICRO_PER_CALL,
+    costUsdMicro: chosen.estimatedCostMicro,
   })
 
   const anthropic = new Anthropic({ apiKey })
@@ -290,7 +327,7 @@ export async function POST(req: Request): Promise<Response> {
       }] as unknown as Anthropic.TextBlockParam[]
 
       const stream = anthropic.messages.stream({
-        model: MODEL,
+        model: chosen.model,
         max_tokens: MAX_TOKENS,
         system: systemBlock,
         messages: [{ role: 'user', content: userMessage }],
@@ -350,11 +387,12 @@ export async function POST(req: Request): Promise<Response> {
 
       // Best-effort: log token counts to the console for spot-check observability.
       const cost =
-        (tokensIn      * PRICE_INPUT_PER_M)       +
-        (cacheCreate   * PRICE_CACHE_WRITE_PER_M) +
-        (cacheRead     * PRICE_CACHE_READ_PER_M)  +
-        (tokensOut     * PRICE_OUTPUT_PER_M)
+        (tokensIn      * chosen.priceInputPerM)       +
+        (cacheCreate   * chosen.priceCacheWritePerM)  +
+        (cacheRead     * chosen.priceCacheReadPerM)   +
+        (tokensOut     * chosen.priceOutputPerM)
       console.info('[ai-reading] usage', {
+        model: chosen.model,
         in: tokensIn, cacheCreate, cacheRead, out: tokensOut,
         costMicroUsd: Math.round(cost),
         locale, source, cachedKey: cacheKey ? cacheKey.slice(0, 8) : null,
