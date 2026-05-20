@@ -325,20 +325,27 @@ export async function POST(req: Request): Promise<Response> {
         await writer.write(encoder.encode('\n\n[stream error — please try again]'))
       } catch { /* writer might already be closed */ }
     } finally {
-      try { await writer.close() } catch { /* already closed */ }
-
-      // Best-effort cache insert. Only when:
-      // - we have a cache key (empty-question reading)
-      // - the stream produced a reasonably complete response (>200 chars)
-      // Fire-and-forget: Edge may terminate before this completes, but
-      // that's fine — next call regenerates.
+      // ─── cache insert BEFORE closing the writer ─────────────────────────
+      // We must `await` the insert here, not fire-and-forget. The Edge
+      // worker stays alive only while the response stream is open; once
+      // writer.close() runs, the client receives EOF and the worker may
+      // be terminated immediately — killing any unfinished microtasks.
+      //
+      // Doing the insert before close() also adds ~50-200ms between the
+      // last streamed token and connection close. Imperceptible to the
+      // user, and the only way to make the cache write reliable in this
+      // runtime.
       if (cacheKey && collected.length > 200) {
-        void insertCachedReading({
-          cacheKey,
-          responseText: collected,
-          locale,
-          source,
-        })
+        try {
+          await insertCachedReading({
+            cacheKey,
+            responseText: collected,
+            locale,
+            source,
+          })
+        } catch (e) {
+          console.warn('[ai-reading] cache insert failed:', e)
+        }
       }
 
       // Best-effort: log token counts to the console for spot-check observability.
@@ -350,8 +357,11 @@ export async function POST(req: Request): Promise<Response> {
       console.info('[ai-reading] usage', {
         in: tokensIn, cacheCreate, cacheRead, out: tokensOut,
         costMicroUsd: Math.round(cost),
-        locale, source, cached: false,
+        locale, source, cachedKey: cacheKey ? cacheKey.slice(0, 8) : null,
       })
+
+      // Now close the writer so the client sees EOF.
+      try { await writer.close() } catch { /* already closed */ }
     }
   })()
 
