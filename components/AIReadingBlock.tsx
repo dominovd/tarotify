@@ -65,6 +65,18 @@ interface LocaleCopy {
   signUpCta: string
   signInCta: string
   alreadyHave: string
+  // Action row labels (Copy / Save / Email)
+  actionCopy: string
+  actionCopyDone: string
+  actionSave: string
+  actionSaveDone: string
+  actionEmail: string
+  actionEmailSending: string
+  actionEmailDone: string
+  actionEmailCooldown: string
+  actionEmailError: string
+  lockSavePrompt: string
+  lockEmailPrompt: string
 }
 
 const COPY: Record<'en' | 'es', LocaleCopy> = {
@@ -86,6 +98,17 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     signUpCta: 'Sign up free',
     signInCta: 'Sign in',
     alreadyHave: 'Already have an account?',
+    actionCopy: 'Copy',
+    actionCopyDone: 'Copied!',
+    actionSave: 'Save',
+    actionSaveDone: 'Saved!',
+    actionEmail: 'Email it to me',
+    actionEmailSending: 'Sending…',
+    actionEmailDone: 'Sent — check your inbox',
+    actionEmailCooldown: 'You sent a reading recently. Try again in ~30 minutes.',
+    actionEmailError: 'Could not send the email. Please try again.',
+    lockSavePrompt: 'Sign up free to save AI readings to your journal.',
+    lockEmailPrompt: 'Sign up free to receive AI readings in your inbox.',
   },
   es: {
     intro: 'Da vida a las cartas con una interpretación personalizada por IA. La lectura aparece justo debajo de las cartas en unos segundos.',
@@ -105,8 +128,21 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     signUpCta: 'Crear cuenta gratis',
     signInCta: 'Iniciar sesión',
     alreadyHave: '¿Ya tienes cuenta?',
+    actionCopy: 'Copiar',
+    actionCopyDone: '¡Copiado!',
+    actionSave: 'Guardar',
+    actionSaveDone: '¡Guardado!',
+    actionEmail: 'Enviar a mi correo',
+    actionEmailSending: 'Enviando…',
+    actionEmailDone: 'Enviado — revisa tu bandeja',
+    actionEmailCooldown: 'Enviaste una lectura hace poco. Vuelve a intentarlo en ~30 minutos.',
+    actionEmailError: 'No se pudo enviar el correo. Inténtalo de nuevo.',
+    lockSavePrompt: 'Crea una cuenta gratis para guardar tus lecturas con IA en tu diario.',
+    lockEmailPrompt: 'Crea una cuenta gratis para recibir lecturas con IA en tu correo.',
   },
 }
+
+type EmailState = 'idle' | 'sending' | 'sent' | 'cooldown' | 'error'
 
 export default function AIReadingBlock(props: Props) {
   const { locale, source, cards, question, spreadName, disabled, signinNext } = props
@@ -117,6 +153,12 @@ export default function AIReadingBlock(props: Props) {
   const [text, setText] = useState('')
   const [quota, setQuota] = useState<QuotaMeta | null>(null)
   const [limitScope, setLimitScope] = useState<'registered' | 'anonymous' | 'ip'>('anonymous')
+
+  // Action row state
+  const [copied, setCopied] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const [emailState, setEmailState] = useState<EmailState>('idle')
+  const [lockedAction, setLockedAction] = useState<null | 'save' | 'email'>(null)
 
   async function run() {
     if (phase === 'streaming' || cards.length === 0) return
@@ -167,8 +209,65 @@ export default function AIReadingBlock(props: Props) {
       buffer += decoder.decode()
       setText(buffer)
       setPhase('done')
+      // Reset post-action state so the user starts clean on each new reading.
+      setCopied(false); setSaved(false); setEmailState('idle'); setLockedAction(null)
     } catch {
       setPhase('error')
+    }
+  }
+
+  // ─── action handlers ───────────────────────────────────────────────────
+
+  async function onCopy() {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2200)
+    } catch {
+      // Fallback: select-all via execCommand is messy and rarely needed
+      // on modern browsers. We just no-op silently.
+    }
+  }
+
+  function onSave() {
+    if (!user) { setLockedAction('save'); return }
+    try {
+      const raw = localStorage.getItem('tarotify_journal') ?? '[]'
+      const entries: unknown = JSON.parse(raw)
+      const list = Array.isArray(entries) ? entries : []
+      list.unshift({
+        date: new Date().toLocaleDateString(),
+        question: question ?? '',
+        cards: cards.map(c => `${c.position ? c.position + ': ' : ''}${c.slug}${c.reversed ? ' (reversed)' : ''}`),
+        reading: text,
+        source: 'ai',
+        spreadName: spreadName ?? '',
+        locale,
+      })
+      localStorage.setItem('tarotify_journal', JSON.stringify(list.slice(0, 50)))
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2500)
+    } catch {
+      /* localStorage might be unavailable (private mode, etc.) */
+    }
+  }
+
+  async function onEmail() {
+    if (!user) { setLockedAction('email'); return }
+    if (emailState === 'sending') return
+    setEmailState('sending')
+    try {
+      const res = await fetch('/api/ai-reading/email', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ cards, question, spreadName, text, locale }),
+      })
+      if (res.status === 429) { setEmailState('cooldown'); return }
+      if (!res.ok) { setEmailState('error'); return }
+      setEmailState('sent')
+      setTimeout(() => setEmailState('idle'), 5000)
+    } catch {
+      setEmailState('error')
     }
   }
 
@@ -245,6 +344,24 @@ export default function AIReadingBlock(props: Props) {
         <div style={{ marginTop: '1.5rem' }}>
           <RenderedMarkdown text={text} streaming={phase === 'streaming'} />
         </div>
+      )}
+
+      {/* Action row — only when reading is complete */}
+      {phase === 'done' && text && (
+        <ActionRow
+          locale={locale}
+          copy={t}
+          isUser={Boolean(user)}
+          copied={copied}
+          saved={saved}
+          emailState={emailState}
+          onCopy={onCopy}
+          onSave={onSave}
+          onEmail={onEmail}
+          lockedAction={lockedAction}
+          onCloseLocked={() => setLockedAction(null)}
+          signinNext={signinNext}
+        />
       )}
 
       {/* Quota indicator below the button or result */}
@@ -376,6 +493,203 @@ function LimitWall(props: {
         </>
       )}
     </div>
+  )
+}
+
+/** Bottom action row — three icon buttons + inline lock prompt. */
+function ActionRow(props: {
+  locale: 'en' | 'es'
+  copy: LocaleCopy
+  isUser: boolean
+  copied: boolean
+  saved: boolean
+  emailState: EmailState
+  onCopy: () => void
+  onSave: () => void
+  onEmail: () => void
+  lockedAction: null | 'save' | 'email'
+  onCloseLocked: () => void
+  signinNext: string | undefined
+}) {
+  const { locale, copy: t, isUser, copied, saved, emailState,
+          onCopy, onSave, onEmail, lockedAction, onCloseLocked, signinNext } = props
+
+  const baseBtn: React.CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '.4rem',
+    padding: '.5rem .9rem',
+    borderRadius: 9,
+    background: 'var(--on-bg-04)',
+    border: '1px solid var(--border)',
+    color: 'var(--muted)',
+    fontFamily: "'Cinzel',serif",
+    fontSize: '.78rem',
+    letterSpacing: '.05em',
+    cursor: 'pointer',
+    transition: 'border-color .15s, color .15s, background .15s',
+  }
+  const activeBtn: React.CSSProperties = {
+    ...baseBtn,
+    background: 'rgba(201,168,76,.12)',
+    border: '1px solid rgba(201,168,76,.55)',
+    color: 'var(--gold)',
+  }
+
+  const emailLabel =
+      emailState === 'sending'  ? t.actionEmailSending
+    : emailState === 'sent'     ? t.actionEmailDone
+    : emailState === 'cooldown' ? t.actionEmailCooldown
+    : emailState === 'error'    ? t.actionEmailError
+    :                              t.actionEmail
+  const emailActive = emailState === 'sent'
+
+  const next = signinNext ?? (locale === 'es' ? '/es/account' : '/account')
+  const signUpUrl = locale === 'es'
+    ? `/es/auth/signup?next=${encodeURIComponent(next)}`
+    : `/auth/signup?next=${encodeURIComponent(next)}`
+  const signInUrl = locale === 'es'
+    ? `/es/auth/signin?next=${encodeURIComponent(next)}`
+    : `/auth/signin?next=${encodeURIComponent(next)}`
+
+  const lockPrompt = lockedAction === 'save' ? t.lockSavePrompt
+                   : lockedAction === 'email' ? t.lockEmailPrompt
+                   : null
+
+  return (
+    <div style={{ marginTop: '1.25rem' }}>
+      <div style={{
+        display: 'flex',
+        gap: '.5rem',
+        flexWrap: 'wrap',
+        paddingTop: '1rem',
+        borderTop: '1px solid var(--border)',
+      }}>
+        {/* Copy */}
+        <button type="button" onClick={onCopy} style={copied ? activeBtn : baseBtn} aria-label={t.actionCopy}>
+          <IconCopy />
+          <span>{copied ? t.actionCopyDone : t.actionCopy}</span>
+        </button>
+
+        {/* Save */}
+        <button type="button" onClick={onSave} style={saved ? activeBtn : baseBtn} aria-label={t.actionSave}>
+          {isUser ? <IconSave /> : <IconLock />}
+          <span>{saved ? t.actionSaveDone : t.actionSave}</span>
+        </button>
+
+        {/* Email */}
+        <button
+          type="button"
+          onClick={onEmail}
+          style={emailActive ? activeBtn : baseBtn}
+          aria-label={t.actionEmail}
+          disabled={emailState === 'sending'}
+        >
+          {isUser ? <IconMail /> : <IconLock />}
+          <span>{emailLabel}</span>
+        </button>
+      </div>
+
+      {/* Inline lock prompt — opens when anon clicks Save or Email */}
+      {lockPrompt && (
+        <div style={{
+          marginTop: '.75rem',
+          padding: '.75rem 1rem',
+          background: 'rgba(201,168,76,.08)',
+          border: '1px solid rgba(201,168,76,.35)',
+          borderRadius: 10,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '.75rem',
+          flexWrap: 'wrap',
+        }}>
+          <span style={{ color: 'var(--text)', fontSize: '.85rem', lineHeight: 1.5, flex: 1, minWidth: 200 }}>
+            {lockPrompt}
+          </span>
+          <Link
+            href={signUpUrl}
+            style={{
+              display: 'inline-block',
+              padding: '.45rem .85rem',
+              background: 'rgba(201,168,76,.18)',
+              border: '1px solid rgba(201,168,76,.6)',
+              borderRadius: 8,
+              color: 'var(--gold)',
+              fontFamily: "'Cinzel',serif",
+              fontSize: '.78rem',
+              letterSpacing: '.06em',
+              textDecoration: 'none',
+            }}
+          >
+            {t.signUpCta}
+          </Link>
+          <Link
+            href={signInUrl}
+            style={{
+              color: 'var(--gold)',
+              fontSize: '.8rem',
+              borderBottom: '1px dashed rgba(201,168,76,.5)',
+              textDecoration: 'none',
+            }}
+          >
+            {t.signInCta}
+          </Link>
+          <button
+            type="button"
+            onClick={onCloseLocked}
+            aria-label="Dismiss"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--muted)',
+              fontSize: '1.1rem',
+              cursor: 'pointer',
+              opacity: .5,
+              padding: '0 .25rem',
+            }}
+          >
+            ×
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── inline SVG icons ───────────────────────────────────────────────────────
+
+function IconCopy() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="9" width="13" height="13" rx="2"/>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+    </svg>
+  )
+}
+
+function IconSave() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+    </svg>
+  )
+}
+
+function IconMail() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
+    </svg>
+  )
+}
+
+function IconLock() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
   )
 }
 
