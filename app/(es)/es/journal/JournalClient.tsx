@@ -2,20 +2,25 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { CARDS, type Card } from '@/lib/cards'
+import { CARDS, CARDS_BY_SLUG, type Card } from '@/lib/cards'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import CardImage from '@/components/CardImage'
 import EmailCapture from '@/components/EmailCapture'
+import { useUser } from '@/hooks/useUser'
 
 // localStorage key shared with EN — do NOT change.
 const JOURNAL_KEY = 'tarotify_journal'
 const REVERSED_SUFFIX = ' (Reversed)'
 
-interface JournalEntry {
+interface UnifiedEntry {
+  source: 'local' | 'cloud'
+  id?: string
+  localIdx?: number
   date: string
   question: string
   cards: string[]
   reading: string
+  sortKey: string
 }
 
 interface CardChip {
@@ -25,7 +30,7 @@ interface CardChip {
   card: Card | null
 }
 
-function isJournalEntry(e: unknown): e is JournalEntry {
+function isLegacyLocalEntry(e: unknown): e is { date: string; question: string; cards: string[]; reading: string } {
   if (!e || typeof e !== 'object') return false
   const x = e as Record<string, unknown>
   return (
@@ -37,9 +42,43 @@ function isJournalEntry(e: unknown): e is JournalEntry {
   )
 }
 
+interface CloudEntry {
+  id: string
+  created_at: string
+  date: string
+  question: string | null
+  spread_id: string | null
+  cards: Array<{ slug: string; reversed: boolean; position?: string | null }> | null
+  interpretation: string | null
+  notes: string | null
+}
+
+function cloudToUnified(e: CloudEntry): UnifiedEntry {
+  const cardStrings: string[] = (e.cards ?? []).map(c => {
+    const base = CARDS_BY_SLUG[c.slug]
+    const name = base?.name ?? c.slug
+    const reversed = c.reversed ? REVERSED_SUFFIX : ''
+    const pos = c.position ? `${c.position}: ` : ''
+    return `${pos}${name}${reversed}`
+  })
+  return {
+    source: 'cloud',
+    id: e.id,
+    date: e.date,
+    question: e.question ?? '',
+    cards: cardStrings,
+    reading: e.interpretation ?? '',
+    sortKey: e.created_at,
+  }
+}
+
 function parseCardChip(raw: string, cardByName: Map<string, Card>): CardChip {
+  const withoutSuffix = raw.endsWith(REVERSED_SUFFIX)
+    ? raw.slice(0, -REVERSED_SUFFIX.length)
+    : raw
   const reversed = raw.endsWith(REVERSED_SUFFIX)
-  const cleanName = reversed ? raw.slice(0, -REVERSED_SUFFIX.length) : raw
+  const colonAt = withoutSuffix.indexOf(': ')
+  const cleanName = colonAt >= 0 ? withoutSuffix.slice(colonAt + 2) : withoutSuffix
   return { raw, cleanName, reversed, card: cardByName.get(cleanName) || null }
 }
 
@@ -59,11 +98,12 @@ function formatDateEs(dateStr: string): string {
 }
 
 export default function JournalClient() {
-  const [entries, setEntries] = useState<JournalEntry[]>([])
+  const { user, loading: userLoading } = useUser()
+  const [entries, setEntries] = useState<UnifiedEntry[]>([])
   const [hydrated, setHydrated] = useState(false)
   const [filter, setFilter] = useState('')
   const [feedback, setFeedback] = useState<string | null>(null)
-  const [expanded, setExpanded] = useState<Set<number>>(new Set())
+  const [expanded, setExpanded] = useState<Set<string>>(new Set())
 
   const cardByName = useMemo(() => {
     const m = new Map<string, Card>()
@@ -72,32 +112,85 @@ export default function JournalClient() {
   }, [])
 
   useEffect(() => {
+    let cancelled = false
+    async function load() {
+      let local: UnifiedEntry[] = []
+      try {
+        const raw = localStorage.getItem(JOURNAL_KEY) || '[]'
+        const parsed: unknown = JSON.parse(raw)
+        if (Array.isArray(parsed)) {
+          local = parsed
+            .map((e, idx): UnifiedEntry | null => {
+              if (!isLegacyLocalEntry(e)) return null
+              return {
+                source: 'local',
+                localIdx: idx,
+                date: e.date,
+                question: e.question,
+                cards: e.cards,
+                reading: e.reading,
+                sortKey: `local-${String(10_000 - idx).padStart(5, '0')}`,
+              }
+            })
+            .filter((e): e is UnifiedEntry => e !== null)
+        }
+      } catch { /* ignore */ }
+
+      if (cancelled) return
+
+      let cloud: UnifiedEntry[] = []
+      if (user) {
+        try {
+          const res = await fetch('/api/saved-readings', { cache: 'no-store' })
+          if (res.ok) {
+            const body = (await res.json()) as { readings?: CloudEntry[] }
+            cloud = (body.readings ?? []).map(cloudToUnified)
+          }
+        } catch { /* ignore */ }
+      }
+
+      if (cancelled) return
+
+      const merged = [...cloud, ...local].sort((a, b) =>
+        a.sortKey < b.sortKey ? 1 : a.sortKey > b.sortKey ? -1 : 0
+      )
+      setEntries(merged)
+      setHydrated(true)
+    }
+    if (!userLoading) load()
+    return () => { cancelled = true }
+  }, [user, userLoading])
+
+  function entryKey(e: UnifiedEntry): string {
+    return e.source === 'cloud' ? `c-${e.id}` : `l-${e.localIdx}`
+  }
+
+  async function deleteEntry(target: UnifiedEntry) {
+    if (!window.confirm('¿Eliminar esta entrada del diario?')) return
+    if (target.source === 'cloud' && target.id) {
+      try {
+        await fetch(`/api/saved-readings?id=${encodeURIComponent(target.id)}`, {
+          method: 'DELETE',
+        })
+      } catch { /* ignore */ }
+      setEntries(prev => prev.filter(e => entryKey(e) !== entryKey(target)))
+      return
+    }
     try {
       const raw = localStorage.getItem(JOURNAL_KEY) || '[]'
       const parsed: unknown = JSON.parse(raw)
-      if (Array.isArray(parsed)) {
-        setEntries(parsed.filter(isJournalEntry))
+      if (Array.isArray(parsed) && target.localIdx !== undefined) {
+        const next = parsed.filter((_, i) => i !== target.localIdx)
+        localStorage.setItem(JOURNAL_KEY, JSON.stringify(next))
       }
-    } catch {
-      /* ignore */
-    }
-    setHydrated(true)
-  }, [])
-
-  function persist(next: JournalEntry[]) {
-    setEntries(next)
-    try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(next)) } catch { /* ignore */ }
+    } catch { /* ignore */ }
+    setEntries(prev => prev.filter(e => entryKey(e) !== entryKey(target)))
   }
 
-  function deleteEntry(idx: number) {
-    if (!window.confirm('¿Eliminar esta entrada del diario?')) return
-    persist(entries.filter((_, i) => i !== idx))
-  }
-
-  function clearAll() {
-    if (!window.confirm('¿Eliminar todas las entradas del diario? Esto no se puede deshacer.')) return
-    persist([])
+  async function clearAll() {
+    if (!window.confirm('¿Eliminar todas las entradas guardadas en este dispositivo? Las entradas sincronizadas en la nube se conservan; bórralas individualmente si lo deseas.')) return
     try { localStorage.removeItem(JOURNAL_KEY) } catch { /* ignore */ }
+    setEntries(prev => prev.filter(e => e.source !== 'local'))
   }
 
   function exportJson() {
@@ -118,25 +211,26 @@ export default function JournalClient() {
     }
   }
 
-  function toggleExpand(idx: number) {
+  function toggleExpand(key: string) {
     setExpanded(prev => {
       const next = new Set(prev)
-      if (next.has(idx)) next.delete(idx); else next.add(idx)
+      if (next.has(key)) next.delete(key); else next.add(key)
       return next
     })
   }
 
   const filtered = useMemo(() => {
-    if (!filter) return entries.map((e, i) => ({ entry: e, originalIdx: i }))
+    if (!filter) return entries
     const q = filter.toLowerCase()
-    return entries
-      .map((e, i) => ({ entry: e, originalIdx: i }))
-      .filter(({ entry }) =>
-        (entry.question || '').toLowerCase().includes(q) ||
-        entry.cards.some(c => c.toLowerCase().includes(q)) ||
-        (entry.reading || '').toLowerCase().includes(q),
-      )
+    return entries.filter(entry =>
+      (entry.question || '').toLowerCase().includes(q) ||
+      entry.cards.some(c => c.toLowerCase().includes(q)) ||
+      (entry.reading || '').toLowerCase().includes(q),
+    )
   }, [entries, filter])
+
+  const cloudCount = entries.filter(e => e.source === 'cloud').length
+  const localCount = entries.filter(e => e.source === 'local').length
 
   if (!hydrated) {
     return (
@@ -162,8 +256,27 @@ export default function JournalClient() {
           Tu Diario de Tarot
         </h1>
         <p style={{ color: 'var(--muted)', fontSize: '0.95rem', maxWidth: 560, margin: '0 auto' }}>
-          Las lecturas que has guardado en este dispositivo. Almacenado localmente — nada subido.
+          {user
+            ? 'Tus lecturas guardadas — sincronizadas en todos tus dispositivos cuando inicias sesión, más cualquier lectura guardada en este navegador antes.'
+            : 'Las lecturas que has guardado en este dispositivo. Inicia sesión para sincronizarlas entre dispositivos.'}
         </p>
+        {!userLoading && !user && (
+          <div style={{ marginTop: '1rem', display: 'flex', gap: '0.6rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/es/auth/signin?next=/es/journal" style={{
+              fontFamily: "'Cinzel',serif",
+              fontSize: '0.78rem',
+              color: 'var(--gold)',
+              background: 'rgba(201,168,76,.1)',
+              border: '1px solid rgba(201,168,76,.5)',
+              borderRadius: 8,
+              padding: '0.5rem 1rem',
+              textDecoration: 'none',
+              letterSpacing: '0.06em',
+            }}>
+              Iniciar sesión para sincronizar →
+            </Link>
+          </div>
+        )}
       </header>
 
       {/* Empty state */}
@@ -306,15 +419,16 @@ export default function JournalClient() {
 
           {/* Entries */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {filtered.map(({ entry, originalIdx }) => {
+            {filtered.map((entry) => {
+              const key = entryKey(entry)
               const chips = entry.cards.map(c => parseCardChip(c, cardByName))
-              const isExpanded = expanded.has(originalIdx)
+              const isExpanded = expanded.has(key)
               const readingPreview = entry.reading.length > 280 && !isExpanded
                 ? entry.reading.slice(0, 280).trimEnd() + '…'
                 : entry.reading
 
               return (
-                <article key={originalIdx} style={{
+                <article key={key} style={{
                   background: 'var(--on-bg-025)',
                   border: '1px solid var(--border)',
                   borderRadius: 12,
@@ -329,17 +443,32 @@ export default function JournalClient() {
                     flexWrap: 'wrap',
                     marginBottom: '0.6rem',
                   }}>
-                    <span style={{
-                      fontFamily: "'Cinzel',serif",
-                      fontSize: '0.72rem',
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      color: 'var(--muted)',
-                    }}>
-                      {formatDateEs(entry.date)}
-                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+                      <span style={{
+                        fontFamily: "'Cinzel',serif",
+                        fontSize: '0.72rem',
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        color: 'var(--muted)',
+                      }}>
+                        {formatDateEs(entry.date)}
+                      </span>
+                      <span title={entry.source === 'cloud' ? 'Sincronizado en tu cuenta' : 'Guardado en este dispositivo'} style={{
+                        fontFamily: "'Cinzel',serif",
+                        fontSize: '0.6rem',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: entry.source === 'cloud' ? 'var(--gold)' : 'var(--muted)',
+                        opacity: entry.source === 'cloud' ? 0.85 : 0.55,
+                        border: `1px solid ${entry.source === 'cloud' ? 'rgba(201,168,76,.4)' : 'var(--border)'}`,
+                        borderRadius: 14,
+                        padding: '0.1rem 0.5rem',
+                      }}>
+                        {entry.source === 'cloud' ? '☁ Sincronizado' : '◌ Este dispositivo'}
+                      </span>
+                    </div>
                     <button
-                      onClick={() => deleteEntry(originalIdx)}
+                      onClick={() => deleteEntry(entry)}
                       aria-label="Eliminar entrada"
                       title="Eliminar entrada"
                       style={{
@@ -461,7 +590,7 @@ export default function JournalClient() {
                       </p>
                       {entry.reading.length > 280 && (
                         <button
-                          onClick={() => toggleExpand(originalIdx)}
+                          onClick={() => toggleExpand(key)}
                           style={{
                             fontFamily: "'Cinzel',serif",
                             fontSize: '0.76rem',
@@ -545,7 +674,14 @@ export default function JournalClient() {
           Dónde vive tu diario
         </h2>
         <p style={{ color: 'var(--text)', fontSize: '0.88rem', lineHeight: 1.7, margin: 0 }}>
-          Cada entrada se guarda solo en este navegador, en este dispositivo — TarotAxis no tiene una copia en el servidor para entradas locales. Eso significa que tus lecturas son privadas, pero también que borrar los datos del sitio, cambiar de navegador o de dispositivo no las traerá contigo. Usa el botón Exportar para mantener una copia JSON si quieres moverlas, y considera llevar un diario en papel junto a este.
+          {user
+            ? 'Las lecturas guardadas mientras estás conectada se almacenan en tu cuenta de TarotAxis y se sincronizan en todos los navegadores donde inicies sesión. Las lecturas guardadas en este navegador antes de iniciar sesión permanecen locales — verás los dos tipos aquí. Usa el botón Exportar en cualquier momento para llevarte una copia JSON.'
+            : 'Sin cuenta, cada entrada se guarda solo en este navegador, en este dispositivo. Borrar los datos del sitio, cambiar de navegador o de dispositivo no las traerá contigo. Inicia sesión para sincronizarlas entre dispositivos, o usa el botón Exportar para mantener una copia JSON.'}
+          {cloudCount > 0 && localCount > 0 && (
+            <span style={{ display: 'block', marginTop: '0.5rem', fontSize: '0.82rem', color: 'var(--muted)' }}>
+              Tienes {cloudCount} sincronizada{cloudCount === 1 ? '' : 's'} y {localCount} en este dispositivo.
+            </span>
+          )}
         </p>
       </section>
 

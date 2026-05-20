@@ -229,26 +229,52 @@ export default function AIReadingBlock(props: Props) {
     }
   }
 
-  function onSave() {
+  async function onSave() {
     if (!user) { setLockedAction('save'); return }
+
+    // Logged-in: write to Supabase via /api/saved-readings (cloud sync).
+    // On network or server failure, fall back to localStorage so the user
+    // doesn't lose the save. /journal merges both sources.
+    const cardsJson = cards.map(c => ({
+      slug: c.slug,
+      reversed: c.reversed,
+      position: c.position ?? null,
+    }))
+    const spreadId = spreadName
+      ? `ai-${spreadName.toLowerCase().replace(/\s+/g, '-').slice(0, 60)}`
+      : 'ai-reading'
+
     try {
-      const raw = localStorage.getItem('tarotify_journal') ?? '[]'
-      const entries: unknown = JSON.parse(raw)
-      const list = Array.isArray(entries) ? entries : []
-      list.unshift({
-        date: new Date().toLocaleDateString(),
-        question: question ?? '',
-        cards: cards.map(c => `${c.position ? c.position + ': ' : ''}${c.slug}${c.reversed ? ' (reversed)' : ''}`),
-        reading: text,
-        source: 'ai',
-        spreadName: spreadName ?? '',
-        locale,
+      const res = await fetch('/api/saved-readings', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          question: question ?? null,
+          spreadId,
+          cards: cardsJson,
+          interpretation: text,
+        }),
       })
-      localStorage.setItem('tarotify_journal', JSON.stringify(list.slice(0, 50)))
+      if (!res.ok) throw new Error('cloud save failed')
       setSaved(true)
       setTimeout(() => setSaved(false), 2500)
+      return
     } catch {
-      /* localStorage might be unavailable (private mode, etc.) */
+      // Fallback to localStorage so the save isn't lost.
+      try {
+        const raw = localStorage.getItem('tarotify_journal') ?? '[]'
+        const entries: unknown = JSON.parse(raw)
+        const list = Array.isArray(entries) ? entries : []
+        list.unshift({
+          date: new Date().toLocaleDateString(),
+          question: question ?? '',
+          cards: cards.map(c => `${c.position ? c.position + ': ' : ''}${c.slug}${c.reversed ? ' (reversed)' : ''}`),
+          reading: text,
+        })
+        localStorage.setItem('tarotify_journal', JSON.stringify(list.slice(0, 50)))
+        setSaved(true)
+        setTimeout(() => setSaved(false), 2500)
+      } catch { /* private mode etc. — silent */ }
     }
   }
 

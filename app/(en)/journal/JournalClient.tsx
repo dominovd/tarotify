@@ -2,18 +2,28 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { CARDS, type Card } from '@/lib/cards'
+import { CARDS, CARDS_BY_SLUG, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
 import EmailCapture from '@/components/EmailCapture'
+import { useUser } from '@/hooks/useUser'
 
 const JOURNAL_KEY = 'tarotify_journal'
 const REVERSED_SUFFIX = ' (Reversed)'
 
-interface JournalEntry {
+// ─── unified entry type used by the UI ─────────────────────────────────────
+// Local entries come from localStorage (legacy + anonymous), cloud entries
+// come from /api/saved-readings (logged-in user). Both share the same render
+// shape; `source` + `id`/`localIdx` route deletes to the right backend.
+interface UnifiedEntry {
+  source: 'local' | 'cloud'
+  id?: string         // cloud-only Supabase UUID
+  localIdx?: number   // local-only index into the original localStorage array
   date: string
   question: string
   cards: string[]
   reading: string
+  /** ISO-ish timestamp for sorting. */
+  sortKey: string
 }
 
 interface CardChip {
@@ -23,7 +33,8 @@ interface CardChip {
   card: Card | null
 }
 
-function isJournalEntry(e: unknown): e is JournalEntry {
+/** Local entries are stored as { date, question, cards: string[], reading }. */
+function isLegacyLocalEntry(e: unknown): e is { date: string; question: string; cards: string[]; reading: string } {
   if (!e || typeof e !== 'object') return false
   const x = e as Record<string, unknown>
   return (
@@ -35,18 +46,58 @@ function isJournalEntry(e: unknown): e is JournalEntry {
   )
 }
 
+/** Cloud entry shape returned by /api/saved-readings. */
+interface CloudEntry {
+  id: string
+  created_at: string
+  date: string
+  question: string | null
+  spread_id: string | null
+  cards: Array<{ slug: string; reversed: boolean; position?: string | null }> | null
+  interpretation: string | null
+  notes: string | null
+}
+
+function cloudToUnified(e: CloudEntry): UnifiedEntry {
+  // Render cards as display strings to share the rendering path with
+  // legacy localStorage entries. Format matches the legacy convention so
+  // parseCardChip continues to work.
+  const cardStrings: string[] = (e.cards ?? []).map(c => {
+    const base = CARDS_BY_SLUG[c.slug]
+    const name = base?.name ?? c.slug
+    const reversed = c.reversed ? REVERSED_SUFFIX : ''
+    const pos = c.position ? `${c.position}: ` : ''
+    return `${pos}${name}${reversed}`
+  })
+  return {
+    source: 'cloud',
+    id: e.id,
+    date: e.date,
+    question: e.question ?? '',
+    cards: cardStrings,
+    reading: e.interpretation ?? '',
+    sortKey: e.created_at,
+  }
+}
+
 function parseCardChip(raw: string, cardByName: Map<string, Card>): CardChip {
+  // Legacy strings may include "Position: " prefix. Strip it for lookup.
+  const withoutSuffix = raw.endsWith(REVERSED_SUFFIX)
+    ? raw.slice(0, -REVERSED_SUFFIX.length)
+    : raw
   const reversed = raw.endsWith(REVERSED_SUFFIX)
-  const cleanName = reversed ? raw.slice(0, -REVERSED_SUFFIX.length) : raw
+  const colonAt = withoutSuffix.indexOf(': ')
+  const cleanName = colonAt >= 0 ? withoutSuffix.slice(colonAt + 2) : withoutSuffix
   return { raw, cleanName, reversed, card: cardByName.get(cleanName) || null }
 }
 
 export default function JournalClient() {
-  const [entries, setEntries] = useState<JournalEntry[]>([])
+  const { user, loading: userLoading } = useUser()
+  const [entries, setEntries] = useState<UnifiedEntry[]>([])
   const [hydrated, setHydrated] = useState(false)
   const [filter, setFilter] = useState('')
   const [feedback, setFeedback] = useState<string | null>(null)
-  const [expanded, setExpanded] = useState<Set<number>>(new Set())
+  const [expanded, setExpanded] = useState<Set<string>>(new Set())
 
   const cardByName = useMemo(() => {
     const m = new Map<string, Card>()
@@ -54,33 +105,96 @@ export default function JournalClient() {
     return m
   }, [])
 
+  // Load localStorage entries on mount; optionally fetch cloud entries
+  // once auth state has settled.
   useEffect(() => {
+    let cancelled = false
+    async function load() {
+      // 1) localStorage (always — works offline + for anon)
+      let local: UnifiedEntry[] = []
+      try {
+        const raw = localStorage.getItem(JOURNAL_KEY) || '[]'
+        const parsed: unknown = JSON.parse(raw)
+        if (Array.isArray(parsed)) {
+          local = parsed
+            .map((e, idx): UnifiedEntry | null => {
+              if (!isLegacyLocalEntry(e)) return null
+              return {
+                source: 'local',
+                localIdx: idx,
+                date: e.date,
+                question: e.question,
+                cards: e.cards,
+                reading: e.reading,
+                // localStorage doesn't track a timestamp; use idx for stable
+                // ordering (newest entries are unshifted, so idx 0 = newest).
+                sortKey: `local-${String(10_000 - idx).padStart(5, '0')}`,
+              }
+            })
+            .filter((e): e is UnifiedEntry => e !== null)
+        }
+      } catch { /* ignore */ }
+
+      if (cancelled) return
+
+      // 2) cloud entries (if signed in)
+      let cloud: UnifiedEntry[] = []
+      if (user) {
+        try {
+          const res = await fetch('/api/saved-readings', { cache: 'no-store' })
+          if (res.ok) {
+            const body = (await res.json()) as { readings?: CloudEntry[] }
+            cloud = (body.readings ?? []).map(cloudToUnified)
+          }
+        } catch { /* network failure — fall back to localStorage only */ }
+      }
+
+      if (cancelled) return
+
+      // Sort merged list: cloud sortKey is ISO timestamp; local sortKey is
+      // synthetic. Both descend lexicographically as desired (newer first).
+      const merged = [...cloud, ...local].sort((a, b) =>
+        a.sortKey < b.sortKey ? 1 : a.sortKey > b.sortKey ? -1 : 0
+      )
+      setEntries(merged)
+      setHydrated(true)
+    }
+    if (!userLoading) load()
+    return () => { cancelled = true }
+  }, [user, userLoading])
+
+  function entryKey(e: UnifiedEntry): string {
+    return e.source === 'cloud' ? `c-${e.id}` : `l-${e.localIdx}`
+  }
+
+  async function deleteEntry(target: UnifiedEntry) {
+    if (!window.confirm('Delete this journal entry?')) return
+    if (target.source === 'cloud' && target.id) {
+      try {
+        await fetch(`/api/saved-readings?id=${encodeURIComponent(target.id)}`, {
+          method: 'DELETE',
+        })
+      } catch { /* network — UI removes anyway; cloud retry on reload */ }
+      setEntries(prev => prev.filter(e => entryKey(e) !== entryKey(target)))
+      return
+    }
+    // Local entry — remove from localStorage and shift indices accordingly.
     try {
       const raw = localStorage.getItem(JOURNAL_KEY) || '[]'
       const parsed: unknown = JSON.parse(raw)
-      if (Array.isArray(parsed)) {
-        setEntries(parsed.filter(isJournalEntry))
+      if (Array.isArray(parsed) && target.localIdx !== undefined) {
+        const next = parsed.filter((_, i) => i !== target.localIdx)
+        localStorage.setItem(JOURNAL_KEY, JSON.stringify(next))
       }
-    } catch {
-      /* ignore */
-    }
-    setHydrated(true)
-  }, [])
-
-  function persist(next: JournalEntry[]) {
-    setEntries(next)
-    try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(next)) } catch { /* ignore */ }
+    } catch { /* ignore */ }
+    setEntries(prev => prev.filter(e => entryKey(e) !== entryKey(target)))
   }
 
-  function deleteEntry(idx: number) {
-    if (!window.confirm('Delete this journal entry?')) return
-    persist(entries.filter((_, i) => i !== idx))
-  }
-
-  function clearAll() {
-    if (!window.confirm('Delete all journal entries? This cannot be undone.')) return
-    persist([])
+  async function clearAll() {
+    if (!window.confirm('Delete all journal entries on this device? Cloud-synced entries remain unless you sign in to delete them individually.')) return
     try { localStorage.removeItem(JOURNAL_KEY) } catch { /* ignore */ }
+    // Keep cloud entries; only drop locals from view.
+    setEntries(prev => prev.filter(e => e.source !== 'local'))
   }
 
   function exportJson() {
@@ -101,25 +215,26 @@ export default function JournalClient() {
     }
   }
 
-  function toggleExpand(idx: number) {
+  function toggleExpand(key: string) {
     setExpanded(prev => {
       const next = new Set(prev)
-      if (next.has(idx)) next.delete(idx); else next.add(idx)
+      if (next.has(key)) next.delete(key); else next.add(key)
       return next
     })
   }
 
   const filtered = useMemo(() => {
-    if (!filter) return entries.map((e, i) => ({ entry: e, originalIdx: i }))
+    if (!filter) return entries
     const q = filter.toLowerCase()
-    return entries
-      .map((e, i) => ({ entry: e, originalIdx: i }))
-      .filter(({ entry }) =>
-        (entry.question || '').toLowerCase().includes(q) ||
-        entry.cards.some(c => c.toLowerCase().includes(q)) ||
-        (entry.reading || '').toLowerCase().includes(q),
-      )
+    return entries.filter(entry =>
+      (entry.question || '').toLowerCase().includes(q) ||
+      entry.cards.some(c => c.toLowerCase().includes(q)) ||
+      (entry.reading || '').toLowerCase().includes(q),
+    )
   }, [entries, filter])
+
+  const cloudCount = entries.filter(e => e.source === 'cloud').length
+  const localCount = entries.filter(e => e.source === 'local').length
 
   if (!hydrated) {
     return (
@@ -145,8 +260,27 @@ export default function JournalClient() {
           Your Tarot Journal
         </h1>
         <p style={{ color: 'var(--muted)', fontSize: '0.95rem', maxWidth: 560, margin: '0 auto' }}>
-          The readings you have saved on this device. Stored locally — nothing uploaded.
+          {user
+            ? 'Your saved readings — cloud-synced across devices when you sign in, plus anything saved on this device before.'
+            : 'The readings you have saved on this device. Sign in to sync across devices.'}
         </p>
+        {!userLoading && !user && (
+          <div style={{ marginTop: '1rem', display: 'flex', gap: '0.6rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/auth/signin?next=/journal" style={{
+              fontFamily: "'Cinzel',serif",
+              fontSize: '0.78rem',
+              color: 'var(--gold)',
+              background: 'rgba(201,168,76,.1)',
+              border: '1px solid rgba(201,168,76,.5)',
+              borderRadius: 8,
+              padding: '0.5rem 1rem',
+              textDecoration: 'none',
+              letterSpacing: '0.06em',
+            }}>
+              Sign in to sync →
+            </Link>
+          </div>
+        )}
       </header>
 
       {/* Empty state */}
@@ -289,15 +423,16 @@ export default function JournalClient() {
 
           {/* Entries */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {filtered.map(({ entry, originalIdx }) => {
+            {filtered.map((entry) => {
+              const key = entryKey(entry)
               const chips = entry.cards.map(c => parseCardChip(c, cardByName))
-              const isExpanded = expanded.has(originalIdx)
+              const isExpanded = expanded.has(key)
               const readingPreview = entry.reading.length > 280 && !isExpanded
                 ? entry.reading.slice(0, 280).trimEnd() + '…'
                 : entry.reading
 
               return (
-                <article key={originalIdx} style={{
+                <article key={key} style={{
                   background: 'var(--on-bg-025)',
                   border: '1px solid var(--border)',
                   borderRadius: 12,
@@ -312,17 +447,32 @@ export default function JournalClient() {
                     flexWrap: 'wrap',
                     marginBottom: '0.6rem',
                   }}>
-                    <span style={{
-                      fontFamily: "'Cinzel',serif",
-                      fontSize: '0.72rem',
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      color: 'var(--muted)',
-                    }}>
-                      {entry.date}
-                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+                      <span style={{
+                        fontFamily: "'Cinzel',serif",
+                        fontSize: '0.72rem',
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        color: 'var(--muted)',
+                      }}>
+                        {entry.date}
+                      </span>
+                      <span title={entry.source === 'cloud' ? 'Synced to your account' : 'Saved on this device'} style={{
+                        fontFamily: "'Cinzel',serif",
+                        fontSize: '0.6rem',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: entry.source === 'cloud' ? 'var(--gold)' : 'var(--muted)',
+                        opacity: entry.source === 'cloud' ? 0.85 : 0.55,
+                        border: `1px solid ${entry.source === 'cloud' ? 'rgba(201,168,76,.4)' : 'var(--border)'}`,
+                        borderRadius: 14,
+                        padding: '0.1rem 0.5rem',
+                      }}>
+                        {entry.source === 'cloud' ? '☁ Synced' : '◌ This device'}
+                      </span>
+                    </div>
                     <button
-                      onClick={() => deleteEntry(originalIdx)}
+                      onClick={() => deleteEntry(entry)}
                       aria-label="Delete entry"
                       title="Delete entry"
                       style={{
@@ -436,7 +586,7 @@ export default function JournalClient() {
                       </p>
                       {entry.reading.length > 280 && (
                         <button
-                          onClick={() => toggleExpand(originalIdx)}
+                          onClick={() => toggleExpand(key)}
                           style={{
                             fontFamily: "'Cinzel',serif",
                             fontSize: '0.76rem',
@@ -520,7 +670,14 @@ export default function JournalClient() {
           Where your journal lives
         </h2>
         <p style={{ color: 'var(--text)', fontSize: '0.88rem', lineHeight: 1.7, margin: 0 }}>
-          Every entry is stored only in this browser, on this device — TarotAxis has no account system and no server-side copy. That means your readings are private, but it also means clearing your site data, switching browsers or changing devices will not bring them with you. Use the Export button to keep a JSON backup if you want to move them, and consider keeping a paper journal alongside this one.
+          {user
+            ? 'Readings saved while signed in are stored in your TarotAxis account and synced across every browser you sign into. Anything saved in this browser before you signed in stays local to this device — you can see both kinds here. Use the Export button anytime to take a JSON backup with you.'
+            : 'Without an account, every entry is stored only in this browser, on this device. Clearing site data, switching browsers or changing devices will not bring them with you. Sign in to keep them synced across devices, or use the Export button to keep a JSON backup.'}
+          {cloudCount > 0 && localCount > 0 && (
+            <span style={{ display: 'block', marginTop: '0.5rem', fontSize: '0.82rem', color: 'var(--muted)' }}>
+              You have {cloudCount} synced and {localCount} on this device.
+            </span>
+          )}
         </p>
       </section>
 
