@@ -19,14 +19,20 @@ app/(es)/es/auth/signin/SignInForm.tsx           + "Continuar con Google"
 
 ## Steps Denis needs to do before this works
 
-### 1. Apply migration 002 in Supabase
+### 1. Apply migrations in Supabase
 
-Supabase Dashboard → SQL Editor → "New query" → paste contents of
+Supabase Dashboard → SQL Editor → "New query".
+
+**Migration 002 (anonymous quota tracking):** paste contents of
 `supabase/migrations/002_ai_anonymous_quota.sql` → Run.
+Verify: `user_id` becomes nullable, columns `browser_id`, `ip_hash`,
+`source`, `locale` appear.
 
-Verify with the sanity queries at the bottom of the file. Expected:
-`user_id` becomes nullable, four new columns appear, two new indexes
-appear.
+**Migration 003 (AI reading cache):** paste contents of
+`supabase/migrations/003_ai_reading_cache.sql` → Run.
+Verify: `ai_reading_cache` table exists with RLS enabled and no client
+policies (service-role only). Helper function `bump_ai_cache_hit` is in
+place.
 
 ### 2. Configure Google OAuth provider — step by step
 
@@ -208,6 +214,26 @@ Scope: Production + Preview + Development
 ```
 
 Redeploy after adding so edge workers pick up the new var.
+
+### 3b. (Optional) Tune AI_DAILY_BUDGET_USD
+
+The AI route includes a circuit-breaker that refuses new generations
+once total spend in any rolling 24h window exceeds the configured cap.
+Default cap is **$5/day**. Cache hits don't count (they cost ~$0).
+
+```
+Vercel → Settings → Environment Variables
+Name : AI_DAILY_BUDGET_USD
+Value: 5         (raise or lower as you scale)
+Scope: Production + Preview + Development
+```
+
+At ~$0.04 per fresh call, $5 = ~125 fresh readings/day. Cache hits
+on /daily mean once-per-day generation serves every visitor.
+
+When the cap trips, the endpoint returns 503 with `error:
+"budget-exceeded"` and the UI shows the «AI is taking a rest» panel
+instead of the sign-up wall.
 
 ### 4. (Optional) Add COOKIE_SECRET
 

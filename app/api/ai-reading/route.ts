@@ -44,12 +44,22 @@ import {
   hashIp,
   verifyBrowserId,
 } from '@/lib/cookies/browser-id'
-import { checkQuota, logUsage } from '@/lib/ai/quota'
+import {
+  checkQuota,
+  checkDailyBudget,
+  logUsage,
+  ESTIMATED_COST_MICRO_PER_CALL,
+} from '@/lib/ai/quota'
 import {
   buildUserMessage,
   getSystemPrompt,
   type CardInput,
 } from '@/lib/ai/prompts'
+import {
+  buildCacheKey,
+  insertCachedReading,
+  lookupCachedReading,
+} from '@/lib/ai/cache'
 
 export const runtime = 'edge'
 
@@ -180,6 +190,52 @@ export async function POST(req: Request): Promise<Response> {
     return quotaExceeded(quota.reason ?? 'quota-exceeded', quota.scope, quota.remaining, quota.resetsAt)
   }
 
+  const nextRemaining = Math.max(0, quota.remaining - 1)
+
+  // ─── cache lookup ──────────────────────────────────────────────────────
+  // Empty-question readings on /free-reading and /daily are eligible for
+  // caching. Same cards + same locale + same source = same response → we
+  // serve from cache, log the usage row at cost=0, and skip Anthropic.
+  const cacheKey = await buildCacheKey({ locale, source, cards, question })
+  if (cacheKey) {
+    const cached = await lookupCachedReading(cacheKey)
+    if (cached) {
+      // Log usage so the call counts toward the user's quota — quota is a
+      // fairness control, not a cost control. Cache hits are free of spend.
+      await logUsage({
+        userId, browserId, ipHash, source, locale,
+        tokensIn: 0, tokensOut: 0, costUsdMicro: 0,
+      })
+      return streamingTextResponse(cached, {
+        nextRemaining,
+        scope: quota.scope,
+        resetsAt: quota.resetsAt,
+      })
+    }
+  }
+
+  // ─── daily budget circuit-breaker ──────────────────────────────────────
+  // Hard cap on AI spend across all users in any rolling 24h window. If we
+  // are over the cap, refuse new generations but still let cache hits
+  // through (already returned above). Adjust via AI_DAILY_BUDGET_USD env.
+  const budget = await checkDailyBudget()
+  if (!budget.allowed) {
+    return new Response(JSON.stringify({
+      error: 'budget-exceeded',
+      message: 'AI service is taking a rest. Please try again later.',
+      spentMicros: budget.spentMicros,
+      budgetMicros: budget.budgetMicros,
+    }), {
+      status: 503,
+      headers: {
+        'content-type': 'application/json',
+        'x-quota-remaining': String(nextRemaining),
+        'x-quota-scope': quota.scope,
+        'retry-after': '3600',
+      },
+    })
+  }
+
   // ─── call Anthropic with streaming ─────────────────────────────────────
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
@@ -191,11 +247,10 @@ export async function POST(req: Request): Promise<Response> {
 
   // ─── pre-insert usage row (BEFORE streaming) ───────────────────────────
   // We log the usage row BEFORE starting the stream so quota enforcement is
-  // deterministic regardless of the Edge runtime lifecycle. Token counts and
-  // cost are placeholders (0) at this point — Anthropic dashboard provides
-  // accurate per-request usage if we need it. The trade-off keeps quota
-  // reliable, which is the user-facing contract; cost analytics are nice-to-
-  // have on top of that.
+  // deterministic regardless of the Edge runtime lifecycle. Cost is the
+  // per-call estimate (Sonnet 4.6 averages ~$0.04 cold cache); this lets
+  // the daily budget sum stay accurate even when token counts trickle in
+  // mid-stream and may not be persisted.
   //
   // (Previously the insert lived in a fire-and-forget `finally` block AFTER
   //  the stream finished. Edge workers were sometimes terminated as soon as
@@ -203,7 +258,8 @@ export async function POST(req: Request): Promise<Response> {
   //  never landed in ai_usage and quota appeared to never enforce.)
   await logUsage({
     userId, browserId, ipHash, source, locale,
-    tokensIn: 0, tokensOut: 0, costUsdMicro: 0,
+    tokensIn: 0, tokensOut: 0,
+    costUsdMicro: ESTIMATED_COST_MICRO_PER_CALL,
   })
 
   const anthropic = new Anthropic({ apiKey })
@@ -217,15 +273,12 @@ export async function POST(req: Request): Promise<Response> {
   const { readable, writable } = new TransformStream<Uint8Array, Uint8Array>()
   const writer = writable.getWriter()
 
-  // Pre-compute the next remaining count for the response header. We've
-  // already verified quota allows ≥1; subtract 1 for this call.
-  const nextRemaining = Math.max(0, quota.remaining - 1)
-
   ;(async () => {
     let tokensIn = 0
     let cacheCreate = 0
     let cacheRead = 0
     let tokensOut = 0
+    let collected = ''  // accumulate text for cache insert
 
     try {
       // cache_control is documented but not yet in the v0.32 SDK type for
@@ -245,6 +298,7 @@ export async function POST(req: Request): Promise<Response> {
 
       for await (const event of stream) {
         if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+          collected += event.delta.text
           await writer.write(encoder.encode(event.delta.text))
         } else if (event.type === 'message_delta') {
           // usage trickles in on message_delta + message_stop
@@ -273,10 +327,21 @@ export async function POST(req: Request): Promise<Response> {
     } finally {
       try { await writer.close() } catch { /* already closed */ }
 
+      // Best-effort cache insert. Only when:
+      // - we have a cache key (empty-question reading)
+      // - the stream produced a reasonably complete response (>200 chars)
+      // Fire-and-forget: Edge may terminate before this completes, but
+      // that's fine — next call regenerates.
+      if (cacheKey && collected.length > 200) {
+        void insertCachedReading({
+          cacheKey,
+          responseText: collected,
+          locale,
+          source,
+        })
+      }
+
       // Best-effort: log token counts to the console for spot-check observability.
-      // (We can't reliably UPDATE the pre-inserted row from here because Edge
-      //  workers may have already been terminated. The Anthropic dashboard is
-      //  the authoritative source for accurate per-request usage.)
       const cost =
         (tokensIn      * PRICE_INPUT_PER_M)       +
         (cacheCreate   * PRICE_CACHE_WRITE_PER_M) +
@@ -285,19 +350,39 @@ export async function POST(req: Request): Promise<Response> {
       console.info('[ai-reading] usage', {
         in: tokensIn, cacheCreate, cacheRead, out: tokensOut,
         costMicroUsd: Math.round(cost),
-        locale, source,
+        locale, source, cached: false,
       })
     }
   })()
 
-  return new Response(readable, {
-    status: 200,
-    headers: {
-      'content-type': 'text/plain; charset=utf-8',
-      'cache-control': 'no-store',
-      'x-quota-remaining': String(nextRemaining),
-      'x-quota-scope': quota.scope,
-      ...(quota.resetsAt ? { 'x-quota-resets-at': quota.resetsAt } : {}),
-    },
+  return streamingTextResponse(readable, {
+    nextRemaining,
+    scope: quota.scope,
+    resetsAt: quota.resetsAt,
   })
+}
+
+// ─── helpers ────────────────────────────────────────────────────────────────
+
+interface StreamHeaders {
+  nextRemaining: number
+  scope: 'registered' | 'anonymous' | 'ip'
+  resetsAt: string | null
+}
+
+/** Wrap a ReadableStream or static string in a 200 text/plain response with
+ *  the quota headers the front-end expects. Cache hits pass a string; live
+ *  Anthropic streams pass the TransformStream's readable. */
+function streamingTextResponse(
+  body: ReadableStream<Uint8Array> | string,
+  headers: StreamHeaders,
+): Response {
+  const responseHeaders: Record<string, string> = {
+    'content-type': 'text/plain; charset=utf-8',
+    'cache-control': 'no-store',
+    'x-quota-remaining': String(headers.nextRemaining),
+    'x-quota-scope': headers.scope,
+  }
+  if (headers.resetsAt) responseHeaders['x-quota-resets-at'] = headers.resetsAt
+  return new Response(body, { status: 200, headers: responseHeaders })
 }

@@ -39,7 +39,7 @@ interface Props {
   signinNext?: string
 }
 
-type Phase = 'idle' | 'streaming' | 'done' | 'limit' | 'error'
+type Phase = 'idle' | 'streaming' | 'done' | 'limit' | 'unavailable' | 'error'
 
 interface QuotaMeta {
   remaining: number
@@ -65,6 +65,9 @@ interface LocaleCopy {
   signUpCta: string
   signInCta: string
   alreadyHave: string
+  // Daily budget circuit-breaker copy
+  unavailableTitle: string
+  unavailableBody: string
   // Action row labels (Copy / Save / Email)
   actionCopy: string
   actionCopyDone: string
@@ -98,6 +101,8 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     signUpCta: 'Sign up free',
     signInCta: 'Sign in',
     alreadyHave: 'Already have an account?',
+    unavailableTitle: '✦ AI is taking a rest',
+    unavailableBody: 'The AI reader is on a short break to stay within today\'s capacity. Please come back in a little while — your cards are not going anywhere.',
     actionCopy: 'Copy',
     actionCopyDone: 'Copied!',
     actionSave: 'Save',
@@ -128,6 +133,8 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     signUpCta: 'Crear cuenta gratis',
     signInCta: 'Iniciar sesión',
     alreadyHave: '¿Ya tienes cuenta?',
+    unavailableTitle: '✦ La IA está descansando',
+    unavailableBody: 'El lector con IA está tomando un breve descanso para no sobrepasar la capacidad de hoy. Vuelve dentro de un rato — tus cartas no se van a ningún lado.',
     actionCopy: 'Copiar',
     actionCopyDone: '¡Copiado!',
     actionSave: 'Guardar',
@@ -188,6 +195,19 @@ export default function AIReadingBlock(props: Props) {
     if (res.status === 429) {
       setLimitScope(scope)
       setPhase('limit')
+      return
+    }
+    if (res.status === 503) {
+      // Distinguish budget-exceeded (circuit breaker) from generic
+      // unavailability (missing env, network) by reading the JSON error.
+      try {
+        const body = await res.clone().json() as { error?: string }
+        if (body?.error === 'budget-exceeded') {
+          setPhase('unavailable')
+          return
+        }
+      } catch { /* fall through to generic error */ }
+      setPhase('error')
       return
     }
     if (!res.ok || !res.body) {
@@ -339,8 +359,36 @@ export default function AIReadingBlock(props: Props) {
         />
       )}
 
-      {/* CTA button — hidden when in limit state */}
-      {phase !== 'limit' && (
+      {/* Daily budget circuit-breaker state */}
+      {phase === 'unavailable' && (
+        <div style={{
+          background: 'rgba(201,168,76,.08)',
+          border: '1px solid rgba(201,168,76,.35)',
+          borderRadius: 12,
+          padding: '1.25rem 1.4rem',
+        }}>
+          <div style={{
+            fontFamily: "'Cinzel',serif",
+            fontSize: '.95rem',
+            color: 'var(--gold)',
+            letterSpacing: '.04em',
+            marginBottom: '.5rem',
+          }}>
+            {t.unavailableTitle}
+          </div>
+          <p style={{
+            color: 'var(--text)',
+            fontSize: '.92rem',
+            lineHeight: 1.65,
+            margin: 0,
+          }}>
+            {t.unavailableBody}
+          </p>
+        </div>
+      )}
+
+      {/* CTA button — hidden when in limit or unavailable state */}
+      {phase !== 'limit' && phase !== 'unavailable' && (
         <button
           type="button"
           onClick={run}

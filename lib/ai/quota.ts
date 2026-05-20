@@ -21,6 +21,18 @@ export const QUOTA_REG_PER_DAY = 5
 export const QUOTA_ANON_PER_DAY = 1
 export const QUOTA_IP_PER_DAY = 5
 
+// Hard daily ceiling on AI spend across ALL users. Acts as a circuit
+// breaker — if something goes wrong (abuse, bug, viral spike) the
+// service throttles before bills explode. Adjust via env var to
+// loosen/tighten without a redeploy.
+export const DAILY_BUDGET_USD = Number(process.env.AI_DAILY_BUDGET_USD ?? 5)
+export const DAILY_BUDGET_MICRO = Math.max(0, Math.round(DAILY_BUDGET_USD * 1_000_000))
+
+// Best-effort per-call cost estimate written into ai_usage.cost_usd_micro
+// at insert time. Sonnet 4.6 averages ~$0.025-0.04 per call (cached vs
+// cold cache). We pick the higher end to be conservative when summing.
+export const ESTIMATED_COST_MICRO_PER_CALL = 40_000 // $0.04
+
 export interface QuotaInput {
   userId: string | null
   browserId: string | null
@@ -119,6 +131,48 @@ export async function checkQuota(input: QuotaInput): Promise<QuotaResult> {
     remaining: input.browserId ? QUOTA_ANON_PER_DAY : QUOTA_REG_PER_DAY,
     resetsAt: new Date(Date.now() + ONE_DAY_MS).toISOString(),
     scope: input.userId ? 'registered' : 'anonymous',
+  }
+}
+
+// ─── daily budget check ─────────────────────────────────────────────────────
+// Sums cost_usd_micro from ai_usage rows in the last 24h. If the total
+// reaches DAILY_BUDGET_MICRO, the service returns 503 and waits out the
+// rolling window. Cache hits write cost=0 so they don't count toward the
+// cap (their actual marginal cost is near zero).
+
+export interface BudgetResult {
+  allowed: boolean
+  /** Total spent in the last 24h, in micros. */
+  spentMicros: number
+  /** Configured cap, in micros. */
+  budgetMicros: number
+}
+
+export async function checkDailyBudget(): Promise<BudgetResult> {
+  const supabase = createAdminClient()
+  const oneDayAgo = new Date(Date.now() - ONE_DAY_MS).toISOString()
+
+  // Read just the cost column for last-24h rows and sum client-side.
+  // At ~125 rows/day max (when we hit the cap), this is cheap.
+  const { data, error } = await supabase
+    .from('ai_usage')
+    .select('cost_usd_micro')
+    .gte('created_at', oneDayAgo)
+
+  if (error) {
+    // Fail open on DB hiccup — better to slightly overspend than to block
+    // the whole site on a transient Postgres glitch.
+    console.warn('[budget] check error:', error.message)
+    return { allowed: true, spentMicros: 0, budgetMicros: DAILY_BUDGET_MICRO }
+  }
+  const spent = (data ?? []).reduce(
+    (acc, row) => acc + ((row.cost_usd_micro as number | null) ?? 0),
+    0,
+  )
+  return {
+    allowed: spent < DAILY_BUDGET_MICRO,
+    spentMicros: spent,
+    budgetMicros: DAILY_BUDGET_MICRO,
   }
 }
 
