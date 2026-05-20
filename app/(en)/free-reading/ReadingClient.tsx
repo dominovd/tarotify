@@ -476,7 +476,20 @@ export default function ReadingClient() {
             {/* ── Interpretations (all revealed) ──────────────────────────── */}
             {allRevealed && (
               <>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                {/* AI Reading block — sits directly under the cards as the primary CTA */}
+                <AIReadingBlock
+                  locale="en"
+                  source="free-reading"
+                  spreadName={spread.name}
+                  cards={drawn.map((dc, idx): AIReadingCard => ({
+                    slug: dc.card.slug,
+                    reversed: dc.reversed,
+                    position: spread.positions[idx],
+                  }))}
+                  question={question.trim() || undefined}
+                />
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.5rem' }}>
                   {drawn.map((dc, idx) => {
                     const text = interpret(dc, spread.mode, theme, frequency, zodiac, spread.positions[idx])
                     const kws  = (dc.reversed ? dc.card.kw_rev : dc.card.kw_up).slice(0, 3)
@@ -511,19 +524,6 @@ export default function ReadingClient() {
                     )
                   })}
                 </div>
-
-                {/* AI Reading block — appears once all cards are face-up */}
-                <AIReadingBlock
-                  locale="en"
-                  source="free-reading"
-                  spreadName={spread.name}
-                  cards={drawn.map((dc, idx): AIReadingCard => ({
-                    slug: dc.card.slug,
-                    reversed: dc.reversed,
-                    position: spread.positions[idx],
-                  }))}
-                  question={question.trim() || undefined}
-                />
 
                 {/* Action buttons */}
                 <div style={{ textAlign: 'center', marginTop: '2.5rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>

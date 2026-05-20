@@ -207,8 +207,16 @@ export default async function SpanishDailyPage() {
         <ShareButton type="daily" cardName={name} />
       </div>
 
+      {/* AI Reading — directamente bajo la carta como CTA principal */}
+      <AIReadingBlock
+        locale="es"
+        source="free-reading"
+        spreadName="Carta del Día"
+        cards={[{ slug: card.slug, reversed, position: 'Hoy' }]}
+      />
+
       {/* Interpretation */}
-      <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginTop: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.9rem' }}>
           {reversed ? 'Invertida — mensaje de hoy' : 'Del derecho — mensaje de hoy'}
         </div>
@@ -216,14 +224,6 @@ export default async function SpanishDailyPage() {
           {interpretation}
         </p>
       </div>
-
-      {/* AI Reading — interpretación personalizada de la carta de hoy */}
-      <AIReadingBlock
-        locale="es"
-        source="free-reading"
-        spreadName="Carta del Día"
-        cards={[{ slug: card.slug, reversed, position: 'Hoy' }]}
-      />
 
       {/* Amor / Carrera / Espíritu snippets */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(190px,1fr))', gap: '.75rem', marginBottom: '2.5rem' }}>

@@ -154,8 +154,16 @@ export default function DailyPage() {
         <ShareButton type="daily" cardName={card.name} />
       </div>
 
+      {/* AI Reading — directly under the card visual as the primary CTA */}
+      <AIReadingBlock
+        locale="en"
+        source="free-reading"
+        spreadName="Daily Tarot Card"
+        cards={[{ slug: card.slug, reversed, position: 'Today' }]}
+      />
+
       {/* Interpretation */}
-      <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem' }}>
+      <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginTop: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.66rem', letterSpacing: '.14em', color: 'var(--gold)', opacity: .6, textTransform: 'uppercase', marginBottom: '.9rem' }}>
           {reversed ? "Reversed — today's message" : "Upright — today's message"}
         </div>
@@ -163,14 +171,6 @@ export default function DailyPage() {
           {interpretation}
         </p>
       </div>
-
-      {/* AI Reading — personalised interpretation of today's card */}
-      <AIReadingBlock
-        locale="en"
-        source="free-reading"
-        spreadName="Daily Tarot Card"
-        cards={[{ slug: card.slug, reversed, position: 'Today' }]}
-      />
 
       {/* Love / Career / Spirit snippets */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(190px,1fr))', gap: '.75rem', marginBottom: '2.5rem' }}>

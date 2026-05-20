@@ -233,7 +233,7 @@ export default function HomeClient() {
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '2rem 1.5rem 5rem' }} ref={readingRef}>
       <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', textAlign:'center', marginBottom:'.5rem', letterSpacing:'.08em' }}>Your Reading</h2>
       {question && <p style={{ color:'var(--muted)', textAlign:'center', fontSize:'.9rem', marginBottom:'1.5rem', fontStyle:'italic' }}>"{question}"</p>}
-      <div style={{ display:'flex', gap:'.75rem', justifyContent:'center', marginBottom:'2.5rem', flexWrap:'wrap' }}>
+      <div style={{ display:'flex', gap:'.75rem', justifyContent:'center', marginBottom:'1.5rem', flexWrap:'wrap' }}>
         {drawn.map((d, i) => (
           <div key={i} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'.4rem', padding:'.75rem', background:'rgba(201,168,76,.06)', border:'1px solid var(--border)', borderRadius:10, minWidth:100 }}>
             <div style={{ width:56, height:84, borderRadius:6, overflow:'hidden', border:'1px solid rgba(201,168,76,.3)', flexShrink:0 }}>
@@ -244,7 +244,21 @@ export default function HomeClient() {
           </div>
         ))}
       </div>
-      <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.75rem', marginBottom:'1.5rem' }}>
+
+      {/* AI Reading block — sits directly under the cards as the primary CTA */}
+      <AIReadingBlock
+        locale="en"
+        source="free-reading"
+        spreadName="Past · Present · Future"
+        cards={drawn.map((d, i): AIReadingCard => ({
+          slug: d.card.slug,
+          reversed: d.reversed,
+          position: POSITIONS[i],
+        }))}
+        question={question.trim() || undefined}
+      />
+
+      <div style={{ background:'var(--on-bg-03)', border:'1px solid var(--border)', borderRadius:14, padding:'1.75rem', marginTop:'1.5rem', marginBottom:'1.5rem' }}>
         <h3 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', marginBottom:'1rem', fontSize:'.9rem', letterSpacing:'.1em' }}>✦ Your Reflection</h3>
         {typing ? (
           <p style={{ color:'var(--text)', lineHeight:1.8, fontSize:'.97rem' }}>{displayText}<span style={{ animation:'blink 1s infinite' }}>|</span></p>
@@ -264,20 +278,7 @@ export default function HomeClient() {
             ))}
           </div>
 
-          {/* AI Reading block — homepage funnel into the deeper interpretation */}
-          <AIReadingBlock
-            locale="en"
-            source="free-reading"
-            spreadName="Past · Present · Future"
-            cards={drawn.map((d, i): AIReadingCard => ({
-              slug: d.card.slug,
-              reversed: d.reversed,
-              position: POSITIONS[i],
-            }))}
-            question={question.trim() || undefined}
-          />
-
-          <div style={{ display:'flex', gap:'.75rem', flexWrap:'wrap', marginTop:'1.5rem' }}>
+          <div style={{ display:'flex', gap:'.75rem', flexWrap:'wrap' }}>
             <button onClick={saveToJournal} style={{ flex:1, minWidth:140, padding:'.85rem', background:'transparent', border:'1px solid var(--border)', borderRadius:10, color:'var(--muted)', fontFamily:"'Cinzel',serif", fontSize:'.82rem', letterSpacing:'.06em', cursor:'pointer' }}>
               Save to Journal
             </button>

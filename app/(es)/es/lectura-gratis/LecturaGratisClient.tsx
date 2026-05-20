@@ -246,7 +246,7 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
         </p>
       )}
 
-      <div style={{ display: 'flex', gap: '.75rem', justifyContent: 'center', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '.75rem', justifyContent: 'center', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
         {drawn.map((d, i) => (
           <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.4rem', padding: '.75rem', background: 'rgba(201,168,76,.06)', border: `1px solid ${b}`, borderRadius: 10, minWidth: 100 }}>
             <div style={{ width: 56, height: 84, borderRadius: 6, overflow: 'hidden', border: '1px solid rgba(201,168,76,.3)', flexShrink: 0 }}>
@@ -267,7 +267,20 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
         ))}
       </div>
 
-      <div style={{ background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.75rem', marginBottom: '1.5rem' }}>
+      {/* AI Reading block — primary CTA, directly under the cards */}
+      <AIReadingBlock
+        locale="es"
+        source="free-reading"
+        spreadName="Pasado · Presente · Futuro"
+        cards={drawn.map((d, i): AIReadingCard => ({
+          slug: d.slug,
+          reversed: d.reversed,
+          position: POSITIONS[i],
+        }))}
+        question={question.trim() || undefined}
+      />
+
+      <div style={{ background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.75rem', marginTop: '1.5rem', marginBottom: '1.5rem' }}>
         <h3 style={{ fontFamily: "'Cinzel',serif", color: g, marginBottom: '1rem', fontSize: '.9rem', letterSpacing: '.1em' }}>
           ✦ Tu reflexión
         </h3>
@@ -303,20 +316,7 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
             ))}
           </div>
 
-          {/* AI Reading block — Spanish */}
-          <AIReadingBlock
-            locale="es"
-            source="free-reading"
-            spreadName="Pasado · Presente · Futuro"
-            cards={drawn.map((d, i): AIReadingCard => ({
-              slug: d.slug,
-              reversed: d.reversed,
-              position: POSITIONS[i],
-            }))}
-            question={question.trim() || undefined}
-          />
-
-          <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+          <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap' }}>
             <button
               onClick={saveToJournal}
               disabled={saved}
