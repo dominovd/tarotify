@@ -1,5 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from './lib/supabase/middleware'
+import {
+  BROWSER_ID_COOKIE,
+  createBrowserId,
+  setCookieHeader,
+  verifyBrowserId,
+} from './lib/cookies/browser-id'
 
 // Paths that require a signed-in user. Anything else is public.
 // Spanish counterparts (/es/account, /es/journal/sync) added for i18n auth flow.
@@ -31,6 +37,20 @@ export async function middleware(request: NextRequest) {
     // Preserve the original destination so signin can redirect back after auth.
     url.searchParams.set('next', request.nextUrl.pathname)
     return NextResponse.redirect(url)
+  }
+
+  // Issue (or rotate if invalid) the anonymous browser_id cookie used for
+  // AI-reading quota tracking. We sign with the same secret as unsubscribe
+  // links so we don't have to manage two; if it's missing, we just skip
+  // (the AI endpoint will reject on cookie absence with a 400).
+  const secret = process.env.UNSUBSCRIBE_SECRET || process.env.COOKIE_SECRET
+  if (secret) {
+    const existing = request.cookies.get(BROWSER_ID_COOKIE)?.value
+    const verified = await verifyBrowserId(secret, existing)
+    if (!verified) {
+      const { signed } = await createBrowserId(secret)
+      supabaseResponse.headers.append('set-cookie', setCookieHeader(signed))
+    }
   }
 
   return supabaseResponse
