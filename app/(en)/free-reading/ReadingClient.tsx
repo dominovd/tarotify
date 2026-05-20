@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
+import AIReadingBlock, { type AIReadingCard } from '@/components/AIReadingBlock'
 
 // ─── Spreads ────────────────────────────────────────────────────────────────
 
@@ -510,6 +511,19 @@ export default function ReadingClient() {
                     )
                   })}
                 </div>
+
+                {/* AI Reading block — appears once all cards are face-up */}
+                <AIReadingBlock
+                  locale="en"
+                  source="free-reading"
+                  spreadName={spread.name}
+                  cards={drawn.map((dc, idx): AIReadingCard => ({
+                    slug: dc.card.slug,
+                    reversed: dc.reversed,
+                    position: spread.positions[idx],
+                  }))}
+                  question={question.trim() || undefined}
+                />
 
                 {/* Action buttons */}
                 <div style={{ textAlign: 'center', marginTop: '2.5rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>

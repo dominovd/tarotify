@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { CARDS, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
+import AIReadingBlock, { type AIReadingCard } from '@/components/AIReadingBlock'
 
 const MAX_SELECTIONS = 22
 
@@ -830,6 +831,21 @@ export default function ReadingAnalysisClient() {
             </div>
           </div>
         </section>
+      )}
+
+      {/* AI Reading — appears alongside the template analysis when user has
+          selected cards and clicked Analyse. Same shared component used by
+          /free-reading. */}
+      {analysed && selections.length > 0 && (
+        <AIReadingBlock
+          locale="en"
+          source="reading-analysis"
+          spreadName={`Reading-analysis selection · ${selections.length} card${selections.length === 1 ? '' : 's'}`}
+          cards={selections.map((s): AIReadingCard => ({
+            slug: s.slug,
+            reversed: s.reversed,
+          }))}
+        />
       )}
 
       {/* Bottom info */}

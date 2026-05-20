@@ -5,8 +5,8 @@
 // Three-layer policy:
 //
 //   1. Registered user → 5 AI readings per rolling 24h, tracked by user_id.
-//   2. Anonymous user  → 1 AI reading per browser (lifetime), tracked by
-//                        browser_id from the signed cookie.
+//   2. Anonymous user  → 1 AI reading per rolling 24h per browser, tracked
+//                        by browser_id from the signed cookie.
 //   3. IP failsafe     → 5 AI readings per rolling 24h per ip_hash, to slow
 //                        down cookie-wiping abuse.
 //
@@ -18,7 +18,7 @@
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const QUOTA_REG_PER_DAY = 5
-export const QUOTA_ANON_LIFETIME = 1
+export const QUOTA_ANON_PER_DAY = 1
 export const QUOTA_IP_PER_DAY = 5
 
 export interface QuotaInput {
@@ -66,22 +66,31 @@ export async function checkQuota(input: QuotaInput): Promise<QuotaResult> {
     }
   }
 
-  // ─── anonymous path: browser_id lifetime check ───────────────────────────
+  // ─── anonymous path: browser_id rolling-24h check ────────────────────────
   if (input.browserId) {
     const { count, error } = await supabase
       .from('ai_usage')
       .select('id', { count: 'exact', head: true })
       .eq('browser_id', input.browserId)
+      .gte('created_at', oneDayAgo)
     if (error) {
       console.warn('[quota] anon count error:', error.message)
-      return { allowed: true, remaining: QUOTA_ANON_LIFETIME, resetsAt: null, scope: 'anonymous' }
+      return {
+        allowed: true, remaining: QUOTA_ANON_PER_DAY,
+        resetsAt: new Date(Date.now() + ONE_DAY_MS).toISOString(),
+        scope: 'anonymous',
+      }
     }
     const used = count ?? 0
-    const remaining = Math.max(0, QUOTA_ANON_LIFETIME - used)
+    const remaining = Math.max(0, QUOTA_ANON_PER_DAY - used)
     if (remaining <= 0) {
-      return { allowed: false, remaining: 0, resetsAt: null, scope: 'anonymous', reason: 'quota-exceeded' }
+      return {
+        allowed: false, remaining: 0,
+        resetsAt: new Date(Date.now() + ONE_DAY_MS).toISOString(),
+        scope: 'anonymous', reason: 'quota-exceeded',
+      }
     }
-    // Anon got past their per-browser quota. Still need to pass the IP failsafe.
+    // Anon still has quota. Pass through to the IP failsafe.
   }
 
   // ─── ip failsafe (applies to anonymous only) ─────────────────────────────
@@ -107,8 +116,8 @@ export async function checkQuota(input: QuotaInput): Promise<QuotaResult> {
 
   return {
     allowed: true,
-    remaining: input.browserId ? QUOTA_ANON_LIFETIME : QUOTA_REG_PER_DAY,
-    resetsAt: null,
+    remaining: input.browserId ? QUOTA_ANON_PER_DAY : QUOTA_REG_PER_DAY,
+    resetsAt: new Date(Date.now() + ONE_DAY_MS).toISOString(),
     scope: input.userId ? 'registered' : 'anonymous',
   }
 }

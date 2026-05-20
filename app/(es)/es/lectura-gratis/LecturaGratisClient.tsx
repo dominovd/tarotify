@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { CARDS } from '@/lib/cards'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import CardImage from '@/components/CardImage'
+import AIReadingBlock, { type AIReadingCard } from '@/components/AIReadingBlock'
 
 interface Props {
   cardNamesEs: Record<string, string>
@@ -302,7 +303,20 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
             ))}
           </div>
 
-          <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap' }}>
+          {/* AI Reading block — Spanish */}
+          <AIReadingBlock
+            locale="es"
+            source="free-reading"
+            spreadName="Pasado · Presente · Futuro"
+            cards={drawn.map((d, i): AIReadingCard => ({
+              slug: d.slug,
+              reversed: d.reversed,
+              position: POSITIONS[i],
+            }))}
+            question={question.trim() || undefined}
+          />
+
+          <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
             <button
               onClick={saveToJournal}
               disabled={saved}

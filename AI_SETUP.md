@@ -254,7 +254,7 @@ Supabase session cookie, and replay with `-b`.
 | Audience       | Limit                      | Tracked via         |
 |----------------|----------------------------|---------------------|
 | Registered     | 5 readings / rolling 24h   | `user_id`           |
-| Anonymous      | 1 reading lifetime         | `browser_id` cookie |
+| Anonymous      | 1 reading / rolling 24h    | `browser_id` cookie |
 | Abuse failsafe | 5 readings / 24h per IP    | `ip_hash`           |
 
 Sonnet 4.6 with prompt caching (~6k cached system prompt). Per reading:
