@@ -243,14 +243,14 @@ export default function ReadingClient() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <div style={{ fontSize: '.68rem', letterSpacing: '.22em', color: g, opacity: .55, fontFamily: "'Cinzel',serif", textTransform: 'uppercase', marginBottom: '.5rem' }}>
-            Free Online
+            Free AI Reading
           </div>
           <h1 style={{ fontFamily: "'Cinzel',serif", fontSize: 'clamp(1.6rem,4vw,2.2rem)', color: g, marginBottom: '.8rem' }}>
-            Tarot Reading
+            Free AI Tarot Reading
           </h1>
-          <p style={{ color: m, maxWidth: 480, margin: '0 auto', lineHeight: 1.85, fontSize: '.92rem' }}>
-            Draw from a full 78-card deck with reversals. No sign-up, no fee, no catch.
-            Choose a spread, set your intention, and let the cards speak.
+          <p style={{ color: m, maxWidth: 520, margin: '0 auto', lineHeight: 1.85, fontSize: '.92rem' }}>
+            Draw from a full 78-card deck with reversals, then get a personalised AI interpretation streamed live.
+            Free — your first reading needs no sign-up.
           </p>
         </div>
 

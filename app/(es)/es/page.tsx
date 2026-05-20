@@ -3,8 +3,8 @@ import Link from 'next/link'
 import EmailCapture from '@/components/EmailCapture'
 
 export const metadata: Metadata = {
-  title: 'TarotAxis — Lecturas de Tarot Gratis y Significado de las Cartas',
-  description: 'Lecturas de tarot gratuitas para la reflexión personal. Saca tres cartas, descubre el significado de las 78 cartas, consulta el oráculo Sí/No y encuentra claridad.',
+  title: 'TarotAxis — Lecturas de Tarot Gratis con IA y Significado de las 78 Cartas',
+  description: 'Lecturas de tarot gratuitas con IA personalizada. Saca tres cartas y recibe una interpretación escrita por Claude en tiempo real, descubre el significado de las 78 cartas, consulta el oráculo Sí/No.',
   alternates: {
     canonical: 'https://tarotaxis.com/es',
     languages: {
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'TarotAxis — Lecturas de Tarot Gratis',
-    description: 'Saca tres cartas, descubre el significado de las 78 cartas y encuentra claridad.',
+    title: 'TarotAxis — Lecturas de Tarot Gratis con IA',
+    description: 'Saca tres cartas y recibe una interpretación con IA personalizada. Sin tarjeta, sin registro.',
     url: 'https://tarotaxis.com/es',
     locale: 'es_ES',
     alternateLocale: ['en_US'],
@@ -87,7 +87,7 @@ export default function SpanishHome() {
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
         <div style={{ fontSize: '2.5rem', marginBottom: '.5rem', color: 'var(--gold)' }}>✦</div>
         <h1 style={{ fontFamily: "'Cinzel',serif", fontSize: 'clamp(1.6rem,4.5vw,2.4rem)', color: 'var(--gold)', marginBottom: '.85rem', lineHeight: 1.25 }}>
-          Lecturas de Tarot Gratis
+          Lecturas de Tarot Gratis con IA
         </h1>
         <p style={{ color: 'var(--muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7, fontSize: '1rem' }}>
           Saca tres cartas y recibe una interpretación personalizada con IA, explora el significado de las 78 cartas, o consulta el oráculo de Sí/No para una respuesta directa.

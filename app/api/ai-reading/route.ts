@@ -189,6 +189,23 @@ export async function POST(req: Request): Promise<Response> {
     })
   }
 
+  // ─── pre-insert usage row (BEFORE streaming) ───────────────────────────
+  // We log the usage row BEFORE starting the stream so quota enforcement is
+  // deterministic regardless of the Edge runtime lifecycle. Token counts and
+  // cost are placeholders (0) at this point — Anthropic dashboard provides
+  // accurate per-request usage if we need it. The trade-off keeps quota
+  // reliable, which is the user-facing contract; cost analytics are nice-to-
+  // have on top of that.
+  //
+  // (Previously the insert lived in a fire-and-forget `finally` block AFTER
+  //  the stream finished. Edge workers were sometimes terminated as soon as
+  //  the client finished reading the stream, before `finally` ran — so rows
+  //  never landed in ai_usage and quota appeared to never enforce.)
+  await logUsage({
+    userId, browserId, ipHash, source, locale,
+    tokensIn: 0, tokensOut: 0, costUsdMicro: 0,
+  })
+
   const anthropic = new Anthropic({ apiKey })
 
   const systemText = getSystemPrompt(locale)
@@ -256,25 +273,19 @@ export async function POST(req: Request): Promise<Response> {
     } finally {
       try { await writer.close() } catch { /* already closed */ }
 
-      // ─── cost accounting ───────────────────────────────────────────────
-      // Note: input_tokens here EXCLUDES cached portions. cache_creation and
-      // cache_read are separate. So total billed input = input_tokens +
-      // cache_creation + cache_read (each at its own price).
+      // Best-effort: log token counts to the console for spot-check observability.
+      // (We can't reliably UPDATE the pre-inserted row from here because Edge
+      //  workers may have already been terminated. The Anthropic dashboard is
+      //  the authoritative source for accurate per-request usage.)
       const cost =
         (tokensIn      * PRICE_INPUT_PER_M)       +
         (cacheCreate   * PRICE_CACHE_WRITE_PER_M) +
         (cacheRead     * PRICE_CACHE_READ_PER_M)  +
         (tokensOut     * PRICE_OUTPUT_PER_M)
-      const costMicro = Math.round(cost) // dollars × 1e6 since prices are per 1e6 tokens
-
-      // tokensIn for the ledger = the total billed input (sum of all three)
-      const totalIn = tokensIn + cacheCreate + cacheRead
-
-      await logUsage({
-        userId, browserId, ipHash, source, locale,
-        tokensIn: totalIn,
-        tokensOut,
-        costUsdMicro: costMicro,
+      console.info('[ai-reading] usage', {
+        in: tokensIn, cacheCreate, cacheRead, out: tokensOut,
+        costMicroUsd: Math.round(cost),
+        locale, source,
       })
     }
   })()

@@ -136,10 +136,10 @@ export default function LecturaGratisClient({ cardNamesEs, cardKeywordsEs }: Pro
       <div style={{ maxWidth: 780, margin: '0 auto', padding: '3rem 1.5rem 5rem', textAlign: 'center' }}>
         <div style={{ fontSize: '2.5rem', marginBottom: '1rem', opacity: 0.8 }}>🌙</div>
         <h1 style={{ fontFamily: "'Cinzel',serif", fontSize: 'clamp(1.6rem,4vw,2.4rem)', color: g, marginBottom: '.75rem', lineHeight: 1.3 }}>
-          Lectura de Tarot Gratis
+          Lectura de Tarot Gratis con IA
         </h1>
-        <p style={{ color: m, maxWidth: 520, margin: '0 auto 2.5rem', lineHeight: 1.7 }}>
-          Saca tres cartas para una tirada de pasado, presente y futuro. Sin registro. Tu pregunta es opcional pero ayuda a enfocar las cartas.
+        <p style={{ color: m, maxWidth: 540, margin: '0 auto 2.5rem', lineHeight: 1.7 }}>
+          Saca tres cartas para una tirada de pasado, presente y futuro y recibe una interpretación con IA personalizada. Sin tarjeta. Tu pregunta es opcional pero ayuda a enfocar las cartas.
         </p>
 
         <div style={{ background: 'var(--on-bg-03)', border: `1px solid ${b}`, borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem', textAlign: 'left' }}>

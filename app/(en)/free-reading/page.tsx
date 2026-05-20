@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import ReadingClient from './ReadingClient'
 
 export const metadata: Metadata = {
-  title: 'Free Tarot Reading Online — Full 78-Card Deck | TarotAxis',
-  description: 'Get a free tarot reading online with a full 78-card deck including reversals. Choose from a daily card, three-card, six-card or love spread. No sign-up, no fee.',
+  title: 'Free AI Tarot Reading Online — Full 78-Card Deck | TarotAxis',
+  description: 'Get a free AI tarot reading online with a full 78-card deck including reversals. Personalised interpretation streamed live by Claude — daily, three-card, six-card or love spread. No sign-up needed for your first reading.',
   alternates: {
     canonical: 'https://tarotaxis.com/free-reading',
     languages: {

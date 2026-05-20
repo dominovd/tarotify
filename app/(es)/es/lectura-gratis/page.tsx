@@ -4,9 +4,9 @@ import { getCard } from '@/lib/i18n/get-card'
 import LecturaGratisClient from './LecturaGratisClient'
 
 export const metadata: Metadata = {
-  title: 'Lectura de Tarot Gratis — Tirada de 3 Cartas | TarotAxis',
+  title: 'Lectura de Tarot Gratis con IA — Tirada de 3 Cartas | TarotAxis',
   description:
-    'Lectura de tarot gratis online: saca tres cartas para una tirada de pasado, presente y futuro. Sin registro, sin coste. Interpretación inmediata y opción de guardar en tu diario.',
+    'Lectura de tarot gratis online con IA: saca tres cartas para una tirada de pasado, presente y futuro y recibe una interpretación personalizada escrita por Claude en tiempo real. Sin tarjeta, sin registro para la primera lectura.',
   alternates: {
     canonical: 'https://tarotaxis.com/es/lectura-gratis',
     languages: {
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Lectura de Tarot Gratis — Tirada de 3 Cartas | TarotAxis',
+    title: 'Lectura de Tarot Gratis con IA — Tirada de 3 Cartas | TarotAxis',
     description:
-      'Saca tres cartas para una tirada de pasado, presente y futuro. Sin registro, sin coste.',
+      'Saca tres cartas y recibe una interpretación con IA personalizada en tiempo real. Sin tarjeta, sin registro.',
     url: 'https://tarotaxis.com/es/lectura-gratis',
     locale: 'es_ES',
     alternateLocale: ['en_US'],
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lectura de Tarot Gratis — Tirada de 3 Cartas | TarotAxis',
+    title: 'Lectura de Tarot Gratis con IA — Tirada de 3 Cartas | TarotAxis',
   },
 }
 
