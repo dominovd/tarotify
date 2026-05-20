@@ -215,6 +215,12 @@ Scope: Production + Preview + Development
 
 Redeploy after adding so edge workers pick up the new var.
 
+### 3a. (Already set) CRON_SECRET
+
+The new `/api/cron/prewarm-daily` cron uses the existing `CRON_SECRET`
+env var (already configured for the daily-card email cron). No new
+secret needed — just make sure Vercel can see it on every deploy.
+
 ### 3b. (Optional) Tune AI_DAILY_BUDGET_USD
 
 The AI route includes a circuit-breaker that refuses new generations

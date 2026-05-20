@@ -161,15 +161,18 @@ function trim(s: string, n: number): string {
   return slice.trim() + '…'
 }
 
+// Per-card line stays in a compact one-line shape:
+//   - The Fool (Major). UP {beginnings, spontaneity, …}: brief gloss. REV {recklessness, naivety, …}: brief gloss.
+// Trimmed glosses to ~80 chars keeps each card ~45-55 tokens (vs ~150
+// previously), cutting the cached system block roughly in half. Keywords
+// are kept in full — they're the most actionable anchors for the model.
 function buildCardTableEn(): string {
   const out: string[] = []
   for (const c of CARDS) {
     out.push(
-      `- **${c.name}** (${c.suitLabel}). ` +
-      `Upright keywords: ${c.kw_up.join(', ')}. ` +
-      `Upright: ${trim(c.up, 180)} ` +
-      `Reversed keywords: ${c.kw_rev.join(', ')}. ` +
-      `Reversed: ${trim(c.rev, 180)}`
+      `- ${c.name} (${c.suitLabel}). ` +
+      `UP {${c.kw_up.join(', ')}}: ${trim(c.up, 80)} ` +
+      `REV {${c.kw_rev.join(', ')}}: ${trim(c.rev, 80)}`
     )
   }
   return out.join('\n')
@@ -186,11 +189,9 @@ function buildCardTableEs(): string {
     const up = es.up ?? c.up
     const rev = es.rev ?? c.rev
     out.push(
-      `- **${name}** (${suit}). ` +
-      `Palabras clave (al derecho): ${kwUp.join(', ')}. ` +
-      `Al derecho: ${trim(up, 180)} ` +
-      `Palabras clave (invertida): ${kwRev.join(', ')}. ` +
-      `Invertida: ${trim(rev, 180)}`
+      `- ${name} (${suit}). ` +
+      `Derecho {${kwUp.join(', ')}}: ${trim(up, 80)} ` +
+      `Invertida {${kwRev.join(', ')}}: ${trim(rev, 80)}`
     )
   }
   return out.join('\n')
