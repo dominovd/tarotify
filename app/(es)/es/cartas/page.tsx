@@ -4,6 +4,7 @@ import { CARDS, SUITS } from '@/lib/cards'
 import { getCard } from '@/lib/i18n/get-card'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import CardImage from '@/components/CardImage'
+import AIReadingPromo from '@/components/AIReadingPromo'
 
 export const metadata: Metadata = {
   title: 'Significado de las Cartas del Tarot — Las 78 Cartas | TarotAxis',
@@ -101,6 +102,11 @@ export default async function SpanishCardsIndex({ searchParams }: Props) {
             </Link>
           )
         })}
+      </div>
+
+      {/* Promo de lectura con IA */}
+      <div style={{ marginBottom: '2rem' }}>
+        <AIReadingPromo locale="es" />
       </div>
 
       {SUITS.map(suit => {

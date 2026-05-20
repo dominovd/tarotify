@@ -8,6 +8,7 @@ import { CARD_LOVE_EXTENDED } from '@/lib/card-love-extended'
 import { makeComboSlug, MAJOR_SLUGS } from '@/lib/combinations'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import CardImage from '@/components/CardImage'
+import AIReadingPromo from '@/components/AIReadingPromo'
 
 // Top Major Arcana by combo search volume (from SEMrush data)
 const COMBO_PRIORITY = [
@@ -136,6 +137,11 @@ export default function CardPage({ params }: Props) {
           Yes or No
         </div>
         <p style={{ color:'var(--text)', lineHeight:1.7 }}>{card.yn_exp}</p>
+      </div>
+
+      {/* AI Reading promo — compact variant, sits between Yes/No and Keywords */}
+      <div style={{ marginBottom: '1.5rem' }}>
+        <AIReadingPromo locale="en" compact />
       </div>
 
       {/* Keywords */}

@@ -13,6 +13,7 @@ import {
   getCardLove,
 } from '@/lib/i18n/get-card'
 import CardImage from '@/components/CardImage'
+import AIReadingPromo from '@/components/AIReadingPromo'
 
 interface Props { params: { slug: string } }
 
@@ -174,6 +175,11 @@ export default async function SpanishCardPage({ params }: Props) {
           Sí o No
         </div>
         <p style={{ color: 'var(--text)', lineHeight: 1.7 }}>{card.yn_exp}</p>
+      </div>
+
+      {/* Promo de lectura con IA — variante compacta */}
+      <div style={{ marginBottom: '1.5rem' }}>
+        <AIReadingPromo locale="es" compact />
       </div>
 
       {/* Keywords */}

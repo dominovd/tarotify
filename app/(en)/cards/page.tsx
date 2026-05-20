@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CARDS, SUITS } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
+import AIReadingPromo from '@/components/AIReadingPromo'
 
 export const metadata: Metadata = {
   title: 'Tarot Card Meanings — All 78 Cards | TarotAxis',
@@ -77,6 +78,11 @@ export default function CardsIndex({ searchParams }: Props) {
             </Link>
           )
         })}
+      </div>
+
+      {/* AI Reading promo — pulls browsers into the free AI funnel */}
+      <div style={{ marginBottom: '2rem' }}>
+        <AIReadingPromo locale="en" />
       </div>
 
       {/* Related hubs */}

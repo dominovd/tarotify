@@ -5,6 +5,7 @@ import { getCard, getCardExtended } from '@/lib/i18n/get-card'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import ShareButton from '@/components/ShareButton'
 import CardImage from '@/components/CardImage'
+import AIReadingBlock from '@/components/AIReadingBlock'
 
 // Re-render on every request so the card matches today's date
 export const dynamic = 'force-dynamic'
@@ -215,6 +216,14 @@ export default async function SpanishDailyPage() {
           {interpretation}
         </p>
       </div>
+
+      {/* AI Reading — interpretación personalizada de la carta de hoy */}
+      <AIReadingBlock
+        locale="es"
+        source="free-reading"
+        spreadName="Carta del Día"
+        cards={[{ slug: card.slug, reversed, position: 'Hoy' }]}
+      />
 
       {/* Amor / Carrera / Espíritu snippets */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(190px,1fr))', gap: '.75rem', marginBottom: '2.5rem' }}>

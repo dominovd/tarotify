@@ -4,6 +4,7 @@ import { CARD_EXTENDED } from '@/lib/card-extended'
 import { getDailyCard, longDate } from '@/lib/daily-card'
 import ShareButton from '@/components/ShareButton'
 import CardImage from '@/components/CardImage'
+import AIReadingBlock from '@/components/AIReadingBlock'
 
 // Re-render on every request so the card matches today's date
 export const dynamic = 'force-dynamic'
@@ -162,6 +163,14 @@ export default function DailyPage() {
           {interpretation}
         </p>
       </div>
+
+      {/* AI Reading — personalised interpretation of today's card */}
+      <AIReadingBlock
+        locale="en"
+        source="free-reading"
+        spreadName="Daily Tarot Card"
+        cards={[{ slug: card.slug, reversed, position: 'Today' }]}
+      />
 
       {/* Love / Career / Spirit snippets */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(190px,1fr))', gap: '.75rem', marginBottom: '2.5rem' }}>
