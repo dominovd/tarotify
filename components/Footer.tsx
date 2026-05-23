@@ -42,6 +42,7 @@ const COPY: Record<Locale, {
       { href: '/spreads',      label: 'Spreads' },
       { href: '/combination',  label: 'Combinations' },
       { href: '/zodiac',       label: 'Zodiac Tarot' },
+      { href: '/trends',       label: 'Tarot Trends' },
     ],
     guides: [
       { href: '/tarot-for-beginners',         label: 'For Beginners' },
@@ -83,6 +84,7 @@ const COPY: Record<Locale, {
       { href: '/es/tiradas',         label: 'Tiradas' },
       { href: '/es/combinaciones',   label: 'Combinaciones' },
       { href: '/es/zodiaco',         label: 'Zodíaco' },
+      { href: '/es/tendencias',      label: 'Tendencias' },
     ],
     guides: [
       { href: '/es/tarot-para-principiantes',     label: 'Para Principiantes' },

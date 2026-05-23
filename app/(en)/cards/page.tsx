@@ -88,6 +88,7 @@ export default function CardsIndex({ searchParams }: Props) {
       {/* Related hubs */}
       <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:'.6rem', marginBottom:'3rem' }}>
         {[
+          { href: '/trends',              title: 'Tarot Trends',       desc: 'Which cards are being drawn the most this week' },
           { href: '/tarot-suits',         title: 'The Four Suits',     desc: 'Cups, Pentacles, Swords, Wands' },
           { href: '/zodiac',              title: 'Zodiac Tarot',       desc: 'Each sign’s ruling card' },
           { href: '/tarot-decks',         title: 'Tarot Decks',        desc: 'Rider-Waite, Marseille & more' },

@@ -109,6 +109,21 @@ export default async function SpanishCardsIndex({ searchParams }: Props) {
         <AIReadingPromo locale="es" />
       </div>
 
+      {/* CTA de tendencias — datos únicos del propio sitio */}
+      <Link
+        href="/es/tendencias"
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '.85rem 1.1rem', marginBottom: '2.5rem', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, textDecoration: 'none', flexWrap: 'wrap' }}
+      >
+        <div>
+          <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.82rem', letterSpacing: '.04em', marginBottom: '.25rem' }}>
+            Tendencias del tarot →
+          </div>
+          <div style={{ color: 'var(--muted)', fontSize: '.75rem', lineHeight: 1.5 }}>
+            Qué cartas se están sacando más esta semana en TarotAxis
+          </div>
+        </div>
+      </Link>
+
       {SUITS.map(suit => {
         const suitCards = localized.filter(c => c.base.suit === suit.key)
         return (
