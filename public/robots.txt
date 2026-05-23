@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://tarotaxis.com/sitemap.xml
+LLM-Content: https://tarotaxis.com/llms.txt

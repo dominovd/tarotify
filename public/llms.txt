@@ -1,0 +1,80 @@
+# TarotAxis
+
+> TarotAxis is a free AI-assisted tarot reading website for self-reflection. Visitors can draw a three-card spread and receive a personalised interpretation streamed by Anthropic Claude, look up the meaning of any of the 78 Rider–Waite–Smith cards, get a daily card, or ask a yes/no question. The site is bilingual (English and Spanish) and frames tarot as a mirror for reflection, not fortune-telling.
+
+Important notes:
+
+- TarotAxis is not a divination or fortune-telling service. The readings explicitly avoid hard predictions and never give medical, legal, financial, or relationship-leaving advice.
+- The AI reading tier uses Anthropic Claude (Haiku 4.5 for the lightweight surfaces, Sonnet 4.6 for the deeper spread analysis). Anonymous visitors get 1 AI reading per day per browser; registered (Google OAuth) users get 5 per day.
+- The card corpus is the standard 78-card Rider–Waite–Smith deck. Every card has an upright meaning, reversed meaning, and keyword sets in both English and Spanish.
+- Every English URL has a Spanish counterpart under `/es/` with a localised slug (for example `/free-reading` ↔ `/es/lectura-gratis`).
+- Site canonical: `https://tarotaxis.com`. Spanish root: `https://tarotaxis.com/es`.
+
+## Core experiences
+
+- [Homepage (EN)](https://tarotaxis.com/): Overview of the free AI tarot reading, daily card, and card library.
+- [Free AI tarot reading (EN)](https://tarotaxis.com/free-reading): Draw three cards and receive an AI-generated interpretation. Anonymous users get 1/day, registered 5/day.
+- [Reading analysis (EN)](https://tarotaxis.com/reading-analysis): Enter a spread you drew elsewhere and get an AI synthesis of the cards.
+- [Daily card (EN)](https://tarotaxis.com/daily): Today's card with upright/reversed meaning and a short AI reflection.
+- [Yes / No oracle (EN)](https://tarotaxis.com/yes-no): Single-card yes/no answer.
+- [Card combination explorer (EN)](https://tarotaxis.com/combination): Choose any two cards and read what their pairing tends to signal.
+- [Tarot personality quiz (EN)](https://tarotaxis.com/quiz): Short questionnaire that returns a card archetype.
+- [Birth card calculator (EN)](https://tarotaxis.com/birth-card): Numerology-based personal card from date of birth.
+- [Manifestation with tarot (EN)](https://tarotaxis.com/manifestation): Card pulls framed around intention-setting.
+- [Zodiac and tarot (EN)](https://tarotaxis.com/zodiac): Each zodiac sign's associated tarot cards.
+
+## Card and spread libraries
+
+- [All 78 tarot cards (EN)](https://tarotaxis.com/cards): Index of every card with upright and reversed keywords. Per-card pages live at `/cards/{slug}` (for example `/cards/the-fool`).
+- [All tarot spreads (EN)](https://tarotaxis.com/spreads): Index of supported spreads — three-card, Celtic cross, horseshoe, love, career, soulmate, full/new/dark/eclipse/waning moon, healing after heartbreak, "how they feel about me", "should I stay or should I go", third party, true love, partner, by-card-count.
+- [Tarot suits (EN)](https://tarotaxis.com/tarot-suits): Wands, cups, swords, pentacles — what each suit represents.
+- [Tarot decks (EN)](https://tarotaxis.com/tarot-decks): Overview of supported decks (Rider–Waite–Smith, pastel, etc.).
+
+## Guides and editorial
+
+- [How to read tarot (EN)](https://tarotaxis.com/how-to-read-tarot): Step-by-step beginner method.
+- [Tarot for beginners (EN)](https://tarotaxis.com/tarot-for-beginners): Entry-level explainer.
+- [How to shuffle tarot cards (EN)](https://tarotaxis.com/how-to-shuffle-tarot): Shuffling techniques and when to use each.
+- [How to cleanse tarot cards (EN)](https://tarotaxis.com/how-to-cleanse-tarot-cards): Cleansing rituals and practical care.
+- [How to ask tarot questions (EN)](https://tarotaxis.com/how-to-ask-tarot-questions): How to phrase questions so the spread is useful.
+- [Oracle vs tarot (EN)](https://tarotaxis.com/oracle-vs-tarot): Difference between oracle decks and tarot decks.
+- [Keeping a tarot journal (EN)](https://tarotaxis.com/tarot-journal): Why and how to journal your readings.
+- [Methodology (EN)](https://tarotaxis.com/methodology): How TarotAxis approaches card meanings, the AI reading prompts, and editorial standards.
+- [About (EN)](https://tarotaxis.com/about): What TarotAxis is and who it is for.
+
+## Spanish (Español)
+
+- [Inicio (ES)](https://tarotaxis.com/es): Página principal en español.
+- [Lectura gratuita de IA (ES)](https://tarotaxis.com/es/lectura-gratis): Lectura de tres cartas con interpretación generada por IA.
+- [Análisis de lectura (ES)](https://tarotaxis.com/es/reading-analysis): Análisis de IA para una tirada que ya realizaste.
+- [Carta del día (ES)](https://tarotaxis.com/es/carta-del-dia): La carta de hoy con su interpretación.
+- [Oráculo sí o no (ES)](https://tarotaxis.com/es/si-no): Respuesta sí/no con una sola carta.
+- [Combinaciones de cartas (ES)](https://tarotaxis.com/es/combinaciones): Explorador de pares de cartas.
+- [Todas las 78 cartas (ES)](https://tarotaxis.com/es/cartas): Índice completo en español, con páginas individuales en `/es/cartas/{slug}`.
+- [Tiradas de tarot (ES)](https://tarotaxis.com/es/tiradas): Índice de todas las tiradas.
+- [Palos del tarot (ES)](https://tarotaxis.com/es/palos-del-tarot): Bastos, copas, espadas y oros.
+- [Barajas de tarot (ES)](https://tarotaxis.com/es/barajas-de-tarot): Visión general de las barajas.
+- [Carta de nacimiento (ES)](https://tarotaxis.com/es/carta-de-nacimiento): Carta personal basada en la fecha de nacimiento.
+- [Manifestación (ES)](https://tarotaxis.com/es/manifestacion): Tirada enfocada a la intención.
+- [Zodiaco y tarot (ES)](https://tarotaxis.com/es/zodiaco): Correspondencias entre signos y cartas.
+- [Cómo leer el tarot (ES)](https://tarotaxis.com/es/como-leer-tarot): Guía paso a paso.
+- [Tarot para principiantes (ES)](https://tarotaxis.com/es/tarot-para-principiantes): Introducción.
+- [Cómo barajar el tarot (ES)](https://tarotaxis.com/es/como-barajar-tarot): Técnicas de barajado.
+- [Cómo limpiar las cartas (ES)](https://tarotaxis.com/es/como-limpiar-cartas-de-tarot): Limpieza energética y cuidado de la baraja.
+- [Cómo preguntar al tarot (ES)](https://tarotaxis.com/es/como-preguntar-al-tarot): Cómo formular preguntas útiles.
+- [Oráculo vs tarot (ES)](https://tarotaxis.com/es/oraculo-vs-tarot): Diferencias entre oráculos y tarot.
+- [Diario de tarot (ES)](https://tarotaxis.com/es/diario-de-tarot): Por qué y cómo llevar un diario.
+- [Metodología (ES)](https://tarotaxis.com/es/metodologia): Cómo TarotAxis construye los significados y los prompts de IA.
+- [Acerca de (ES)](https://tarotaxis.com/es/acerca-de): Qué es TarotAxis.
+
+## Site index
+
+- [XML sitemap](https://tarotaxis.com/sitemap.xml): Full machine-readable list of all indexable pages in both locales.
+
+## Optional
+
+- [Pricing (EN)](https://tarotaxis.com/pricing) · [Precios (ES)](https://tarotaxis.com/es/precios): Tier overview. Core experiences are free; a premium tier is in development.
+- [Privacy policy (EN)](https://tarotaxis.com/privacy) · [Política de privacidad (ES)](https://tarotaxis.com/es/privacidad)
+- [Terms of service (EN)](https://tarotaxis.com/terms) · [Términos (ES)](https://tarotaxis.com/es/terminos)
+- [Account (EN)](https://tarotaxis.com/account) · [Cuenta (ES)](https://tarotaxis.com/es/account): Signed-in dashboard; sign-in is via Google OAuth at `/auth/signin`.
+- [Journal (EN)](https://tarotaxis.com/journal) · [Diario (ES)](https://tarotaxis.com/es/journal): Saved readings for signed-in users, with a local-storage fallback for guests.
