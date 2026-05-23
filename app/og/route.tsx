@@ -121,6 +121,15 @@ export async function GET(request: Request) {
       const images = await Promise.all(cards.map(c => fetchCardImage(c.slug)))
 
       const label = [L.aiReading, cards.length === 3 ? L.threeCardSpread : ''].filter(Boolean).join('  ·  ')
+      const footerPath = locale === 'es' ? '/es/lectura-gratis' : '/free-reading'
+
+      // Layout deliberately mirrors the combination-mode pattern: explicit
+      // marginRight on card slots (no `gap` — Satori has historically been
+      // picky), every child of the outer flex has `display: 'flex'`, and
+      // the card slot always contains exactly one img child (even on fetch
+      // failure we render a 1×1 transparent dataURI so the flex container
+      // never has zero children).
+      const blankPx = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
 
       return new ImageResponse(
         (
@@ -128,24 +137,22 @@ export async function GET(request: Request) {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'space-between',
               width: 1200,
               height: 630,
               background: '#0d0a1f',
-              paddingTop: 48,
-              paddingRight: 64,
-              paddingBottom: 48,
-              paddingLeft: 64,
+              paddingTop: 50,
+              paddingRight: 65,
+              paddingBottom: 50,
+              paddingLeft: 65,
             }}
           >
             {/* Top: brand label */}
-            <div style={{ display: 'flex', color: 'rgba(201,168,76,0.55)', fontSize: 17, letterSpacing: 2 }}>
-              ✦ TAROTAXIS · {label.toUpperCase()}
+            <div style={{ display: 'flex', color: 'rgba(201,168,76,0.55)', fontSize: 17, marginBottom: 26 }}>
+              {`✦ TAROTAXIS · ${label.toUpperCase()}`}
             </div>
 
-            {/* Middle: cards */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 28 }}>
+            {/* Cards row */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 36 }}>
               {cards.map((c, i) => (
                 <div
                   key={i}
@@ -158,34 +165,38 @@ export async function GET(request: Request) {
                     borderWidth: 1,
                     borderStyle: 'solid',
                     borderColor: 'rgba(201,168,76,0.4)',
+                    marginRight: i === cards.length - 1 ? 0 : 28,
                     transform: c.reversed ? 'rotate(180deg)' : 'none',
                   }}
                 >
-                  {images[i] ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={images[i]} alt={c.name} width={180} height={270} style={{ objectFit: 'cover' }} />
-                  ) : null}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={images[i] || blankPx}
+                    alt={c.name}
+                    width={180}
+                    height={270}
+                    style={{ objectFit: 'cover' }}
+                  />
                 </div>
               ))}
             </div>
 
-            {/* Below cards: headline (the one-sentence summary) */}
+            {/* Headline */}
             <div style={{
               display: 'flex',
               color: '#c9a84c',
               fontSize: headline.length > 100 ? 28 : 34,
-              lineHeight: 1.35,
               fontWeight: 600,
-              textAlign: 'center',
-              maxWidth: 980,
-              alignSelf: 'center',
+              lineHeight: 1.35,
+              marginBottom: 30,
+              maxWidth: 1000,
             }}>
               {headline}
             </div>
 
-            {/* Footer: URL */}
+            {/* Footer URL */}
             <div style={{ display: 'flex', color: 'rgba(201,168,76,0.35)', fontSize: 16 }}>
-              tarotaxis.com{locale === 'es' ? '/es/lectura-gratis' : '/free-reading'}
+              {`tarotaxis.com${footerPath}`}
             </div>
           </div>
         ),
