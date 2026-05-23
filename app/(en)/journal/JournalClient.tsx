@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { CARDS, CARDS_BY_SLUG, type Card } from '@/lib/cards'
 import CardImage from '@/components/CardImage'
 import EmailCapture from '@/components/EmailCapture'
+import JournalPatterns from '@/components/JournalPatterns'
 import RenderedReading, { hasMarkdownMarkers } from '@/components/RenderedReading'
 import { useUser } from '@/hooks/useUser'
 
@@ -333,6 +334,11 @@ export default function JournalClient() {
             </Link>
           </div>
         </section>
+      )}
+
+      {/* Pattern memory — shown above the timeline for users with enough data */}
+      {entries.length > 0 && (
+        <JournalPatterns entries={entries} cardByName={cardByName} locale="en" />
       )}
 
       {/* Toolbar + entries */}

@@ -6,6 +6,7 @@ import { CARDS, CARDS_BY_SLUG, type Card } from '@/lib/cards'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import CardImage from '@/components/CardImage'
 import EmailCapture from '@/components/EmailCapture'
+import JournalPatterns from '@/components/JournalPatterns'
 import RenderedReading, { hasMarkdownMarkers } from '@/components/RenderedReading'
 import { useUser } from '@/hooks/useUser'
 
@@ -329,6 +330,11 @@ export default function JournalClient() {
             </Link>
           </div>
         </section>
+      )}
+
+      {/* Memoria de patrones — encima de la línea temporal cuando hay datos */}
+      {entries.length > 0 && (
+        <JournalPatterns entries={entries} cardByName={cardByName} locale="es" />
       )}
 
       {/* Toolbar + entries */}
