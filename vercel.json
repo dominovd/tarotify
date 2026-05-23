@@ -8,6 +8,10 @@
     {
       "path": "/api/cron/prewarm-daily",
       "schedule": "5 0 * * *"
+    },
+    {
+      "path": "/api/cron/compute-trends",
+      "schedule": "15 0 * * *"
     }
   ]
 }

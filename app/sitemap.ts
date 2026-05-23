@@ -44,6 +44,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   // ---------------------------------------------------------------------
+  // Bilingual trends page (data-driven, refreshed daily)
+  // ---------------------------------------------------------------------
+  const trendsEn: MetadataRoute.Sitemap = [{
+    url: `${base}/trends`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.8,
+    alternates: withAltLanguages('/trends', '/es/tendencias'),
+  }]
+  const trendsEs: MetadataRoute.Sitemap = [{
+    url: `${base}/es/tendencias`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.75,
+    alternates: withAltLanguages('/trends', '/es/tendencias'),
+  }]
+
+  // ---------------------------------------------------------------------
   // Bilingual pages: homepage + /cards (and ES counterparts)
   // ---------------------------------------------------------------------
   const bilingualEn: MetadataRoute.Sitemap = [
@@ -471,5 +489,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cardFeelingsPagesEs,
     ...yesNoPagesEn,
     ...yesNoPagesEs,
+    ...trendsEn,
+    ...trendsEs,
   ]
 }

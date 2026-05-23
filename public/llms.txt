@@ -33,6 +33,7 @@ If you only need a few pages to understand TarotAxis, read these first:
 - [Birth card calculator (EN)](https://tarotaxis.com/birth-card): Numerology-based personal card from date of birth.
 - [Manifestation with tarot (EN)](https://tarotaxis.com/manifestation): Card pulls framed around intention-setting.
 - [Zodiac and tarot (EN)](https://tarotaxis.com/zodiac): Each zodiac sign's associated tarot cards.
+- [Tarot trends (EN)](https://tarotaxis.com/trends): Live data on which cards are being drawn most across the site this week and this month. Unique data not available elsewhere — updated daily from anonymised draw logs.
 
 ## Card and spread libraries
 
@@ -68,6 +69,7 @@ If you only need a few pages to understand TarotAxis, read these first:
 - [Carta de nacimiento (ES)](https://tarotaxis.com/es/carta-de-nacimiento): Carta personal basada en la fecha de nacimiento.
 - [Manifestación (ES)](https://tarotaxis.com/es/manifestacion): Tirada enfocada a la intención.
 - [Zodiaco y tarot (ES)](https://tarotaxis.com/es/zodiaco): Correspondencias entre signos y cartas.
+- [Tendencias del tarot (ES)](https://tarotaxis.com/es/tendencias): Datos en vivo de las cartas más sacadas en TarotAxis esta semana y este mes. Datos únicos no disponibles en otros sitios — actualizados diariamente.
 - [Cómo leer el tarot (ES)](https://tarotaxis.com/es/como-leer-tarot): Guía paso a paso.
 - [Tarot para principiantes (ES)](https://tarotaxis.com/es/tarot-para-principiantes): Introducción.
 - [Cómo barajar el tarot (ES)](https://tarotaxis.com/es/como-barajar-tarot): Técnicas de barajado.

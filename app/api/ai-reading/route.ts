@@ -235,9 +235,11 @@ export async function POST(req: Request): Promise<Response> {
     if (cached) {
       // Log usage so the call counts toward the user's quota — quota is a
       // fairness control, not a cost control. Cache hits are free of spend.
+      // We still record `cards` so the trends aggregator sees the draw.
       await logUsage({
         userId, browserId, ipHash, source, locale,
         tokensIn: 0, tokensOut: 0, costUsdMicro: 0,
+        cards,
       })
       return streamingTextResponse(cached, {
         nextRemaining,
@@ -297,6 +299,7 @@ export async function POST(req: Request): Promise<Response> {
     userId, browserId, ipHash, source, locale,
     tokensIn: 0, tokensOut: 0,
     costUsdMicro: chosen.estimatedCostMicro,
+    cards,
   })
 
   const anthropic = new Anthropic({ apiKey })

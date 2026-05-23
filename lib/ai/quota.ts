@@ -178,6 +178,13 @@ export async function checkDailyBudget(): Promise<BudgetResult> {
 
 // ─── usage logging ──────────────────────────────────────────────────────────
 
+/** Card shape persisted to ai_usage.cards for trend aggregation. */
+export interface LoggedCard {
+  slug: string
+  reversed: boolean
+  position?: string
+}
+
 export interface LogUsageInput {
   userId: string | null
   browserId: string | null
@@ -188,6 +195,14 @@ export interface LogUsageInput {
   tokensOut: number
   /** Cost in USD micros (1 USD = 1,000,000). Kept as int to avoid float drift. */
   costUsdMicro: number
+  /**
+   * Cards that were drawn for this reading. Stored as jsonb so the
+   * compute-trends cron can aggregate "most drawn cards" without joining
+   * to other tables. Pre-migration-004 rows have NULL here; the trend
+   * aggregator tolerates that and falls back to saved_readings for
+   * historical context.
+   */
+  cards?: LoggedCard[]
 }
 
 export async function logUsage(input: LogUsageInput): Promise<void> {
@@ -202,6 +217,7 @@ export async function logUsage(input: LogUsageInput): Promise<void> {
     tokens_in: input.tokensIn,
     tokens_out: input.tokensOut,
     cost_usd_micro: input.costUsdMicro,
+    cards: input.cards && input.cards.length > 0 ? input.cards : null,
   })
   if (error) {
     // Don't fail the user-facing request on a logging error — just record it.
