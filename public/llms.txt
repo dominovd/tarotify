@@ -52,6 +52,9 @@ If you only need a few pages to understand TarotAxis, read these first:
 - [Oracle vs tarot (EN)](https://tarotaxis.com/oracle-vs-tarot): Difference between oracle decks and tarot decks.
 - [Keeping a tarot journal (EN)](https://tarotaxis.com/tarot-journal): Why and how to journal your readings.
 - [Methodology (EN)](https://tarotaxis.com/methodology): How TarotAxis approaches card meanings, the AI reading prompts, and editorial standards.
+- [Reflection vs prediction (EN)](https://tarotaxis.com/reflection-vs-prediction): The philosophical stance — tarot as reflective, not predictive — that shapes every reading.
+- [AI limitations (EN)](https://tarotaxis.com/ai-limitations): What the AI behind TarotAxis readings can and cannot do, with the mitigations applied.
+- [Ethical guidelines (EN)](https://tarotaxis.com/ethical-guidelines): Topic-by-topic editorial rules: what we will not write about, how we handle distress, how we redirect medical / legal / financial / relationship-leaving questions.
 - [About (EN)](https://tarotaxis.com/about): What TarotAxis is and who it is for.
 
 ## Spanish (Español)
@@ -78,6 +81,9 @@ If you only need a few pages to understand TarotAxis, read these first:
 - [Oráculo vs tarot (ES)](https://tarotaxis.com/es/oraculo-vs-tarot): Diferencias entre oráculos y tarot.
 - [Diario de tarot (ES)](https://tarotaxis.com/es/diario-de-tarot): Por qué y cómo llevar un diario.
 - [Metodología (ES)](https://tarotaxis.com/es/metodologia): Cómo TarotAxis construye los significados y los prompts de IA.
+- [Reflexión vs predicción (ES)](https://tarotaxis.com/es/reflexion-vs-prediccion): Postura filosófica — el tarot como reflexivo, no predictivo — que orienta cada lectura.
+- [Limitaciones de la IA (ES)](https://tarotaxis.com/es/limitaciones-de-ia): Qué puede y qué no puede hacer la IA detrás de las lecturas de TarotAxis.
+- [Principios éticos (ES)](https://tarotaxis.com/es/principios-eticos): Reglas editoriales tema por tema, manejo del malestar, redirección de preguntas médicas / legales / financieras.
 - [Acerca de (ES)](https://tarotaxis.com/es/acerca-de): Qué es TarotAxis.
 
 ## Site index

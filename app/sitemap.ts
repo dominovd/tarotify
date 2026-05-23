@@ -44,6 +44,56 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   // ---------------------------------------------------------------------
+  // Bilingual editorial pages (E-E-A-T trust signals)
+  // ---------------------------------------------------------------------
+  const editorialEn: MetadataRoute.Sitemap = [
+    {
+      url: `${base}/ai-limitations`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.65,
+      alternates: withAltLanguages('/ai-limitations', '/es/limitaciones-de-ia'),
+    },
+    {
+      url: `${base}/reflection-vs-prediction`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.65,
+      alternates: withAltLanguages('/reflection-vs-prediction', '/es/reflexion-vs-prediccion'),
+    },
+    {
+      url: `${base}/ethical-guidelines`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.65,
+      alternates: withAltLanguages('/ethical-guidelines', '/es/principios-eticos'),
+    },
+  ]
+  const editorialEs: MetadataRoute.Sitemap = [
+    {
+      url: `${base}/es/limitaciones-de-ia`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.6,
+      alternates: withAltLanguages('/ai-limitations', '/es/limitaciones-de-ia'),
+    },
+    {
+      url: `${base}/es/reflexion-vs-prediccion`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.6,
+      alternates: withAltLanguages('/reflection-vs-prediction', '/es/reflexion-vs-prediccion'),
+    },
+    {
+      url: `${base}/es/principios-eticos`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.6,
+      alternates: withAltLanguages('/ethical-guidelines', '/es/principios-eticos'),
+    },
+  ]
+
+  // ---------------------------------------------------------------------
   // Bilingual trends page (data-driven, refreshed daily)
   // ---------------------------------------------------------------------
   const trendsEn: MetadataRoute.Sitemap = [{
@@ -491,5 +541,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...yesNoPagesEs,
     ...trendsEn,
     ...trendsEs,
+    ...editorialEn,
+    ...editorialEs,
   ]
 }
