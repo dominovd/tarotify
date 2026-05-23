@@ -14,6 +14,13 @@ import {
 } from '@/lib/i18n/get-card'
 import CardImage from '@/components/CardImage'
 import AIReadingPromo from '@/components/AIReadingPromo'
+import CardRelated from '@/components/CardRelated'
+import { loadLatestSnapshot } from '@/lib/trends/compute'
+
+// ISR — re-render every hour so the "Aparece a menudo con" block stays
+// in step with the daily trends_snapshot cron without re-querying
+// Supabase per request.
+export const revalidate = 3600
 
 interface Props { params: { slug: string } }
 
@@ -99,6 +106,11 @@ export default async function SpanishCardPage({ params }: Props) {
 
   const card = await getCard(enSlug, 'es')
   if (!card) notFound()
+
+  // Load latest trends snapshot for the "Aparece a menudo con" block.
+  // Pre-cron the snapshot is null and the section falls back silently.
+  const snapshot = await loadLatestSnapshot()
+  const partnerPairs = snapshot?.pairsByCard?.[enSlug] ?? []
 
   const ext = await getCardExtended(enSlug, 'es')
   const loveExt = await getCardLove(enSlug, 'es')
@@ -318,6 +330,9 @@ export default async function SpanishCardPage({ params }: Props) {
           </div>
         </div>
       )}
+
+      {/* Knowledge graph — structural relations + data-driven partners */}
+      <CardRelated card={card} locale="es" pairs={partnerPairs} />
 
       {/* Prev / Next */}
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>

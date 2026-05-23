@@ -7,8 +7,15 @@ import { CARD_EXTENDED } from '@/lib/card-extended'
 import { CARD_LOVE_EXTENDED } from '@/lib/card-love-extended'
 import { makeComboSlug, MAJOR_SLUGS } from '@/lib/combinations'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
+import { loadLatestSnapshot } from '@/lib/trends/compute'
 import CardImage from '@/components/CardImage'
 import AIReadingPromo from '@/components/AIReadingPromo'
+import CardRelated from '@/components/CardRelated'
+
+// ISR — re-render every hour so the "Often appears with" block stays
+// reasonably fresh with the daily trends_snapshot cron, without
+// re-querying Supabase on every request.
+export const revalidate = 3600
 
 // Top Major Arcana by combo search volume (from SEMrush data)
 const COMBO_PRIORITY = [
@@ -68,9 +75,15 @@ const YN_STYLE: Record<string, { bg: string; color: string; label: string }> = {
   maybe: { bg:'rgba(122,94,26,.2)', color:'#c9a84c', label:'MAYBE' },
 }
 
-export default function CardPage({ params }: Props) {
+export default async function CardPage({ params }: Props) {
   const card = CARDS_BY_SLUG[params.slug]
   if (!card) notFound()
+
+  // Load the latest trends snapshot once per ISR build so the related-cards
+  // block can render "Often appears with" data. Pre-cron the snapshot is
+  // null and the block silently degrades to the static relationships only.
+  const snapshot = await loadLatestSnapshot()
+  const partnerPairs = snapshot?.pairsByCard?.[card.slug] ?? []
 
   const ext = CARD_EXTENDED[params.slug] ?? null
   const loveExt = CARD_LOVE_EXTENDED[params.slug] ?? null
@@ -265,6 +278,9 @@ export default function CardPage({ params }: Props) {
           </div>
         </div>
       )}
+
+      {/* Knowledge graph — structural relations + data-driven partners */}
+      <CardRelated card={card} locale="en" pairs={partnerPairs} />
 
       {/* Popular Combinations */}
       {(() => {

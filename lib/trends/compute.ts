@@ -54,6 +54,15 @@ export interface SourceBreakdown {
   count: number
 }
 
+/** Top partners for a specific card — `card A appeared with card B count N times`
+ *  within the last 30 days of multi-card spreads. Stored per-card so the
+ *  card pages can render an "often appears with" section without
+ *  re-scanning raw rows. */
+export interface CardPartner {
+  other: string
+  count: number
+}
+
 export interface TrendsSnapshot {
   /** ISO timestamp the snapshot was computed. */
   computedAt: string
@@ -81,6 +90,8 @@ export interface TrendsSnapshot {
   topCombinations30d: CardPair[]
   /** Source distribution in last 30 days. */
   sources30d: SourceBreakdown[]
+  /** Per-card top partners — slug → top 6 most-frequent companions. */
+  pairsByCard: Record<string, CardPartner[]>
 }
 
 // ─── helpers ───────────────────────────────────────────────────────────────
@@ -124,6 +135,7 @@ const TRENDING_MIN_VOLUME = 3   // ignore cards drawn fewer than N times last we
 const TRENDING_LIST_SIZE  = 10
 const TOP_CARDS_LIST_SIZE = 20
 const TOP_PAIRS_LIST_SIZE = 12
+const PARTNERS_PER_CARD   = 6   // top N companions stored per card page
 
 export async function computeTrendsSnapshot(): Promise<TrendsSnapshot> {
   const supabase = createAdminClient()
@@ -256,6 +268,25 @@ export async function computeTrendsSnapshot(): Promise<TrendsSnapshot> {
     .map(p => ({ slugs: p.slugs, count: p.count }))
   pairs.sort((a, b) => b.count - a.count)
 
+  // ─── per-card partner index ────────────────────────────────────────────
+  // For each pair {A, B, count} contribute (A→B count) AND (B→A count) so
+  // each card has a directional "top partners" list. We don't enforce the
+  // pair min-count of 2 here because per-card lists are tiny and even
+  // single-cooccurrence pairs are informative on a card detail page.
+  const partnerMap: Record<string, Map<string, number>> = {}
+  Array.from(pairCounts30d.values()).forEach(({ slugs: [a, b], count }) => {
+    if (!partnerMap[a]) partnerMap[a] = new Map()
+    if (!partnerMap[b]) partnerMap[b] = new Map()
+    partnerMap[a].set(b, (partnerMap[a].get(b) ?? 0) + count)
+    partnerMap[b].set(a, (partnerMap[b].get(a) ?? 0) + count)
+  })
+  const pairsByCard: Record<string, CardPartner[]> = {}
+  for (const slug of Object.keys(partnerMap)) {
+    const list = Array.from(partnerMap[slug]!.entries(), ([other, count]) => ({ other, count }))
+    list.sort((a, b) => b.count - a.count || a.other.localeCompare(b.other))
+    pairsByCard[slug] = list.slice(0, PARTNERS_PER_CARD)
+  }
+
   // ─── source breakdown ───────────────────────────────────────────────────
   const sources: SourceBreakdown[] = Array.from(sourceCounts.entries(), ([source, count]) => ({ source, count }))
   sources.sort((a, b) => b.count - a.count)
@@ -279,6 +310,7 @@ export async function computeTrendsSnapshot(): Promise<TrendsSnapshot> {
     trendingUp:  trending.slice(0, TRENDING_LIST_SIZE),
     topCombinations30d: pairs.slice(0, TOP_PAIRS_LIST_SIZE),
     sources30d: sources,
+    pairsByCard,
   }
 }
 
