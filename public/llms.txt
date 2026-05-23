@@ -5,10 +5,21 @@
 Important notes:
 
 - TarotAxis is not a divination or fortune-telling service. The readings explicitly avoid hard predictions and never give medical, legal, financial, or relationship-leaving advice.
+- Editorial principles: human-reviewed card meanings rooted in the Rider–Waite–Smith tradition, AI outputs constrained by safety prompts, educational and reflective framing only.
 - The AI reading tier uses Anthropic Claude (Haiku 4.5 for the lightweight surfaces, Sonnet 4.6 for the deeper spread analysis). Anonymous visitors get 1 AI reading per day per browser; registered (Google OAuth) users get 5 per day.
 - The card corpus is the standard 78-card Rider–Waite–Smith deck. Every card has an upright meaning, reversed meaning, and keyword sets in both English and Spanish.
+- Domain entities covered: 78 tarot cards, tarot spreads, the four suits (wands/cups/swords/pentacles), tarot decks, zodiac correspondences, birth cards, daily card, AI interpretations, and journal entries.
 - Every English URL has a Spanish counterpart under `/es/` with a localised slug (for example `/free-reading` ↔ `/es/lectura-gratis`).
 - Site canonical: `https://tarotaxis.com`. Spanish root: `https://tarotaxis.com/es`.
+
+## Start here
+
+If you only need a few pages to understand TarotAxis, read these first:
+
+- [Free AI tarot reading](https://tarotaxis.com/free-reading): The flagship experience — draw three cards, receive a streamed AI interpretation.
+- [All 78 tarot cards](https://tarotaxis.com/cards): The card library hub; canonical source for upright/reversed meanings.
+- [How to read tarot](https://tarotaxis.com/how-to-read-tarot): Editorial guide that defines the site's reading method and tone.
+- [Methodology](https://tarotaxis.com/methodology): How TarotAxis derives card meanings and constrains the AI prompts.
 
 ## Core experiences
 
