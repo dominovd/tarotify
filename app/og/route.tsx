@@ -49,6 +49,8 @@ const LABELS = {
     tarotCombo: 'Tarot Combination',
     reversedSuffix: ' (Reversed)',
     asFeelingsSuffix: ' as Feelings',
+    aiReading: 'AI Tarot Reading',
+    threeCardSpread: 'Three-card spread',
   },
   es: {
     cardOfDay: 'Carta del Día',
@@ -56,6 +58,8 @@ const LABELS = {
     tarotCombo: 'Combinación de Tarot',
     reversedSuffix: ' (Invertida)',
     asFeelingsSuffix: ' como sentimientos',
+    aiReading: 'Lectura de tarot con IA',
+    threeCardSpread: 'Tirada de tres cartas',
   },
 } as const
 
@@ -88,6 +92,106 @@ export async function GET(request: Request) {
     const daily      = type === 'daily'
     const feelings   = type === 'feelings'
     const combination = type === 'combination' && slug2Param.length > 0
+    const isReading = type === 'reading'
+
+    // ────────────────────────────────────────────────────────────────
+    // Reading mode — 1-3 cards with optional headline, for AI reading
+    // share-cards. Params: cards=a,b,c & rev=0,1,0 & headline=…
+    //
+    // Each card slot is rendered at a fixed 180×270 footprint so the
+    // composition looks balanced whether the spread is 1, 2 or 3 cards
+    // (more than 3 are truncated — the headline is what matters for
+    // longer spreads, not visual fidelity to a 22-card layout).
+    // ────────────────────────────────────────────────────────────────
+    if (isReading) {
+      const slugsCsv = (searchParams.get('cards') ?? slugParam).trim()
+      const slugs = slugsCsv.split(',').map(s => s.trim()).filter(Boolean).slice(0, 3)
+      const revRaw = (searchParams.get('rev') ?? '').trim()
+      const revArr = revRaw.split(',').map(s => s.trim() === '1')
+      const headlineRaw = (searchParams.get('headline') ?? '').trim()
+      const headline = headlineRaw.length > 0
+        ? headlineRaw.slice(0, 160)
+        : L.aiReading
+
+      // Resolve any unknown slugs to The Fool so the layout doesn't break.
+      const cards = (slugs.length > 0 ? slugs : ['the-fool']).map((s, i) => ({
+        ...getLocaleCard(s, locale),
+        reversed: revArr[i] === true,
+      }))
+      const images = await Promise.all(cards.map(c => fetchCardImage(c.slug)))
+
+      const label = [L.aiReading, cards.length === 3 ? L.threeCardSpread : ''].filter(Boolean).join('  ·  ')
+
+      return new ImageResponse(
+        (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: 1200,
+              height: 630,
+              background: '#0d0a1f',
+              paddingTop: 48,
+              paddingRight: 64,
+              paddingBottom: 48,
+              paddingLeft: 64,
+            }}
+          >
+            {/* Top: brand label */}
+            <div style={{ display: 'flex', color: 'rgba(201,168,76,0.55)', fontSize: 17, letterSpacing: 2 }}>
+              ✦ TAROTAXIS · {label.toUpperCase()}
+            </div>
+
+            {/* Middle: cards */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 28 }}>
+              {cards.map((c, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    width: 180,
+                    height: 270,
+                    borderRadius: 10,
+                    overflow: 'hidden',
+                    borderWidth: 1,
+                    borderStyle: 'solid',
+                    borderColor: 'rgba(201,168,76,0.4)',
+                    transform: c.reversed ? 'rotate(180deg)' : 'none',
+                  }}
+                >
+                  {images[i] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={images[i]} alt={c.name} width={180} height={270} style={{ objectFit: 'cover' }} />
+                  ) : null}
+                </div>
+              ))}
+            </div>
+
+            {/* Below cards: headline (the one-sentence summary) */}
+            <div style={{
+              display: 'flex',
+              color: '#c9a84c',
+              fontSize: headline.length > 100 ? 28 : 34,
+              lineHeight: 1.35,
+              fontWeight: 600,
+              textAlign: 'center',
+              maxWidth: 980,
+              alignSelf: 'center',
+            }}>
+              {headline}
+            </div>
+
+            {/* Footer: URL */}
+            <div style={{ display: 'flex', color: 'rgba(201,168,76,0.35)', fontSize: 16 }}>
+              tarotaxis.com{locale === 'es' ? '/es/lectura-gratis' : '/free-reading'}
+            </div>
+          </div>
+        ),
+        { width: 1200, height: 630 }
+      )
+    }
 
     // ────────────────────────────────────────────────────────────────
     // Combination mode — two cards side-by-side.

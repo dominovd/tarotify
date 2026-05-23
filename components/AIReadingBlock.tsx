@@ -79,6 +79,14 @@ interface LocaleCopy {
   actionEmailDone: string
   actionEmailCooldown: string
   actionEmailError: string
+  actionShare: string
+  shareModalTitle: string
+  shareModalSubtitle: string
+  shareDownload: string
+  shareNative: string
+  shareCopyLink: string
+  shareCopyLinkDone: string
+  shareClose: string
   lockSavePrompt: string
   lockEmailPrompt: string
 }
@@ -113,6 +121,14 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     actionEmailDone: 'Sent — check your inbox',
     actionEmailCooldown: 'You sent a reading recently. Try again in ~30 minutes.',
     actionEmailError: 'Could not send the email. Please try again.',
+    actionShare: 'Share',
+    shareModalTitle: 'Share this reading',
+    shareModalSubtitle: 'Download the card image or share it directly. The image carries the spread and the one-line headline — perfect for screenshots and stories.',
+    shareDownload: 'Download image',
+    shareNative: 'Share…',
+    shareCopyLink: 'Copy reading page link',
+    shareCopyLinkDone: 'Link copied!',
+    shareClose: 'Close',
     lockSavePrompt: 'Sign up free to save AI readings to your journal.',
     lockEmailPrompt: 'Sign up free to receive AI readings in your inbox.',
   },
@@ -145,12 +161,55 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     actionEmailDone: 'Enviado — revisa tu bandeja',
     actionEmailCooldown: 'Enviaste una lectura hace poco. Vuelve a intentarlo en ~30 minutos.',
     actionEmailError: 'No se pudo enviar el correo. Inténtalo de nuevo.',
+    actionShare: 'Compartir',
+    shareModalTitle: 'Comparte esta lectura',
+    shareModalSubtitle: 'Descarga la imagen de las cartas o compártela directamente. Lleva la tirada y la frase titular — ideal para historias y capturas.',
+    shareDownload: 'Descargar imagen',
+    shareNative: 'Compartir…',
+    shareCopyLink: 'Copiar enlace a la página',
+    shareCopyLinkDone: '¡Enlace copiado!',
+    shareClose: 'Cerrar',
     lockSavePrompt: 'Crea una cuenta gratis para guardar tus lecturas con IA en tu diario.',
     lockEmailPrompt: 'Crea una cuenta gratis para recibir lecturas con IA en tu correo.',
   },
 }
 
 type EmailState = 'idle' | 'sending' | 'sent' | 'cooldown' | 'error'
+
+// ─── share helpers ─────────────────────────────────────────────────────────
+
+/** Pull the headline line out of the streamed response. The system prompt
+ *  asks the model for a `## Headline` (or `## Titular`) section whose body
+ *  is one short sentence. We take the first non-empty line after that
+ *  heading and trim it down to a reasonable URL/OG length. */
+function extractHeadline(text: string): string {
+  const re = /##\s*(Headline|Titular)\s*\n+([^\n]+)/i
+  const m = text.match(re)
+  if (m && m[2]) return m[2].replace(/^\*+|\*+$/g, '').trim().slice(0, 140)
+  // Fallback: first non-empty paragraph trimmed.
+  const firstPara = text.split(/\n\s*\n/).map(p => p.trim()).find(p => p.length > 0)
+  if (!firstPara) return ''
+  return firstPara.replace(/^#+\s*/, '').replace(/^\*+|\*+$/g, '').trim().slice(0, 140)
+}
+
+/** Build a fully-qualified /og?type=reading URL for share-card generation. */
+function buildShareImageUrl(args: {
+  cards: AIReadingCard[]
+  headline: string
+  locale: 'en' | 'es'
+  origin: string
+}): string {
+  const slugs = args.cards.slice(0, 3).map(c => c.slug).join(',')
+  const rev = args.cards.slice(0, 3).map(c => (c.reversed ? '1' : '0')).join(',')
+  const params = new URLSearchParams({
+    type: 'reading',
+    cards: slugs,
+    rev,
+    locale: args.locale,
+  })
+  if (args.headline) params.set('headline', args.headline)
+  return `${args.origin}/og?${params.toString()}`
+}
 
 export default function AIReadingBlock(props: Props) {
   const { locale, source, cards, question, spreadName, disabled, signinNext } = props
@@ -167,6 +226,10 @@ export default function AIReadingBlock(props: Props) {
   const [saved, setSaved] = useState(false)
   const [emailState, setEmailState] = useState<EmailState>('idle')
   const [lockedAction, setLockedAction] = useState<null | 'save' | 'email'>(null)
+
+  // Share modal state
+  const [shareOpen, setShareOpen] = useState(false)
+  const [shareLinkCopied, setShareLinkCopied] = useState(false)
 
   async function run() {
     if (phase === 'streaming' || cards.length === 0) return
@@ -318,6 +381,94 @@ export default function AIReadingBlock(props: Props) {
     }
   }
 
+  // ─── share helpers ───────────────────────────────────────────────────────
+
+  function onShareOpen() {
+    setShareLinkCopied(false)
+    setShareOpen(true)
+  }
+
+  function onShareClose() {
+    setShareOpen(false)
+  }
+
+  function landingUrl(): string {
+    if (typeof window === 'undefined') return ''
+    // Send people to the same surface they just came from so they have
+    // somewhere meaningful to land — fall back to the homepage.
+    return window.location.origin + window.location.pathname
+  }
+
+  function shareImageUrl(): string {
+    if (typeof window === 'undefined') return ''
+    return buildShareImageUrl({
+      cards,
+      headline: extractHeadline(text),
+      locale,
+      origin: window.location.origin,
+    })
+  }
+
+  async function onShareDownload() {
+    try {
+      const url = shareImageUrl()
+      const res = await fetch(url)
+      const blob = await res.blob()
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(blob)
+      a.download = `tarotaxis-reading-${Date.now()}.png`
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      // Revoke the object URL after the click handler has run.
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000)
+    } catch {
+      // Last-resort fallback: open the image in a new tab.
+      const url = shareImageUrl()
+      if (url) window.open(url, '_blank', 'noopener,noreferrer')
+    }
+  }
+
+  async function onShareNative() {
+    const url = shareImageUrl()
+    const landing = landingUrl()
+    const title = locale === 'es' ? 'Mi lectura de tarot en TarotAxis' : 'My tarot reading on TarotAxis'
+    // Try Web Share API L2 with a file first (mobile-friendly).
+    try {
+      const res = await fetch(url)
+      const blob = await res.blob()
+      const file = new File([blob], 'tarotaxis-reading.png', { type: 'image/png' })
+      const navAny = navigator as unknown as {
+        canShare?: (data: { files?: File[] }) => boolean
+        share?: (data: { files?: File[]; title?: string; text?: string; url?: string }) => Promise<void>
+      }
+      if (navAny.canShare && navAny.share && navAny.canShare({ files: [file] })) {
+        await navAny.share({ files: [file], title, url: landing })
+        return
+      }
+      if (navAny.share) {
+        await navAny.share({ title, url: landing })
+        return
+      }
+    } catch {
+      // Either the user cancelled or the browser refused — fall through.
+    }
+    // Desktop fallback: copy the landing URL so the user can paste anywhere.
+    try {
+      await navigator.clipboard.writeText(landing)
+      setShareLinkCopied(true)
+      setTimeout(() => setShareLinkCopied(false), 2500)
+    } catch { /* silent */ }
+  }
+
+  async function onShareCopyLink() {
+    try {
+      await navigator.clipboard.writeText(landingUrl())
+      setShareLinkCopied(true)
+      setTimeout(() => setShareLinkCopied(false), 2500)
+    } catch { /* silent */ }
+  }
+
   // ─── render ────────────────────────────────────────────────────────────
   return (
     <section
@@ -433,6 +584,14 @@ export default function AIReadingBlock(props: Props) {
           onCopy={onCopy}
           onSave={onSave}
           onEmail={onEmail}
+          shareOpen={shareOpen}
+          shareLinkCopied={shareLinkCopied}
+          onShareOpen={onShareOpen}
+          onShareClose={onShareClose}
+          onShareDownload={onShareDownload}
+          onShareNative={onShareNative}
+          onShareCopyLink={onShareCopyLink}
+          shareImageUrl={shareImageUrl}
           lockedAction={lockedAction}
           onCloseLocked={() => setLockedAction(null)}
           signinNext={signinNext}
@@ -582,12 +741,23 @@ function ActionRow(props: {
   onCopy: () => void
   onSave: () => void
   onEmail: () => void
+  // Share-related — no auth required, so no lock UI here.
+  shareOpen: boolean
+  shareLinkCopied: boolean
+  onShareOpen: () => void
+  onShareClose: () => void
+  onShareDownload: () => void
+  onShareNative: () => void
+  onShareCopyLink: () => void
+  shareImageUrl: () => string
   lockedAction: null | 'save' | 'email'
   onCloseLocked: () => void
   signinNext: string | undefined
 }) {
   const { locale, copy: t, isUser, copied, saved, emailState,
-          onCopy, onSave, onEmail, lockedAction, onCloseLocked, signinNext } = props
+          onCopy, onSave, onEmail, lockedAction, onCloseLocked, signinNext,
+          shareOpen, shareLinkCopied, onShareOpen, onShareClose,
+          onShareDownload, onShareNative, onShareCopyLink, shareImageUrl } = props
 
   const baseBtn: React.CSSProperties = {
     display: 'inline-flex',
@@ -663,7 +833,27 @@ function ActionRow(props: {
           {isUser ? <IconMail /> : <IconLock />}
           <span>{emailLabel}</span>
         </button>
+
+        {/* Share — anyone can use, no login required */}
+        <button type="button" onClick={onShareOpen} style={baseBtn} aria-label={t.actionShare}>
+          <IconShare />
+          <span>{t.actionShare}</span>
+        </button>
       </div>
+
+      {/* Share modal */}
+      {shareOpen && (
+        <ShareModal
+          imageUrl={shareImageUrl()}
+          locale={locale}
+          t={t}
+          linkCopied={shareLinkCopied}
+          onClose={onShareClose}
+          onDownload={onShareDownload}
+          onNativeShare={onShareNative}
+          onCopyLink={onShareCopyLink}
+        />
+      )}
 
       {/* Inline lock prompt — opens when anon clicks Save or Email */}
       {lockPrompt && (
@@ -765,6 +955,172 @@ function IconLock() {
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
       <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
     </svg>
+  )
+}
+
+function IconShare() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="18" cy="5" r="3"/>
+      <circle cx="6" cy="12" r="3"/>
+      <circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  )
+}
+
+// ─── Share modal ───────────────────────────────────────────────────────────
+// Lightweight inline overlay rendered on top of the page (z-index 999).
+// Shows the generated /og PNG preview + Download + Web Share + Copy link.
+// We deliberately keep this self-contained (no portal, no library) — the
+// AI reading is the only place we currently surface it and the modal is
+// shallow enough that a manual overlay is fine.
+
+function ShareModal(props: {
+  imageUrl: string
+  locale: 'en' | 'es'
+  t: LocaleCopy
+  linkCopied: boolean
+  onClose: () => void
+  onDownload: () => void
+  onNativeShare: () => void
+  onCopyLink: () => void
+}) {
+  const { imageUrl, t, linkCopied, onClose, onDownload, onNativeShare, onCopyLink } = props
+
+  // Detect native-share availability so we can hide the button cleanly on
+  // desktop browsers that don't support it (rather than rely on it failing).
+  const hasNativeShare = typeof navigator !== 'undefined'
+    && typeof (navigator as { share?: unknown }).share === 'function'
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(7, 6, 18, 0.78)',
+        backdropFilter: 'blur(4px)',
+        zIndex: 999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1.5rem',
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: 'var(--bg)',
+          border: '1px solid var(--border)',
+          borderRadius: 14,
+          padding: '1.5rem',
+          maxWidth: 560,
+          width: '100%',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          boxShadow: '0 20px 60px rgba(0,0,0,.55)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '1rem', marginBottom: '.85rem' }}>
+          <h3 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1rem', letterSpacing: '.04em', margin: 0 }}>
+            {t.shareModalTitle}
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t.shareClose}
+            style={{ background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', fontSize: '1.2rem', padding: 4, lineHeight: 1 }}
+          >
+            ×
+          </button>
+        </div>
+
+        <p style={{ color: 'var(--muted)', fontSize: '.82rem', lineHeight: 1.6, margin: '0 0 1rem' }}>
+          {t.shareModalSubtitle}
+        </p>
+
+        {/* Preview — the /og route returns a 1200×630 PNG; constrain by max-width. */}
+        <div style={{
+          width: '100%',
+          aspectRatio: '1200 / 630',
+          borderRadius: 10,
+          overflow: 'hidden',
+          border: '1px solid var(--border)',
+          background: '#0d0a1f',
+          marginBottom: '1rem',
+        }}>
+          {imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={imageUrl} alt="" style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }} />
+          ) : null}
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.5rem' }}>
+          <button
+            type="button"
+            onClick={onDownload}
+            style={{
+              flex: '1 1 auto',
+              padding: '.65rem 1rem',
+              borderRadius: 10,
+              border: '1px solid var(--gold)',
+              background: 'rgba(201,168,76,.15)',
+              color: 'var(--gold)',
+              fontFamily: "'Cinzel',serif",
+              fontSize: '.82rem',
+              letterSpacing: '.05em',
+              cursor: 'pointer',
+            }}
+          >
+            {t.shareDownload}
+          </button>
+          {hasNativeShare && (
+            <button
+              type="button"
+              onClick={onNativeShare}
+              style={{
+                flex: '1 1 auto',
+                padding: '.65rem 1rem',
+                borderRadius: 10,
+                border: '1px solid var(--border)',
+                background: 'var(--on-bg-04)',
+                color: 'var(--muted)',
+                fontFamily: "'Cinzel',serif",
+                fontSize: '.82rem',
+                letterSpacing: '.05em',
+                cursor: 'pointer',
+              }}
+            >
+              {t.shareNative}
+            </button>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={onCopyLink}
+          style={{
+            marginTop: '.6rem',
+            width: '100%',
+            padding: '.55rem 1rem',
+            borderRadius: 10,
+            border: '1px dashed var(--border)',
+            background: 'transparent',
+            color: linkCopied ? 'var(--gold)' : 'var(--muted)',
+            fontFamily: "'Cinzel',serif",
+            fontSize: '.78rem',
+            letterSpacing: '.05em',
+            cursor: 'pointer',
+          }}
+        >
+          {linkCopied ? t.shareCopyLinkDone : t.shareCopyLink}
+        </button>
+      </div>
+    </div>
   )
 }
 
