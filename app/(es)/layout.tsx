@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import '../globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics'
+import GAPageView from '@/components/analytics/GAPageView'
 import { DeckProvider } from '@/hooks/useDeck'
 import { ThemeProvider } from '@/hooks/useTheme'
 
@@ -87,6 +90,10 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
           </DeckProvider>
         </ThemeProvider>
         <Analytics />
+        <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <GAPageView />
+        </Suspense>
       </body>
     </html>
   )
