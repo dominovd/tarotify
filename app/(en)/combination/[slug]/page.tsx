@@ -37,9 +37,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : fallback.main
   const description = `What does ${c1.name} and ${c2.name} mean together in tarot? ${descSource.slice(0, 155)}…`
 
+  // Whitelist-based indexation: only hand-curated combos (ENRICHED_COMBO_SLUGS)
+  // are indexable. Templated combos remain crawlable (follow=true preserves
+  // internal link equity) but stay out of the index until promoted to curated.
+  // This protects the domain-level quality score on a young site (May 2026) by
+  // preventing ~1100+ templated boilerplate pages from dominating the corpus.
+  const isCurated = Boolean(ctx)
+
   return {
     title: `${c1.name} and ${c2.name} Tarot Combination Meaning | TarotAxis`,
     description,
+    ...(isCurated ? {} : { robots: { index: false, follow: true } }),
     alternates: {
       canonical: `https://tarotaxis.com/combination/${canonical}`,
       languages: {

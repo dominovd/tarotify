@@ -15,6 +15,7 @@ import {
 import { getCard } from '@/lib/i18n/get-card'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import { CARDS_BY_SLUG as ALL_CARDS } from '@/lib/cards'
+import { ENRICHED_COMBO_SLUGS } from '@/lib/combo-context'
 
 interface Props { params: { slug: string } }
 
@@ -198,9 +199,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const kw1 = c1.kw_up[0]
   const kw2 = c2.kw_up[0]
 
+  // Whitelist-based indexation: mirrors the EN policy. Only combos whose
+  // canonical slug appears in ENRICHED_COMBO_SLUGS (hand-curated content in
+  // lib/combo-context) are indexable. Everything else stays crawlable but
+  // out of the index until promoted to curated. See EN page for full reasoning.
+  const isCurated = ENRICHED_COMBO_SLUGS.includes(canonical)
+
   return {
     title: `${c1.name} y ${c2.name} — Combinación de Cartas del Tarot | TarotAxis`,
     description: `¿Qué significan ${c1.name} y ${c2.name} juntas en el tarot? ${result.main.slice(0, 140)}…`,
+    ...(isCurated ? {} : { robots: { index: false, follow: true } }),
     alternates: {
       canonical: `https://tarotaxis.com/es/combinaciones/${canonical}`,
       languages: {

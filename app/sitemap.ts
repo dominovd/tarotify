@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 import { CARDS } from '@/lib/cards'
-import { MAJOR_COMBOS, PRIORITY_MINOR_COMBOS } from '@/lib/combinations'
+import { ENRICHED_COMBO_SLUGS } from '@/lib/combo-context'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 
 // Set of EN paths that have a Spanish counterpart at /es/<localised>.
@@ -444,19 +444,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/combination`,    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8,  alternates: withAltLanguages('/combination', '/es/combinaciones') },
     { url: `${base}/es/combinaciones`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75, alternates: withAltLanguages('/combination', '/es/combinaciones') },
   ]
-  const comboSlugs = [...MAJOR_COMBOS, ...PRIORITY_MINOR_COMBOS]
+  // Whitelist indexation (2026-05-27): only hand-curated combos appear in the
+  // sitemap. Templated combos remain reachable via internal links but stay
+  // out of the index (see app/(en)/combination/[slug]/page.tsx for full
+  // reasoning — domain-level quality protection on a young site).
+  const comboSlugs = ENRICHED_COMBO_SLUGS
   const comboPagesEn: MetadataRoute.Sitemap = comboSlugs.map(slug => ({
     url: `${base}/combination/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.5,
+    priority: 0.7,
     alternates: withAltLanguages(`/combination/${slug}`, `/es/combinaciones/${slug}`),
   }))
   const comboPagesEs: MetadataRoute.Sitemap = comboSlugs.map(slug => ({
     url: `${base}/es/combinaciones/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.45,
+    priority: 0.65,
     alternates: withAltLanguages(`/combination/${slug}`, `/es/combinaciones/${slug}`),
   }))
 
