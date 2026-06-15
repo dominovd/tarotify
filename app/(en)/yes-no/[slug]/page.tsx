@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CARDS, CARDS_BY_SLUG } from '@/lib/cards'
+import { CARD_EXTENDED } from '@/lib/card-extended'
+import { CARD_LOVE_EXTENDED } from '@/lib/card-love-extended'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 import CardImage from '@/components/CardImage'
 
@@ -25,14 +27,22 @@ function ynContext(yn: string): string {
   return 'sits in the space of maybe'
 }
 
+function firstParagraph(text?: string): string | null {
+  return text?.split(/\n\n+/)[0]?.trim() || null
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const card = CARDS_BY_SLUG[params.slug]
   if (!card) return {}
   const m = YN_META[card.yn]
+  const ext = CARD_EXTENDED[card.slug]
   const esSlug = localizeCardSlug(card.slug, 'es')
+  const yesNoFaq = ext?.faq.find(item => item.q.toLowerCase().includes('yes or no'))
   return {
     title: `${card.name} Yes or No — Tarot Answer | TarotAxis`,
-    description: `Is ${card.name} a yes or no card? ${card.yn_exp} Full answer for love, career and general questions.`,
+    description: yesNoFaq
+      ? `Is ${card.name} a yes or no card? ${yesNoFaq.a.slice(0, 150)}…`
+      : `Is ${card.name} a yes or no card? ${card.yn_exp} Full answer for love, career and general questions.`,
     alternates: {
       canonical: `https://tarotaxis.com/yes-no/${card.slug}`,
       languages: {
@@ -65,6 +75,11 @@ export default function YesNoSlugPage({ params }: Props) {
   if (!card) notFound()
 
   const m = YN_META[card.yn]
+  const ext = CARD_EXTENDED[card.slug] ?? null
+  const loveExt = CARD_LOVE_EXTENDED[card.slug] ?? null
+  const deeperAnswer = firstParagraph(ext?.up2)
+  const reversedAnswer = firstParagraph(ext?.rev2)
+  const loveAnswer = firstParagraph(loveExt?.loveLong)
 
   // Related cards: same yn answer, same suit first, then others (max 8, exclude self)
   const related = CARDS
@@ -95,7 +110,7 @@ export default function YesNoSlugPage({ params }: Props) {
         name: `What does ${card.name} mean reversed in a yes or no reading?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: card.rev,
+          text: reversedAnswer ?? card.rev,
         },
       },
       {
@@ -103,7 +118,7 @@ export default function YesNoSlugPage({ params }: Props) {
         name: `What does ${card.name} mean for love yes or no?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: card.love,
+          text: loveAnswer ?? card.love,
         },
       },
       {
@@ -194,13 +209,31 @@ export default function YesNoSlugPage({ params }: Props) {
           )}
         </div>
 
+        {deeperAnswer && (
+          <div style={{ background: 'rgba(201,168,76,.04)', border: '1px solid rgba(201,168,76,.14)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
+              The deeper yes/no signal
+            </h2>
+            <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{deeperAnswer}</p>
+          </div>
+        )}
+
         {/* Reversed note */}
         <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
             {card.name} Reversed — Yes or No?
           </h2>
-          <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{card.rev}</p>
+          <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{reversedAnswer ?? card.rev}</p>
         </div>
+
+        {loveAnswer && (
+          <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
+              {card.name} yes or no in love
+            </h2>
+            <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{loveAnswer}</p>
+          </div>
+        )}
 
         {/* FAQ */}
         <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
@@ -215,11 +248,13 @@ export default function YesNoSlugPage({ params }: Props) {
               },
               {
                 q: `What does ${card.name} mean reversed in a yes/no reading?`,
-                a: `Reversed, ${card.name} shifts its energy. ${card.rev}`,
+                a: reversedAnswer
+                  ? `Reversed, ${card.name} shifts its energy. ${reversedAnswer}`
+                  : `Reversed, ${card.name} shifts its energy. ${card.rev}`,
               },
               {
                 q: `Is ${card.name} a good card for love questions?`,
-                a: card.love,
+                a: loveAnswer ?? card.love,
               },
               {
                 q: `What does ${card.name} say about career questions?`,

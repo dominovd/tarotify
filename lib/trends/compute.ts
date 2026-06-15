@@ -316,7 +316,26 @@ export async function computeTrendsSnapshot(): Promise<TrendsSnapshot> {
 
 // ─── snapshot reader (for the /trends pages) ───────────────────────────────
 
+const SNAPSHOT_CACHE_TTL_MS = 60_000
+let latestSnapshotCache:
+  | { expiresAt: number; promise: Promise<TrendsSnapshot | null> }
+  | null = null
+
 export async function loadLatestSnapshot(): Promise<TrendsSnapshot | null> {
+  const now = Date.now()
+  if (latestSnapshotCache && latestSnapshotCache.expiresAt > now) {
+    return latestSnapshotCache.promise
+  }
+
+  latestSnapshotCache = {
+    expiresAt: now + SNAPSHOT_CACHE_TTL_MS,
+    promise: fetchLatestSnapshot(),
+  }
+
+  return latestSnapshotCache.promise
+}
+
+async function fetchLatestSnapshot(): Promise<TrendsSnapshot | null> {
   const supabase = createAdminClient()
   const { data, error } = await supabase
     .from('trends_snapshot')

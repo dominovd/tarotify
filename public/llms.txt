@@ -9,7 +9,7 @@ Important notes:
 - The AI reading tier uses Anthropic Claude (Haiku 4.5 for the lightweight surfaces, Sonnet 4.6 for the deeper spread analysis). Anonymous visitors get 1 AI reading per day per browser; registered (Google OAuth) users get 5 per day.
 - The card corpus is the standard 78-card Rider–Waite–Smith deck. Every card has an upright meaning, reversed meaning, and keyword sets in both English and Spanish.
 - Domain entities covered: 78 tarot cards, tarot spreads, the four suits (wands/cups/swords/pentacles), tarot decks, zodiac correspondences, birth cards, daily card, AI interpretations, and journal entries.
-- Every English URL has a Spanish counterpart under `/es/` with a localised slug (for example `/free-reading` ↔ `/es/lectura-gratis`).
+- Most public English URLs have a Spanish counterpart under `/es/` with a localised slug (for example `/free-reading` ↔ `/es/lectura-gratis`). A few tool pages, including the quiz section and reading analysis, are currently English-only.
 - Site canonical: `https://tarotaxis.com`. Spanish root: `https://tarotaxis.com/es`.
 
 ## Start here
@@ -61,7 +61,6 @@ If you only need a few pages to understand TarotAxis, read these first:
 
 - [Inicio (ES)](https://tarotaxis.com/es): Página principal en español.
 - [Lectura gratuita de IA (ES)](https://tarotaxis.com/es/lectura-gratis): Lectura de tres cartas con interpretación generada por IA.
-- [Análisis de lectura (ES)](https://tarotaxis.com/es/reading-analysis): Análisis de IA para una tirada que ya realizaste.
 - [Carta del día (ES)](https://tarotaxis.com/es/carta-del-dia): La carta de hoy con su interpretación.
 - [Oráculo sí o no (ES)](https://tarotaxis.com/es/si-no): Respuesta sí/no con una sola carta.
 - [Combinaciones de cartas (ES)](https://tarotaxis.com/es/combinaciones): Explorador de pares de cartas.

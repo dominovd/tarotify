@@ -3,13 +3,6 @@ import { CARDS } from '@/lib/cards'
 import { ENRICHED_COMBO_SLUGS } from '@/lib/combo-context'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
 
-// Set of EN paths that have a Spanish counterpart at /es/<localised>.
-// Keep this in sync with the Phase 2 migration as more pages are translated.
-const ES_MIGRATED_PATHS = new Set<string>([
-  '/',
-  '/cards',
-])
-
 const BASE = 'https://tarotaxis.com'
 
 function withAltLanguages(enPath: string, esPath?: string): MetadataRoute.Sitemap[number]['alternates'] {
@@ -30,7 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // English-only static pages (no Spanish counterpart yet)
   // ---------------------------------------------------------------------
   const staticEnOnly: MetadataRoute.Sitemap = [
-    { url: `${base}/spreads`,                               lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/quiz`,                                  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/quiz/major`,                            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${base}/quiz/minor`,                            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.72 },
@@ -513,10 +505,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: withAltLanguages(enPath, esPath),
     }
   })
-
-  // Reference ES_MIGRATED_PATHS to silence the unused-import warning when this
-  // set is consumed by future migrations; it documents the current scope.
-  void ES_MIGRATED_PATHS
 
   return [
     ...bilingualEn,

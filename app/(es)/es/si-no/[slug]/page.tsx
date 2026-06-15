@@ -7,7 +7,7 @@ import {
   canonicalCardSlug,
   localizeCardSlug,
 } from '@/lib/i18n/slugs'
-import { getCard } from '@/lib/i18n/get-card'
+import { getCard, getCardExtended, getCardLove } from '@/lib/i18n/get-card'
 import CardImage from '@/components/CardImage'
 
 interface Props { params: { slug: string } }
@@ -46,14 +46,22 @@ function ynContext(yn: string): string {
   return 'se sitúa en el espacio del quizás'
 }
 
+function firstParagraph(text?: string): string | null {
+  return text?.split(/\n\n+/)[0]?.trim() || null
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const enSlug = canonicalCardSlug(params.slug, 'es')
   const card = await getCard(enSlug, 'es')
   if (!card) return {}
   const m = YN_META[card.yn]
+  const ext = await getCardExtended(enSlug, 'es')
+  const yesNoFaq = ext?.faq.find(item => item.q.toLowerCase().includes('sí o no'))
 
   const title = `${card.name} Sí o No — Respuesta del Tarot | TarotAxis`
-  const description = `¿Es ${card.name} una carta de sí o no? ${card.yn_exp} Respuesta completa para amor, carrera y preguntas generales.`
+  const description = yesNoFaq
+    ? `¿Es ${card.name} una carta de sí o no? ${yesNoFaq.a.slice(0, 150)}…`
+    : `¿Es ${card.name} una carta de sí o no? ${card.yn_exp} Respuesta completa para amor, carrera y preguntas generales.`
 
   return {
     title,
@@ -99,6 +107,11 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
   if (!card) notFound()
 
   const m = YN_META[card.yn]
+  const ext = await getCardExtended(enSlug, 'es')
+  const loveExt = await getCardLove(enSlug, 'es')
+  const deeperAnswer = firstParagraph(ext?.up2)
+  const reversedAnswer = firstParagraph(ext?.rev2)
+  const loveAnswer = firstParagraph(loveExt?.loveLong)
 
   // Related cards: same yn answer, same suit first, then others (max 8, exclude self)
   const relatedBase = CARDS
@@ -141,7 +154,9 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
         name: `¿Qué significa ${card.name} invertida en una lectura de sí/no?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Invertida, ${card.name} cambia su energía. ${card.rev}`,
+          text: reversedAnswer
+            ? `Invertida, ${card.name} cambia su energía. ${reversedAnswer}`
+            : `Invertida, ${card.name} cambia su energía. ${card.rev}`,
         },
       },
       {
@@ -149,7 +164,7 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
         name: `¿Es ${card.name} una buena carta para preguntas de amor?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: card.love,
+          text: loveAnswer ?? card.love,
         },
       },
       {
@@ -240,13 +255,31 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
           )}
         </div>
 
+        {deeperAnswer && (
+          <div style={{ background: 'rgba(201,168,76,.04)', border: '1px solid rgba(201,168,76,.14)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
+              La señal más profunda de sí/no
+            </h2>
+            <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{deeperAnswer}</p>
+          </div>
+        )}
+
         {/* Reversed note */}
         <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
             {card.name} Invertida — ¿Sí o No?
           </h2>
-          <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{card.rev}</p>
+          <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{reversedAnswer ?? card.rev}</p>
         </div>
+
+        {loveAnswer && (
+          <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.05rem', letterSpacing: '.06em', margin: '0 0 .9rem' }}>
+              {card.name} sí o no en el amor
+            </h2>
+            <p style={{ color: 'var(--text)', lineHeight: 1.8, fontSize: '.95rem', margin: 0 }}>{loveAnswer}</p>
+          </div>
+        )}
 
         {/* FAQ */}
         <div style={{ background: 'var(--on-bg-025)', border: '1px solid var(--border)', borderRadius: 14, padding: '1.5rem', marginBottom: '2rem' }}>
@@ -261,11 +294,13 @@ export default async function SpanishYesNoSlugPage({ params }: Props) {
               },
               {
                 q: `¿Qué significa ${card.name} invertida en una lectura de sí/no?`,
-                a: `Invertida, ${card.name} cambia su energía. ${card.rev}`,
+                a: reversedAnswer
+                  ? `Invertida, ${card.name} cambia su energía. ${reversedAnswer}`
+                  : `Invertida, ${card.name} cambia su energía. ${card.rev}`,
               },
               {
                 q: `¿Es ${card.name} una buena carta para preguntas de amor?`,
-                a: card.love,
+                a: loveAnswer ?? card.love,
               },
               {
                 q: `¿Qué dice ${card.name} sobre preguntas de carrera?`,
