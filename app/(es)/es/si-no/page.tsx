@@ -45,6 +45,39 @@ const YN_LABEL_ES: Record<string, string> = {
   maybe: 'QUIZÁS',
 }
 
+const FAQS = [
+  {
+    q: '¿Cómo funciona el tarot sí o no?',
+    a: 'El tarot sí o no usa una sola carta como señal enfocada para una pregunta simple. Algunas cartas se inclinan al sí, otras al no y otras responden quizás porque la situación necesita tiempo, elección o más información.',
+  },
+  {
+    q: '¿Qué tipo de pregunta conviene hacer?',
+    a: 'Haz una pregunta clara a la vez. El tarot sí o no funciona mejor para decisiones concretas como contactar a alguien, aceptar una oferta, esperar, avanzar o reconsiderar. Evita mezclar varias preguntas en una sola frase.',
+  },
+  {
+    q: '¿Las cartas invertidas cuentan en la respuesta?',
+    a: 'Sí. Una carta invertida puede suavizar un sí, reforzar un no, señalar demora o mostrar un bloqueo interno alrededor de la pregunta. Las páginas individuales de cada carta explican el significado sí/no del derecho e invertido.',
+  },
+  {
+    q: '¿Puedo repetir la misma pregunta de sí o no?',
+    a: 'Puedes hacerlo, pero normalmente es mejor esperar hasta que algo cambie. Repetir la misma pregunta de inmediato suele reflejar ansiedad más que nueva guía. Si te sientes bloqueado/a, reformula la pregunta hacia lo que puedes hacer a continuación.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'es',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 export default async function YesNoPageEs() {
   // Pre-resolve Spanish name + yn explanation for all 78 cards. Falls back to
   // English per-key when messages/es/cards.json doesn't yet have a translation.
@@ -68,6 +101,7 @@ export default async function YesNoPageEs() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <YesNoClient cardNamesEs={cardNamesEs} cardYnExpEs={cardYnExpEs} />
 
       {/* Card directory */}
@@ -110,6 +144,24 @@ export default async function YesNoPageEs() {
             ))}
           </div>
         </div>
+
+        <section style={{ borderTop: '1px solid rgba(201,168,76,.15)', paddingTop: '2.5rem', marginTop: '2.5rem' }}>
+          <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.2rem', letterSpacing: '.07em', marginBottom: '.5rem', textAlign: 'center' }}>
+            Preguntas frecuentes sobre tarot sí o no
+          </h2>
+          <div style={{ display: 'grid', gap: '1rem', marginTop: '1.5rem' }}>
+            {FAQS.map(faq => (
+              <div key={faq.q}>
+                <h3 style={{ fontFamily: "'Cinzel',serif", color: 'var(--text)', fontSize: '.95rem', letterSpacing: '.03em', marginBottom: '.4rem' }}>
+                  {faq.q}
+                </h3>
+                <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   )

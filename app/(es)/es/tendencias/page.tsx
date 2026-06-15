@@ -10,6 +10,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CARDS_BY_SLUG } from '@/lib/cards'
+import { localizeCardSlug } from '@/lib/i18n/slugs'
 import cardsEsRaw from '@/messages/es/cards.json'
 import { loadLatestSnapshot, type TrendsSnapshot } from '@/lib/trends/compute'
 
@@ -39,6 +40,39 @@ export const metadata: Metadata = {
   },
 }
 
+const FAQS = [
+  {
+    q: '¿De dónde salen las tendencias de TarotAxis?',
+    a: 'Salen de datos anónimos de cartas sacadas en TarotAxis. El sistema guarda slugs de cartas y orientación para estadísticas agregadas, pero esta página pública no guarda la pregunta del visitante ni la interpretación personal.',
+  },
+  {
+    q: '¿Cada cuánto se actualizan las tendencias del tarot?',
+    a: 'La instantánea de tendencias se recalcula a diario y la página se revalida cada 30 minutos. Si la instantánea más reciente todavía no está disponible, la página muestra un estado temporal de datos en acumulación.',
+  },
+  {
+    q: '¿Qué significa que una carta esté en tendencia?',
+    a: 'Significa que esa carta apareció con más frecuencia en lecturas recientes que en la ventana anterior de comparación. Es una señal colectiva de actividad del sitio, no una predicción para cada visitante individual.',
+  },
+  {
+    q: '¿Para qué sirven las combinaciones frecuentes?',
+    a: 'Las combinaciones frecuentes muestran qué cartas están apareciendo juntas en lecturas de varias cartas. Sirven para estudiar combinaciones de tarot y ver qué temas arquetípicos se agrupan en tiradas reales.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'es',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 // ─── helpers ───────────────────────────────────────────────────────────────
 
 function cardName(slug: string): string {
@@ -65,12 +99,14 @@ export default async function TendenciasPage() {
 
   return (
     <div style={{ maxWidth: 880, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Header snapshot={snapshot} />
       {snapshot
         ? <SnapshotBody snapshot={snapshot} />
         : <NoDataYet />
       }
       <Methodology />
+      <TrendsFAQ />
     </div>
   )
 }
@@ -177,7 +213,7 @@ function TopCards({
                 {i + 1}
               </span>
               <Link
-                href={`/es/cartas/${item.slug}`}
+                href={`/es/cartas/${localizeCardSlug(item.slug, 'es')}`}
                 style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}
               >
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.84rem', color: 'var(--gold)', marginBottom: '.25rem' }}>
@@ -211,7 +247,7 @@ function TrendingUp({
       <SectionHeading title="En alza esta semana" subtitle="Cartas sacadas más que la semana pasada" />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '.6rem' }}>
         {items.map(item => (
-          <Link key={item.slug} href={`/es/cartas/${item.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link key={item.slug} href={`/es/cartas/${localizeCardSlug(item.slug, 'es')}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div style={{ background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 10, padding: '.75rem .9rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '.5rem' }}>
                 <div style={{ fontFamily: "'Cinzel',serif", fontSize: '.82rem', color: 'var(--gold)' }}>
@@ -315,6 +351,26 @@ function Methodology() {
           Lee nuestra metodología completa
         </Link>.
       </p>
+    </section>
+  )
+}
+
+function TrendsFAQ() {
+  return (
+    <section style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12 }}>
+      <SectionHeading title="Preguntas frecuentes sobre tendencias" />
+      <div style={{ display: 'grid', gap: '1rem' }}>
+        {FAQS.map(faq => (
+          <div key={faq.q}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.9rem', letterSpacing: '.04em', marginBottom: '.4rem' }}>
+              {faq.q}
+            </h2>
+            <p style={{ color: 'var(--muted)', fontSize: '.82rem', lineHeight: 1.8, margin: 0 }}>
+              {faq.a}
+            </p>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }

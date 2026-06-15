@@ -90,6 +90,39 @@ const ELEMENT_ES: Record<string, string> = {
   Earth: 'Tierra',
 }
 
+const FAQS = [
+  {
+    q: '¿Cómo se leen dos cartas del tarot juntas?',
+    a: 'Primero lee cada carta por separado y después observa la relación entre ambas. Fíjate si sus elementos se apoyan, se desafían o se equilibran, y pregunta cómo la primera carta modifica la expresión de la segunda.',
+  },
+  {
+    q: '¿Las combinaciones de tarot tienen significados fijos?',
+    a: 'Tienen patrones recurrentes, pero no son guiones cerrados. La misma pareja puede hablar de forma distinta en amor, carrera o crecimiento personal según la pregunta, la posición de cada carta y las cartas cercanas.',
+  },
+  {
+    q: '¿Qué es lo más importante en una combinación de tarot?',
+    a: 'Las señales más fuertes son los temas repetidos, la relación elemental, los números, los palos y si las cartas se refuerzan o se contradicen. Una combinación es más útil cuando muestra el movimiento entre dos energías.',
+  },
+  {
+    q: '¿Puedo usar estas combinaciones para una tirada de tres cartas?',
+    a: 'Sí. Lee primero las cartas uno y dos, después dos y tres, y luego uno y tres. Cuando las tres parejas estén claras, da un paso atrás y lee toda la tirada como una sola historia.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'es',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 export default async function CombinacionesHub() {
   // Pre-resolve Spanish names for all cards used in this hub.
   const nameMap: Record<string, string> = {}
@@ -166,6 +199,7 @@ export default async function CombinacionesHub() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div style={{ maxWidth: 820, margin: '0 auto', padding: '3rem 1.5rem 2rem' }}>
         {/* Breadcrumb */}
         <nav style={{ fontSize: '.78rem', color: 'var(--muted)', marginBottom: '1.5rem', display: 'flex', gap: '.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -287,6 +321,22 @@ export default async function CombinacionesHub() {
             Para una guía completa de cómo leer tres cartas juntas — incluidas las variaciones de posición más útiles y cómo encontrar el hilo narrativo — visita la página de la <Link href="/es/tiradas/tres-cartas" style={{ color: 'var(--gold)', opacity: .8 }}>Tirada de Tres Cartas</Link>.
           </p>
         </div>
+
+        <section style={{ marginTop: '3rem', borderTop: '1px solid rgba(201,168,76,.1)', paddingTop: '2.5rem' }}>
+          <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.1rem', marginBottom: '1rem', letterSpacing: '.06em' }}>Preguntas frecuentes sobre combinaciones</h2>
+          <div style={{ display: 'grid', gap: '1rem' }}>
+            {FAQS.map(faq => (
+              <div key={faq.q}>
+                <h3 style={{ fontFamily: "'Cinzel',serif", color: 'var(--text)', fontSize: '.95rem', letterSpacing: '.03em', marginBottom: '.4rem' }}>
+                  {faq.q}
+                </h3>
+                <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
 
       <style>{`

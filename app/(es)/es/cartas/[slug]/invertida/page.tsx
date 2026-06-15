@@ -16,6 +16,11 @@ import CardImage from '@/components/CardImage'
 
 interface Props { params: { slug: string } }
 
+function metaSnippet(text: string, maxLength = 155): string {
+  const compact = text.replace(/\s+/g, ' ').trim()
+  return compact.length > maxLength ? `${compact.slice(0, maxLength)}…` : compact
+}
+
 // Static params: every card has a Spanish slug for the /invertida sub-route.
 export async function generateStaticParams() {
   return CARDS.map(c => ({ slug: localizeCardSlug(c.slug, 'es') }))
@@ -25,9 +30,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const enSlug = canonicalCardSlug(params.slug, 'es')
   const card = await getCard(enSlug, 'es')
   if (!card) return {}
+  const revExt = await getCardReversed(enSlug, 'es')
 
   const title = `${card.name} Invertida — Significado de la Carta del Tarot | TarotAxis`
-  const description = `${card.name} invertida: significado en el amor, la carrera y lo espiritual. Palabras clave invertidas: ${card.kw_rev.slice(0, 4).join(', ')}. La sombra que esta carta te invita a mirar.`
+  const description = revExt
+    ? `${card.name} invertida: ${metaSnippet(revExt.reversedFaqs[0]?.a ?? revExt.loveLong)}`
+    : `${card.name} invertida: significado en el amor, la carrera y lo espiritual. Palabras clave invertidas: ${card.kw_rev.slice(0, 4).join(', ')}.`
 
   return {
     title,
@@ -42,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       title: `${card.name} Invertida — Carta del Tarot | TarotAxis`,
-      description: `${card.name} invertida en el amor, la carrera y el espíritu. Guía honesta y matizada sobre lo que significa esta carta cuando aparece al revés.`,
+      description,
       url: `https://tarotaxis.com/es/cartas/${params.slug}/invertida`,
       locale: 'es_ES',
       alternateLocale: ['en_US'],

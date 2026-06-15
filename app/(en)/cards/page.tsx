@@ -23,6 +23,38 @@ const YN_STYLE: Record<string, { bg: string; color: string }> = {
   maybe: { bg: 'rgba(122,94,26,.2)',   color: '#c9a84c' },
 }
 
+const FAQS = [
+  {
+    q: 'What is the best way to learn all 78 tarot card meanings?',
+    a: 'Start with the Major Arcana, then learn one suit at a time. Read each card upright first, then add reversed meanings, feelings, love, career and yes/no layers once the core image and keywords feel familiar.',
+  },
+  {
+    q: 'Should I read upright or reversed tarot meanings first?',
+    a: 'Learn upright meanings first. Reversed meanings are easier when you already know the main energy of the card, because a reversal often shows a delay, block, excess or inward version of that same theme.',
+  },
+  {
+    q: 'Why do tarot cards have different meanings for love, career and feelings?',
+    a: 'Each card has one core archetype, but that archetype speaks differently in different contexts. The Lovers can describe choice in general, attraction in love, alignment in career and emotional openness as feelings.',
+  },
+  {
+    q: 'Are yes or no tarot meanings fixed?',
+    a: 'They are useful shorthand, not absolute rules. A card can lean yes, no or maybe, but the question, surrounding cards and whether the card is reversed can change how strongly that answer applies.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 type View = 'meaning' | 'reversed' | 'feelings'
 
 interface Props {
@@ -38,6 +70,7 @@ export default function CardsIndex({ searchParams }: Props) {
 
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
         <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:'clamp(1.5rem,4vw,2.1rem)', color:'var(--gold)', marginBottom:'.75rem' }}>
           Tarot Card Meanings
@@ -134,6 +167,24 @@ export default function CardsIndex({ searchParams }: Props) {
           </section>
         )
       })}
+
+      <section style={{ maxWidth: 760, margin: '1rem auto 0', borderTop:'1px solid var(--border)', paddingTop:'2.5rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', letterSpacing:'.08em', textTransform:'uppercase', marginBottom:'1rem' }}>
+          Tarot Card Meanings FAQ
+        </h2>
+        <div style={{ display:'grid', gap:'1rem' }}>
+          {FAQS.map(faq => (
+            <div key={faq.q}>
+              <h3 style={{ fontFamily:"'Cinzel',serif", color:'var(--text)', fontSize:'.95rem', letterSpacing:'.03em', marginBottom:'.4rem' }}>
+                {faq.q}
+              </h3>
+              <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, margin:0 }}>
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

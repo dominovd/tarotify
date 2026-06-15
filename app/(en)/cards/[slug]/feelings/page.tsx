@@ -9,6 +9,11 @@ import CardImage from '@/components/CardImage'
 
 interface Props { params: { slug: string } }
 
+function metaSnippet(text: string, maxLength = 155): string {
+  const compact = text.replace(/\s+/g, ' ').trim()
+  return compact.length > maxLength ? `${compact.slice(0, maxLength)}…` : compact
+}
+
 export async function generateStaticParams() {
   return CARDS.map(c => ({ slug: c.slug }))
 }
@@ -16,10 +21,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const card = CARDS_BY_SLUG[params.slug]
   if (!card) return {}
+  const feel = CARD_FEELINGS_EXTENDED[card.slug]
   const esSlug = localizeCardSlug(card.slug, 'es')
+  const description = feel
+    ? `${card.name} as feelings: ${metaSnippet(feel.howTheyFeel)}`
+    : `${card.name} as feelings — what this card reveals about someone's emotions in a love or relationship reading, both upright and reversed.`
   return {
     title: `${card.name} as Feelings — What It Means in a Love Reading | TarotAxis`,
-    description: `${card.name} as feelings — what this card reveals about someone's emotions in a love or relationship reading, both upright and reversed. Honest, nuanced guidance on how they feel about you.`,
+    description,
     alternates: {
       canonical: `https://tarotaxis.com/cards/${card.slug}/feelings`,
       languages: {
@@ -30,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       title: `${card.name} as Feelings — What It Means in a Love Reading | TarotAxis`,
-      description: `${card.name} in a feelings reading — what this card says about another person's emotions, both upright and reversed.`,
+      description,
       images: [{
         url: `https://tarotaxis.com/og?slug=${card.slug}&type=feelings`,
         width: 1200,

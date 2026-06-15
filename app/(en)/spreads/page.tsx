@@ -136,9 +136,42 @@ const HUBS = [
   },
 ]
 
+const FAQS = [
+  {
+    q: 'What is the best tarot spread for beginners?',
+    a: 'The best beginner tarot spread is usually a one-card pull or a three-card spread. They keep the reading focused, make card relationships easier to see, and help you build confidence before moving into larger layouts like the Celtic Cross.',
+  },
+  {
+    q: 'How do I choose the right tarot spread?',
+    a: 'Choose the spread by matching it to the question. Use a quick one-card or three-card spread for daily guidance, a love or partner spread for relationships, a career spread for work decisions, and the Celtic Cross when you need a deeper picture.',
+  },
+  {
+    q: 'Can I use the same spread for love, career and personal growth?',
+    a: 'Yes. General spreads such as three-card, horseshoe and Celtic Cross can work for almost any topic. Dedicated love, career and healing spreads are better when you want each card position to speak directly to that life area.',
+  },
+  {
+    q: 'Should I ask yes or no questions with a tarot spread?',
+    a: 'You can, but yes or no questions usually work best with a focused one-card reading. Multi-card spreads are stronger for open questions because they show context, advice, blocks and likely outcomes.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 export default function SpreadsPage() {
   return (
     <div style={{ maxWidth: 760, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
         <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:'clamp(1.5rem,4vw,2.1rem)', color:'var(--gold)', marginBottom:'.75rem' }}>
           Tarot Spreads
@@ -204,6 +237,24 @@ export default function SpreadsPage() {
           </Link>
         ))}
       </div>
+
+      <section style={{ borderTop:'1px solid var(--border)', paddingTop:'2rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', letterSpacing:'.08em', textTransform:'uppercase', marginBottom:'1rem' }}>
+          Tarot Spread FAQ
+        </h2>
+        <div style={{ display:'grid', gap:'1rem' }}>
+          {FAQS.map(faq => (
+            <div key={faq.q}>
+              <h3 style={{ fontFamily:"'Cinzel',serif", color:'var(--text)', fontSize:'.95rem', letterSpacing:'.03em', marginBottom:'.4rem' }}>
+                {faq.q}
+              </h3>
+              <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, margin:0 }}>
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

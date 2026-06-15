@@ -41,6 +41,38 @@ const POPULAR_PIPS = [
   'two-of-swords', 'eight-of-swords', 'ten-of-swords', 'five-of-pentacles',
 ]
 
+const FAQS = [
+  {
+    q: 'How do you read two tarot cards together?',
+    a: 'Read each card on its own first, then look at the relationship between them. Notice whether their elements support, challenge or balance each other, and ask how the first card changes the expression of the second.',
+  },
+  {
+    q: 'Do tarot card combinations have fixed meanings?',
+    a: 'They have recurring patterns, but they are not fixed scripts. The same pair can speak differently in love, career or personal growth depending on the question, position meanings and surrounding cards.',
+  },
+  {
+    q: 'What matters most in a tarot combination?',
+    a: 'The strongest signals are repeated themes, elemental relationships, numbers, suits and whether the cards reinforce or contradict each other. A combination is most useful when it shows the movement between two energies.',
+  },
+  {
+    q: 'Can I use this calculator for a three-card spread?',
+    a: 'Yes. Read cards one and two, then two and three, then one and three. After the three pairings are clear, step back and read the full spread as one story.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 function getMajorPairs(minorSlug: string, count = 9) {
   return TOP_MAJOR.slice(0, count).map(majSlug => ({
     comboSlug: makeComboSlug(minorSlug, majSlug),
@@ -100,6 +132,7 @@ const summaryStyle: React.CSSProperties = {
 export default function CombinationPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <CombinationClient />
 
       <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 1.5rem 6rem' }}>
@@ -156,6 +189,24 @@ export default function CombinationPage() {
           </details>
 
         </div>
+
+        <section style={{ borderTop:'1px solid var(--border)', paddingTop:'2.5rem', marginTop:'2.5rem' }}>
+          <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', letterSpacing:'.08em', textTransform:'uppercase', marginBottom:'1rem' }}>
+            Tarot Combination FAQ
+          </h2>
+          <div style={{ display:'grid', gap:'1rem' }}>
+            {FAQS.map(faq => (
+              <div key={faq.q}>
+                <h3 style={{ fontFamily:"'Cinzel',serif", color:'var(--text)', fontSize:'.95rem', letterSpacing:'.03em', marginBottom:'.4rem' }}>
+                  {faq.q}
+                </h3>
+                <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, margin:0 }}>
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
 
       <style>{`

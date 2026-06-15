@@ -9,6 +9,11 @@ import CardImage from '@/components/CardImage'
 
 interface Props { params: { slug: string } }
 
+function metaSnippet(text: string, maxLength = 155): string {
+  const compact = text.replace(/\s+/g, ' ').trim()
+  return compact.length > maxLength ? `${compact.slice(0, maxLength)}…` : compact
+}
+
 export async function generateStaticParams() {
   return CARDS.map(c => ({ slug: c.slug }))
 }
@@ -16,10 +21,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const card = CARDS_BY_SLUG[params.slug]
   if (!card) return {}
+  const revExt = CARD_REVERSED_EXTENDED[card.slug]
   const esSlug = localizeCardSlug(card.slug, 'es')
+  const description = revExt
+    ? `${card.name} reversed: ${metaSnippet(revExt.reversedFaqs[0]?.a ?? revExt.loveLong)}`
+    : `${card.name} reversed tarot card meaning — in love, career and spirituality. Reversed keywords: ${card.kw_rev.slice(0, 4).join(', ')}.`
   return {
     title: `${card.name} Reversed — Tarot Meaning, Love, Career & Keywords | TarotAxis`,
-    description: `${card.name} reversed tarot card meaning — in love, career and spirituality. Reversed keywords: ${card.kw_rev.slice(0, 4).join(', ')}. The shadow this card asks you to look at.`,
+    description,
     alternates: {
       canonical: `https://tarotaxis.com/cards/${card.slug}/reversed`,
       languages: {
@@ -30,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       title: `${card.name} Reversed — Tarot Card Meaning | TarotAxis`,
-      description: `${card.name} reversed in love, career and spirit. Honest, nuanced guidance on what this card means when it appears upside-down.`,
+      description,
       images: [{
         url: `https://tarotaxis.com/og?slug=${card.slug}&rev=1`,
         width: 1200,

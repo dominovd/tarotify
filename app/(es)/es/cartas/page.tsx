@@ -40,6 +40,39 @@ const SUIT_LABELS_ES: Record<string, string> = {
   pentacles: 'Pentáculos',
 }
 
+const FAQS = [
+  {
+    q: '¿Cuál es la mejor forma de aprender las 78 cartas del tarot?',
+    a: 'Empieza por los Arcanos Mayores y después aprende un palo a la vez. Lee primero cada carta del derecho; luego añade significados invertidos, sentimientos, amor, carrera y sí/no cuando la imagen y las palabras clave ya te resulten familiares.',
+  },
+  {
+    q: '¿Conviene aprender primero las cartas del derecho o invertidas?',
+    a: 'Aprende primero los significados del derecho. Las cartas invertidas son más fáciles cuando ya conoces la energía principal, porque una inversión suele mostrar demora, bloqueo, exceso o una versión interiorizada del mismo tema.',
+  },
+  {
+    q: '¿Por qué una carta cambia de significado en amor, carrera o sentimientos?',
+    a: 'Cada carta tiene un arquetipo central, pero ese arquetipo habla de forma distinta según el contexto. Los Enamorados pueden indicar elección en general, atracción en amor, alineación en carrera y apertura emocional como sentimientos.',
+  },
+  {
+    q: '¿Los significados de tarot sí o no son fijos?',
+    a: 'Son una guía útil, no reglas absolutas. Una carta puede inclinarse al sí, no o quizás, pero la pregunta, las cartas cercanas y si aparece invertida pueden cambiar la fuerza de esa respuesta.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'es',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 type View = 'meaning' | 'reversed' | 'feelings'
 
 interface Props {
@@ -62,6 +95,7 @@ export default async function SpanishCardsIndex({ searchParams }: Props) {
 
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
         <h1 style={{ fontFamily: "'Cinzel',serif", fontSize: 'clamp(1.5rem,4vw,2.1rem)', color: 'var(--gold)', marginBottom: '.75rem' }}>
           Significado de las Cartas del Tarot
@@ -172,6 +206,24 @@ export default async function SpanishCardsIndex({ searchParams }: Props) {
           </section>
         )
       })}
+
+      <section style={{ maxWidth: 760, margin: '1rem auto 0', borderTop:'1px solid var(--border)', paddingTop:'2.5rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', letterSpacing:'.08em', textTransform:'uppercase', marginBottom:'1rem' }}>
+          Preguntas frecuentes sobre las cartas
+        </h2>
+        <div style={{ display:'grid', gap:'1rem' }}>
+          {FAQS.map(faq => (
+            <div key={faq.q}>
+              <h3 style={{ fontFamily:"'Cinzel',serif", color:'var(--text)', fontSize:'.95rem', letterSpacing:'.03em', marginBottom:'.4rem' }}>
+                {faq.q}
+              </h3>
+              <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, margin:0 }}>
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

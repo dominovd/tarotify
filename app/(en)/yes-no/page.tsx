@@ -30,6 +30,38 @@ const YN_COLOR: Record<string, string> = {
   maybe: '#c9a84c',
 }
 
+const FAQS = [
+  {
+    q: 'How does yes or no tarot work?',
+    a: 'Yes or no tarot uses one card as a focused signal for a simple question. Some cards lean yes, some lean no, and some answer maybe because the situation needs timing, choice or more information before it settles.',
+  },
+  {
+    q: 'What kind of question should I ask?',
+    a: 'Ask one clear question at a time. Yes or no tarot works best for focused choices such as whether to reach out, accept an offer, wait, move forward or reconsider. Avoid asking several questions inside one sentence.',
+  },
+  {
+    q: 'Are reversed cards included in the answer?',
+    a: 'Yes. A reversed card can soften a yes, strengthen a no, point to delay or show an inner block around the question. The individual card pages explain both upright and reversed yes/no meanings.',
+  },
+  {
+    q: 'Can I ask the same yes or no question again?',
+    a: 'You can, but it is usually better to wait until something changes. Repeating the same question immediately often reflects anxiety more than new guidance. If you feel stuck, reframe the question into what you can do next.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 export default function YesNoPage() {
   const bySuit = SUITS.map(s => ({
     ...s,
@@ -38,6 +70,7 @@ export default function YesNoPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <YesNoClient />
 
       {/* Card directory */}
@@ -76,6 +109,24 @@ export default function YesNoPage() {
             ))}
           </div>
         </div>
+
+        <section style={{ borderTop: '1px solid rgba(201,168,76,.15)', paddingTop: '2.5rem', marginTop: '2.5rem' }}>
+          <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '1.2rem', letterSpacing: '.07em', marginBottom: '.5rem', textAlign: 'center' }}>
+            Yes or No Tarot FAQ
+          </h2>
+          <div style={{ display: 'grid', gap: '1rem', marginTop: '1.5rem' }}>
+            {FAQS.map(faq => (
+              <div key={faq.q}>
+                <h3 style={{ fontFamily: "'Cinzel',serif", color: 'var(--text)', fontSize: '.95rem', letterSpacing: '.03em', marginBottom: '.4rem' }}>
+                  {faq.q}
+                </h3>
+                <p style={{ color: 'var(--muted)', fontSize: '.88rem', lineHeight: 1.7, margin: 0 }}>
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   )

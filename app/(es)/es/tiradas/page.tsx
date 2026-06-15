@@ -130,22 +130,55 @@ const SPREADS = [
 
 const HUBS = [
   {
-    href: '/es',
+    href: '/es/tiradas/arcanos-mayores',
     name: 'Tiradas de Arcanos Mayores',
     desc: 'Cinco tiradas que usan sólo los 22 Arcanos Mayores — Cruz Celta, Anual, Decisión, Trabajo de Sombra y Elemental. Para momentos cruciales en los que quieres el plano arquetípico en primer plano.',
     tag: '22 cartas',
   },
   {
-    href: '/es',
+    href: '/es/tiradas/pareja',
     name: 'Tiradas de Pareja y Relaciones',
     desc: 'Seis tiradas dedicadas a la conexión — citas, profundización, preguntas de alma gemela, compatibilidad, atracción amorosa y guía para citas. Aterrizadas, amables y honestas.',
     tag: 'Amor y conexión',
   },
 ]
 
+const FAQS = [
+  {
+    q: '¿Cuál es la mejor tirada de tarot para principiantes?',
+    a: 'La mejor tirada para principiantes suele ser una carta diaria o una tirada de tres cartas. Mantienen la lectura enfocada, facilitan ver la relación entre las cartas y ayudan a ganar confianza antes de pasar a disposiciones más amplias como la Cruz Celta.',
+  },
+  {
+    q: '¿Cómo elijo la tirada de tarot adecuada?',
+    a: 'Elige la tirada según tu pregunta. Usa una carta o tres cartas para guía rápida, una tirada de amor o pareja para relaciones, una tirada de carrera para decisiones laborales y la Cruz Celta cuando necesites una visión más profunda.',
+  },
+  {
+    q: '¿Puedo usar la misma tirada para amor, carrera y crecimiento personal?',
+    a: 'Sí. Tiradas generales como tres cartas, herradura y Cruz Celta pueden funcionar para casi cualquier tema. Las tiradas dedicadas al amor, la carrera o la sanación son mejores cuando quieres que cada posición hable directamente de esa área.',
+  },
+  {
+    q: '¿Conviene hacer preguntas de sí o no con una tirada?',
+    a: 'Puedes hacerlo, pero las preguntas de sí o no suelen funcionar mejor con una lectura enfocada de una carta. Las tiradas de varias cartas son más útiles para preguntas abiertas porque muestran contexto, consejo, bloqueos y posibles resultados.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 export default function TiradasPage() {
   return (
     <div style={{ maxWidth: 760, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
         <h1 style={{ fontFamily:"'Cinzel',serif", fontSize:'clamp(1.5rem,4vw,2.1rem)', color:'var(--gold)', marginBottom:'.75rem' }}>
           Tiradas de Tarot
@@ -211,6 +244,24 @@ export default function TiradasPage() {
           </Link>
         ))}
       </div>
+
+      <section style={{ borderTop:'1px solid var(--border)', paddingTop:'2rem' }}>
+        <h2 style={{ fontFamily:"'Cinzel',serif", color:'var(--gold)', fontSize:'1rem', letterSpacing:'.08em', textTransform:'uppercase', marginBottom:'1rem' }}>
+          Preguntas frecuentes sobre tiradas
+        </h2>
+        <div style={{ display:'grid', gap:'1rem' }}>
+          {FAQS.map(faq => (
+            <div key={faq.q}>
+              <h3 style={{ fontFamily:"'Cinzel',serif", color:'var(--text)', fontSize:'.95rem', letterSpacing:'.03em', marginBottom:'.4rem' }}>
+                {faq.q}
+              </h3>
+              <p style={{ color:'var(--muted)', fontSize:'.88rem', lineHeight:1.7, margin:0 }}>
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

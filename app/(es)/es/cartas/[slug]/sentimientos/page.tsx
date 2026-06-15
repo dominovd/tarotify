@@ -16,6 +16,11 @@ import CardImage from '@/components/CardImage'
 
 interface Props { params: { slug: string } }
 
+function metaSnippet(text: string, maxLength = 155): string {
+  const compact = text.replace(/\s+/g, ' ').trim()
+  return compact.length > maxLength ? `${compact.slice(0, maxLength)}…` : compact
+}
+
 export async function generateStaticParams() {
   return CARDS.map(c => ({ slug: localizeCardSlug(c.slug, 'es') }))
 }
@@ -24,9 +29,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const enSlug = canonicalCardSlug(params.slug, 'es')
   const card = await getCard(enSlug, 'es')
   if (!card) return {}
+  const feel = await getCardFeelings(enSlug, 'es')
 
-  const title = `${card.name} Como Sentimientos — Significado en el Amor | TarotAxis`
-  const description = `${card.name} como sentimientos — lo que esta carta revela sobre las emociones de alguien en una lectura de amor o relación, del derecho e invertida. Una guía honesta y matizada sobre cómo se sienten contigo.`
+  const title = `${card.name} como sentimientos — Significado en el Amor | TarotAxis`
+  const description = feel
+    ? `${card.name} como sentimientos: ${metaSnippet(feel.howTheyFeel)}`
+    : `${card.name} como sentimientos — lo que esta carta revela sobre las emociones de alguien en una lectura de amor o relación, del derecho e invertida.`
 
   return {
     title,
@@ -40,8 +48,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: `${card.name} Como Sentimientos — Significado en el Amor | TarotAxis`,
-      description: `${card.name} en una lectura de sentimientos — qué dice esta carta sobre las emociones de la otra persona, del derecho e invertida.`,
+      title,
+      description,
       url: `https://tarotaxis.com/es/cartas/${params.slug}/sentimientos`,
       locale: 'es_ES',
       alternateLocale: ['en_US'],

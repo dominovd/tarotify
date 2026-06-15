@@ -46,6 +46,38 @@ export const metadata: Metadata = {
   },
 }
 
+const FAQS = [
+  {
+    q: 'Where do TarotAxis trends come from?',
+    a: 'They come from anonymous card-draw data across TarotAxis. The system stores card slugs and orientation for aggregate statistics, but it does not store the visitor question or the personal interpretation on this public trends page.',
+  },
+  {
+    q: 'How often are tarot trends updated?',
+    a: 'The trends snapshot is recomputed daily and the page is revalidated every 30 minutes. If the newest snapshot is not available yet, the page shows a temporary data-accruing state instead of failing.',
+  },
+  {
+    q: 'What does a trending tarot card mean?',
+    a: 'A trending card means that card appeared more often in recent readings than it did in the prior comparison window. It is a collective signal from site activity, not a prediction for every individual visitor.',
+  },
+  {
+    q: 'Why are frequent pairings useful?',
+    a: 'Frequent pairings show which cards have been appearing together in multi-card readings. They are useful for studying tarot combinations and seeing which archetypal themes are clustering in real draws.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(faq => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+}
+
 // ─── helpers ───────────────────────────────────────────────────────────────
 
 function cardName(slug: string): string {
@@ -72,6 +104,7 @@ export default async function TrendsPage() {
 
   return (
     <div style={{ maxWidth: 880, margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <Header snapshot={snapshot} />
 
@@ -81,6 +114,7 @@ export default async function TrendsPage() {
       }
 
       <Methodology />
+      <TrendsFAQ />
     </div>
   )
 }
@@ -324,6 +358,26 @@ function Methodology() {
           Read our full methodology
         </Link>.
       </p>
+    </section>
+  )
+}
+
+function TrendsFAQ() {
+  return (
+    <section style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12 }}>
+      <SectionHeading title="Tarot trends FAQ" />
+      <div style={{ display: 'grid', gap: '1rem' }}>
+        {FAQS.map(faq => (
+          <div key={faq.q}>
+            <h2 style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.9rem', letterSpacing: '.04em', marginBottom: '.4rem' }}>
+              {faq.q}
+            </h2>
+            <p style={{ color: 'var(--muted)', fontSize: '.82rem', lineHeight: 1.8, margin: 0 }}>
+              {faq.a}
+            </p>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }
