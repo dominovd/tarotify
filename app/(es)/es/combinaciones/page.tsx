@@ -247,7 +247,7 @@ export default async function CombinacionesHub() {
               Combinaciones con Arcanos Menores
             </h2>
             <p style={{ color: 'var(--muted)', fontSize: '.9rem', lineHeight: 1.7, maxWidth: 500, margin: '0 auto' }}>
-              Cómo interactúan los Ases, las cartas de la corte y los pips clave con los Arcanos Mayores.
+              Cómo interactúan los Ases, las cartas de la corte y las cartas numeradas clave con los Arcanos Mayores.
             </p>
           </div>
 
@@ -279,10 +279,10 @@ export default async function CombinacionesHub() {
             </details>
           ))}
 
-          {/* Popular pips */}
+          {/* Popular numbered cards */}
           <details style={detailsStyle}>
             <summary style={summaryStyle}>
-              <span>Cartas pip populares</span>
+              <span>Cartas numeradas populares</span>
               <span style={{ opacity: .4, fontSize: '.75rem' }}>{POPULAR_PIPS.length} cartas ▾</span>
             </summary>
             <div style={{ padding: '0 1rem 1rem' }}>

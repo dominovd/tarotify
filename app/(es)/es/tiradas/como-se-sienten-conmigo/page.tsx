@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CARDS } from '@/lib/cards'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
+import { getCard } from '@/lib/i18n/get-card'
 import CardImage from '@/components/CardImage'
 
 export const metadata: Metadata = {
@@ -82,7 +83,14 @@ const faqSchema = {
   ],
 }
 
-export default function ComoSeSientenConmigoPage() {
+export default async function ComoSeSientenConmigoPage() {
+  const localizedCards = await Promise.all(
+    CARDS.map(async card => ({
+      base: card,
+      name: (await getCard(card.slug, 'es'))?.name ?? card.name,
+    }))
+  )
+
   return (
     <div style={{ maxWidth: 820, margin: '0 auto', padding: '2rem 1.5rem 5rem' }}>
       <script
@@ -183,7 +191,7 @@ export default function ComoSeSientenConmigoPage() {
           Una vez que hayas sacado tus cartas, pulsa cualquiera de las de abajo para una interpretación en profundidad de lo que revela sobre cómo alguien se siente contigo — tanto del derecho como invertida.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(110px,1fr))', gap: '.5rem' }}>
-          {CARDS.map(card => (
+          {localizedCards.map(({ base: card, name }) => (
             <Link
               key={card.slug}
               href={`/es/cartas/${localizeCardSlug(card.slug, 'es')}/sentimientos`}
@@ -199,9 +207,9 @@ export default function ComoSeSientenConmigoPage() {
               }}
             >
               <div style={{ position: 'relative', width: '100%', aspectRatio: '2/3', borderRadius: 6, overflow: 'hidden' }}>
-                <CardImage slug={card.slug} alt={`${card.name} carta de tarot como sentimientos`} />
+                <CardImage slug={card.slug} alt={`${name} carta de tarot como sentimientos`} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '.25rem .3rem', background: 'linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%)', textAlign: 'center' }}>
-                  <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.55rem', color: '#e8d5a0', letterSpacing: '.04em', lineHeight: 1.2, display: 'block' }}>{card.name}</span>
+                  <span style={{ fontFamily: "'Cinzel',serif", fontSize: '.55rem', color: '#e8d5a0', letterSpacing: '.04em', lineHeight: 1.2, display: 'block' }}>{name}</span>
                 </div>
               </div>
             </Link>

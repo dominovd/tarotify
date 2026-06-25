@@ -174,7 +174,7 @@ export default function PrincipiosEticosPage() {
         sacaste y la lectura se devuelve en streaming. No almacenamos
         preguntas en texto plano junto a información identificativa y no
         usamos preguntas para entrenar ningún modelo. Los datos agregados
-        y anónimos sobre qué cartas se sacaron (slug + orientación, sin
+        y anónimos sobre qué cartas se sacaron (identificador interno + orientación, sin
         pregunta, sin datos identificativos) alimentan la página pública
         de{' '}
         <Link href="/es/tendencias" style={{ color: 'var(--gold)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>tendencias del tarot</Link>.

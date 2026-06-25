@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: '¿De dónde salen las tendencias de TarotAxis?',
-    a: 'Salen de datos anónimos de cartas sacadas en TarotAxis. El sistema guarda slugs de cartas y orientación para estadísticas agregadas, pero esta página pública no guarda la pregunta del visitante ni la interpretación personal.',
+    a: 'Salen de datos anónimos de cartas sacadas en TarotAxis. El sistema guarda identificadores internos de cartas y orientación para estadísticas agregadas, pero esta página pública no guarda la pregunta del visitante ni la interpretación personal.',
   },
   {
     q: '¿Cada cuánto se actualizan las tendencias del tarot?',
@@ -339,8 +339,8 @@ function Methodology() {
     <section style={{ marginTop: '3rem', padding: '1.5rem', background: 'var(--on-bg-02)', border: '1px solid var(--border)', borderRadius: 12 }}>
       <SectionHeading title="Cómo se construye esta página" />
       <p style={{ color: 'var(--muted)', fontSize: '.82rem', lineHeight: 1.8, margin: 0 }}>
-        Cada lectura en TarotAxis registra las cartas sacadas (slug y
-        orientación únicamente — nunca la pregunta, nunca la interpretación).
+        Cada lectura en TarotAxis registra las cartas sacadas (identificador
+        interno y orientación únicamente — nunca la pregunta, nunca la interpretación).
         Un cron diario agrega los últimos 30 días y guarda una sola
         instantánea en la base de datos. Esta página lee esa instantánea, así
         que lo que ves aquí refleja la experiencia colectiva real del sitio —

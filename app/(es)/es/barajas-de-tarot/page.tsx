@@ -36,7 +36,7 @@ const DECKS = [
     name: 'Tarot de Marsella',
     meta: 'Siglos XVI–XVII — Francia e Italia',
     paragraphs: [
-      "La tradición europea más antigua, que precede a la Rider-Waite por unos tres siglos. La Marsella no es una baraja única, sino una familia de barajas relacionadas impresas en Francia y el norte de Italia desde el siglo XVII, con una iconografía ampliamente coherente: figuras audaces grabadas en madera, color plano y cartas pip geométricas y decorativas en lugar de escenas ilustradas.",
+      "La tradición europea más antigua, que precede a la Rider-Waite por unos tres siglos. La Marsella no es una baraja única, sino una familia de barajas relacionadas impresas en Francia y el norte de Italia desde el siglo XVII, con una iconografía ampliamente coherente: figuras audaces grabadas en madera, color plano y cartas numeradas geométricas y decorativas en lugar de escenas ilustradas.",
       "Como los Arcanos Menores solo muestran disposiciones de los símbolos del palo — seis copas, ocho monedas — la Marsella se lee de forma muy diferente. El significado se extrae de la numerología, el palo, la posición y la interacción de las figuras a lo largo de la tirada, no del contenido narrativo de una escena.",
       "Recompensa el estudio y es la favorita de lectores serios, eruditos del tarot francés y de cualquiera que quiera practicar el método europeo antiguo. No es la primera baraja más fácil, pero tiene una profundidad y una austeridad a las que muchos lectores vuelven tras unos años con barajas escénicas.",
     ],

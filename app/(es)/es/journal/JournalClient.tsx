@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { CARDS, CARDS_BY_SLUG, type Card } from '@/lib/cards'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
+import cardsEsRaw from '@/messages/es/cards.json'
 import CardImage from '@/components/CardImage'
 import EmailCapture from '@/components/EmailCapture'
 import JournalPatterns from '@/components/JournalPatterns'
@@ -12,7 +13,19 @@ import { useUser } from '@/hooks/useUser'
 
 // localStorage key shared with EN — do NOT change.
 const JOURNAL_KEY = 'tarotify_journal'
-const REVERSED_SUFFIX = ' (Reversed)'
+const REVERSED_SUFFIX_EN = ' (Reversed)'
+const REVERSED_SUFFIX_ES = ' (Invertida)'
+
+interface EsCardRecord {
+  name?: string
+}
+
+const cardsEs = cardsEsRaw as Record<string, EsCardRecord>
+
+function getSpanishCardName(card: Card | null, fallback: string): string {
+  if (!card) return fallback
+  return cardsEs[card.slug]?.name ?? card.name
+}
 
 interface UnifiedEntry {
   source: 'local' | 'cloud'
@@ -58,8 +71,8 @@ interface CloudEntry {
 function cloudToUnified(e: CloudEntry): UnifiedEntry {
   const cardStrings: string[] = (e.cards ?? []).map(c => {
     const base = CARDS_BY_SLUG[c.slug]
-    const name = base?.name ?? c.slug
-    const reversed = c.reversed ? REVERSED_SUFFIX : ''
+    const name = base ? getSpanishCardName(base, c.slug) : c.slug
+    const reversed = c.reversed ? REVERSED_SUFFIX_ES : ''
     const pos = c.position ? `${c.position}: ` : ''
     return `${pos}${name}${reversed}`
   })
@@ -75,10 +88,13 @@ function cloudToUnified(e: CloudEntry): UnifiedEntry {
 }
 
 function parseCardChip(raw: string, cardByName: Map<string, Card>): CardChip {
-  const withoutSuffix = raw.endsWith(REVERSED_SUFFIX)
-    ? raw.slice(0, -REVERSED_SUFFIX.length)
-    : raw
-  const reversed = raw.endsWith(REVERSED_SUFFIX)
+  const suffix = raw.endsWith(REVERSED_SUFFIX_EN)
+    ? REVERSED_SUFFIX_EN
+    : raw.endsWith(REVERSED_SUFFIX_ES)
+      ? REVERSED_SUFFIX_ES
+      : ''
+  const withoutSuffix = suffix ? raw.slice(0, -suffix.length) : raw
+  const reversed = suffix !== ''
   const colonAt = withoutSuffix.indexOf(': ')
   const cleanName = colonAt >= 0 ? withoutSuffix.slice(colonAt + 2) : withoutSuffix
   return { raw, cleanName, reversed, card: cardByName.get(cleanName) || null }
@@ -109,7 +125,11 @@ export default function JournalClient() {
 
   const cardByName = useMemo(() => {
     const m = new Map<string, Card>()
-    CARDS.forEach(c => m.set(c.name, c))
+    CARDS.forEach(c => {
+      m.set(c.name, c)
+      const esName = cardsEs[c.slug]?.name
+      if (esName) m.set(esName, c)
+    })
     return m
   }, [])
 
@@ -516,6 +536,7 @@ export default function JournalClient() {
                       marginBottom: '0.85rem',
                     }}>
                       {chips.map((chip, i) => {
+                        const displayName = getSpanishCardName(chip.card, chip.cleanName)
                         const content = (
                           <>
                             {chip.card && (
@@ -527,7 +548,7 @@ export default function JournalClient() {
                                 border: '1px solid var(--border)',
                                 flexShrink: 0,
                               }}>
-                                <CardImage slug={chip.card.slug} alt={chip.cleanName} reversed={chip.reversed} />
+                                <CardImage slug={chip.card.slug} alt={displayName} reversed={chip.reversed} />
                               </span>
                             )}
                             <span style={{
@@ -536,7 +557,7 @@ export default function JournalClient() {
                               letterSpacing: '0.03em',
                               color: 'var(--text)',
                             }}>
-                              {chip.cleanName}
+                              {displayName}
                             </span>
                             {chip.reversed && (
                               <span style={{
@@ -546,7 +567,7 @@ export default function JournalClient() {
                                 color: '#e07b7b',
                                 fontFamily: "'Cinzel',serif",
                               }}>
-                                R
+                                Inv.
                               </span>
                             )}
                           </>
@@ -564,9 +585,8 @@ export default function JournalClient() {
                           transition: 'border-color .15s',
                         }
 
-                        // Cards stored on Spanish journal entries use English
-                        // canonical names (CARDS lookup). Link to the
-                        // localised Spanish card route via slug map.
+                        // Entries may come from older EN localStorage names or
+                        // newer Spanish cloud/local saves; both map to the ES route.
                         if (chip.card) {
                           const esSlug = localizeCardSlug(chip.card.slug, 'es')
                           const href = chip.reversed

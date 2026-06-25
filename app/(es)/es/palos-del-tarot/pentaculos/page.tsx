@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CARDS } from '@/lib/cards'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
+import cardsEsRaw from '@/messages/es/cards.json'
 
 export const metadata: Metadata = {
   title: 'Palo de Pentáculos — Las 14 cartas, elemento y significados | TarotAxis',
@@ -38,6 +39,21 @@ const ES_NAMES: Record<string, string> = {
   'knight-of-pentacles': 'Caballero de Pentáculos',
   'queen-of-pentacles': 'Reina de Pentáculos',
   'king-of-pentacles': 'Rey de Pentáculos',
+}
+
+interface EsCardRecord {
+  name?: string
+  kw_up?: string[]
+}
+
+const cardsEs = cardsEsRaw as Record<string, EsCardRecord>
+
+function cardNameEs(slug: string, fallback: string): string {
+  return cardsEs[slug]?.name ?? ES_NAMES[slug] ?? fallback
+}
+
+function cardKeywordsEs(slug: string, fallback: string[]): string[] {
+  return cardsEs[slug]?.kw_up ?? fallback
 }
 
 const THEMES = [
@@ -165,11 +181,11 @@ export default function PentaculosSuitPage() {
           {pentacles.map(c => (
             <Link key={c.slug} href={`/es/cartas/${localizeCardSlug(c.slug, 'es')}`} style={{ display: 'block', background: 'var(--on-bg-03)', border: '1px solid var(--border)', borderRadius: 12, padding: '1rem 1.1rem', textDecoration: 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '.5rem', marginBottom: '.4rem' }}>
-                <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem', letterSpacing: '.03em' }}>{ES_NAMES[c.slug] ?? c.name}</div>
+                <div style={{ fontFamily: "'Cinzel',serif", color: 'var(--gold)', fontSize: '.85rem', letterSpacing: '.03em' }}>{cardNameEs(c.slug, c.name)}</div>
                 <span style={{ flexShrink: 0, padding: '.15rem .55rem', borderRadius: 20, fontSize: '.6rem', background: 'rgba(201,168,76,.1)', color: 'var(--gold)', fontFamily: "'Cinzel',serif", letterSpacing: '.06em' }}>{c.number}</span>
               </div>
               <p style={{ color: 'var(--muted)', fontSize: '.76rem', lineHeight: 1.55, margin: 0, fontStyle: 'italic' }}>
-                {c.kw_up.slice(0, 3).join(' · ')}
+                {cardKeywordsEs(c.slug, c.kw_up).slice(0, 3).join(' · ')}
               </p>
             </Link>
           ))}

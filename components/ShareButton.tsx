@@ -4,15 +4,23 @@ import { useState } from 'react'
 interface Props {
   type?: 'daily' | 'birth'
   cardName: string
+  locale?: 'en' | 'es'
 }
 
-export default function ShareButton({ type, cardName }: Props) {
+export default function ShareButton({ type, cardName, locale = 'en' }: Props) {
   const [state, setState] = useState<'idle' | 'copied'>('idle')
 
-  const pageUrl = type === 'daily' ? 'https://tarotaxis.com/daily' : 'https://tarotaxis.com/birth-card'
+  const isEs = locale === 'es'
+  const pageUrl = type === 'daily'
+    ? isEs ? 'https://tarotaxis.com/es/carta-del-dia' : 'https://tarotaxis.com/daily'
+    : isEs ? 'https://tarotaxis.com/es/carta-de-nacimiento' : 'https://tarotaxis.com/birth-card'
   const shareText = type === 'daily'
-    ? `My tarot card of the day is ${cardName}. tarotaxis.com`
-    : `My tarot birth card is ${cardName}. tarotaxis.com`
+    ? isEs
+      ? `Mi carta del tarot del día es ${cardName}. tarotaxis.com`
+      : `My tarot card of the day is ${cardName}. tarotaxis.com`
+    : isEs
+      ? `Mi carta de nacimiento del tarot es ${cardName}. tarotaxis.com`
+      : `My tarot birth card is ${cardName}. tarotaxis.com`
 
   async function handleShare() {
     if (typeof navigator !== 'undefined' && navigator.share) {
@@ -45,7 +53,9 @@ export default function ShareButton({ type, cardName }: Props) {
 
   return (
     <button onClick={handleShare} style={btnStyle}>
-      {state === 'copied' ? '✓ Copied!' : '✦ Share card'}
+      {state === 'copied'
+        ? isEs ? '✓ Copiado' : '✓ Copied!'
+        : isEs ? '✦ Compartir carta' : '✦ Share card'}
     </button>
   )
 }

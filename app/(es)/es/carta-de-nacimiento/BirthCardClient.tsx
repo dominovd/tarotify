@@ -362,7 +362,7 @@ export default function BirthCardClient() {
 
           {/* Share */}
           <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1.25rem' }}>
-            <ShareButton type="birth" cardName={result.name} />
+            <ShareButton type="birth" cardName={result.name} locale="es" />
           </div>
         </section>
       )}

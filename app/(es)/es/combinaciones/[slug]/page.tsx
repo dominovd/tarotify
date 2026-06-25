@@ -91,9 +91,9 @@ function buildEdgeCaseES(name1: string, name2: string, s: ComboSignals): string 
   if (s.archetype === 'two-courts')
     return `Dos cortes en una sola pareja describen casi siempre una dinámica relacional entre dos personas concretas. Decide cuál de ${name1} o ${name2} es la consultante en la situación — y cuál está recibiendo — antes de seguir leyendo.`
   if (s.sameNumber)
-    return `Las parejas de pips con el mismo número como ${name1} y ${name2} se leen como energía en estéreo — dos palos procesando a la vez el mismo tema numérico. La lectura converge en el tema; los palos quedan como textura.`
+    return `Las parejas de cartas numeradas con el mismo número, como ${name1} y ${name2}, se leen como energía en estéreo — dos palos procesando a la vez el mismo tema numérico. La lectura converge en el tema; los palos quedan como textura.`
   if (s.archetype === 'major-pip')
-    return `Una pareja de arcano mayor + pip se lee mejor como la fuerza arquetípica actuando sobre la situación concreta. Resiste leerlas como dos voces de igual peso; una es contexto, la otra es contenido.`
+    return `Una pareja de arcano mayor + carta numerada se lee mejor como la fuerza arquetípica actuando sobre la situación concreta. Resiste leerlas como dos voces de igual peso; una es contexto, la otra es contenido.`
   if (s.healing)
     return `Las combinaciones sanadoras a veces aparecen al inicio de un proceso difícil para señalar que el camino de vuelta existe, no que ya se ha recorrido. No tomes ${name1} y ${name2} como confirmación de que el trabajo ha terminado.`
   if (s.elementalRelation === 'tension')

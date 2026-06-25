@@ -204,7 +204,7 @@ export default async function SpanishDailyPage() {
         </div>
 
         {/* Share */}
-        <ShareButton type="daily" cardName={name} />
+        <ShareButton type="daily" cardName={name} locale="es" />
       </div>
 
       {/* AI Reading — directamente bajo la carta como CTA principal */}
