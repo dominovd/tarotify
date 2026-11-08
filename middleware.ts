@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from './lib/supabase/middleware'
+import { AUTH_ENABLED } from './lib/features'
+import { GOOGLE_NOINDEX_HEADER, isGoogleNoindex } from './lib/seo/noindex'
 import {
   BROWSER_ID_COOKIE,
   createBrowserId,
@@ -27,8 +29,27 @@ function signinPathFor(pathname: string): string {
   return pathname.startsWith('/es/') || pathname === '/es' ? '/es/auth/signin' : '/auth/signin'
 }
 
+// With auth off these pages have nothing to offer — send visitors home in
+// their locale instead of showing a sign-in form that cannot work.
+const AUTH_ONLY_PATHS = ['/auth', '/account', '/es/auth', '/es/account']
+
+function isAuthOnly(pathname: string): boolean {
+  return AUTH_ONLY_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'))
+}
+
 export async function middleware(request: NextRequest) {
-  const { supabaseResponse, user } = await updateSession(request)
+  const { pathname } = request.nextUrl
+
+  if (!AUTH_ENABLED && isAuthOnly(pathname)) {
+    const url = request.nextUrl.clone()
+    url.pathname = pathname.startsWith('/es/') ? '/es' : '/'
+    url.search = ''
+    return NextResponse.redirect(url, 307)
+  }
+
+  const { supabaseResponse, user } = AUTH_ENABLED
+    ? await updateSession(request)
+    : { supabaseResponse: NextResponse.next({ request }), user: null }
 
   // Redirect unauthenticated requests on protected paths to signin (locale-aware).
   if (isProtected(request.nextUrl.pathname) && !user) {
@@ -51,6 +72,10 @@ export async function middleware(request: NextRequest) {
       const { signed } = await createBrowserId(secret)
       supabaseResponse.headers.append('set-cookie', setCookieHeader(signed))
     }
+  }
+
+  if (isGoogleNoindex(pathname)) {
+    supabaseResponse.headers.set('x-robots-tag', GOOGLE_NOINDEX_HEADER)
   }
 
   return supabaseResponse

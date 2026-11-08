@@ -94,5 +94,4 @@ If you only need a few pages to understand TarotAxis, read these first:
 - [Pricing (EN)](https://tarotaxis.com/pricing) · [Precios (ES)](https://tarotaxis.com/es/precios): Tier overview. Core experiences are free; a premium tier is in development.
 - [Privacy policy (EN)](https://tarotaxis.com/privacy) · [Política de privacidad (ES)](https://tarotaxis.com/es/privacidad)
 - [Terms of service (EN)](https://tarotaxis.com/terms) · [Términos (ES)](https://tarotaxis.com/es/terminos)
-- [Account (EN)](https://tarotaxis.com/account) · [Cuenta (ES)](https://tarotaxis.com/es/account): Signed-in dashboard; sign-in is via Google OAuth at `/auth/signin`.
 - [Journal (EN)](https://tarotaxis.com/journal) · [Diario (ES)](https://tarotaxis.com/es/journal): Saved readings for signed-in users, with a local-storage fallback for guests.

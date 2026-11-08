@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { CARDS } from '@/lib/cards'
 import { ENRICHED_COMBO_SLUGS } from '@/lib/combo-context'
 import { localizeCardSlug } from '@/lib/i18n/slugs'
+import { isGoogleNoindex } from '@/lib/seo/noindex'
 
 const BASE = 'https://tarotaxis.com'
 
@@ -16,7 +17,27 @@ function withAltLanguages(enPath: string, esPath?: string): MetadataRoute.Sitema
   }
 }
 
+function pathOf(url: string): string {
+  return url.startsWith(BASE) ? (url.slice(BASE.length) || '/') : new URL(url).pathname
+}
+
+/** Drop pages closed to Googlebot, and hreflang pairs whose other side is closed. */
+function onlyIndexable(entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
+  return entries
+    .filter(e => !isGoogleNoindex(pathOf(e.url)))
+    .map(e => {
+      const langs = e.alternates?.languages as Record<string, string> | undefined
+      if (!langs) return e
+      const closed = Object.values(langs).some(u => isGoogleNoindex(pathOf(u)))
+      return closed ? { ...e, alternates: undefined } : e
+    })
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  return onlyIndexable(buildSitemap())
+}
+
+function buildSitemap(): MetadataRoute.Sitemap {
   const base = BASE
 
   // ---------------------------------------------------------------------

@@ -3,13 +3,16 @@
 import { useEffect, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
+import { AUTH_ENABLED } from '@/lib/features'
 
 /** Returns the currently signed-in user, or null. Updates on sign-in/out. */
 export function useUser(): { user: User | null; loading: boolean } {
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(AUTH_ENABLED)
 
   useEffect(() => {
+    // Auth switched off: never touch Supabase, everyone is anonymous.
+    if (!AUTH_ENABLED) return
     const supabase = createClient()
 
     // Initial fetch

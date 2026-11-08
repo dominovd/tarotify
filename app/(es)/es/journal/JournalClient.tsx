@@ -10,6 +10,7 @@ import EmailCapture from '@/components/EmailCapture'
 import JournalPatterns from '@/components/JournalPatterns'
 import RenderedReading, { hasMarkdownMarkers } from '@/components/RenderedReading'
 import { useUser } from '@/hooks/useUser'
+import { AUTH_ENABLED } from '@/lib/features'
 
 // localStorage key shared with EN — do NOT change.
 const JOURNAL_KEY = 'tarotify_journal'
@@ -280,9 +281,11 @@ export default function JournalClient() {
         <p style={{ color: 'var(--muted)', fontSize: '0.95rem', maxWidth: 560, margin: '0 auto' }}>
           {user
             ? 'Tus lecturas guardadas — sincronizadas en todos tus dispositivos cuando inicias sesión, más cualquier lectura guardada en este navegador antes.'
-            : 'Las lecturas que has guardado en este dispositivo. Inicia sesión para sincronizarlas entre dispositivos.'}
+            : AUTH_ENABLED
+              ? 'Las lecturas que has guardado en este dispositivo. Inicia sesión para sincronizarlas entre dispositivos.'
+              : 'Las lecturas que has guardado en este dispositivo.'}
         </p>
-        {!userLoading && !user && (
+        {AUTH_ENABLED && !userLoading && !user && (
           <div style={{ marginTop: '1rem', display: 'flex', gap: '0.6rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/es/auth/signin?next=/es/journal" style={{
               fontFamily: "'Cinzel',serif",

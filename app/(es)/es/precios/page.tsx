@@ -8,6 +8,7 @@
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { AUTH_ENABLED } from '@/lib/features'
 
 export const metadata: Metadata = {
   title: 'Precios — TarotAxis es gratis | TarotAxis',
@@ -223,6 +224,7 @@ export default function PreciosPage() {
             ))}
           </ul>
           <div style={{ display: 'flex', gap: '.5rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+            {AUTH_ENABLED && (
             <Link href="/es/auth/signup" style={{
               display: 'inline-block', padding: '.65rem 1.2rem', borderRadius: 10,
               border: '1px solid var(--gold)', background: 'rgba(201,168,76,.12)',
@@ -231,6 +233,7 @@ export default function PreciosPage() {
             }}>
               Crear cuenta gratis
             </Link>
+            )}
             <Link href="/es/lectura-gratis" style={{
               display: 'inline-block', padding: '.65rem 1.2rem', borderRadius: 10,
               border: '1px solid var(--border)', background: 'var(--on-bg-04)',

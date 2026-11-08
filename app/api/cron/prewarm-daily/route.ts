@@ -9,7 +9,7 @@
 //
 // What it does: for each locale (en, es), builds the same cache key that
 // the /daily AI block uses. If a row already exists, we skip. Otherwise we
-// generate a fresh Haiku reading and insert it into `ai_reading_cache`.
+// generate a fresh reading (DeepSeek, Claude fallback) and store it in the Redis cache.
 //
 // Result: the first visitor of the day to /daily (and /es/carta-del-dia)
 // hits a warm cache, saving them the ~3-5s wait and saving us the cold-
@@ -17,7 +17,6 @@
 // experience for every daily-card user, all day long.
 // ════════════════════════════════════════════════════════════════════════════
 
-import Anthropic from '@anthropic-ai/sdk'
 import { NextResponse } from 'next/server'
 import { getDailyCard } from '@/lib/daily-card'
 import {
@@ -26,10 +25,10 @@ import {
   lookupCachedReading,
 } from '@/lib/ai/cache'
 import { buildUserMessage, getSystemPrompt } from '@/lib/ai/prompts'
+import { anyProviderConfigured, generateReading as generate } from '@/lib/ai/providers'
 
 export const runtime = 'edge'
 
-const MODEL = 'claude-haiku-4-5-20251001'
 const MAX_TOKENS = 1200
 
 type Locale = 'en' | 'es'
@@ -38,32 +37,16 @@ async function generateReading(args: {
   locale: Locale
   cards: Array<{ slug: string; reversed: boolean; position: string }>
   spreadName: string
-  apiKey: string
 }): Promise<string> {
-  const { locale, cards, spreadName, apiKey } = args
-  const anthropic = new Anthropic({ apiKey })
-
-  const systemText = getSystemPrompt(locale)
-  const userMessage = buildUserMessage({ locale, source: 'free-reading', spreadName, cards })
-
-  // Same cache-control marker the live endpoint uses so the prompt-cache
-  // works for back-to-back EN+ES generations during this cron tick.
-  const systemBlock = [{
-    type: 'text',
-    text: systemText,
-    cache_control: { type: 'ephemeral' },
-  }] as unknown as Anthropic.TextBlockParam[]
-
-  const response = await anthropic.messages.create({
-    model: MODEL,
-    max_tokens: MAX_TOKENS,
-    system: systemBlock,
-    messages: [{ role: 'user', content: userMessage }],
+  const { locale, cards, spreadName } = args
+  // Same provider chain as the live endpoint (DeepSeek, then Claude).
+  const { text } = await generate({
+    system: getSystemPrompt(locale),
+    user: buildUserMessage({ locale, source: 'free-reading', spreadName, cards }),
+    maxTokens: MAX_TOKENS,
+    tier: 'fast',
   })
-
-  return response.content
-    .map(block => (block.type === 'text' ? block.text : ''))
-    .join('')
+  return text
 }
 
 interface LocaleResult {
@@ -86,9 +69,8 @@ export async function GET(req: Request): Promise<Response> {
   }
 
   // ─── env ───────────────────────────────────────────────────────────────
-  const apiKey = process.env.ANTHROPIC_API_KEY
-  if (!apiKey) {
-    console.error('[cron/prewarm-daily] ANTHROPIC_API_KEY missing')
+  if (!anyProviderConfigured()) {
+    console.error('[cron/prewarm-daily] no AI provider key (DEEPSEEK_API_KEY / ANTHROPIC_API_KEY)')
     return NextResponse.json({ error: 'ai-unavailable' }, { status: 503 })
   }
 
@@ -122,7 +104,6 @@ export async function GET(req: Request): Promise<Response> {
         locale,
         cards,
         spreadName: LOCALE_SPREAD[locale],
-        apiKey,
       })
       if (text.length < 200) {
         results.push({ locale, status: 'error', error: 'response too short' })

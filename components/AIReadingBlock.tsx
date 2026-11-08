@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useUser } from '@/hooks/useUser'
+import { AUTH_ENABLED } from '@/lib/features'
 import RenderedReading from '@/components/RenderedReading'
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -43,9 +44,14 @@ interface Props {
 type Phase = 'idle' | 'streaming' | 'done' | 'limit' | 'unavailable' | 'error'
 
 interface QuotaMeta {
+  /** Readings left in the daily window after this call. */
   remaining: number
   scope: 'registered' | 'anonymous' | 'ip'
+  /** Which window the limit hit (on 429) or the next unlock refers to. */
+  window: 'hour' | 'day'
   resetsAt: string | null
+  /** Set when the hourly allowance is used up but the day still has room. */
+  nextAt: string | null
 }
 
 interface LocaleCopy {
@@ -56,6 +62,10 @@ interface LocaleCopy {
   quotaRegLeft: (n: number) => string
   quotaAnonLeft: (n: number) => string
   quotaCappedReg: string
+  quotaNextAt: (time: string) => string
+  limitHourTitle: string
+  limitHourBody: (time: string | null) => string
+  limitDayBody: (time: string | null) => string
   error: string
   limitAnonTitle: string
   limitAnonBody: string
@@ -100,6 +110,14 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     quotaRegLeft: (n: number) => `${n} AI reading${n === 1 ? '' : 's'} left today`,
     quotaAnonLeft: (n: number) => `${n} free AI reading${n === 1 ? '' : 's'} left today`,
     quotaCappedReg: 'Daily limit reached',
+    quotaNextAt: (time: string) => `Next AI reading available at ${time}`,
+    limitHourTitle: '✦ One AI reading per hour',
+    limitHourBody: (time: string | null) => time
+      ? `Your next free AI reading unlocks at ${time}. The card meanings above stay free in the meantime.`
+      : 'Your next free AI reading unlocks within the hour. The card meanings above stay free in the meantime.',
+    limitDayBody: (time: string | null) => time
+      ? `You have used today’s free AI readings. They refresh at ${time}.`
+      : 'You have used today’s free AI readings. They refresh within 24 hours.',
     error: 'Something went wrong — please try again.',
     limitAnonTitle: '✦ You have used today’s free AI reading',
     limitAnonBody: 'Create a free account for 5 AI readings every day — no credit card, sign in with Google.',
@@ -140,6 +158,14 @@ const COPY: Record<'en' | 'es', LocaleCopy> = {
     quotaRegLeft: (n: number) => `${n} lectura${n === 1 ? '' : 's'} con IA restante${n === 1 ? '' : 's'} hoy`,
     quotaAnonLeft: (n: number) => `${n} lectura gratuita${n === 1 ? '' : 's'} con IA restante${n === 1 ? '' : 's'} hoy`,
     quotaCappedReg: 'Has alcanzado el límite diario',
+    quotaNextAt: (time: string) => `Próxima lectura con IA disponible a las ${time}`,
+    limitHourTitle: '✦ Una lectura con IA por hora',
+    limitHourBody: (time: string | null) => time
+      ? `Tu próxima lectura gratuita con IA se desbloquea a las ${time}. Mientras tanto, los significados de las cartas siguen siendo gratis.`
+      : 'Tu próxima lectura gratuita con IA se desbloquea en menos de una hora. Mientras tanto, los significados de las cartas siguen siendo gratis.',
+    limitDayBody: (time: string | null) => time
+      ? `Has usado tus lecturas gratuitas con IA de hoy. Se renuevan a las ${time}.`
+      : 'Has usado tus lecturas gratuitas con IA de hoy. Se renuevan en menos de 24 horas.',
     error: 'Algo salió mal — inténtalo de nuevo.',
     limitAnonTitle: '✦ Has usado tu lectura gratuita de hoy',
     limitAnonBody: 'Crea una cuenta gratis y recibe 5 lecturas con IA cada día — sin tarjeta, entra con Google.',
@@ -252,8 +278,10 @@ export default function AIReadingBlock(props: Props) {
     const remaining = parseInt(res.headers.get('x-quota-remaining') ?? '', 10)
     const scope = (res.headers.get('x-quota-scope') as QuotaMeta['scope']) ?? 'anonymous'
     const resetsAt = res.headers.get('x-quota-resets-at')
+    const quotaWindow = res.headers.get('x-quota-window') === 'hour' ? 'hour' : 'day'
+    const nextAt = res.headers.get('x-quota-next-at')
     if (Number.isFinite(remaining)) {
-      setQuota({ remaining, scope, resetsAt })
+      setQuota({ remaining, scope, window: quotaWindow, resetsAt, nextAt })
     }
 
     if (res.status === 429) {
@@ -313,8 +341,29 @@ export default function AIReadingBlock(props: Props) {
     }
   }
 
+  function saveLocally() {
+    try {
+      const raw = localStorage.getItem('tarotify_journal') ?? '[]'
+      const entries: unknown = JSON.parse(raw)
+      const list = Array.isArray(entries) ? entries : []
+      list.unshift({
+        date: new Date().toLocaleDateString(),
+        question: question ?? '',
+        cards: cards.map(c => `${c.position ? c.position + ': ' : ''}${c.slug}${c.reversed ? ' (reversed)' : ''}`),
+        reading: text,
+      })
+      localStorage.setItem('tarotify_journal', JSON.stringify(list.slice(0, 50)))
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2500)
+    } catch { /* private mode etc. — silent */ }
+  }
+
   async function onSave() {
-    if (!user) { setLockedAction('save'); return }
+    if (!user) {
+      if (AUTH_ENABLED) { setLockedAction('save'); return }
+      saveLocally()
+      return
+    }
 
     // Logged-in: write to Supabase via /api/saved-readings (cloud sync).
     // On network or server failure, fall back to localStorage so the user
@@ -345,20 +394,7 @@ export default function AIReadingBlock(props: Props) {
       return
     } catch {
       // Fallback to localStorage so the save isn't lost.
-      try {
-        const raw = localStorage.getItem('tarotify_journal') ?? '[]'
-        const entries: unknown = JSON.parse(raw)
-        const list = Array.isArray(entries) ? entries : []
-        list.unshift({
-          date: new Date().toLocaleDateString(),
-          question: question ?? '',
-          cards: cards.map(c => `${c.position ? c.position + ': ' : ''}${c.slug}${c.reversed ? ' (reversed)' : ''}`),
-          reading: text,
-        })
-        localStorage.setItem('tarotify_journal', JSON.stringify(list.slice(0, 50)))
-        setSaved(true)
-        setTimeout(() => setSaved(false), 2500)
-      } catch { /* private mode etc. — silent */ }
+      saveLocally()
     }
   }
 
@@ -504,6 +540,7 @@ export default function AIReadingBlock(props: Props) {
       {phase === 'limit' && (
         <LimitWall
           scope={limitScope}
+          quota={quota}
           locale={locale}
           user={user}
           signinNext={signinNext}
@@ -610,6 +647,9 @@ export default function AIReadingBlock(props: Props) {
           {quota.scope === 'registered'
             ? t.quotaRegLeft(quota.remaining)
             : t.quotaAnonLeft(quota.remaining)}
+          {quota.nextAt && quota.remaining > 0 && formatTime(quota.nextAt, locale) && (
+            <> · {t.quotaNextAt(formatTime(quota.nextAt, locale)!)}</>
+          )}
         </div>
       )}
 
@@ -632,14 +672,24 @@ export default function AIReadingBlock(props: Props) {
 
 // ─── sub-components ─────────────────────────────────────────────────────────
 
+/** "14:20" in the visitor's own clock. */
+function formatTime(iso: string | null, locale: 'en' | 'es'): string | null {
+  if (!iso) return null
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return null
+  return d.toLocaleTimeString(locale === 'es' ? 'es-ES' : 'en-GB', { hour: '2-digit', minute: '2-digit' })
+}
+
 function LimitWall(props: {
   scope: 'registered' | 'anonymous' | 'ip'
+  quota: QuotaMeta | null
   locale: 'en' | 'es'
   user: ReturnType<typeof useUser>['user']
   signinNext: string | undefined
   copy: LocaleCopy
 }) {
-  const { scope, locale, user, signinNext, copy: t } = props
+  const { scope, quota, locale, user, signinNext, copy: t } = props
+  const unlockAt = formatTime(quota?.resetsAt ?? null, locale)
 
   let title: string
   let body: string
@@ -648,6 +698,15 @@ function LimitWall(props: {
   if (scope === 'ip') {
     title = t.limitIpTitle
     body = t.limitIpBody
+  } else if (!AUTH_ENABLED) {
+    // No accounts to upsell — just say when the next reading unlocks.
+    if (quota?.window === 'hour') {
+      title = t.limitHourTitle
+      body = t.limitHourBody(unlockAt)
+    } else {
+      title = t.limitAnonTitle
+      body = t.limitDayBody(unlockAt)
+    }
   } else if (user) {
     title = t.limitRegTitle
     body = t.limitRegBody
@@ -818,11 +877,12 @@ function ActionRow(props: {
 
         {/* Save */}
         <button type="button" onClick={onSave} style={saved ? activeBtn : baseBtn} aria-label={t.actionSave}>
-          {isUser ? <IconSave /> : <IconLock />}
+          {isUser || !AUTH_ENABLED ? <IconSave /> : <IconLock />}
           <span>{saved ? t.actionSaveDone : t.actionSave}</span>
         </button>
 
-        {/* Email */}
+        {/* Email — needs an account, hidden while auth is off */}
+        {AUTH_ENABLED && (
         <button
           type="button"
           onClick={onEmail}
@@ -833,6 +893,8 @@ function ActionRow(props: {
           {isUser ? <IconMail /> : <IconLock />}
           <span>{emailLabel}</span>
         </button>
+
+        )}
 
         {/* Share — anyone can use, no login required */}
         <button type="button" onClick={onShareOpen} style={baseBtn} aria-label={t.actionShare}>

@@ -8,6 +8,7 @@ import EmailCapture from '@/components/EmailCapture'
 import JournalPatterns from '@/components/JournalPatterns'
 import RenderedReading, { hasMarkdownMarkers } from '@/components/RenderedReading'
 import { useUser } from '@/hooks/useUser'
+import { AUTH_ENABLED } from '@/lib/features'
 
 const JOURNAL_KEY = 'tarotify_journal'
 const REVERSED_SUFFIX = ' (Reversed)'
@@ -264,9 +265,11 @@ export default function JournalClient() {
         <p style={{ color: 'var(--muted)', fontSize: '0.95rem', maxWidth: 560, margin: '0 auto' }}>
           {user
             ? 'Your saved readings — cloud-synced across devices when you sign in, plus anything saved on this device before.'
-            : 'The readings you have saved on this device. Sign in to sync across devices.'}
+            : AUTH_ENABLED
+              ? 'The readings you have saved on this device. Sign in to sync across devices.'
+              : 'The readings you have saved on this device.'}
         </p>
-        {!userLoading && !user && (
+        {AUTH_ENABLED && !userLoading && !user && (
           <div style={{ marginTop: '1rem', display: 'flex', gap: '0.6rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/auth/signin?next=/journal" style={{
               fontFamily: "'Cinzel',serif",

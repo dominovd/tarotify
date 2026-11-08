@@ -3,8 +3,14 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useUser } from '@/hooks/useUser'
+import { AUTH_ENABLED } from '@/lib/features'
 
 export default function UserMenu() {
+  if (!AUTH_ENABLED) return null
+  return <UserMenuInner />
+}
+
+function UserMenuInner() {
   const { user, loading } = useUser()
   const pathname = usePathname()
   const isEs = pathname?.startsWith('/es') ?? false

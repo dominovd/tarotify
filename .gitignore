@@ -3,3 +3,6 @@ node_modules
 out
 .env*
 .DS_Store
+
+# Supabase DB backups contain user emails — keep out of git
+supabase/backup-*/

@@ -9,13 +9,39 @@
 // Biggest win: /daily, where the date-seeded card is identical for every
 // visitor. One generation per locale per day serves everyone.
 //
-// Cache lookup pricing on Supabase free tier is negligible compared to
-// $0.04/call to Anthropic, so cache hits are effectively free.
+// Storage is Redis (see lib/kv.ts). Entries carry a native TTL, so nothing
+// has to sweep stale rows — the old Postgres table needed a `created_at >
+// now() - ttl` filter on every read and grew forever.
+//
+// Config:
+//   AI_CACHE_TTL_HOURS   default 24   how long an entry stays servable
+//   AI_CACHE_DISABLED    set to "1" to bypass the cache entirely
+//
+// A cache miss is never an error: if Redis is down or unconfigured we simply
+// generate a fresh reading, exactly as we would on a cold key.
 // ════════════════════════════════════════════════════════════════════════════
 
-import { createAdminClient } from '@/lib/supabase/admin'
+import { kv, kvConfigured } from '@/lib/kv'
 
-const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
+const TTL_HOURS = Number(process.env.AI_CACHE_TTL_HOURS ?? 24)
+const DEFAULT_TTL_MS = Math.max(1, TTL_HOURS) * 60 * 60 * 1000
+const TTL_SECONDS = Math.max(60, Math.round(DEFAULT_TTL_MS / 1000))
+
+const DISABLED = process.env.AI_CACHE_DISABLED === '1'
+
+const KEY_PREFIX = 'ai:cache'
+const HITS_KEY = 'ai:cache:stats:hits'
+const MISSES_KEY = 'ai:cache:stats:misses'
+
+interface CachedEntry {
+  /** Response text. */
+  t: string
+  /** Created-at, epoch ms — lets a caller enforce a stricter freshness bound
+   *  than the key's own TTL. */
+  c: number
+  locale: 'en' | 'es'
+  source: 'free-reading' | 'reading-analysis'
+}
 
 interface CardSeed {
   slug: string
@@ -54,61 +80,81 @@ async function sha256Hex(s: string): Promise<string> {
     .join('')
 }
 
-/** Look up a cached response by cache key. Returns the response text if a
- *  fresh row is found (within ttl), null otherwise. Side effect: bumps
- *  hit_count on the row (fire-and-forget; safe to lose). */
+/**
+ * Look up a cached response. Returns the response text if a fresh entry
+ * exists, null otherwise.
+ *
+ * `ttlMs` is an optional stricter freshness bound for this particular read —
+ * entries older than it are treated as a miss even though the key itself has
+ * not expired. Omit it to accept anything Redis is still holding.
+ */
 export async function lookupCachedReading(
   cacheKey: string,
   ttlMs: number = DEFAULT_TTL_MS,
 ): Promise<string | null> {
-  const supabase = createAdminClient()
-  const oldest = new Date(Date.now() - ttlMs).toISOString()
+  if (DISABLED || !kvConfigured) return null
 
-  const { data, error } = await supabase
-    .from('ai_reading_cache')
-    .select('response_text')
-    .eq('cache_key', cacheKey)
-    .gte('created_at', oldest)
-    .limit(1)
-    .maybeSingle()
+  try {
+    const [raw] = await kv(['GET', `${KEY_PREFIX}:${cacheKey}`])
+    if (typeof raw !== 'string' || raw.length === 0) {
+      void bump(MISSES_KEY)
+      return null
+    }
 
-  if (error) {
-    // Fail open — cache miss is just slower, never harmful.
-    console.warn('[ai-cache] lookup error:', error.message)
+    const entry = JSON.parse(raw) as CachedEntry
+    if (!entry || typeof entry.t !== 'string') {
+      void bump(MISSES_KEY)
+      return null
+    }
+    if (typeof entry.c === 'number' && Date.now() - entry.c > ttlMs) {
+      // Stored under a longer TTL than this caller is willing to accept.
+      void bump(MISSES_KEY)
+      return null
+    }
+
+    void bump(HITS_KEY)
+    return entry.t
+  } catch (err) {
+    // Fail open — a cache miss is just slower, never harmful.
+    console.warn('[ai-cache] lookup failed:',
+      err instanceof Error ? err.message : String(err))
     return null
   }
-  if (!data) return null
-
-  // Bump hit counter atomically via the helper function from migration 003.
-  // Fire-and-forget; we don't want cache analytics to block the user path.
-  void supabase.rpc('bump_ai_cache_hit', { p_cache_key: cacheKey })
-
-  return data.response_text
 }
 
-/** Insert a freshly generated response into the cache. Idempotent: a
- *  concurrent worker may have inserted the same key first; we swallow the
- *  resulting unique-violation. */
+/** Insert a freshly generated response into the cache. Idempotent by nature:
+ *  a concurrent worker writing the same key simply overwrites an identical
+ *  value. */
 export async function insertCachedReading(args: {
   cacheKey: string
   responseText: string
   locale: 'en' | 'es'
   source: 'free-reading' | 'reading-analysis'
 }): Promise<void> {
-  const supabase = createAdminClient()
-  const { error } = await supabase
-    .from('ai_reading_cache')
-    .insert({
-      cache_key: args.cacheKey,
-      response_text: args.responseText,
-      locale: args.locale,
-      source: args.source,
-    })
-  if (error) {
-    // 23505 = unique_violation, expected on cache stampede. Anything else
-    // is worth a console note but doesn't fail the user-facing request.
-    if (error.code !== '23505') {
-      console.warn('[ai-cache] insert error:', error.message)
-    }
+  if (DISABLED || !kvConfigured) return
+  if (!args.responseText) return
+
+  const entry: CachedEntry = {
+    t: args.responseText,
+    c: Date.now(),
+    locale: args.locale,
+    source: args.source,
+  }
+
+  try {
+    await kv(['SET', `${KEY_PREFIX}:${args.cacheKey}`, JSON.stringify(entry), 'EX', TTL_SECONDS])
+  } catch (err) {
+    console.warn('[ai-cache] insert failed:',
+      err instanceof Error ? err.message : String(err))
+  }
+}
+
+/** Fire-and-forget counter for "is the cache actually earning its keep".
+ *  Never awaited by the request path. */
+async function bump(key: string): Promise<void> {
+  try {
+    await kv(['INCR', key])
+  } catch {
+    // Stats are the first thing we are happy to lose.
   }
 }
