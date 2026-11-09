@@ -4,7 +4,8 @@
 //
 // Spanish: everything under /es is closed except the homepage and these tools
 // (the tool page itself only, its sub-pages are closed).
-// English: /combination and /yes-no, including every page under them.
+// English: /combination, /yes-no, /quiz, /trends, /og (image route) with
+// everything under them, and the /cards/<card>/feelings pages.
 
 const ES_OPEN = new Set([
   '/es',
@@ -14,7 +15,8 @@ const ES_OPEN = new Set([
   '/es/carta-de-nacimiento',
 ])
 
-const EN_CLOSED_PREFIXES = ['/combination', '/yes-no']
+const EN_CLOSED_PREFIXES = ['/combination', '/yes-no', '/quiz', '/trends', '/og']
+const EN_CLOSED_PATTERNS = [/^\/cards\/[^/]+\/feelings$/]
 
 export const GOOGLE_NOINDEX_HEADER = 'googlebot: noindex, follow'
 
@@ -27,4 +29,5 @@ export function isGoogleNoindex(pathname: string): boolean {
   const p = normalise(pathname)
   if (p === '/es' || p.startsWith('/es/')) return !ES_OPEN.has(p)
   return EN_CLOSED_PREFIXES.some(prefix => p === prefix || p.startsWith(prefix + '/'))
+    || EN_CLOSED_PATTERNS.some(re => re.test(p))
 }
